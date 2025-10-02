@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@plugin 'flowbite/plugin';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ***********************  Light theme ******************* */
+@theme {
+  --color-primary-50: #fef3ee;
+  --color-primary-100: #fde4d7;
+  --color-primary-200: #fac6ae;
+  --color-primary-300: #f69e7b;
+  --color-primary-400: #f26c45;
+  --color-primary-500: #ee4a25;
+  --color-primary-600: #df2e17;
+  --color-primary-700: #b92015;
+  --color-primary-800: #931b19;
+  --color-primary-900: #771a17;
+  --color-primary-950: #400a0a;
+
+  --color-background: rgb(236 237 240);
+  --color-header-bg: rgb(222 226 228);
+  --color-foreground: rgb(32, 30, 30);
+
+  --color-accent: rgb(255, 213, 74);
+
+  --color-gradient-start: #e9a075;
+  --color-gradient-end: #cb5554;
+}
+
+/* ******************** Dark theme overrides ************************** */
+.dark {
+  --color-primary-50: #fbf7eb;
+  --color-primary-100: #f6eccb;
+  --color-primary-200: #edd89b;
+  --color-primary-300: #e0b651;
+  --color-primary-400: #d9a236;
+  --color-primary-500: #ca8c28;
+  --color-primary-600: #ae6d20;
+  --color-primary-700: #8b4f1d;
+  --color-primary-800: #74411f;
+  --color-primary-900: #633720;
+  --color-primary-950: #391b0f;
+
+  --color-background: rgb(29 31 34);
+  --color-header-bg: rgb(16 17 17);
+  --color-foreground: rgb(240 233 233);
+
+  --color-accent: rgb(252, 61, 61);
+
+  --color-gradient-start: linear-gradient(to left, #0e0e17, #172024);
+  --color-gradient-end: linear-gradient(to left, #0e0e17, #172024);
+  
+}
+
+
+@source "../node_modules/flowbite-svelte/dist";
+@source "../node_modules/flowbite-svelte-icons/dist";
+
+@layer base {
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+  /* body {
+    min-height: 100dvh;
+  } */
+}
+
+@layer utilities {
+  .bg-header-gradient {
+    background: linear-gradient(to left, var(--color-gradient-start), var(--color-gradient-end));
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  
+  .hover\:text-accent:hover {
+    color: var(--color-accent);
+  }
+}

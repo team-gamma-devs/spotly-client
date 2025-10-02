@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- White Circle with Transparent Triangle -->
+  <mask id="cutout">
+    <!-- Full circle (white = visible) -->
+    <circle cx="256" cy="256" r="240" fill="black" />
+    <!-- Triangle path (black = transparent cutout) -->
+    <path d="M146.3,115.8c-6.2,3.8-9.3,11.2-7.2,18.3l95.1,244.9c2.8,9.2,11.2,15.3,20.8,15.3c4.6,0,9-1.4,12.6-4.1
+      l106.7-72.7c5.8-4.3,9-11,8.5-18c-0.4-7-4-13.2-9.7-16.8L164.6,113.8C159.3,110.1,151.9,110.3,146.3,115.8z"
+      fill="black"/>
+  </mask>
+
+  <!-- Apply mask -->
+  <circle cx="256" cy="256" r="240" fill="white" mask="url(#cutout)" />
+</svg>
