@@ -6,9 +6,9 @@
         id="text-container"
         class="mt-auto flex flex-col justify-center items-center text-white gap-10 zalando-font"
     >
-        <h2 class="text-4xl">COMING SOON!</h2>
-        <h1 class="text-8xl font-bold">SPOTLY</h1>
-        <h3 class="text-xl">Team Gamma Devs | November 2025</h3>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl">COMING SOON!</h2>
+        <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold">SPOTLY</h1>
+        <h3 class="text-sm sm:text-lg md:text-xl">Team Gamma Devs | November 2025</h3>
     </div>
 
     <div id="footer" class="mt-auto mb-10">
@@ -21,6 +21,7 @@
                 id="holberton-logo-img"
                 src="./holberton-logo.png"
                 alt="Holberton Logo"
+                width=200
             /></a
         >
     </div>

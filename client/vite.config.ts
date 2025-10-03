@@ -8,4 +8,6 @@ export default defineConfig({
 		tailwindcss(),
 		enhancedImages(),
 		sveltekit()]
+	,
+	assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf']
 });

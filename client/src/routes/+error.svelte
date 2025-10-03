@@ -1,6 +1,6 @@
 <div id="error-container" class="flex m-2 bg-white">
     <div class="hidden md:block w-[300px] h-[300px] relative">
-         <enhanced:img src="$lib/assets/svgs/spotly-error.svg"></enhanced:img>
+         <enhanced:img src="$lib/assets/svgs/spotly-error.svg" alt="Spotly Error Symbol"></enhanced:img>
     </div>
     
     <div class="error-border flex flex-col items-center justify-center text-center">

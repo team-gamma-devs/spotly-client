@@ -4,9 +4,9 @@
 
 @font-face {
     font-family: 'Zalando Sans Expanded';
-    src: url('ZalandoSansExpanded-Regular.woff2') format('woff2'),
-         url('ZalandoSansExpanded-Regular.woff') format('woff'),
-         url('ZalandoSansExpanded-Regular.ttf') format('truetype');
+    src: url('/ZalandoSansExpanded-Regular.woff2') format('woff2'),
+         url('/ZalandoSansExpanded-Regular.woff') format('woff'),
+         url('/ZalandoSansExpanded-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
