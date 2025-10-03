@@ -4,7 +4,7 @@
 
 <Navbar class="bg-header-gradient py-0">
     <NavBrand href="/">
-        <img src="/spotly-logo-color.svg" class="me-3 h-6 sm:h-9" alt="Spotly Logo" />
+        <enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" class="me-3 w-6 h-6 sm:h-9 sm:w-9" alt="Spotly Logo"></enhanced:img>
         <span class="self-center text-xl text-white font-semibold whitespace-nowrap dark:text-foreground">SPOTLY</span>
     </NavBrand>
     <Dropdown placement="bottom" triggeredBy="#avatar-menu">
