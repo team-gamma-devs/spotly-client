@@ -1,29 +1,66 @@
 <script lang="ts">
-  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Avatar, Dropdown, DropdownItem, DropdownHeader, DropdownGroup } from "flowbite-svelte";
+    import {
+        Navbar,
+        NavBrand,
+        NavLi,
+        NavUl,
+        NavHamburger,
+        Avatar,
+        Dropdown,
+        DropdownItem,
+        DropdownHeader,
+        DropdownGroup,
+    } from "flowbite-svelte";
+    import AuthBox from "../AuthBox.svelte";
+    import Unauthorized from "../error/Unauthorized.svelte";
 </script>
 
 <Navbar class="bg-header-gradient py-0">
     <NavBrand href="/">
-        <enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" class="me-3 w-6 h-6 sm:h-9 sm:w-9" alt="Spotly Logo"></enhanced:img>
-        <span class="self-center text-xl text-white font-semibold whitespace-nowrap dark:text-foreground">SPOTLY</span>
+        <enhanced:img
+            src="$lib/assets/svgs/spotly-logo-color.svg"
+            class="me-3 w-6 h-6 sm:h-9 sm:w-9"
+            alt="Spotly Logo"
+        ></enhanced:img>
+        <span
+            class="self-center text-xl text-white font-semibold whitespace-nowrap dark:text-foreground py-4"
+            >SPOTLY</span
+        >
     </NavBrand>
-    <Dropdown placement="bottom" triggeredBy="#avatar-menu">
-        <DropdownHeader>
-            <span class="block text-sm">Pepe Pelotas</span>
-            <span class="block truncate text-sm font-medium">pepe@pelotas.com</span>
-        </DropdownHeader>
-        <DropdownGroup>
-            <DropdownItem class="cursor-pointer">Settings</DropdownItem>
-            <DropdownItem class="cursor-pointer">Status</DropdownItem>
-        </DropdownGroup>
-        <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
-    </Dropdown>
-    <NavUl class="text-white ">
-        <NavLi href="/dashboard" class="text-inherit hover:text-accent">Dashboard</NavLi>
-        <NavLi href="/status" class="text-inherit hover:text-accent">Status</NavLi>
-    </NavUl>
-    <div class="flex items-center md:order-2 cursor-pointer">
-        <Avatar id="avatar-menu" src="images/abstract-user-flat-4.svg" class="max-w-[40px] my-2" />
-        <NavHamburger class="cursor-pointer"/>
-    </div>
+    <AuthBox>
+        {#snippet authorizedContent()}
+            <NavUl class="text-white ">
+                <NavLi href="/dashboard" class="text-inherit hover:text-accent"
+                    >Dashboard</NavLi
+                >
+                <NavLi href="/status" class="text-inherit hover:text-accent"
+                    >Status</NavLi
+                >
+            </NavUl>
+            <div class="flex items-center md:order-2 cursor-pointer">
+                <Avatar
+                    id="avatar-menu"
+                    src="images/abstract-user-flat-4.svg"
+                    class="max-w-[40px] my-2"
+                />
+                <NavHamburger class="cursor-pointer" />
+            </div>
+            <Dropdown placement="bottom" triggeredBy="#avatar-menu">
+                <DropdownHeader>
+                    <span class="block text-sm">Pepe Pelotas</span>
+                    <span class="block truncate text-sm font-medium"
+                        >pepe@pelotas.com</span
+                    >
+                </DropdownHeader>
+                <DropdownGroup>
+                    <DropdownItem class="cursor-pointer">Settings</DropdownItem>
+                    <DropdownItem class="cursor-pointer">Status</DropdownItem>
+                </DropdownGroup>
+                <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
+            </Dropdown>
+        {/snippet}
+        {#snippet unauthorizedContent()}
+            <p class="text-white font-bold">You must login</p>
+        {/snippet}
+    </AuthBox>
 </Navbar>
