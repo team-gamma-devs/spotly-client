@@ -23,7 +23,7 @@
         <NavLi href="/status" class="text-inherit hover:text-accent">Status</NavLi>
     </NavUl>
     <div class="flex items-center md:order-2 cursor-pointer">
-        <Avatar id="avatar-menu" src="/abstract-user-flat-4.svg" class="max-w-[40px] my-2" />
+        <Avatar id="avatar-menu" src="images/abstract-user-flat-4.svg" class="max-w-[40px] my-2" />
         <NavHamburger class="cursor-pointer"/>
     </div>
 </Navbar>

@@ -16,7 +16,9 @@
 </script>
 
 <svelte:head>
-	<!-- <link rel="icon" href={favicon} /> -->
+    <link rel="icon" href="/icos/favicon.ico" />
+    <link rel="icon" href="/icos/spotly-logo-color.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icos/favicon-128x128.png" sizes="128x128" type="image/png" />
 </svelte:head>
 {#if showComingSoon}
 	<UnderConstruction />
@@ -35,7 +37,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		background-image: url("/oscillate-background.svg");
+		background-image: url("images/oscillate-background.svg");
 		background-color: var(--color-background);
 		background-repeat: no-repeat;
 		background-size: cover;
