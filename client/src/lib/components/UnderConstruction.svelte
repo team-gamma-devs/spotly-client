@@ -3,7 +3,6 @@
     class="nice-bg flex flex-col justify-center items-center"
 >
     <div
-        id="text-container"
         class="mt-auto flex flex-col justify-center items-center text-white gap-10 zalando-font"
     >
         <h2 class="text-2xl sm:text-3xl md:text-4xl">COMING SOON!</h2>
