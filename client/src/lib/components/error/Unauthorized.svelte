@@ -4,7 +4,7 @@
 </script>
 
 {#if $isAuth}
-    You are authorized
+    popoporeprpeor
 {:else}
     <div id="error-container" class="flex m-2 bg-white">
         <div class="hidden md:block w-[300px] h-[300px] relative">
@@ -18,7 +18,7 @@
             class="error-border flex flex-col items-center justify-center text-center"
         >
             <h1 class="text-9xl">401</h1>
-            <h2 class="text-4xl mb-5">Unauthenticated</h2>
+            <h2 class="text-4xl mb-5">Unauthorized</h2>
             <p>You must login to see this page.</p>
             <p class="text-sm text-gray-500 mt-2">
                 Make sure you're logged in.
