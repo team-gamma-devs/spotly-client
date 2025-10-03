@@ -2,6 +2,16 @@
 
 @plugin 'flowbite/plugin';
 
+@font-face {
+    font-family: 'Zalando Sans Expanded';
+    src: url('ZalandoSansExpanded-Regular.woff2') format('woff2'),
+         url('ZalandoSansExpanded-Regular.woff') format('woff'),
+         url('ZalandoSansExpanded-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ***********************  Light theme ******************* */
@@ -18,7 +28,7 @@
   --color-primary-900: #771a17;
   --color-primary-950: #400a0a;
 
-  --color-background: rgb(236 237 240);
+  --color-background: rgb(243, 245, 248);
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 

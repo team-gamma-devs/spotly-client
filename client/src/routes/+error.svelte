@@ -20,13 +20,14 @@
         padding: 10em;
         box-shadow: 10px 10px 50px rgb(226, 225, 225);
         gap: 5rem;
-        opacity: 0;
-        animation: fadeIn 0.1s ease-in-out forwards;
+        /* Commented out cause it fucks up in chrome, Don't want to handle caching right now */
+        /* opacity: 0; */
+        /* animation: fadeIn 0.1s ease-in-out forwards; */
     }
 
-    @keyframes fadeIn {
+    /* @keyframes fadeIn {
         to {
             opacity: 1;
         }
-    }
+    } */
 </style>
