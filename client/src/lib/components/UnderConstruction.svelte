@@ -140,9 +140,6 @@
         background-position: center;
         min-height: 100vh;
     }
-    .zalando-font {
-        font-family: "Zalando Sans Expanded", sans-serif;
-    }
     #holberton-logo-img {
         filter: brightness(100);
     }

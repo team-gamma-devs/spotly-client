@@ -25,7 +25,7 @@
 {:else}
 	<div class="layout-container">
 		<Header />
-		<main class="main-content">
+		<main class="main-content figtree-font text-foreground">
 			{@render children?.()}
 		</main>
 		<Footer />

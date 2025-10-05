@@ -12,6 +12,16 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Figtree';
+    src: url('/fonts/Figtree-Light.woff2') format('woff2'),
+        url('/fonts/Figtree-Light.woff') format('woff'),
+        url('/fonts/Figtree-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ***********************  Light theme ******************* */
@@ -32,7 +42,7 @@
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 
-  --color-accent: rgb(250, 202, 112);
+  --color-accent: rgb(78, 53, 181);
 
   --color-gradient-start: #e9a075;
   --color-gradient-end: #cb5554;
@@ -86,7 +96,12 @@
   .hover\:text-accent:hover {
     color: var(--color-accent);
   }
+
+  /* Fonts */
   .zalando-font {
       font-family: "Zalando Sans Expanded", sans-serif;
+  }
+  .figtree-font {
+    font-family: 'Figtree', sans-serif;
   }
 }
