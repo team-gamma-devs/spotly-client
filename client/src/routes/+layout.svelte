@@ -3,29 +3,48 @@
 	import Header from "$lib/components/main/Header.svelte";
 	import Footer from "$lib/components/main/Footer.svelte";
 	import UnderConstruction from "$lib/components/UnderConstruction.svelte";
-    import { dev } from "$app/environment";
-    import { PUBLIC_SHOW_COMING_SOON } from "$env/static/public";
-    import { page } from "$app/state";
+	import { dev } from "$app/environment";
+	import { PUBLIC_SHOW_COMING_SOON } from "$env/static/public";
+	import { page } from "$app/state";
 
-    let { children } = $props();
+	let { children } = $props();
 
-    let showComingSoon = $derived(
-        PUBLIC_SHOW_COMING_SOON === "true" && 
-        (!dev || !page?.url.searchParams.has("dev"))
-    );
+	let showComingSoon = $derived(
+		PUBLIC_SHOW_COMING_SOON === "true" &&
+			(!dev || !page?.url.searchParams.has("dev")),
+	);
 </script>
 
 <svelte:head>
-    <link rel="icon" href="/icos/favicon.ico" />
-    <link rel="icon" href="/icos/spotly-logo-color.svg" type="image/svg+xml" />
-    <link rel="icon" href="/icos/favicon-128x128.png" sizes="128x128" type="image/png" />
+	<link rel="icon" href="/icos/favicon.ico" />
+	<link rel="icon" href="/icos/spotly-logo-color.svg" type="image/svg+xml" />
+	<link
+		rel="preload"
+		href="/fonts/ZalandoSansExpanded-Regular.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
+	<link
+		rel="preload"
+		href="/fonts/Figtree-Light.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
+	<link
+		rel="icon"
+		href="/icos/favicon-128x128.png"
+		sizes="128x128"
+		type="image/png"
+	/>
 </svelte:head>
 {#if showComingSoon}
 	<UnderConstruction />
 {:else}
 	<div class="layout-container">
 		<Header />
-		<main class="main-content figtree-font text-foreground">
+		<main class="main-content text-foreground">
 			{@render children?.()}
 		</main>
 		<Footer />

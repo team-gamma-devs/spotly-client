@@ -6,6 +6,7 @@
 
 <AuthBox>
     {#snippet authorizedContent()}
+    HELLO!
         <section id="dashboard-wrapper" class="ring-2 ring-red-500">
             <Sidebar />
         </section>
