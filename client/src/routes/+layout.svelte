@@ -64,8 +64,8 @@
 	.layout-container {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh;
-		background-image: url("images/oscillate-background.svg");
+		min-height: 120vh;
+		background-image: url("/images/oscillate-background.svg");
 		background-color: var(--color-background);
 		background-repeat: no-repeat;
 		background-size: cover;
