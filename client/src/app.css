@@ -44,7 +44,7 @@
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 
-  --color-accent: rgb(78, 53, 181);
+  --color-accent: rgb(174, 154, 255);
 
   --color-gradient-start: #e9a075;
   --color-gradient-end: #cb5554;
@@ -105,4 +105,16 @@
   .figtree-font {
 		font-family: "Figtree", sans-serif;
 	}
+  .smooth-render {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    animation: smoothIn 0.3s ease 0.02s forwards;
+  }
+
+  @keyframes smoothIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
