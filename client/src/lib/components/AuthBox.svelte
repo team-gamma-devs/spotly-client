@@ -8,7 +8,7 @@
 //   const showAuth = $derived(() => browser && $isAuth);
 </script>
 
-{#if isAuth}
+{#if $isAuth}
   {@render authorizedContent?.()}
 {:else}
   {@render unauthorizedContent?.()}

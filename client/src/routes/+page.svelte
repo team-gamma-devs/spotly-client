@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import AuthBox from "$lib/components/AuthBox.svelte";
     import Unauthorized from "$lib/components/error/Unauthorized.svelte";
 </script>
@@ -10,4 +10,4 @@
     {#snippet unauthorizedContent()}
         <Unauthorized/>
     {/snippet}
-</AuthBox>
+</AuthBox> -->

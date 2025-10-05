@@ -16,7 +16,7 @@
 </script>
 
 <Navbar class="bg-header-gradient py-0 zalando-font">
-    <NavBrand href="/">
+    <NavBrand href="/" class="mr-5">
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"
             class="me-3 w-9 h-9 ml-2"
@@ -61,7 +61,7 @@
             </Dropdown>
         {/snippet}
         {#snippet unauthorizedContent()}
-            <DarkMode />
+            <DarkMode class="md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white" />
             <p class="text-white font-bold">You must login</p>
         {/snippet}
     </AuthBox>

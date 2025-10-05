@@ -3,6 +3,8 @@
 	import Header from "$lib/components/main/Header.svelte";
 	import Footer from "$lib/components/main/Footer.svelte";
 	import UnderConstruction from "$lib/components/UnderConstruction.svelte";
+	import AuthBox from "$lib/components/AuthBox.svelte";
+	import Unauthorized from "$lib/components/error/Unauthorized.svelte";
 	import { dev } from "$app/environment";
 	import { PUBLIC_SHOW_COMING_SOON } from "$env/static/public";
 	import { page } from "$app/state";
@@ -45,7 +47,14 @@
 	<div class="layout-container">
 		<Header />
 		<main class="main-content text-foreground">
-			{@render children?.()}
+			<AuthBox>
+				{#snippet authorizedContent()}
+					{@render children?.()}
+				{/snippet}
+				{#snippet unauthorizedContent()}
+					<Unauthorized/>
+				{/snippet}
+			</AuthBox>
 		</main>
 		<Footer />
 	</div>
