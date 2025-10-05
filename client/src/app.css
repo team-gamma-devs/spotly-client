@@ -32,7 +32,7 @@
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 
-  --color-accent: rgb(255, 213, 74);
+  --color-accent: rgb(250, 202, 112);
 
   --color-gradient-start: #e9a075;
   --color-gradient-end: #cb5554;
@@ -58,8 +58,8 @@
 
   --color-accent: rgb(252, 61, 61);
 
-  --color-gradient-start: linear-gradient(to left, #0e0e17, #172024);
-  --color-gradient-end: linear-gradient(to left, #0e0e17, #172024);
+  --color-gradient-start: #0e0e1700;
+  --color-gradient-end: #17202400;
   
 }
 
@@ -83,8 +83,10 @@
   .text-accent {
     color: var(--color-accent);
   }
-  
   .hover\:text-accent:hover {
     color: var(--color-accent);
+  }
+  .zalando-font {
+      font-family: "Zalando Sans Expanded", sans-serif;
   }
 }

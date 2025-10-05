@@ -1,3 +1,3 @@
 import { writable } from "svelte/store"
 
-export const isAuth = writable(false) 
+export const isAuth = writable(true) 
