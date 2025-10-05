@@ -44,7 +44,8 @@
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 
-  --color-accent: rgb(126, 101, 227);
+  --color-accent: rgb(143, 116, 248);
+  --color-inactive: gray;
 
   --color-gradient-start: #e9a075;
   --color-gradient-end: #cb5554;
@@ -69,6 +70,7 @@
   --color-foreground: rgb(240 233 233);
 
   --color-accent: rgb(252, 61, 61);
+  --color-inactive: rgb(223, 217, 217);
 
   --color-gradient-start: #0e0e1700;
   --color-gradient-end: #17202400;

@@ -13,9 +13,13 @@
         DarkMode,
     } from "flowbite-svelte";
     import AuthBox from "../AuthBox.svelte";
+    import { page } from "$app/state";
+    let activeUrl = $derived(page.url.pathname);
+    let activeClass = "text-white bg-green-700 md:bg-transparent font-bold md:text-white md:dark:text-white dark:bg-green-600 md:dark:bg-transparent";
+    let nonActiveClass = "text-gray-300 dark:text-white";
 </script>
 
-<Navbar class="bg-header-gradient py-0 zalando-font">
+<Navbar class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20">
     <NavBrand href="/" class="mr-5">
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"
@@ -29,11 +33,11 @@
     </NavBrand>
     <AuthBox>
         {#snippet authorizedContent()}
-            <NavUl class="text-white">
-                <NavLi href="/dashboard" class="text-inherit hover:text-accent relative" style="top:2px;"
+            <NavUl class="hover:text-accent" {activeUrl} classes={{ active: activeClass, nonActive: nonActiveClass }}>
+                <NavLi href="/dashboard" class="hover:text-accent relative" style="top:2px;"
                     >Dashboard</NavLi
                 >
-                <NavLi href="/status" class="text-inherit hover:text-accent relative" style="top:2px;"
+                <NavLi href="/status" class="hover:text-accent relative" style="top:2px;"
                     >Status</NavLi
                 >
             </NavUl>

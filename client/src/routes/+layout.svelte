@@ -52,7 +52,7 @@
 					{@render children?.()}
 				{/snippet}
 				{#snippet unauthorizedContent()}
-					<Unauthorized/>
+					<Unauthorized />
 				{/snippet}
 			</AuthBox>
 		</main>
@@ -65,10 +65,11 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 120vh;
-		background-image: url("/images/oscillate-background.svg");
 		background-color: var(--color-background);
+		background-image: url("/images/oscillate-background.svg");
 		background-repeat: no-repeat;
 		background-size: cover;
+		background-position: center;
 	}
 	.main-content {
 		flex: 1 1 auto;

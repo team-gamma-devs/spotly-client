@@ -3,7 +3,7 @@
 </script>
 
 
-<section id="dashboard-wrapper" class="ring-2 ring-red-500">
+<section id="dashboard-wrapper" class="ring-2 ring-red-500 w-full h-screen p-2">
     <Sidebar />
 </section>
 
