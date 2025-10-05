@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, FooterBrand, FooterIcon } from "flowbite-svelte";
-  import { FacebookSolid, GithubSolid, DiscordSolid, TwitterSolid } from "flowbite-svelte-icons";
+  import { GithubSolid, DiscordSolid } from "flowbite-svelte-icons";
 </script>
 
 <Footer footerType="socialmedia" class="bg-background dark:bg-background rounded-none">
@@ -8,26 +8,26 @@
     <div class="mb-6 md:mb-0 zalando-font">
       <FooterBrand href="https://spotly.com" src="/icos/spotly-logo-color.svg" alt="Spotly Logo" name="Spotly"/>
     </div>
-    <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 p-2 place-items-center ring-2 ring-blue-600">
-      <div class="ring-2 ring-red-300 min-w-[190px]">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 p-2 place-items-center">
+      <div class="min-w-[190px]">
         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
         <FooterLinkGroup>
-          <FooterLink class="mb-4" href="https://flowbite-svelte.com/" target="_blank">Flowbite</FooterLink>
-          <FooterLink class="mb-4" href="https://tailwindcss.com/" target="_blank">Tailwind CSS</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="https://flowbite-svelte.com/" target="_blank">Flowbite</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="https://tailwindcss.com/" target="_blank">Tailwind CSS</FooterLink>
         </FooterLinkGroup>
       </div>
-      <div class="ring-2 ring-red-300 min-w-[190px]">
+      <div class="min-w-[190px]">
         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
         <FooterLinkGroup>
-          <FooterLink class="mb-4" href="https://github.com/team-gamma-devs" target="_blank">GitHub</FooterLink>
-          <FooterLink class="mb-4" href="https://discord.gg/HU3s6k2hrf" target="_blank">Discord</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="https://github.com/team-gamma-devs" target="_blank">GitHub</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="https://discord.gg/HU3s6k2hrf" target="_blank">Discord</FooterLink>
         </FooterLinkGroup>
       </div>
-      <div class="ring-2 ring-red-300 min-w-[190px]">
+      <div class="min-w-[190px]">
         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
         <FooterLinkGroup>
-          <FooterLink class="mb-4" href="/legal">Privacy Policy</FooterLink>
-          <FooterLink class="mb-4" href="/tac">Terms & Conditions</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="/legal">Privacy Policy</FooterLink>
+          <FooterLink class="mb-4 hover:text-accent" href="/tac">Terms & Conditions</FooterLink>
         </FooterLinkGroup>
       </div>
     </div>

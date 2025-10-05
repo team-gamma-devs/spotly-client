@@ -24,16 +24,16 @@
         ></enhanced:img>
         <span
             class="self-center text-xl text-white font-semibold whitespace-nowrap dark:text-foreground py-4 hidden sm:inline"
-            >SPOTLY</span
+            >Spotly</span
         >
     </NavBrand>
     <AuthBox>
         {#snippet authorizedContent()}
             <NavUl class="text-white">
-                <NavLi href="/dashboard" class="text-inherit hover:text-accent"
+                <NavLi href="/dashboard" class="text-inherit hover:text-accent relative" style="top:2px;"
                     >Dashboard</NavLi
                 >
-                <NavLi href="/status" class="text-inherit hover:text-accent"
+                <NavLi href="/status" class="text-inherit hover:text-accent relative" style="top:2px;"
                     >Status</NavLi
                 >
             </NavUl>
@@ -54,8 +54,7 @@
                     >
                 </DropdownHeader>
                 <DropdownGroup>
-                    <DropdownItem class="cursor-pointer">Settings</DropdownItem>
-                    <DropdownItem class="cursor-pointer">Status</DropdownItem>
+                    <DropdownItem class="cursor-pointer" href="/settings">Settings</DropdownItem>
                 </DropdownGroup>
                 <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
             </Dropdown>
