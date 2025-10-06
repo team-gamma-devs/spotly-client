@@ -46,7 +46,7 @@
 {:else}
 	<div class="layout-container">
 		<Header />
-		<main class="main-content text-foreground">
+		<main class="main-content text-foreground my-2">
 			<AuthBox>
 				{#snippet authorizedContent()}
 					{@render children?.()}
@@ -64,7 +64,7 @@
 	.layout-container {
 		display: flex;
 		flex-direction: column;
-		min-height: 120vh;
+		min-height: 130vh;
 		background-color: var(--color-background);
 		background-image: url("/images/oscillate-background.svg");
 		background-repeat: no-repeat;
@@ -76,7 +76,8 @@
 		flex: 1 1 auto;
 		min-height: 100%;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
+		outline: 1px solid rgb(37, 183, 76);
 	}
 </style>

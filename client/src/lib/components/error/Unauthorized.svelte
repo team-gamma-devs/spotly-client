@@ -1,4 +1,4 @@
-<div id="error-container" class="flex m-2 bg-white text-black">
+<div id="error-container" class="flex m-2 bg-white text-black my-auto">
     <div class="hidden md:block w-[300px] h-[300px] relative">
         <enhanced:img
             src="$lib/assets/svgs/spotly-unauthorized.svg"

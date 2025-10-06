@@ -16,8 +16,8 @@
     import { page } from "$app/state";
 
     let activeUrl = $derived(page.url.pathname);
-    let activeClass = "text-white bg-green-700 md:bg-transparent font-bold md:text-white md:dark:text-white dark:bg-green-600 md:dark:bg-transparent";
-    let nonActiveClass = "text-gray-300 dark:text-white";
+    let activeClass = "text-white bg-primary-400 md:bg-transparent font-bold md:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
+    let nonActiveClass = "text-gray-700 dark:text-white md:text-gray-300";
 </script>
 
 <Navbar class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20">
@@ -34,11 +34,11 @@
     </NavBrand>
     <AuthBox>
         {#snippet authorizedContent()}
-            <NavUl class="hover:text-accent" {activeUrl} classes={{ active: activeClass, nonActive: nonActiveClass }}>
-                <NavLi href="/dashboard" class="hover:text-accent relative" style="top:2px;"
+            <NavUl class="" {activeUrl} classes={{ active: activeClass, nonActive: nonActiveClass }}>
+                <NavLi href="/dashboard" class="hover:text-primary-300 relative" style="top:2px;"
                     >Dashboard</NavLi
                 >
-                <NavLi href="/status" class="hover:text-accent relative" style="top:2px;"
+                <NavLi href="/status" class="hover:text-primary-300 relative" style="top:2px;"
                     >Status</NavLi
                 >
             </NavUl>
@@ -48,10 +48,10 @@
                     src="/images/abstract-user-flat-4.svg"
                     class="max-w-[40px] my-2"
                 />
-                <NavHamburger class="cursor-pointer" />
+                <NavHamburger class="cursor-pointer text-white dark:text-foreground" />
             </div>
             <DarkMode class="mx-2 md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white"/>
-            <Dropdown placement="bottom" triggeredBy="#avatar-menu">
+            <Dropdown placement="bottom" triggeredBy="#avatar-menu" class="dark:bg-box-bg bg-box-bg">
                 <DropdownHeader>
                     <span class="block text-sm">Pepe Pelotas</span>
                     <span class="block truncate text-sm font-medium"

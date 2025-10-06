@@ -26,18 +26,21 @@
         activeUrl = page.url.pathname;
     });
 
-    onMount(() => { // This is because I didn't find a way to remove that rim around the parent element.
-        const el = document.getElementById('this-element-is-a-bitch');
-        if (el?.parentElement) {
-            el.parentElement.classList.remove("dark:bg-gray-800")
-            el.parentElement.classList.remove('bg-gray-50');
-        }
-    })
+    // onMount(() => { // This is because I didn't find a way to remove that bg-gray-800 around the bitch element.
+    //     const el = document.querySelector('#this-element-is-a-bitch');
+    //     if (el?.parentElement) {
+    //         el.parentElement.classList.remove("dark:bg-gray-800")
+    //         el.parentElement.classList.add("bg-background")
+    //         el.parentElement.classList.add("dark:bg-background")
+    //         el.parentElement.classList.remove('bg-gray-50');
+    //     }
+    // })
+
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2" />
 <!-- <This is the fucking hamburger menu  -->
-<div class="relative ring-2 ring-red-600 h-full">
+<div class="relative ring-2 ring-red-600 p-2 min-h-[90dvh]">
     <!-- <This is the Whole container? We will have to render shit here -->
     <Sidebar
         {activeUrl}
@@ -47,22 +50,26 @@
         params={{ x: -50, duration: 50 }}
         class="z-50 h-full ring-2 ring-green-600 bg-background dark:bg-background"
         position="absolute"
-        classes={{ nonactive: "p-2", active: "p-2" }}
+        classes={{ nonactive: "p-2 bg-red-200", active: "p-2 " }}
     >
         <SidebarGroup
             class="ring-2 ring-yellow-600 bg-background dark:bg-background w-full"
             id="this-element-is-a-bitch"
         >
             <!-- This is the inner tabs something is adding margin-->
-            <SidebarDropdownWrapper label="Filters" classes={{ btn: "p-2 cursor-pointer" }} > <!-- now we need to activate one -->
+            <SidebarDropdownWrapper
+                label="Filters"
+                classes={{ btn: "p-2 cursor-pointer" }}
+            >
+                <!-- now we need to activate one check the active and nonactive stuff-->
                 {#snippet icon()}
                     <FilterSolid
                         class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                     />
                 {/snippet}
-                <SidebarItem label="Technologies" class="cursor-pointer"/>
-                <SidebarItem label="English Level" class="cursor-pointer"/>
-                <SidebarItem label="Feedback" class="cursor-pointer"/>
+                <SidebarItem label="Technologies" class="cursor-pointer" />
+                <SidebarItem label="English Level" class="cursor-pointer" />
+                <SidebarItem label="Feedback" class="cursor-pointer" />
             </SidebarDropdownWrapper>
             <!-- <SidebarItem label="Kanban" {spanClass} href="/">
                 {#snippet icon()}
@@ -99,10 +106,9 @@
             </SidebarItem> -->
         </SidebarGroup>
     </Sidebar>
-    <div class="h-96 overflow-auto px-4 md:ml-64">
+    <div class="h-auto overflow-auto md:ml-64 ring-2 ring-blue-400 p-2 sm:p-5">
         <div
-            class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700"
+            class="h-full rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700"
         ></div>
     </div>
 </div>
-
