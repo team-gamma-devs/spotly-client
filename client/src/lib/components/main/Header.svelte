@@ -45,7 +45,7 @@
             <div class="flex items-center md:order-2 cursor-pointer mr-2 ml-auto sm:mr-2 sm:ml-2">
                 <Avatar
                     id="avatar-menu"
-                    src="images/abstract-user-flat-4.svg"
+                    src="/images/abstract-user-flat-4.svg"
                     class="max-w-[40px] my-2"
                 />
                 <NavHamburger class="cursor-pointer" />

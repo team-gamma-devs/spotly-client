@@ -3,7 +3,7 @@
 </script>
 
 
-<section id="dashboard-wrapper" class="w-full h-screen p-2">
+<section id="dashboard-wrapper" class="w-full h-screen">
     <Sidebar />
 </section>
 
