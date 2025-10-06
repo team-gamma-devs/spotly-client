@@ -94,4 +94,12 @@
 		justify-content: flex-start;
 		outline: 1px solid rgb(37, 183, 76);
 	}
+	@media (max-width: 640px) {
+		.site-bg {
+			background-image: url("/images/abstract-bg-light-mobile.webp");
+		}
+		:root.dark .site-bg {
+			background-image: url("/images/abstract-bg-dark-mobile.webp");
+		}
+	}
 </style>

@@ -54,7 +54,7 @@
   --color-gradient-end: #cb5554;
 
   /* I had to hardcode this because Flowbite is a bitch. */
-  --color-gray-50: var(--color-background);
+  --color-gray-50: transparent;
 }
 
 /* ******************** Dark theme overrides ************************** */
@@ -86,7 +86,7 @@
   --color-gradient-end: #17202400;
 
   /* I had to hardcode this because Flowbite is a bitch. */
-  --color-gray-800: var(--color-background);
+  --color-gray-800: transparent;
   
 }
 
