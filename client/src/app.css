@@ -40,12 +40,14 @@
   --color-primary-900: #771a17;
   --color-primary-950: #400a0a;
 
-  --color-background: rgb(243, 245, 248);
+  --color-background: rgb(230, 243, 245);
   --color-header-bg: rgb(222 226 228);
   --color-foreground: rgb(32, 30, 30);
 
   --color-accent: rgb(143, 116, 248);
   --color-inactive: gray;
+
+  --color-box-shadow: rgb(226, 226, 230);
 
   --color-gradient-start: #e9a075;
   --color-gradient-end: #cb5554;
@@ -71,6 +73,8 @@
 
   --color-accent: rgb(252, 61, 61);
   --color-inactive: rgb(223, 217, 217);
+
+  --color-box-shadow: rgb(20, 20, 23);
 
   --color-gradient-start: #0e0e1700;
   --color-gradient-end: #17202400;

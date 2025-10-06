@@ -14,6 +14,7 @@
     } from "flowbite-svelte";
     import AuthBox from "../AuthBox.svelte";
     import { page } from "$app/state";
+
     let activeUrl = $derived(page.url.pathname);
     let activeClass = "text-white bg-green-700 md:bg-transparent font-bold md:text-white md:dark:text-white dark:bg-green-600 md:dark:bg-transparent";
     let nonActiveClass = "text-gray-300 dark:text-white";

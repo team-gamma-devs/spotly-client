@@ -52,9 +52,7 @@
         <h2 class="text-base sm:text-lg md:text-xl lg:text-[1.5dvw]">
             COMING SOON!
         </h2>
-        <h1
-            class="text-3xl sm:text-4xl md:text-6xl lg:text-[5dvw] font-bold mt-2"
-        >
+        <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-[5dvw] font-bold mt-2">
             SPOTLY
         </h1>
         <div
@@ -135,7 +133,8 @@
 
 <style>
     .nice-bg {
-        background-image: url("../assets/svgs/scales-background.svg");
+        background-color: rgb(18, 17, 17);
+        background-image: url("/images/aaabstract-1.webp");
         background-size: cover;
         background-position: center;
         min-height: 100vh;
@@ -145,7 +144,7 @@
     }
     @media (max-width: 390px) {
         .tracking-wider {
-            font-size: .5rem;
+            font-size: 0.5rem;
         }
     }
 </style>

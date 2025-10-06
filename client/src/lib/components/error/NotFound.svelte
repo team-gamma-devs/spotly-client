@@ -18,7 +18,7 @@
         border: 2px solid rgb(230, 225, 222);
         border-radius: 1em;
         padding: 10em;
-        box-shadow: 10px 10px 50px rgb(226, 225, 225);
+        box-shadow: 10px 10px 50px var(--color-box-shadow);
         gap: 5rem;
         /* Commented out cause it fucks up in chrome, Don't want to handle caching right now */
         /* opacity: 0; */
