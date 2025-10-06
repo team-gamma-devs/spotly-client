@@ -16,8 +16,8 @@
     import { page } from "$app/state";
 
     let activeUrl = $derived(page.url.pathname);
-    let activeClass = "text-white bg-primary-400 md:bg-transparent font-bold md:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
-    let nonActiveClass = "text-gray-700 dark:text-white md:text-gray-200";
+    let activeClass = "text-white bg-primary-400 md:bg-transparent font-bold md:text-white hover:text-black md:hover:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
+    let nonActiveClass = "text-gray-700 dark:text-white md:text-gray-200 md:hover:text-white md:hover:font-bold";
 </script>
 
 <Navbar class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20 dark:bg-background blur-bg">
@@ -35,10 +35,10 @@
     <AuthBox>
         {#snippet authorizedContent()}
             <NavUl class="" {activeUrl} classes={{ active: activeClass, nonActive: nonActiveClass }}>
-                <NavLi href="/dashboard" class="hover:text-primary-300 relative" style="top:2px;"
+                <NavLi href="/dashboard" class="relative" style="top:2px;"
                     >Dashboard</NavLi
                 >
-                <NavLi href="/status" class="hover:text-primary-300 relative" style="top:2px;"
+                <NavLi href="/status" class="relative" style="top:2px;"
                     >Status</NavLi
                 >
             </NavUl>
