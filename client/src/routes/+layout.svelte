@@ -44,6 +44,7 @@
 {#if showComingSoon}
 	<UnderConstruction />
 {:else}
+	<div class="site-bg" aria-hidden="true"></div>
 	<div class="layout-container">
 		<Header />
 		<main class="main-content text-foreground my-2">
@@ -64,25 +65,33 @@
 	.layout-container {
 		display: flex;
 		flex-direction: column;
-		min-height: 130vh;
-		background-color: var(--color-background);
-		background-image: url("/images/abstract-bg-light-desktop.webp");
+		min-height: 120dvh;
+		background-color: transparent;
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-x: center;
 		background-position-y: top;
 	}
-	:root.dark {
-		.layout-container {
-			background-image: url("/images/abstract-bg-dark-desktop.webp");
-		}
+	.site-bg {
+		position: fixed;
+		inset: 0;
+		z-index: -10;
+		pointer-events: none;
+		background-repeat: no-repeat;
+		background-position: center top;
+		background-size: cover; /* preserves aspect ratio and fills viewport */
+		background-image: url("/images/abstract-bg-light-desktop.webp");
+	}
+	:root.dark .site-bg {
+		background-image: url("/images/abstract-bg-dark-desktop.webp");
 	}
 	.main-content {
 		flex: 1 1 auto;
-		min-height: 100%;
+		min-height: 0;
 		display: flex;
-		align-items: flex-start;
-		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		justify-content: flex-start;
 		outline: 1px solid rgb(37, 183, 76);
 	}
 </style>

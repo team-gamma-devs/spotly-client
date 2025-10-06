@@ -40,7 +40,7 @@
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2" />
 <!-- <This is the fucking hamburger menu  -->
-<div class="relative ring-2 ring-red-600 p-2 min-h-[90dvh]">
+<div class="relative ring-2 ring-red-600 p-2 min-h-[100dvh]">
     <!-- <This is the Whole container? We will have to render shit here -->
     <Sidebar
         {activeUrl}
@@ -48,7 +48,7 @@
         isOpen={isDemoOpen}
         closeSidebar={closeDemoSidebar}
         params={{ x: -50, duration: 50 }}
-        class="z-50 h-full ring-2 ring-green-600 bg-background dark:bg-background"
+        class="z-50 ring-2 ring-green-600 bg-background dark:bg-background h-full"
         position="absolute"
         classes={{ nonactive: "p-2 bg-red-200", active: "p-2 " }}
     >
