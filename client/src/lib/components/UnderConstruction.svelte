@@ -134,7 +134,7 @@
 <style>
     .nice-bg {
         background-color: rgb(18, 17, 17);
-        background-image: url("/images/aaabstract-1.webp");
+        background-image: url("/images/abstract-bg-dark-desktop.webp");
         background-size: cover;
         background-position: center;
         min-height: 100vh;

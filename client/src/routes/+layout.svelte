@@ -66,11 +66,16 @@
 		flex-direction: column;
 		min-height: 130vh;
 		background-color: var(--color-background);
-		background-image: url("/images/oscillate-background.svg");
+		background-image: url("/images/abstract-bg-light-desktop.webp");
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-x: center;
 		background-position-y: top;
+	}
+	:root.dark {
+		.layout-container {
+			background-image: url("/images/abstract-bg-dark-desktop.webp");
+		}
 	}
 	.main-content {
 		flex: 1 1 auto;

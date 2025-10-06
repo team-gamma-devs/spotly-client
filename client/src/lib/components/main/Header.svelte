@@ -17,10 +17,10 @@
 
     let activeUrl = $derived(page.url.pathname);
     let activeClass = "text-white bg-primary-400 md:bg-transparent font-bold md:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
-    let nonActiveClass = "text-gray-700 dark:text-white md:text-gray-300";
+    let nonActiveClass = "text-gray-700 dark:text-white md:text-gray-200";
 </script>
 
-<Navbar class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20">
+<Navbar class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20 dark:bg-background blur-bg">
     <NavBrand href="/" class="mr-5">
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"

@@ -40,7 +40,7 @@
   --color-primary-900: #771a17;
   --color-primary-950: #400a0a;
 
-  --color-background: rgb(230, 243, 245);
+  --color-background: rgba(230, 243, 245, 0.426);
   --color-box-bg: rgb(247, 247, 254);
   /* --color-header-bg: rgb(222 226 228); */
   --color-foreground: rgb(32, 30, 30);
@@ -71,7 +71,7 @@
   --color-primary-900: #633720;
   --color-primary-950: #391b0f;
 
-  --color-background: rgb(29 31 34);
+  --color-background: rgba(19, 22, 28, 0.675);
   --color-box-bg: rgb(22, 22, 24);
   /* --color-header-bg: rgb(16 17 17); */
   --color-foreground: rgb(240 233 233);
@@ -124,6 +124,10 @@
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     animation: smoothIn 0.3s ease 0.02s forwards;
+  }
+  .blur-bg {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   @keyframes smoothIn {
