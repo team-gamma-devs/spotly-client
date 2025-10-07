@@ -17,13 +17,16 @@
     const demoSidebarUi = uiHelpers();
     const closeDemoSidebar = demoSidebarUi.close;
 
-    let isDemoOpen = $state(false);
-    let activeUrl = $state(page.url.pathname);
-    let selectedFilter = $state("Technologies");
+    let isDemoOpen = $state(false); // I don't know what this does.
+
+    let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput.
+    let activeUrl = $state("Technologies"); // Keep it URL although I'm not using URL but the sidebar expects it.
+
+    let selectedTags: Array<string> = []; // This will hold the tags that the client will select, they can be any sort of tags to be send to the backend.
+
 
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
-        activeUrl = page.url.pathname;
     });
 
     let loading = $state(false);
@@ -58,7 +61,7 @@
         params={{ x: -50, duration: 50 }}
         class="z-50 ring-2 ring-green-600 h-full bg-background dark:bg-background"
         position="absolute"
-        classes={{ nonactive: "p-2 bg-red-200", active: "p-2 " }}
+        classes={{ nonactive: "p-2", active: "p-2 bg-primary-300 dark:bg-primary-300" }}
     >
         <SidebarGroup
             class="ring-2 ring-yellow-600 w-full"
@@ -77,23 +80,27 @@
                 {/snippet}
                 <SidebarItem
                     label="Technologies"
-                    class="cursor-pointer filter-tag"
+                    class="cursor-pointer filter-tag {selectedFilter === 'Technologies' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
                     onclick={() => {
                         selectedFilter = "Technologies";
+                        activeUrl = "Technologies";
                     }}
                 />
+
                 <SidebarItem
                     label="English Level"
-                    class="cursor-pointer filter-tag"
+                    class="cursor-pointer filter-tag {selectedFilter === 'English Level' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
                     onclick={() => {
                         selectedFilter = "English Level";
+                        activeUrl = "English Level";
                     }}
                 />
                 <SidebarItem
                     label="Feedback"
-                    class="cursor-pointer filter-tag"
+                    class="cursor-pointer filter-tag {selectedFilter === 'Feedback' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
                     onclick={() => {
                         selectedFilter = "Feedback";
+                        activeUrl = "Feedback";
                     }}
                 />
             </SidebarDropdownWrapper>
@@ -131,6 +138,7 @@
                 {/snippet}
             </SidebarItem> -->
         </SidebarGroup>
+
         <SidebarGroup border>
             <div
                 id="selected-tags-wrapper"
@@ -139,17 +147,20 @@
                 Here Selected Tags will go
             </div>
         </SidebarGroup>
+
         <SidebarGroup border>
             <Label for="default-input" class="mb-2 block">
                 Search {selectedFilter ? selectedFilter : "Technologies"}
             </Label>
             <Input id="default-input" placeholder="Enter Keyword" />
         </SidebarGroup>
+
         <SidebarGroup border>
             <Button color="alternative" class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white" onclick={handleSubmit} {loading}
                 >Search</Button
             >
         </SidebarGroup>
+
     </Sidebar>
     <div class="h-auto overflow-auto md:ml-64 ring-2 ring-blue-400 p-2 sm:p-5">
         <div
@@ -157,3 +168,8 @@
         ></div>
     </div>
 </div>
+<style>
+    .sidebar-active {
+
+    }
+</style>

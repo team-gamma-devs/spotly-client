@@ -39,7 +39,70 @@ Notes:
 - The client package lives in `client/`. Use `--cwd client` when running Vercel CLI from repo root.
 - `pnpm` is the recommended package manager for this project.
 
----
+
+
+# Components — structure & rules
+
+Purpose: keep components grouped by UI scope/role so ownership, reuse and styling boundaries are clear. I don't know if this is meta in front-end development, I use it because it's starting to become a mess.
+
+Top-level location
+- src/lib/components/
+
+Directory rules (By Scope)
+- main/ — components used by the public/main UI (Header, Footer, general shared UI for most users).
+- manager/ — components specific to the manager role (Sidebar, ManagerDashboard widgets, manager-only controls).
+- error/ — error and status UIs (Unauthorized, NotFound, ErrorCard).
+
+Each scope folder
+- MUST contain a utils/ folder for small helper components used only inside that scope.
+  - Example: src/lib/components/manager/utils/FilterBox.svelte is a helper for manager Sidebar filters.
+- SHOULD include an index.ts that re-exports the scope's public components (optional but recommended).
+
+Naming & conventions
+- Component files: PascalCase.svelte (e.g. Header.svelte, Sidebar.svelte, Unauthorized.svelte).
+- Small helpers in utils: PascalCase.svelte as well (e.g. FilterBox.svelte).
+- Stores & helpers: keep under src/lib/stores/ or src/lib/utils/ (not inside scope utils unless truly scope-specific).
+- Keep each component focused (1 responsibility) and keep presentational logic in the component; move complex logic into stores/services.
+
+Import examples
+- Scoped component:
+  import Header from '$lib/components/main/Header.svelte'
+- Scoped util:
+  import FilterBox from '$lib/components/manager/utils/FilterBox.svelte'
+- Re-exported (if you add index.ts):
+  import { Sidebar } from '$lib/components/manager'
+
+Layout & ownership notes
+- Use scope boundaries to avoid leaking role-specific CSS and logic to other areas.
+- Utilities in manager/utils are allowed to import other manager components, but should not import main components.
+
+Best practices
+- Prefer named exports via index.ts for public components of a scope.
+- Limit the depth of imports in pages — use the scope public surface when possible.
+- Add a short header comment in utility components explaining where they’re used.
+- Add accessibility and sizing helpers (e.g. .reserve-heading, .font-swap) as global utilities (app.css) rather than per-scope.
+
+Example tree (minimal)
+- src/lib/components/
+  - main/
+    - Header.svelte
+    - Footer.svelte
+    - index.ts
+    - utils/
+      - Logo.svelte
+  - manager/
+    - Sidebar.svelte
+    - ManagerCard.svelte
+    - index.ts
+    - utils/
+      - FilterBox.svelte
+      - Badge.svelte
+  - error/
+    - Unauthorized.svelte
+    - NotFound.svelte
+    - utils/
+      - ErrorIcon.svelte
+
 
 ## Vercel (deploy preview & production)
 
