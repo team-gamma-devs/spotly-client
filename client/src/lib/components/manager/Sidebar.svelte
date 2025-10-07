@@ -11,6 +11,7 @@
         Button,
     } from "flowbite-svelte";
     import { FilterSolid } from "flowbite-svelte-icons";
+    import FilterBox from "./util/FilterBox.svelte";
     import { page } from "$app/state";
 
     const spanClass = "flex-1 ms-3 whitespace-nowrap";
@@ -149,10 +150,7 @@
         </SidebarGroup>
 
         <SidebarGroup border>
-            <Label for="default-input" class="mb-2 block">
-                Search {selectedFilter ? selectedFilter : "Technologies"}
-            </Label>
-            <Input id="default-input" placeholder="Enter Keyword" />
+            <FilterBox selectedFilter={ selectedFilter } />
         </SidebarGroup>
 
         <SidebarGroup border>
