@@ -167,7 +167,5 @@
     </div>
 </div>
 <style>
-    .sidebar-active {
-
-    }
+    
 </style>

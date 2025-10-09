@@ -63,27 +63,28 @@
 
 <style>
 	.layout-container {
-		display: flex;
-		flex-direction: column;
-		min-height: 120dvh;
-		background-color: transparent;
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position-x: center;
-		background-position-y: top;
+        display: flex;
+        flex-direction: column;
+        min-height: 120dvh;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: top;
 	}
 	.site-bg {
-		position: fixed;
-		inset: 0;
-		z-index: -10;
-		pointer-events: none;
-		background-repeat: no-repeat;
-		background-position: center top;
-		background-size: cover; /* preserves aspect ratio and fills viewport */
-		background-image: url("/images/abstract-bg-light-desktop.webp");
+        position: fixed;
+        inset: 0;
+        z-index: -10;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover; /* change to `cover` if you want it to fill/crop */
+        background-image: url("/images/abstract-bg-light-desktop.webp");
 	}
 	:root.dark .site-bg {
 		background-image: url("/images/abstract-bg-dark-desktop.webp");
+		background-color: black;
 	}
 	.main-content {
 		flex: 1 1 auto;

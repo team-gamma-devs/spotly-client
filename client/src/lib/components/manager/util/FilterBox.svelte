@@ -8,22 +8,23 @@
     let levels: { value: string; name: string }[] = [
         { value: "advanced", name: "Advanced" },
         { value: "intermediate", name: "Intermediate" },
-        { value: "basic", name: "Basic" }
+        { value: "basic", name: "Basic" },
     ];
     let tutorsList: { value: string; name: string }[] = [
         { value: "jav_val", name: "Javier Valenziani" },
         { value: "ign_cap", name: "Ignacio Capezzolo" },
         { value: "enr_igl", name: "Enrique Iglesias" },
         { value: "mar_mar", name: "Martin Marrero" },
-        { value: "fed_pag", name: "Federico Paganini" }
+        { value: "fed_pag", name: "Federico Paganini" },
     ];
+
     const applyFullHeightToBitchElement = () => {
-        const el = document.querySelector('#this-element-is-a-bitch');
+        const el = document.querySelector("#this-element-is-a-bitch");
         if (el?.parentElement) {
             el.parentElement.classList.add("h-full");
+            el.parentElement.classList.add("beautiful-sidebar");
         }
-    }
-
+    };
 </script>
 
 <Label for="default-input" class="mb-2 block">
@@ -34,5 +35,24 @@
 {:else if selectedFilter == "English Level"}
     <Select class="mt-2" items={levels} bind:value={selectedEnglishLevel} />
 {:else if selectedFilter == "Feedback"}
-    <MultiSelect items={tutorsList} bind:value={multiSelectedTutors} onclick={applyFullHeightToBitchElement}/>
+    <MultiSelect
+        items={tutorsList}
+        bind:value={multiSelectedTutors}
+        onclick={applyFullHeightToBitchElement}
+    />
 {/if}
+
+<style>
+    .beautiful-sidebar {
+        background: transparent;
+        color: inherit;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    :root.dark .beautiful-sidebar {
+        background-color: rgba(15, 23, 42, 0.85);
+        color: #f9fafb;
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+</style>
