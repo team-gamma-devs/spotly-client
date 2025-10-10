@@ -48,14 +48,7 @@
 	<div class="layout-container">
 		<Header />
 		<main class="main-content text-foreground my-2">
-			<AuthBox>
-				{#snippet authorizedContent()}
-					{@render children?.()}
-				{/snippet}
-				{#snippet unauthorizedContent()}
-					<Unauthorized />
-				{/snippet}
-			</AuthBox>
+			{@render children?.()}
 		</main>
 		<Footer />
 	</div>

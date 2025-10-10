@@ -250,4 +250,5 @@ Example showing an error with props:
 - Use the slot pattern if you want a simpler component API and slot composition.
 - When possible, detect auth during SSR (load function) and set the store, so initial HTML matches the client.
 - For transient checks (tokens in localStorage), gate auth-only UI behind `browser` or `onMount`.
+- All routes under `/app/` are protected by the AuthBox.
 

@@ -40,32 +40,32 @@
     <AuthBox>
         {#snippet authorizedContent()}
             <NavUl
-                class="dark:bg-black"
+                class=""
                 {activeUrl}
                 classes={{ active: activeClass, nonActive: nonActiveClass }}
             >
                 {#if $userRole == "manager"}
                     <NavLi
-                        href="/manager/"
+                        href="/app/manager/"
                         class="relative"
                         style="top:2px;">Dashboard</NavLi
                     >
                     <NavLi
-                        href="/manager/status"
+                        href="/app/manager/status"
                         class="relative"
                         style="top:2px;">Status</NavLi
                     >
                 {:else if $userRole == "graduate"}
                     <NavLi
-                        href="/graduate/"
+                        href="/app/graduate/"
                         class="relative"
                         style="top:2px;">Dashboard</NavLi
                     >
-                    <NavLi
+                    <!-- <NavLi
                         href="/graduate/status"
                         class="relative"
                         style="top:2px;">Status</NavLi
-                    >
+                    > -->
                 {/if}
             </NavUl>
             <div
@@ -95,9 +95,11 @@
                     >
                 </DropdownHeader>
                 <DropdownGroup>
-                    <DropdownItem class="cursor-pointer" href="/settings"
-                        >Settings</DropdownItem
-                    >
+                    {#if $userRole === "graduate"}
+                        <DropdownItem class="cursor-pointer" href="/app/graduate/settings">Settings</DropdownItem>
+                    {:else if $userRole === "manager"}
+                        <DropdownItem class="cursor-pointer" href="/app/manager/settings">Settings</DropdownItem>
+                    {/if}
                 </DropdownGroup>
                 <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
             </Dropdown>

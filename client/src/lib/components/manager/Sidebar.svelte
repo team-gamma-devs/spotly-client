@@ -51,7 +51,7 @@
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 ml-2 bg-white" />
-<!-- < This is the fucking hamburger menu -->
+<!-- < This is the hamburger menu -->
 <div class="relative ring-2 ring-red-600 p-2 min-h-[100dvh]">
     <!-- < If this is the whole container we will have to render shit here -->
     <Sidebar

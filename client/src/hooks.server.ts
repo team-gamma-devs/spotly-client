@@ -1,12 +1,18 @@
-import type { Handle } from '@sveltejs/kit';
+// import type { Handle } from '@sveltejs/kit';
+// import { getUserFromRequest } from '$lib/server/auth';
 
-export const handle: Handle = async ({ event, resolve }) => {
-    // tell SvelteKit to include fonts in the preload list
-    const response = await resolve(event, {
-        preload: ({ type }) => {
-            return type === 'font';
-        }
-    });
+// export const handle: Handle = async ({ event, resolve }) => {
+//   // resolve user first then handle the font preload crap, don't throw on failure.
+//   try {
+//     event.locals.user = await getUserFromRequest(event);
+//   } catch (e) {
+//     console.warn('auth: failed to resolve user', e);
+//     event.locals.user = null;
+//   }
 
-    return response;
-};
+//   const response = await resolve(event, {
+//     preload: ({ type }) => type === 'font'
+//   });
+
+//   return response;
+// };
