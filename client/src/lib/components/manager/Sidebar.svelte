@@ -13,6 +13,7 @@
     import { FilterSolid } from "flowbite-svelte-icons";
     import FilterBox from "./util/FilterBox.svelte";
     import { page } from "$app/state";
+    import { onMount } from "svelte"; 
 
     const spanClass = "flex-1 ms-3 whitespace-nowrap";
     const demoSidebarUi = uiHelpers();
@@ -38,16 +39,12 @@
         loading = false;
     }
 
-    // onMount(() => { // This is because I didn't find a way to remove that bg-gray-800 around the bitch element.
-    // Resorted to overwrite the gray-800 variable directly, revert to this if shit happens
-    //     const el = document.querySelector('#this-element-is-a-bitch');
-    //     if (el?.parentElement) {
-    //         el.parentElement.classList.remove("dark:bg-gray-800")
-    //         el.parentElement.classList.add("bg-background")
-    //         el.parentElement.classList.add("dark:bg-background")
-    //         el.parentElement.classList.remove('bg-gray-50');
-    //     }
-    // })
+    onMount(() => { // apply full height to that sneaky bastard.
+        const el = document.querySelector('#this-element-is-a-bitch');
+        if (el?.parentElement) { el.parentElement.classList.add("h-full"); 
+            console.log("Found the ninja!!");
+        }
+    })
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 ml-2 bg-white" />
@@ -81,7 +78,7 @@
                 {/snippet}
                 <SidebarItem
                     label="Technologies"
-                    class="cursor-pointer filter-tag {selectedFilter === 'Technologies' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter === 'Technologies' ? 'active-label' : ''}"
                     onclick={() => {
                         selectedFilter = "Technologies";
                         activeUrl = "Technologies";
@@ -90,7 +87,7 @@
 
                 <SidebarItem
                     label="English Level"
-                    class="cursor-pointer filter-tag {selectedFilter === 'English Level' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter === 'English Level' ? 'active-label' : ''}"
                     onclick={() => {
                         selectedFilter = "English Level";
                         activeUrl = "English Level";
@@ -98,7 +95,7 @@
                 />
                 <SidebarItem
                     label="Feedback"
-                    class="cursor-pointer filter-tag {selectedFilter === 'Feedback' ? 'bg-primary-300 dark:bg-primary-500' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter === 'Feedback' ? 'active-label' : ''}"
                     onclick={() => {
                         selectedFilter = "Feedback";
                         activeUrl = "Feedback";
@@ -167,5 +164,7 @@
     </div>
 </div>
 <style>
-    
+    .active-label {
+        outline: 1px solid red;
+    }
 </style>

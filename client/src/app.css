@@ -134,8 +134,8 @@
     animation: smoothIn 0.3s ease 0.02s forwards;
   }
   .blur-bg {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
   /************** GLOBAL SCROLLBAR STYLE ***************************/
   *::-webkit-scrollbar {

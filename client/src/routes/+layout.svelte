@@ -47,7 +47,7 @@
 	<div class="site-bg" aria-hidden="true"></div>
 	<div class="layout-container">
 		<Header />
-		<main class="main-content text-foreground my-2">
+		<main class="main-content text-foreground">
 			{@render children?.()}
 		</main>
 		<Footer />
@@ -86,7 +86,7 @@
 		align-items: center;
 		flex-direction: column;
 		justify-content: flex-start;
-		outline: 1px solid rgb(37, 183, 76);
+		outline: 1px solid rgb(223, 146, 101);
 	}
 	@media (max-width: 640px) {
 		.site-bg {
