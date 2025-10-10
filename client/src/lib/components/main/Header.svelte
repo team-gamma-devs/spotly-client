@@ -69,7 +69,7 @@
                 {/if}
             </NavUl>
             <div
-                class="flex items-center md:order-2 cursor-pointer mr-2 ml-auto sm:mr-2 sm:ml-2"
+                class="flex items-center md:order-2 sm:order-2 order-2 cursor-pointer mr-2 ml-auto sm:mr-2 sm:ml-2"
             >
                 <Avatar
                     id="avatar-menu"
@@ -77,7 +77,7 @@
                     class="max-w-[40px] my-2"
                 />
                 <NavHamburger
-                    class="cursor-pointer text-white dark:text-foreground"
+                    class="cursor-pointer text-white dark:text-foreground dark:hover:text-white hover:text-black"
                 />
             </div>
             <DarkMode
