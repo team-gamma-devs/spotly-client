@@ -75,7 +75,7 @@
   --color-primary-900: #633720;
   --color-primary-950: #391b0f;
 
-  --color-background: rgba(19, 22, 28, 0.675);
+  --color-background: rgba(14, 17, 22, 0.675);
   --color-box-bg: rgb(22, 22, 24);
   /* --color-header-bg: rgb(16 17 17); */
   --color-foreground: rgb(240 233 233);
@@ -86,8 +86,8 @@
 
   --color-box-shadow: rgb(20, 20, 23);
 
-  --color-gradient-start: #0e0e1700;
-  --color-gradient-end: #17202400;
+  --color-gradient-start: var(--color-background); /* This is so the gradient on light theme works. */
+  --color-gradient-end: var(--color-background);
 
   /* I had to hardcode this because Flowbite is a bitch. */
   --color-gray-800: transparent;

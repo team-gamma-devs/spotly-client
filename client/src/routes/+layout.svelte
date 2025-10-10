@@ -86,7 +86,7 @@
 		align-items: center;
 		flex-direction: column;
 		justify-content: flex-start;
-		outline: 1px solid rgb(223, 146, 101);
+		/* outline: 1px solid rgb(223, 146, 101); */
 	}
 	@media (max-width: 640px) {
 		.site-bg {

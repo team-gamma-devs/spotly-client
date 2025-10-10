@@ -3,9 +3,10 @@
 </script>
 
 
-<section id="dashboard-wrapper" class="w-full ring-2 ring-violet-900 py-2">
+<section id="dashboard-wrapper" class="w-full">
     <Sidebar />
 </section>
 
 <style>
+
 </style>

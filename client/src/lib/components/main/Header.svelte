@@ -24,7 +24,7 @@
 </script>
 
 <Navbar
-    class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20 dark:bg-background blur-bg"
+    class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20 blur-bg"
 >
     <NavBrand href="/" class="mr-5">
         <enhanced:img

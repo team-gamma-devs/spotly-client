@@ -13,25 +13,21 @@
     import { FilterSolid } from "flowbite-svelte-icons";
     import FilterBox from "./util/FilterBox.svelte";
     import { page } from "$app/state";
-    import { onMount } from "svelte"; 
+    import { onMount } from "svelte";
 
-    const spanClass = "flex-1 ms-3 whitespace-nowrap";
+    const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Don't delete.
     const demoSidebarUi = uiHelpers();
     const closeDemoSidebar = demoSidebarUi.close;
 
-    let isDemoOpen = $state(false); // I don't know what this does.
-
+    let isDemoOpen = $state(false); // Controls the sidebar open/close state
     let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput.
     let activeUrl = $state("Technologies"); // Keep it URL although I'm not using URL but the sidebar expects it.
-
-    let selectedTags: Array<string> = []; // This will hold the tags that the client will select, they can be any sort of tags to be send to the backend.
-
+    let loading = $state(false);
+    let selectedTags: Array<string> = []; // This will hold the tags that the client will select, they can be any sort of tags to be send to the backend. Will ask fede to implemenet GraphQL.
 
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
     });
-
-    let loading = $state(false);
 
     async function handleSubmit() {
         loading = true;
@@ -39,17 +35,25 @@
         loading = false;
     }
 
-    onMount(() => { // apply full height to that sneaky bastard.
-        const el = document.querySelector('#this-element-is-a-bitch');
-        if (el?.parentElement) { el.parentElement.classList.add("h-full"); 
+    onMount(() => {
+        // apply full height to that sneaky bastard.
+        applyFullHeightToNinjaElement();
+    });
+
+    const applyFullHeightToNinjaElement = () => {
+        const el = document.querySelector("#son-of-ninja-element");
+        if (el?.parentElement) {
+            el.parentElement.classList.add("h-full");
+            el.parentElement.classList.add("md:h-full");
+            el.parentElement.classList.add("sm:h-full");
             console.log("Found the ninja!!");
         }
-    })
+    }
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 ml-2 bg-white" />
 <!-- < This is the hamburger menu -->
-<div class="relative ring-2 ring-red-600 p-2 min-h-[100dvh]">
+<div class="relative min-h-[100dvh]">
     <!-- < If this is the whole container we will have to render shit here -->
     <Sidebar
         {activeUrl}
@@ -57,13 +61,16 @@
         isOpen={isDemoOpen}
         closeSidebar={closeDemoSidebar}
         params={{ x: -50, duration: 50 }}
-        class="z-50 ring-2 ring-green-600 h-full bg-background dark:bg-background"
+        class="z-50 h-full bg-background dark:bg-background blur-bg"
         position="absolute"
-        classes={{ nonactive: "p-2", active: "p-2 bg-primary-300 dark:bg-primary-300" }}
+        classes={{
+            nonactive: "p-2",
+            active: "p-2 bg-primary-300 dark:bg-primary-300",
+        }}
     >
         <SidebarGroup
-            class="ring-2 ring-yellow-600 w-full"
-            id="this-element-is-a-bitch"
+            class=" w-full"
+            id="son-of-ninja-element"
         >
             <!-- This is the inner tabs something is adding margin-->
             <SidebarDropdownWrapper
@@ -78,7 +85,10 @@
                 {/snippet}
                 <SidebarItem
                     label="Technologies"
-                    class="cursor-pointer filter-tag {selectedFilter === 'Technologies' ? 'active-label' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter ===
+                    'Technologies'
+                        ? 'active-label'
+                        : ''}"
                     onclick={() => {
                         selectedFilter = "Technologies";
                         activeUrl = "Technologies";
@@ -87,7 +97,10 @@
 
                 <SidebarItem
                     label="English Level"
-                    class="cursor-pointer filter-tag {selectedFilter === 'English Level' ? 'active-label' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter ===
+                    'English Level'
+                        ? 'active-label'
+                        : ''}"
                     onclick={() => {
                         selectedFilter = "English Level";
                         activeUrl = "English Level";
@@ -95,10 +108,14 @@
                 />
                 <SidebarItem
                     label="Feedback"
-                    class="cursor-pointer filter-tag {selectedFilter === 'Feedback' ? 'active-label' : ''}"
+                    class="cursor-pointer filter-tag {selectedFilter ===
+                    'Feedback'
+                        ? 'active-label'
+                        : ''}"
                     onclick={() => {
                         selectedFilter = "Feedback";
                         activeUrl = "Feedback";
+                        applyFullHeightToNinjaElement();
                     }}
                 />
             </SidebarDropdownWrapper>
@@ -147,22 +164,25 @@
         </SidebarGroup>
 
         <SidebarGroup border>
-            <FilterBox selectedFilter={ selectedFilter } />
+            <FilterBox {selectedFilter} />
         </SidebarGroup>
 
         <SidebarGroup border>
-            <Button color="alternative" class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white" onclick={handleSubmit} {loading}
-                >Search</Button
+            <Button
+                color="alternative"
+                class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
+                onclick={handleSubmit}
+                {loading}>Search</Button
             >
         </SidebarGroup>
-
     </Sidebar>
-    <div class="h-auto overflow-auto md:ml-64 ring-2 ring-blue-400 p-2 sm:p-5">
+    <div class="h-auto overflow-auto md:ml-64 sm:p-5">
         <div
             class="h-full rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700"
         ></div>
     </div>
 </div>
+
 <style>
     .active-label {
         outline: 1px solid red;
