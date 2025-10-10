@@ -37,6 +37,8 @@
 
     onMount(() => {
         // apply full height to that sneaky bastard.
+        // The ninja element is anaccessible Flowbite element, but it's not accessible.
+        // So you gotta inject the classes to the DOM
         applyFullHeightToNinjaElement();
     });
 
@@ -64,8 +66,8 @@
         class="z-50 h-full bg-background dark:bg-background blur-bg"
         position="absolute"
         classes={{
-            nonactive: "p-2",
-            active: "p-2 bg-primary-300 dark:bg-primary-300",
+            nonactive: "p-2 hover:bg-primary-100",
+            active: "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100",
         }}
     >
         <SidebarGroup
@@ -75,7 +77,7 @@
             <!-- This is the inner tabs something is adding margin-->
             <SidebarDropdownWrapper
                 label="Filters"
-                classes={{ btn: "p-2 cursor-pointer" }}
+                classes={{ btn: "p-2 cursor-pointer hover:bg-primary-100" }}
             >
                 <!-- now we need to activate one check the active and nonactive stuff-->
                 {#snippet icon()}
@@ -176,9 +178,9 @@
             >
         </SidebarGroup>
     </Sidebar>
-    <div class="h-auto overflow-auto md:ml-64 sm:p-5">
+    <div class="overflow-auto md:ml-64 sm:p-5">
         <div
-            class="h-full rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700"
+            class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700 min-h-[85dvh]"
         ></div>
     </div>
 </div>

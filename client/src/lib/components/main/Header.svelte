@@ -40,7 +40,7 @@
     <AuthBox>
         {#snippet authorizedContent()}
             <NavUl
-                class=""
+                class="dark:bg-background sm:dark:bg-transparent"
                 {activeUrl}
                 classes={{ active: activeClass, nonActive: nonActiveClass }}
             >
