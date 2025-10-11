@@ -1,6 +1,10 @@
 <script lang="ts">
     import { Label, Input } from "flowbite-svelte";
-    import { EnvelopeSolid } from "flowbite-svelte-icons";
+    import {
+        EnvelopeSolid,
+        CheckCircleSolid,
+        ExclamationCircleSolid,
+    } from "flowbite-svelte-icons";
     import { GradientButton } from "flowbite-svelte";
 
     let loading = $state(false);
@@ -65,6 +69,22 @@
             onclick={handleSubmit}
             {loading}>Submit</GradientButton
         >
+
+        <p
+            class="m-auto ring-2 text-center mt-2 flex items-center justify-center gap-2"
+        >
+            <CheckCircleSolid color="green" class="shrink-0 h-6 w-6" />Email
+            Sent!
+        </p>
+        <p
+            class="m-auto ring-2 text-center mt-2 flex items-center justify-center gap-2"
+        >
+            <ExclamationCircleSolid
+                color="red"
+                class="shrink-0 h-6 w-6"
+            />Something Went Wrong!
+        </p>
+
         <p class="text-[10px] ring-2 flex items-center justify-end mt-3">
             Powered By <enhanced:img
                 src="$lib/assets/svgs/aws_cognito.svg"
@@ -75,7 +95,8 @@
             ></enhanced:img><a
                 href="https://aws.amazon.com/pm/cognito"
                 target="_blank"
-                rel="noopener noreferrer" aria-label="Amazon Cognito"><b>Amazon Cognito</b></a
+                rel="noopener noreferrer"
+                aria-label="Amazon Cognito"><b>Amazon Cognito</b></a
             >
         </p>
     </div>
