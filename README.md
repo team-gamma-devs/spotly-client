@@ -39,71 +39,6 @@ Notes:
 - The client package lives in `client/`. Use `--cwd client` when running Vercel CLI from repo root.
 - `pnpm` is the recommended package manager for this project.
 
-
-
-# Components — structure & rules
-
-Purpose: keep components grouped by UI scope/role so ownership, reuse and styling boundaries are clear. I don't know if this is meta in front-end development, I use it because it's starting to become a mess.
-
-Top-level location
-- src/lib/components/
-
-Directory rules (By Scope)
-- main/ — components used by the public/main UI (Header, Footer, general shared UI for most users).
-- manager/ — components specific to the manager role (Sidebar, ManagerDashboard widgets, manager-only controls).
-- error/ — error and status UIs (Unauthorized, NotFound, ErrorCard).
-
-Each scope folder
-- MUST contain a utils/ folder for small helper components used only inside that scope.
-  - Example: src/lib/components/manager/utils/FilterBox.svelte is a helper for manager Sidebar filters.
-- SHOULD include an index.ts that re-exports the scope's public components (optional but recommended).
-
-Naming & conventions
-- Component files: PascalCase.svelte (e.g. Header.svelte, Sidebar.svelte, Unauthorized.svelte).
-- Small helpers in utils: PascalCase.svelte as well (e.g. FilterBox.svelte).
-- Stores & helpers: keep under src/lib/stores/ or src/lib/utils/ (not inside scope utils unless truly scope-specific).
-- Keep each component focused (1 responsibility) and keep presentational logic in the component; move complex logic into stores/services.
-
-Import examples
-- Scoped component:
-  import Header from '$lib/components/main/Header.svelte'
-- Scoped util:
-  import FilterBox from '$lib/components/manager/utils/FilterBox.svelte'
-- Re-exported (if you add index.ts):
-  import { Sidebar } from '$lib/components/manager'
-
-Layout & ownership notes
-- Use scope boundaries to avoid leaking role-specific CSS and logic to other areas.
-- Utilities in manager/utils are allowed to import other manager components, but should not import main components.
-
-Best practices
-- Prefer named exports via index.ts for public components of a scope.
-- Limit the depth of imports in pages — use the scope public surface when possible.
-- Add a short header comment in utility components explaining where they’re used.
-- Add accessibility and sizing helpers (e.g. .reserve-heading, .font-swap) as global utilities (app.css) rather than per-scope.
-
-Example tree (minimal)
-- src/lib/components/
-  - main/
-    - Header.svelte
-    - Footer.svelte
-    - index.ts
-    - utils/
-      - Logo.svelte
-  - manager/
-    - Sidebar.svelte
-    - ManagerCard.svelte
-    - index.ts
-    - utils/
-      - FilterBox.svelte
-      - Badge.svelte
-  - error/
-    - Unauthorized.svelte
-    - NotFound.svelte
-    - utils/
-      - ErrorIcon.svelte
-
-
 ## Vercel (deploy preview & production)
 
 Recommended Vercel settings for Git auto-deploys:
@@ -132,14 +67,50 @@ To keep images/fonts cached without forcing clients to reload, add a `vercel.jso
 - `/fonts/*` → `public, max-age=31536000, immutable`
 - `/images/*` → `public, max-age=604800, stale-while-revalidate=86400`
 
+# Project architecture — useful files & folders
 
-## Useful files & folders
+<strong>Overview</strong>: the repo is split into a small repo root and a client app. The client is a SvelteKit app located in the `client/` folder. The structure below reflects the recommended places for components, services, server-only code and routes.
 
-- client/src — SvelteKit source
-- client/static — static assets (images, fonts, icons)
-- client/package.json — scripts (dev, build, preview)
-- client/.vercel/project.json — linked Vercel project id
-- client/.svelte-kit & client/output — build artifacts
+<strong>Purpose</strong>: keep components grouped by UI scope/role so ownership, reuse and styling boundaries are clear. I don't know if this is meta in front-end development, I use it because it's starting to become a mess.
+
+- client/
+  - src/
+    - routes/                — SvelteKit routes. Use route groups for public vs protected:
+      - +layout.svelte       — global shell (site background, head, public layout)
+      - (app)/+layout.svelte — protected app area; contains AuthBox to protect `/app/**`
+      - (app)/...            — all private pages live here (e.g. `/app/manager`, `/app/graduate`)
+      - login/+page.svelte   — public login
+      - signup/+page.svelte  — public signup
+    - lib/
+      - components/          — UI components grouped by scope:
+        - main/              — Header, Footer, shared UI for general users
+        - manager/           — manager-only components (Sidebar, manager widgets)
+        - graduate/          — graduate-only components
+        - error/             — Unauthorized, NotFound, ErrorCard
+        - ...each scope has a utils/ folder for small internal helpers
+      - stores/              — Svelte stores (pure reactive state used by the UI)
+      - services/            — client-side helpers (API wrappers, localStorage, theme)
+      - server/              — server-only helpers (token verification, DB calls) — NOT bundled to client
+      - constants/           — small shared constants (e.g. publicRoutes)
+    - app.css                — base global CSS and Tailwind utilities
+  - static/                  — publicly served assets (images, fonts, icons)
+  - package.json             — client scripts (dev/build/preview) and engines
+  - .nvmrc                   — Node version hint for developers
+
+Key patterns
+- Separation: put server-only code (secrets, DB, token validation) under `src/lib/server` so it cannot accidentally be shipped to the browser.
+- Services vs Stores:
+  - services/* — side-effectful logic and API wrappers (safe to import on client).
+  - stores/* — tiny reactive stores that import services to perform initialization.
+- Route groups:
+  - Use a route group like `(app)` to wrap protected routes with `AuthBox` in `src/routes/(app)/+layout.svelte`.
+  - Keep public pages (e.g. `/login`, `/signup`) outside that group.
+- Component scope: group components by role/scope (main, manager, graduate) to reduce cross-role coupling.
+- Barrel files: use `index.ts` inside scope folders to export the public surface (`import { Sidebar } from '$lib/components/manager'`).
+
+Deployment & CI notes
+- Vercel project root: `client/`. Configure environment variables in Vercel settings (PUBLIC_* for client-safe values).
+- Enforce Node version for build (use `.nvmrc` and CI/Prebuild checks).
 
 
 ## Build & preview locally
