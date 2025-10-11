@@ -1,6 +1,6 @@
 <script lang="ts">
-  import AuthBox from '$lib/components/AuthBox.svelte';
-  import Unauthorized from '$lib/components/error/Unauthorized.svelte';
+  import AuthBox from "$lib/components/AuthBox.svelte";
+  import Unauthorized from "$lib/components/error/Unauthorized.svelte";
   export const data: any = undefined;
 </script>
 

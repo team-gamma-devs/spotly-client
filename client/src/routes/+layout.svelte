@@ -47,7 +47,7 @@
 	<div class="site-bg" aria-hidden="true"></div>
 	<div class="layout-container">
 		<Header />
-		<main class="main-content text-foreground">
+		<main class="main-content text-foreground ring-2 ring-red-500">
 			{@render children?.()}
 		</main>
 		<Footer />
@@ -56,24 +56,24 @@
 
 <style>
 	.layout-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 120dvh;
-        background-color: transparent;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position-x: center;
-        background-position-y: top;
+		display: flex;
+		flex-direction: column;
+		min-height: 100dvh;
+		background-color: transparent;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position-x: center;
+		background-position-y: top;
 	}
 	.site-bg {
-        position: fixed;
-        inset: 0;
-        z-index: -10;
-        pointer-events: none;
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover; /* change to `cover` if you want it to fill/crop */
-        background-image: url("/images/abstract-bg-light-desktop.webp");
+		position: fixed;
+		inset: 0;
+		z-index: -10;
+		pointer-events: none;
+		background-repeat: no-repeat;
+		background-position: center top;
+		background-size: cover; /* change to `cover` if you want it to fill/crop */
+		background-image: url("/images/abstract-bg-light-desktop.webp");
 	}
 	:root.dark .site-bg {
 		background-image: url("/images/abstract-bg-dark-desktop.webp");
@@ -81,14 +81,14 @@
 	}
 	.main-content {
 		flex: 1 1 auto;
-		min-height: 0;
+		min-height: 80dvh;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 		justify-content: flex-start;
 		/* outline: 1px solid rgb(223, 146, 101); */
 	}
-	@media (max-width: 640px) {
+	@media (max-width: 768px) {
 		.site-bg {
 			background-image: url("/images/abstract-bg-light-mobile.webp");
 		}

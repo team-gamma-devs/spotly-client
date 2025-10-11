@@ -3,5 +3,5 @@
 
 import { writable } from "svelte/store"
 
-export const isAuth = writable(true);
+export const isAuth = writable(false);
 export const userRole = writable("graduate");
