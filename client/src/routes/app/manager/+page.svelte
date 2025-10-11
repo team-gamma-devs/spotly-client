@@ -1,4 +1,5 @@
 <script>
+    import ManagerInventory from "$lib/components/manager/ManagerInventory.svelte";
     import Sidebar from "$lib/components/manager/Sidebar.svelte";
 </script>
 

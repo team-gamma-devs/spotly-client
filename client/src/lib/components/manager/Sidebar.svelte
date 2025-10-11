@@ -25,6 +25,9 @@
     let loading = $state(false);
     let selectedTags: Array<string> = []; // This will hold the tags that the client will select, they can be any sort of tags to be send to the backend. Will ask fede to implemenet GraphQL.
 
+    let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100";
+    let nonActiveClass = "p-2 hover:bg-primary-100";
+
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
     });
@@ -66,8 +69,8 @@
         class="z-50 h-full bg-background dark:bg-background blur-bg"
         position="absolute"
         classes={{
-            nonactive: "p-2 hover:bg-primary-100",
-            active: "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100",
+            nonactive: nonActiveClass,
+            active: activeClass,
         }}
     >
         <SidebarGroup
@@ -178,15 +181,9 @@
             >
         </SidebarGroup>
     </Sidebar>
-    <div class="overflow-auto md:ml-64 sm:p-5">
-        <div
-            class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700 min-h-[85dvh]"
-        ></div>
+    <div id="manager-grid-container" class="overflow-auto md:ml-64 sm:p-5 ring-4 ring-primary-700 min-h-[100dvh] p-2">
     </div>
 </div>
 
 <style>
-    .active-label {
-        outline: 1px solid red;
-    }
 </style>
