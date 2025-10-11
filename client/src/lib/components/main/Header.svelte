@@ -24,7 +24,7 @@
 </script>
 
 <Navbar
-    class="bg-header-gradient py-0 zalando-font sticky start-0 top-0 z-20 blur-bg"
+    class="bg-header-gradient zalando-font sticky start-0 top-0 z-20 blur-bg py-2 sm:py-0"
 >
     <NavBrand href="/" class="mr-5">
         <enhanced:img
@@ -106,7 +106,7 @@
         {/snippet}
         {#snippet unauthorizedContent()}
             <DarkMode
-                class="md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white"
+                class="mx-2 mr-4 ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white"
             />
             <p class="text-white font-bold">You must login</p>
         {/snippet}
