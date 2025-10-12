@@ -1,19 +1,19 @@
 <script lang="ts">
     import { isLoggedGithub } from "$lib/stores/auth";
-    import { P } from "flowbite-svelte";
     import BtnGitHubLogin from "./utils/BtnGitHubLogin.svelte";
-
+    import GenericBox from "../main/util/GenericBox.svelte";
     // Maybe here we need to implement a store that tells us wether the user has already logged in
     // to his github account and if it has,
 </script>
 
-<div
+<GenericBox>
+<!-- <div
     id="github-login-box"
     class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
->
+> -->
     <div
-        id="form-logo-container"
-        class="w-full ring-2 ring-red-500 flex items-center justify-center"
+        id="logo-container"
+        class="w-full flex items-center justify-center"
     >
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"
@@ -25,7 +25,7 @@
     </div>
     <div
         class="flex flex-col items-center justify-center bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 blur-bg"
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg"
     >
         <div
             id="info-box"
@@ -65,7 +65,8 @@
     >
         Continue without login in to GitHub...
     </a>
-</div>
+<!-- </div> -->
+</GenericBox>
 
 <style>
     .login-p {

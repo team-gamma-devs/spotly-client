@@ -112,15 +112,6 @@
 }
 
 @layer utilities {
-  .bg-header-gradient {
-    background: linear-gradient(to left, var(--color-gradient-start), var(--color-gradient-end));
-  }
-  .text-accent {
-    color: var(--color-accent);
-  }
-  .hover\:text-accent:hover {
-    color: var(--color-accent);
-  }
   /* ******************* FONTS **************** */
   .zalando-font {
       font-family: "Zalando Sans Expanded", sans-serif;
@@ -133,9 +124,23 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
     animation: smoothIn 0.3s ease 0.02s forwards;
   }
+
+  /* ************** GENERAL EFFECTS ************ */
   .blur-bg {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+  }
+  .apply-shadow {
+    box-shadow: 10px 10px 10px var(--color-box-bg);
+  }
+  .bg-header-gradient {
+    background: linear-gradient(to left, var(--color-gradient-start), var(--color-gradient-end));
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .hover\:text-accent:hover {
+    color: var(--color-accent);
   }
   /************** GLOBAL SCROLLBAR STYLE ***************************/
   *::-webkit-scrollbar {

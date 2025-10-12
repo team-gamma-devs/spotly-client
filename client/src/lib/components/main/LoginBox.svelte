@@ -5,7 +5,8 @@
         CheckCircleSolid,
         ExclamationCircleSolid,
     } from "flowbite-svelte-icons";
-    import { GradientButton } from "flowbite-svelte";
+    import { Button } from "flowbite-svelte";
+    import GenericBox from "./util/GenericBox.svelte";
     import { goto } from "$app/navigation";
 
     let loading = $state(false);
@@ -19,14 +20,14 @@
         await goto('/app/graduate/github'); // This is to simulate the flow only.
     }
 </script>
-
-<div
+<GenericBox>
+<!-- <div
     id="login-box"
     class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
->
+> -->
     <div
         id="form-logo-container"
-        class="w-full ring-2 ring-red-500 flex items-center justify-center"
+        class="w-full flex items-center justify-center"
     >
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"
@@ -39,7 +40,7 @@
 
     <div
         class="bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-700 blur-bg"
+    px-7 pt-9 pb-4 rounded ring-1 ring-gray-200 dark:ring-gray-900 blur-bg shadow-lg"
     >
         <Label for="input-group-1" class="mb-2 block">Enter your email</Label>
         <Input
@@ -47,7 +48,7 @@
             type="email"
             placeholder="pepe@holbertonschool.com"
             maxlength={30}
-            class="pl-8 min-w-[300px]"
+            class="pl-8 w-auto sm:min-w-[300px]"
         >
             {#snippet left()}
                 <EnvelopeSolid
@@ -55,31 +56,31 @@
                 />
             {/snippet}
         </Input>
-        <p class="text-sm mt-3 text-right dark:text-gray-400">
+        <p class="text-sm mt-3 mb-5 text-right dark:text-gray-400">
             *Use your Holberton email
         </p>
         <a
             href="/help"
-            class="ring-2 ring-red-300 text-sm text-blue-700 hover:text-blue-800 mt-2
+            class=" text-sm text-blue-700 hover:text-blue-800 mt-2
             dark:text-blue-300 dark:hover:text-blue-200 underline decoration-2 underline-offset-2 transition-colors block text-center"
             aria-label="Lost Holberton Account"
         >
             I lost my Holberton Account
         </a>
-        <GradientButton
-            color="pinkToOrange"
-            class="block w-48 mx-auto font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white mt-5 flex items-center justify-center"
+        <Button
+            color="alternative"
+            class="block w-48 mx-auto font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white mt-10 flex items-center justify-center"
             onclick={handleSubmit}
-            {loading}>Submit</GradientButton> <!--Seems to be working altough if problems arise, revert to normal button-->
+            {loading}>Submit</Button> <!--Seems to be working altough if problems arise, revert to normal button-->
 
         <p
-            class="m-auto ring-2 text-center mt-2 flex items-center justify-center gap-2"
+            class="m-auto text-center mt-2 flex items-center justify-center gap-2"
         >
             <CheckCircleSolid color="green" class="shrink-0 h-6 w-6" />Email
             Sent!
         </p>
         <p
-            class="m-auto ring-2 text-center mt-2 flex items-center justify-center gap-2"
+            class="m-auto text-center mt-2 flex items-center justify-center gap-2"
         >
             <ExclamationCircleSolid
                 color="red"
@@ -87,7 +88,7 @@
             />Something Went Wrong!
         </p>
 
-        <p class="text-[10px] ring-2 flex items-center justify-end mt-3">
+        <p class="text-[10px] flex items-center justify-end mt-7 text-gray-400">
             Powered By <enhanced:img
                 src="$lib/assets/svgs/aws_cognito.svg"
                 alt="AWS Cognito"
@@ -103,8 +104,8 @@
         </p>
     </div>
     <p class="p-signup">You'll receive an access link Check your spam folder</p>
-</div>
-
+<!-- </div> -->
+</GenericBox>
 <style>
     .p-signup {
         margin: 0;
