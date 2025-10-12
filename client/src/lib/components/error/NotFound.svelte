@@ -1,6 +1,6 @@
 <div
     id="error-container"
-    class="flex flex-col m-auto md:flex-row m-4 bg-white text-black dark:text-black items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font"
+    class="flex flex-col m-auto md:flex-row m-4 bg-background text-foreground items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font"
 >
     <div
         class="hidden md:flex w-48 md:w-[300px] h-48 md:h-[300px] flex-shrink-0"

@@ -5,57 +5,47 @@
 
 <div
     id="error-container"
-    class="flex m-2 bg-white text-black my-auto items-center justify-center"
+    class="max-w-4xl w-full mx-auto m-auto flex flex-col md:flex-row items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font bg-background dark:bg-background text-foreground"
 >
-    <div class="hidden md:block relative">
+    <div class="hidden md:flex w-40 md:w-60 h-40 md:h-60 flex-shrink-0">
         <enhanced:img
             src="$lib/assets/svgs/spotly-unauthorized.svg"
-            alt="Spotly Error Symbol"
+            alt="Spotly Unauthorized"
+            class="object-contain w-full h-full"
         ></enhanced:img>
     </div>
 
     <div
-        class="error-border flex flex-col items-center justify-center text-center"
+        class="flex-1 flex flex-col items-center justify-center md:items-start text-center md:text-left gap-3 p-2"
     >
-        <h1 class="text-9xl">401</h1>
-        <h2 class="text-4xl mb-5">Unauthorized</h2>
-        <p>You must login to see this page.</p>
-        <p class="text-sm text-gray-500 mt-2">Make sure you're logged in.</p>
-        <Button
-            class="w-full cursor-pointer m-4 bg-[#ee4a25] dark:bg-[#ee4a25] hover:bg-[#aa442d] hover:dark:bg-[#aa442d] font-bold"
-        >
-            <a
-                href="/login"
-                aria-label="Log In"
-                class="flex items-center justify-center"
-                ><UsersGroupSolid class="me-2 h-5 w-5 inline" />Log In</a
+        <h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">401</h1>
+        <h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">Unauthorized</h2>
+        <p class="text-sm md:text-base dark:text-gray-400 text-center">
+            You must log in to see this page. Make sure you're logged in with
+            the correct account.
+        </p>
+
+        <div class="w-full md:max-w-[300px] flex flex-col md:flex-row gap-3 mt-4 m-auto">
+            <Button
+                class="w-full bg-[#ee4a25] dark:bg-[#ee4a25] hover:bg-[#aa442d] font-bold"
             >
-        </Button>
-        <p>Or...</p>
-        <Button
-            outline
-            class="w-full cursor-pointer mt-2 mb-0 outline-[#ee4a25] text-[#ee4a25] dark:text-[#ee4a25] font-bold dark:text-primary-700 hover:bg-[#aa442d] hover:dark:bg-[#aa442d]"
-        >
-            <a
-                href="/signup"
-                aria-label="Sign Up"
-                class="flex items-center justify-center"
-            >
-                <UserAddSolid class="me-2 h-5 w-5 inline" /> Sign Up
-            </a>
-        </Button>
+                <a
+                    href="/login"
+                    aria-label="Log In"
+                    class="flex items-center gap-2 px-4 py-2"
+                >
+                    <UsersGroupSolid class="h-5 w-5" /> Log In
+                </a>
+            </Button>
+        </div>
     </div>
 </div>
 
 <style>
+    /* minimal CSS for consistent border / shadow while relying mostly on Tailwind */
     #error-container {
-        border: 2px solid rgb(230, 225, 222);
-        border-radius: 1em;
-        padding: 10em;
-        box-shadow: 10px 10px 50px var(--color-box-shadow);
-        gap: 5rem;
-        /* Commented out cause it fucks up in chrome, Don't want to handle caching right now */
-        /* opacity: 0; */
-        /* animation: fadeIn 0.1s ease-in-out forwards; */
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 0.75rem;
+        box-shadow: 0 6px 24px rgba(8, 15, 30, 0.06);
     }
 </style>

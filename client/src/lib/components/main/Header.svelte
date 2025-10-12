@@ -108,7 +108,7 @@
             <DarkMode
                 class="mx-2 mr-4 ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white"
             />
-            <p class="text-white font-bold">You must login</p>
+            <p class="text-white font-bold flex mt-1">You must login</p>
         {/snippet}
     </AuthBox>
 </Navbar>
