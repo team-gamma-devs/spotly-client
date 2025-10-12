@@ -39,7 +39,7 @@
 
     <div
         class="bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-700"
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-700 blur-bg"
     >
         <Label for="input-group-1" class="mb-2 block">Enter your email</Label>
         <Input

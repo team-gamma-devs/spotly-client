@@ -26,7 +26,7 @@
 
 <Button
     color="alternative"
-    class="bg-gray-700 text-white flex items-center justify-center gap-1 cursor-pointer my-3"
+    class="bg-gray-800 text-white flex items-center justify-center gap-1 cursor-pointer my-3"
     onclick={handleSubmit}
     loading={loading}
     aria-busy={loading}

@@ -39,8 +39,9 @@
     </NavBrand>
     <AuthBox>
         {#snippet authorizedContent()}
+            <!-- When it's wrapper -->
             <NavUl
-                class="dark:bg-background md:dark:bg-transparent"
+                class="dark:bg-zinc-950 md:dark:bg-transparent"
                 {activeUrl}
                 classes={{ active: activeClass, nonActive: nonActiveClass }}
             >

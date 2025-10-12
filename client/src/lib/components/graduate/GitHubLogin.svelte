@@ -25,11 +25,11 @@
     </div>
     <div
         class="flex flex-col items-center justify-center bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900"
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 blur-bg"
     >
         <div
             id="info-box"
-            class="flex flex-col items-center justify-center gap-3"
+            class="flex flex-col items-center justify-center gap-3 px-2 pt-1 pb-3"
         >
             {#if $isLoggedGithub}
                 You're already logged in to your GitHub account
