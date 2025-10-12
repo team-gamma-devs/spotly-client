@@ -13,7 +13,7 @@
         DarkMode,
         Button,
     } from "flowbite-svelte";
-    import AuthBox from "../AuthBox.svelte";
+    import AuthBox from "./util/AuthBox.svelte";
     import { userRole } from "$lib/stores/auth";
     import { page } from "$app/state";
     import { goto } from "$app/navigation";

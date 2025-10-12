@@ -1,4 +1,4 @@
 <script>
-    import UploadCV from "$lib/components/graduate/UploadCV.svelte";
+    import UploadCVBox from "$lib/components/graduate/UploadCVBox.svelte";
 </script>
-<UploadCV/>
+<UploadCVBox/>

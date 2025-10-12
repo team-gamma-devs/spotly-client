@@ -3,7 +3,7 @@
 	import Header from "$lib/components/main/Header.svelte";
 	import Footer from "$lib/components/main/Footer.svelte";
 	import UnderConstruction from "$lib/components/UnderConstruction.svelte";
-	import AuthBox from "$lib/components/AuthBox.svelte";
+	import AuthBox from "$lib/components/main/util/AuthBox.svelte";
 	import Unauthorized from "$lib/components/error/Unauthorized.svelte";
 	import { dev } from "$app/environment";
 	import { PUBLIC_SHOW_COMING_SOON } from "$env/static/public";
