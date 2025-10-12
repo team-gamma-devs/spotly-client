@@ -3,6 +3,8 @@
     import { UserAddSolid, UsersGroupSolid } from "flowbite-svelte-icons";
 </script>
 
+
+<!-- The styles for unauthorized are mostly based on NotFound CompositionEvent. -->
 <div
     id="error-container"
     class="max-w-4xl w-full mx-auto m-auto flex flex-col md:flex-row items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font bg-background dark:bg-background text-foreground"
@@ -42,7 +44,6 @@
 </div>
 
 <style>
-    /* minimal CSS for consistent border / shadow while relying mostly on Tailwind */
     #error-container {
         border: 1px solid rgba(0, 0, 0, 0.06);
         border-radius: 0.75rem;

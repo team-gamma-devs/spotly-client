@@ -53,6 +53,6 @@
             </SidebarItem>
         </SidebarGroup>
     </Sidebar>
-    <div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 ring-4 ring-primary-700 min-h-[100dvh] p-2">
+    <div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2">
     </div>
 </div>

@@ -47,7 +47,7 @@
 	<div class="site-bg" aria-hidden="true"></div>
 	<div class="layout-container">
 		<Header />
-		<main class="main-content text-foreground ring-2 ring-red-500">
+		<main class="main-content text-foreground">
 			{@render children?.()}
 		</main>
 		<Footer />
