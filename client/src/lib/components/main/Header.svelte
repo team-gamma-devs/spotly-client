@@ -11,10 +11,12 @@
         DropdownHeader,
         DropdownGroup,
         DarkMode,
+        Button,
     } from "flowbite-svelte";
     import AuthBox from "../AuthBox.svelte";
     import { userRole } from "$lib/stores/auth";
     import { page } from "$app/state";
+    import { goto } from "$app/navigation";
 
     let activeUrl = $derived(page.url.pathname);
     let activeClass =
@@ -97,9 +99,15 @@
                 </DropdownHeader>
                 <DropdownGroup>
                     {#if $userRole === "graduate"}
-                        <DropdownItem class="cursor-pointer" href="/app/graduate/settings">Settings</DropdownItem>
+                        <DropdownItem
+                            class="cursor-pointer"
+                            href="/app/graduate/settings">Settings</DropdownItem
+                        >
                     {:else if $userRole === "manager"}
-                        <DropdownItem class="cursor-pointer" href="/app/manager/settings">Settings</DropdownItem>
+                        <DropdownItem
+                            class="cursor-pointer"
+                            href="/app/manager/settings">Settings</DropdownItem
+                        >
                     {/if}
                 </DropdownGroup>
                 <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
@@ -109,7 +117,12 @@
             <DarkMode
                 class="mx-2 mr-4 ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white"
             />
-            <p class="text-white font-bold flex mt-1">You must login</p>
+            <Button
+                color="alternative"
+                href="/login"
+                class="text-white cursor-pointer"
+                aria-label="Go To Login Page">Login</Button
+            >
         {/snippet}
     </AuthBox>
 </Navbar>

@@ -3,7 +3,6 @@
     import { UserAddSolid, UsersGroupSolid } from "flowbite-svelte-icons";
 </script>
 
-
 <!-- The styles for unauthorized are mostly based on NotFound CompositionEvent. -->
 <div
     id="error-container"
@@ -20,24 +19,25 @@
     <div
         class="flex-1 flex flex-col items-center justify-center md:items-start text-center md:text-left gap-3 p-2"
     >
-        <h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">401</h1>
-        <h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">Unauthorized</h2>
+        <h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">
+            401
+        </h1>
+        <h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">
+            Unauthorized
+        </h2>
         <p class="text-sm md:text-base dark:text-gray-400 text-center">
             You must log in to see this page. Make sure you're logged in with
             the correct account.
         </p>
 
-        <div class="w-full md:max-w-[300px] flex flex-col md:flex-row gap-3 mt-4 m-auto">
+        <div
+            class="w-full md:max-w-[300px] flex flex-col md:flex-row gap-3 mt-4 m-auto"
+        >
             <Button
                 class="w-full bg-[#ee4a25] dark:bg-[#ee4a25] hover:bg-[#aa442d] font-bold"
+                href="/login"
             >
-                <a
-                    href="/login"
-                    aria-label="Log In"
-                    class="flex items-center gap-2 px-4 py-2"
-                >
-                    <UsersGroupSolid class="h-5 w-5" /> Log In
-                </a>
+                <UsersGroupSolid class="h-5 w-5 mr-2" /> Log In
             </Button>
         </div>
     </div>

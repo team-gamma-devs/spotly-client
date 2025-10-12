@@ -6,7 +6,7 @@ import { writable } from "svelte/store"
 // Controls whether the user is authenticated through the server/backend.
 // 401 Unauthorized otherwise.
 // Check unauthorized component in $lib/components/error/Unauthorized.svelte
-export const isAuth = writable(true);
+export const isAuth = writable(false);
 
 // This controls the UI role-based components.
 // For example graduate rol trying to enter manager dashboard.
