@@ -1,10 +1,15 @@
 <script>
+    import { ShieldCheckSolid } from "flowbite-svelte-icons";
+    import BtnGoBack from "$lib/components/main/util/BtnGoBack.svelte";
 </script>
 
 <section
     class="bg-white dark:bg-background blur-bg border border-gray-200 dark:border-slate-800 rounded-lg shadow-md max-w-[720px] mx-auto p-6 m-5 sm:p-8 text-slate-800 dark:text-slate-100 leading-relaxed"
     aria-labelledby="how-it-works-title"
 >
+    <div class="w-full flex justify-end mb-3">
+        <BtnGoBack targetUrl="http://localhost:5173/app/graduate/github" classes="cursor-pointer" />
+    </div>
     <h2 id="how-it-works-title" class="text-lg sm:text-xl font-semibold mb-3 text-slate-900 dark:text-slate-100">
         How it Works
     </h2>
@@ -26,7 +31,7 @@
         We only display this information to you in a fashionable manner to help you understand your GitHub profile at a glance.
     </p>
 
-    <h3 class="mt-4 text-base sm:text-lg font-medium text-slate-900 dark:text-slate-100">Your Data and Privacy <span aria-hidden="true">🛡️</span></h3>
+    <h3 class="mt-4 text-base sm:text-lg font-medium text-slate-900 dark:text-slate-100 flex items-center justify-start gap-1"><span aria-hidden="true"><ShieldCheckSolid class="shrink-0 h-6 w-6 block" /></span> Your Data and Privacy </h3>
 
     <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2 mb-3">
         We take your privacy seriously. Here's what you need to know about your data:

@@ -58,7 +58,7 @@
             {/if}
             <a
                 href="/app/graduate/github/help"
-                class="text-sm text-blue-700 hover:text-blue-800 mt-2
+                class="text-sm text-primary-400 dark:text-primary-300 hover:text-blue-800 mt-2
             dark:text-blue-300 dark:hover:text-blue-200 underline decoration-2 underline-offset-2 transition-colors block text-center"
                 aria-label="GitHub Data Help"
             >
