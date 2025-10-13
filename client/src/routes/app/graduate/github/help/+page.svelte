@@ -1,6 +1,6 @@
 <script>
     import { ShieldCheckSolid } from "flowbite-svelte-icons";
-    import BtnGoBack from "$lib/components/main/util/BtnGoBack.svelte";
+    import BtnGoBack from "$lib/components/main/utils/BtnGoBack.svelte";
 </script>
 
 <section

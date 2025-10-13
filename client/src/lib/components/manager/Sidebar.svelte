@@ -11,7 +11,7 @@
         Button,
     } from "flowbite-svelte";
     import { FilterSolid } from "flowbite-svelte-icons";
-    import FilterBox from "./util/FilterBox.svelte";
+    import FilterBox from "./utils/FilterBox.svelte";
     import { page } from "$app/state";
     import { onMount } from "svelte";
 

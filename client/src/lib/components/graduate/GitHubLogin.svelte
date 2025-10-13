@@ -1,12 +1,13 @@
 <script lang="ts">
     import { isLoggedGithub } from "$lib/stores/auth";
     import BtnGitHubLogin from "./utils/BtnGitHubLogin.svelte";
-    import GenericBox from "../main/util/GenericBox.svelte";
+    import GenericBoxInvisible from "../main/utils/GenericBoxInvisible.svelte";
+    import GenericBoxVisible from "../main/utils/GenericBoxVisible.svelte";
     // Maybe here we need to implement a store that tells us wether the user has already logged in
     // to his github account and if it has,
 </script>
 
-<GenericBox>
+<GenericBoxInvisible>
 <!-- <div
     id="github-login-box"
     class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
@@ -23,10 +24,7 @@
         ></enhanced:img>
         <h4 id="signup-header" class="zalando-font text-2xl">Spotly</h4>
     </div>
-    <div
-        class="flex flex-col items-center justify-center bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg"
-    >
+    <GenericBoxVisible>
         <div
             id="info-box"
             class="flex flex-col items-center justify-center gap-3 px-2 pt-1 pb-3"
@@ -56,7 +54,7 @@
                 </a>
             {/if}
         </div>
-    </div>
+    </GenericBoxVisible>
     <a
         href="/app/graduate/upload_cv"
         class="text-sm text-foreground hover:text-blue-800 mt-2 dark:hover:text-blue-200 underline
@@ -66,7 +64,7 @@
         Continue without login in to GitHub...
     </a>
 <!-- </div> -->
-</GenericBox>
+</GenericBoxInvisible>
 
 <style>
     .login-p {

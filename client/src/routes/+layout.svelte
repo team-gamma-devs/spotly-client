@@ -3,7 +3,7 @@
 	import Header from "$lib/components/main/Header.svelte";
 	import Footer from "$lib/components/main/Footer.svelte";
 	import UnderConstruction from "$lib/components/UnderConstruction.svelte";
-	import AuthBox from "$lib/components/main/util/AuthBox.svelte";
+	import AuthBox from "$lib/components/main/utils/AuthBox.svelte";
 	import Unauthorized from "$lib/components/error/Unauthorized.svelte";
 	import { dev } from "$app/environment";
 	import { PUBLIC_SHOW_COMING_SOON } from "$env/static/public";
@@ -39,6 +39,16 @@
 		href="/icos/favicon-128x128.png"
 		sizes="128x128"
 		type="image/png"
+	/>
+	<link
+		rel="preload"
+		href="/images/abstract-bg-light-desktop.webp"
+		as="image"
+	/>
+	<link
+		rel="preload"
+		href="/images/abstract-bg-dark-desktop.webp"
+		as="image"
 	/>
 </svelte:head>
 {#if showComingSoon}

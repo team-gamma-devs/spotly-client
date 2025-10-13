@@ -6,7 +6,7 @@
         ExclamationCircleSolid,
     } from "flowbite-svelte-icons";
     import { Button } from "flowbite-svelte";
-    import GenericBox from "./util/GenericBox.svelte";
+    import { GenericBoxInvisible, GenericBoxVisible } from "./utils";
     import { goto } from "$app/navigation";
 
     let loading = $state(false);
@@ -17,11 +17,12 @@
         loading = true;
         await new Promise((resolve) => setTimeout(resolve, 2000));
         loading = false;
-        await goto('/app/graduate/github'); // This is to simulate the flow only.
+        await goto("/app/graduate/github"); // This is to simulate the flow only.
     }
 </script>
-<GenericBox>
-<!-- <div
+
+<GenericBoxInvisible>
+    <!-- <div
     id="login-box"
     class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
 > -->
@@ -71,7 +72,9 @@
             color="alternative"
             class="block w-48 mx-auto font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white mt-10 flex items-center justify-center"
             onclick={handleSubmit}
-            {loading}>Submit</Button> <!--Seems to be working altough if problems arise, revert to normal button-->
+            {loading}>Submit</Button
+        >
+        <!--Seems to be working altough if problems arise, revert to normal button-->
 
         <p
             class="m-auto text-center mt-2 flex items-center justify-center gap-2"
@@ -104,8 +107,9 @@
         </p>
     </div>
     <p class="p-signup">You'll receive an access link Check your spam folder</p>
-<!-- </div> -->
-</GenericBox>
+    <!-- </div> -->
+</GenericBoxInvisible>
+
 <style>
     .p-signup {
         margin: 0;

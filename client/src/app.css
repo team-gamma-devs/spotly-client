@@ -130,7 +130,7 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-  .apply-shadow {
+  .apply-shadow { /* Doesn't work, use shadow- from tailwind */
     box-shadow: 10px 10px 10px var(--color-box-bg);
   }
   .bg-header-gradient {
