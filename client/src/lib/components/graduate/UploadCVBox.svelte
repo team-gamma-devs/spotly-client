@@ -17,8 +17,7 @@
     let linkedInFileSuccess = $state(false);
     let userCVFileSuccess = $state(false);
 
-    // filesUploaded becomes true when both linkedInFileSuccess and userCVFileSuccess are true
-    // OMG now i know how to user derived!!! A monster has awaken...
+    // filesUploaded becomes true when both linkedInFileSuccess and userCVFileSuccess are tru
     // When filesUploaded is true, the submit button is activated
     let filesUploaded = $derived(() => linkedInFileSuccess && userCVFileSuccess);
 
@@ -29,6 +28,7 @@
         // await uploadLinkedInPDF(linkedInFileDrop);
         loading = false;
         linkedInFileSuccess = true;
+        console.log(`File ${linkedInFileDrop}`);
     }
     async function handleUserCVSubmit() {
         if (loading) return;
