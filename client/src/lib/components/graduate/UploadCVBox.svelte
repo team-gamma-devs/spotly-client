@@ -2,7 +2,7 @@
     import { GenericBoxVisible } from "../main/utils";
     import BtnGoBack from "../main/utils/BtnGoBack.svelte";
     import { Label, Fileupload, Button } from "flowbite-svelte";
-    import { LinkedinSolid, UserCircleSolid } from "flowbite-svelte-icons";
+    import { LinkedinSolid, UserCircleSolid, FileCheckSolid, ExclamationCircleSolid } from "flowbite-svelte-icons";
     import { uploadLinkedInPDF, uploadUserCV } from "$lib/services/fileUpload";
 
     let linkedInFileDrop = {
@@ -49,6 +49,33 @@
         <BtnGoBack
             classes="hidden md:block md:flex md:items-center md:justify-center"
         />
+    </div>
+    <div class="w-full max-w-3xl mx-5 my-4">
+        <div class="flex flex-col md:flex-row items-center md:items-center gap-4 border border-gray-200 dark:border-slate-800 rounded-lg p-4 md:p-5 shadow-sm">
+            <!-- <div class="flex-none">
+                <div class="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/30 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div> -->
+
+            <div class="items-center m-auto">
+                <h3 class="text-lg md:text-xl font-semibold text-foreground dark:text-white leading-tight">To continue, please upload</h3>
+                <p class="mt-1 text-sm text-muted-foreground dark:text-slate-400">Both files are required to proceed.</p>
+
+                <ul class="mt-3 grid gap-2 md:gap-1 pl-4">
+                    <li class="flex items-start gap-3">
+                        <ExclamationCircleSolid class="shrink-0 h-6 w-6 mb-2 text-red-600" />
+                        <span class="text-sm text-foreground dark:text-slate-100 pt-1">LinkedIn-generated PDF</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <ExclamationCircleSolid class="shrink-0 h-6 w-6 text-red-600" />
+                        <span class="text-sm text-foreground dark:text-slate-100 pt-1">Personal CV (PDF or DOCX)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div id="form-body" class=" p-2 flex flex-col items-center justify-center">
         <Label class="pb-1 pl-2 w-full">

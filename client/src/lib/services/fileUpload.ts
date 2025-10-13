@@ -1,4 +1,7 @@
 
+
+
+// These will call the server/fileUpload.ts
 export async function uploadLinkedInPDF(linkedInFile: File) {
     await new Promise((res) => setTimeout(res, 600));
     return {
