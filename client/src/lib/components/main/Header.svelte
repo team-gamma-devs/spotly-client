@@ -28,7 +28,7 @@
 <Navbar
     class="bg-header-gradient zalando-font sticky start-0 top-0 z-20 blur-bg py-2 sm:py-0"
 >
-    <NavBrand href="/" class="mr-5">
+    <NavBrand href="/" aria-label="Go Home">
         <enhanced:img
             src="$lib/assets/svgs/spotly-logo-color.svg"
             class="me-3 w-9 h-9 ml-2"

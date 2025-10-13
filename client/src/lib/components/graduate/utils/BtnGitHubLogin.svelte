@@ -12,10 +12,11 @@
         try {
             const result = await loginGithub(); // i don't know how if redirect manually or await for redirection.
             if (typeof result === "string" && result) {
-                window.location.href = result;
+                // window.location.href = result;
+                goto("/app/graduate/upload_cv");
                 return;
             }
-            await goto("/app/graduate");
+            await goto("/app/graduate/upload_cv");
         } catch (err) {
             console.error("GitHub login failed", err);
         } finally {

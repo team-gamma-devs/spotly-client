@@ -6,6 +6,7 @@
         ExclamationCircleSolid,
     } from "flowbite-svelte-icons";
     import { Button } from "flowbite-svelte";
+    import BtnGoBack from "./utils/BtnGoBack.svelte";
     import { GenericBoxInvisible, GenericBoxVisible } from "./utils";
     import { goto } from "$app/navigation";
 
@@ -39,11 +40,22 @@
         <h4 id="signup-header" class="zalando-font text-2xl">Spotly</h4>
     </div>
 
-    <div
+    <GenericBoxVisible classes="px-10">
+        <!-- <div
         class="bg-background dark:bg-background
     px-7 pt-9 pb-4 rounded ring-1 ring-gray-200 dark:ring-gray-900 blur-bg shadow-lg"
-    >
-        <Label for="input-group-1" class="mb-2 block">Enter your email</Label>
+    > -->
+        <div
+            id="form-header"
+            class=" flex items-center justify-between w-full mb-4"
+        >
+            <h1 class="text-xl">Login</h1>
+            <BtnGoBack classes="hidden md:block md:flex md:items-center md:justify-center"/>
+        </div>
+
+        <Label for="input-group-1" class="mb-2 block w-full"
+            >Enter your email</Label
+        >
         <Input
             id="email"
             type="email"
@@ -57,20 +69,20 @@
                 />
             {/snippet}
         </Input>
-        <p class="text-sm mt-3 mb-5 text-right dark:text-gray-400">
+        <p class="text-sm mt-3 mb-5 text-right dark:text-gray-400 w-full">
             *Use your Holberton email
         </p>
         <a
             href="/help"
             class=" text-sm text-blue-700 hover:text-blue-800 mt-2
-            dark:text-blue-300 dark:hover:text-blue-200 underline decoration-2 underline-offset-2 transition-colors block text-center"
+            dark:text-blue-300 dark:hover:text-blue-200 underline decoration-1 underline-offset-2 transition-colors block text-center"
             aria-label="Lost Holberton Account"
         >
             I lost my Holberton Account
         </a>
         <Button
-            color="alternative"
-            class="block w-48 mx-auto font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white mt-10 flex items-center justify-center"
+            color="green"
+            class="block w-48 mx-auto font-bold cursor-pointer text-white hover:bg-green-600 hover:text-white mt-10 flex items-center justify-center"
             onclick={handleSubmit}
             {loading}>Submit</Button
         >
@@ -91,7 +103,7 @@
             />Something Went Wrong!
         </p>
 
-        <p class="text-[10px] flex items-center justify-end mt-7 text-gray-400">
+        <p class="text-[10px] flex items-center justify-end mt-7 text-gray-400 w-full">
             Powered By <enhanced:img
                 src="$lib/assets/svgs/aws_cognito.svg"
                 alt="AWS Cognito"
@@ -105,7 +117,7 @@
                 aria-label="Amazon Cognito"><b>Amazon Cognito</b></a
             >
         </p>
-    </div>
+    </GenericBoxVisible>
     <p class="p-signup">You'll receive an access link Check your spam folder</p>
     <!-- </div> -->
 </GenericBoxInvisible>
