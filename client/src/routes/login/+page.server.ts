@@ -1,5 +1,6 @@
 // You can invoke this action in the same route or from other pages using:
 // <form method="POST" action="/login">
+import { createAuthHeaders } from '$lib/server/auth_req';
 
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
@@ -11,7 +12,7 @@ export const actions: Actions = {
         // for (const [key, value] of form.entries()) { uncomment to check payload.
         //     console.log(key, value);
         // }
-        
+        createAuthHeaders();
         if (!email) return { success: false, error: 'Email is required' }; // It's already check, but JIC.
         
         try {

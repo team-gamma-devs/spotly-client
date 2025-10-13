@@ -1,11 +1,6 @@
 <script lang="ts">
-    import {
-        EnvelopeSolid,
-        CheckCircleSolid,
-        ExclamationCircleSolid,
-    } from "flowbite-svelte-icons";
     import BtnGoBack from "./utils/BtnGoBack.svelte";
-    import { GenericBoxInvisible, GenericBoxVisible, } from "./utils";
+    import { GenericBoxInvisible, GenericBoxVisible } from "./utils";
     import LoginForm from "./utils/LoginForm.svelte";
 </script>
 
@@ -28,13 +23,20 @@
     </div>
 
     <GenericBoxVisible classes="px-10">
-        <div id="form-header" class=" flex items-center justify-between w-full mb-4">
+        <div
+            id="form-header"
+            class=" flex items-center justify-between w-full mb-4"
+        >
             <h1 class="text-xl">Login</h1>
-            <BtnGoBack classes="hidden md:block md:flex md:items-center md:justify-center"/>
+            <BtnGoBack
+                classes="hidden md:block md:flex md:items-center md:justify-center"
+            />
         </div>
 
-        <LoginForm/>
-
+        <LoginForm />
+        <p class="p-signup text-foreground text-sm">
+            You'll receive an access link Check your spam folder
+        </p>
         <p
             class="text-[10px] flex items-center justify-end mt-7 text-gray-400 w-full"
         >
@@ -52,12 +54,12 @@
             >
         </p>
     </GenericBoxVisible>
-    <p class="p-signup">You'll receive an access link Check your spam folder</p>
 </GenericBoxInvisible>
 
 <style>
     .p-signup {
         margin: 0;
+        margin-top: 1rem;
         max-width: 200px;
         text-align: center;
     }
