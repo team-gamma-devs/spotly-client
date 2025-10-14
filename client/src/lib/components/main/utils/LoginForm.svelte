@@ -7,6 +7,7 @@
     } from "flowbite-svelte-icons";
     import { enhance } from "$app/forms";
     import { goto } from "$app/navigation";
+    import { isAuth } from "$lib/stores/auth";
 
     let loading = $state(false);
     let errorMessage = $state("");
@@ -83,6 +84,11 @@
     >
         I lost my Holberton Account
     </a>
+    {#if !$isAuth}
+    <Button color="red" onclick={() => isAuth.set(true)} class="block mx-auto w-48 text-center mt-4">
+        Just Log Me In Bitch!
+    </Button>
+    {/if}
     <Button
         type="submit"
         color="green"

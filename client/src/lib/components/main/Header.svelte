@@ -14,9 +14,8 @@
         Button,
     } from "flowbite-svelte";
     import AuthBox from "./utils/AuthBox.svelte";
-    import { userRole } from "$lib/stores/auth";
+    import { userRole, isAuth } from "$lib/stores/auth";
     import { page } from "$app/state";
-    import { goto } from "$app/navigation";
 
     let activeUrl = $derived(page.url.pathname);
     let activeClass =
@@ -110,7 +109,7 @@
                         >
                     {/if}
                 </DropdownGroup>
-                <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
+                <DropdownHeader class="cursor-pointer" onclick={()=>{isAuth.set(false)}}>Sign out</DropdownHeader>
             </Dropdown>
         {/snippet}
         {#snippet unauthorizedContent()}

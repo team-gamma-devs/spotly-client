@@ -35,3 +35,28 @@
 //     }
 //   }
 // }
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            loginAsGraduate(): Chainable<void>;
+            loginAsManager(): Chainable<void>;
+        }
+    }
+}
+
+Cypress.Commands.add('loginAsGraduate', () => {
+    cy.visit('/login');
+    cy.get('[type="email"]').type('graduate@holbertonschool.com');
+    cy.get('[type="submit"]').click();
+    cy.url().should('include', '/app/graduate');
+});
+
+Cypress.Commands.add('loginAsManager', () => {
+    cy.visit('/login');
+    cy.get('[type="email"]').type('manager@holbertonschool.com');
+    cy.get('[type="submit"]').click();
+    cy.url().should('include', '/app/manager');
+});
+
+// Prevent TypeScript from reading file as legacy script
+export { };
