@@ -206,3 +206,9 @@ marimo/_lsp/
 __marimo__/
 
 node_modules
+
+# CYPRESS SHIT
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+cypress/.cache/

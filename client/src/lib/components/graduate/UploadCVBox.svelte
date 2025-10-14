@@ -3,7 +3,6 @@
     import BtnGoBack from "../main/utils/BtnGoBack.svelte";
     import { Label, Fileupload, Button } from "flowbite-svelte";
     import { LinkedinSolid, UserCircleSolid, FileCheckSolid, ExclamationCircleSolid } from "flowbite-svelte-icons";
-    import { uploadLinkedInPDF, uploadUserCV } from "$lib/services/fileUpload";
 
     let linkedInFileDrop = {
         // Here is the file controlled, I don't yet know how to handle it :D

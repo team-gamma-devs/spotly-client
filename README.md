@@ -112,6 +112,27 @@ Deployment & CI notes
 - Vercel project root: `client/`. Configure environment variables in Vercel settings (PUBLIC_* for client-safe values).
 - Enforce Node version for build (use `.nvmrc` and CI/Prebuild checks).
 
+## Authentication Flow
+
+The application uses a secure request signing mechanism to authenticate communication between the Vercel frontend and EC2 backend:
+
+```
++page.server.ts → validates form → calls service → redirects
+    ↓
+lib/server/emailService.ts → makes authenticated request to backend
+    ↓
+EC2 backend → validates email against a control database, returns authentication status and token back to frontend server
+```
+
+**Flow Details:**
+1. **Form Submission**: User submits email via login form
+2. **Server Action**: `+page.server.ts` validates form data locally
+3. **Service Layer**: `lib/server/emailService.ts` signs request and calls backend API
+4. **Backend Validation**: EC2 backend verifies request signature and checks email against Holberton CSV
+5. **Email Dispatch**: Backend sends login email if validation passes
+6. **Client Redirect**: Frontend redirects user to next step on success
+
+All backend requests use HMAC-SHA256 signatures with shared secrets to ensure only the frontend can make authenticated calls.
 
 ## Build & preview locally
 

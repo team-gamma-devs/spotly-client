@@ -1,22 +1,24 @@
 // You can invoke this action in the same route or from other pages using:
 // <form method="POST" action="/login">
-import { createAuthHeaders } from '$lib/server/auth_req';
+
+import { sendEmailLogin } from '$lib/server/emailLogin';
 
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-export const actions: Actions = {
+export const actions: Actions = { // Remember to append the headers from server/auth_req.ts!!!!
     default: async ({ request }) => {
         const form = await request.formData();
         const email = String(form.get('email') ?? '');
         // for (const [key, value] of form.entries()) { uncomment to check payload.
         //     console.log(key, value);
         // }
-        createAuthHeaders();
-        if (!email) return { success: false, error: 'Email is required' }; // It's already check, but JIC.
+        if (!email) {
+            return { success: false, error: 'Email is required' }; // It's already check, but JIC.
+        }
         
         try {
-            // await sendEmail(email); // Email logic goes here, check if the email is in the holberton csv, create the token.
+            await sendEmailLogin(email); // Email logic goes there, check if the email is in the holberton csv, create the token.
             console.log('Email sent to Fede');
             // return { success: false, error: 'Email not registered' };
         } catch (error) {
