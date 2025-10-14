@@ -10,9 +10,9 @@ export const actions: Actions = { // Remember to append the headers from server/
     default: async ({ request }) => {
         const form = await request.formData();
         const email = String(form.get('email') ?? '');
-        // for (const [key, value] of form.entries()) { uncomment to check payload.
-        //     console.log(key, value);
-        // }
+        for (const [key, value] of form.entries()) { // uncomment to check payload.
+            console.log(key, value);
+        }
         if (!email) {
             return { success: false, error: 'Email is required' }; // It's already check, but JIC.
         }
@@ -23,7 +23,7 @@ export const actions: Actions = { // Remember to append the headers from server/
             // return { success: false, error: 'Email not registered' };
         } catch (error) {
             console.error('Email sending failed:', error);
-            return { success: false, error: 'Failed to send email' };
+            return { success: false, error: 'Failed to send email' }; 
         }
         throw redirect(303, '/app/graduate/github');
     }

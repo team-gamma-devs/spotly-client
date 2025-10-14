@@ -6,7 +6,7 @@
 <!-- The styles for unauthorized are mostly based on NotFound CompositionEvent. -->
 <div
     id="error-container"
-    class="max-w-4xl w-full mx-auto m-auto flex flex-col md:flex-row items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font bg-background dark:bg-background text-foreground"
+    class="blur-bg max-w-4xl w-full mx-auto m-auto flex flex-col md:flex-row items-center justify-center gap-6 p-6 md:p-10 rounded-lg shadow-lg figtree-font bg-background dark:bg-background text-foreground"
 >
     <div class="hidden md:flex w-40 md:w-60 h-40 md:h-60 flex-shrink-0">
         <enhanced:img

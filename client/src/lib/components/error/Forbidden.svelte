@@ -6,7 +6,7 @@
         class="hidden md:flex w-48 md:w-[300px] h-48 md:h-[300px] flex-shrink-0"
     >
         <enhanced:img
-            src="$lib/assets/svgs/spotly-error.svg"
+            src="$lib/assets/svgs/spotly-forbidden.svg"
             alt="Spotly Error Symbol"
             class="object-contain w-full h-full"
         />
@@ -15,14 +15,14 @@
     <div
         class="flex-1 flex flex-col items-center md:items-start justify-center text-center md:text-left p-4 md:p-6"
     >
-        <h1 class="text-6xl md:text-9xl leading-tight m-auto">404</h1>
+        <h1 class="text-6xl md:text-9xl leading-tight m-auto">403</h1>
         <h2 class="text-2xl md:text-4xl font-semibold mb-3 md:mb-6 m-auto">
-            Not Found
+            Forbidden
         </h2>
         <p
-            class="max-w-xl text-sm md:text-base text-gray-600"
+            class="max-w-xl text-sm md:text-base text-gray-600 w-full text-center"
         >
-            The page you requested is not available.
+            You're not allowed to see this.
         </p>
         <p class="text-sm text-gray-500 mt-3">
             Please check the URL or return to the

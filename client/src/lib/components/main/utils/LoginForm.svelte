@@ -25,7 +25,7 @@
 
         return async ({ result }) => {
             loading = false;
-            console.log('Pepitop!' + result);
+            console.log('Pepitop!' + JSON.stringify(result));
             if (result.type === "success" && result.data) {
                 if (result.data.success === false) {
                     errorMessage =
@@ -85,7 +85,7 @@
         I lost my Holberton Account
     </a>
     {#if !$isAuth}
-    <Button color="red" onclick={() => isAuth.set(true)} class="block mx-auto w-48 text-center mt-4">
+    <Button color="red" type="button" onclick={() => isAuth.set(true)} class="block mx-auto w-48 text-center mt-4">
         Just Log Me In Bitch!
     </Button>
     {/if}
