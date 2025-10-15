@@ -42,7 +42,3 @@ export async function authenticatedFetch(url: string, options: RequestInit = {})
     },
   });
 }
-
-// Hago el forbidden component.
-// Caso 200.
-// Caso 403.

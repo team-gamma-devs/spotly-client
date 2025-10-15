@@ -1,33 +1,5 @@
-// This should only keep stateful auth,
-// secrets, token verify, DB Reads, or Node APIs. remain in server/auth.ts although only calls, not the actual creds.
-
-
-// ************* TODO: DEBUG ONLY FOR NOW ****************
-
-import { writable } from "svelte/store"
 import { readable } from 'svelte/store';
 import { setContext, getContext } from 'svelte';
-
-// Controls whether the user is authenticated through the server/backend.
-// 401 Unauthorized otherwise.
-// Check unauthorized component in $lib/components/error/Unauthorized.svelte
-export const isAuth = writable(true);
-
-
-//If the backend reponse contains "for_admin" and is true.
-export const isAdmin = writable(false);
-
-// This controls the UI role-based components.
-// For example graduate rol trying to enter manager dashboard.
-// 403 Forbidden if the user doesn't have enough permissions
-// Check forbidden component in $lib/components/error/Forbidden.svelte
-export const userRole = writable("graduate");
-
- // This tells us if the user has already logged in to his github account.
-export const isLoggedGithub = writable(false);
-
-
-
 
 // Define the shape of our session data
 export interface Session {
