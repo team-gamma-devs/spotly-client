@@ -1,32 +1,50 @@
 // You can invoke this action in the same route or from other pages using:
 // <form method="POST" action="/login">
 
-import { sendEmailLogin } from '$lib/server/emailLogin';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions } from '@sveltejs/kit';
+import { BACKEND_URL } from '$env/static/private';
+import { authenticatedFetch } from '$lib/server/auth_req';
 
-import type { Actions } from './$types';
-import { redirect } from '@sveltejs/kit';
-
-export const actions: Actions = { // Remember to append the headers from server/auth_req.ts!!!!
-    default: async ({ request }) => {
+export const actions: Actions = {
+    default: async ({ request, cookies }) => {
         const form = await request.formData();
-        const email = String(form.get('email') ?? '');
-        // for (const [key, value] of form.entries()) { // uncomment to check payload.
-        //     console.log(key, value);
-        // }
+        const email = form.get('email');
 
-        if (!email) {
-            return { success: false, error: 'Email is required' }; // It's already check, but JIC.
+        if (!email || typeof email !== 'string') {
+            return fail(400, { error: 'A valid email is required.' });
         }
-        
+
+        let accessToken: string;
+
         try {
-            await sendEmailLogin(email); // Email logic goes there, check if the email is in the holberton csv, create the token.
-            console.log('Email sent to Fede');
-            // return { success: false, error: 'Email not registered' };
+            const body = { email };
+            const response = await authenticatedFetch(`${BACKEND_URL}/auth/`, {
+                method: "POST",
+                body: JSON.stringify(body),
+            })
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                return fail(response.status, { error: errorData.detail || 'Login failed.' });
+            }
+
+            const loginData = await response.json();
+            accessToken = loginData.access_token;
+
         } catch (error) {
-            console.error('Email sending failed:', error);
-            return { success: false, error: 'Failed to send email' }; 
+            console.error("Error calling login endpoint:", error);
+            return fail(500, { error: 'Could not connect to authentication service.' });
         }
-        throw redirect(303, '/app/graduate/github');
+        cookies.set('spotly_session', accessToken, {
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // pnpm handles env with pnpm dev | run build, how delightful!!!
+            maxAge: 60 * 60 * 24 * 7,
+            sameSite: 'lax'
+        });
+
+        throw redirect(303, '/app/dashboard');
     }
 };
 

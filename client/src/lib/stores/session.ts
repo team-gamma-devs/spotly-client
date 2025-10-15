@@ -1,14 +1,12 @@
 import { readable } from 'svelte/store';
 import { setContext, getContext } from 'svelte';
 
-// Define the shape of our session data
 export interface Session {
     isAuthenticated: boolean;
     userRole: 'graduate' | 'manager' | null;
 }
 
-// Create a unique key for the context API
-const SESSION_SECRET = Symbol('session');
+const SESSION_SECRET = Symbol('session'); // unique key for the context API
 
 /**
  * Creates and sets the read-only session store in Svelte's context.

@@ -1,19 +1,13 @@
 <script lang="ts">
-  import { isAuth, userRole } from '$lib/stores/auth';
-  // import { publicRoutes } from '$lib/constants/urls';
-  // import { onMount, onDestroy } from 'svelte';
-  // import { browser } from '$app/environment';
-  // import type { Unsubscriber } from 'svelte/store';
+  import { getUserStore } from "$lib/stores/session";
 
   let { authorizedContent, unauthorizedContent } = $props();
-
-  // This is to avoid server/client mismatch.
-  // only show auth-specific UI on the client
-//   const showAuth = $derived(() => browser && $isAuth);
+  
+  const user = getUserStore();
 
 </script>
 
-{#if $isAuth}
+{#if !!$user }
   {@render authorizedContent?.()}
 {:else}
   {@render unauthorizedContent?.()}

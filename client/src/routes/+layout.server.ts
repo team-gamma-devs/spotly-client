@@ -3,29 +3,10 @@
 
 import type { LayoutServerLoad } from './$types';
 
-/**
- * This function runs on the server for every single page load.
- * It's the single source of truth for the user's session.
- */
-export const load: LayoutServerLoad = async ({ cookies }) => {
-    // We'll use a simple session cookie. In a real app, you'd verify this
-    // against your database or by decoding a JWT.
-    const userSession = cookies.get('spotly_session');
-
-    if (!userSession) {
-        // If there's no cookie, they are not authenticated.
-        return {
-            isAuthenticated: false,
-            userRole: null
-        };
-    }
-
-    // must ask fede what he's gonna use to store the session creds.
-    // For now i'll parse a simple string, the cookie must contain the role.
-    const { role } = JSON.parse(userSession); 
-
+export const load: LayoutServerLoad = async ({ locals }) => {
+    // `locals.user` was securely populated by the `hooks.server.ts` file.
+    // We just pass it along to the client-side layout.
     return {
-        isAuthenticated: true,
-        userRole: role // graduate or manager.
+        user: locals.user
     };
 };

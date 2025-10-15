@@ -33,6 +33,19 @@ export function createAuthHeaders(body?: any): Headers {
 export async function authenticatedFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const body = options.body;
   const authHeaders = createAuthHeaders(body ? JSON.parse(body as string) : undefined);
+
+  // This is to see wtf I'm sending.
+  const mergedHeaders = {
+    ...Object.fromEntries(authHeaders.entries()),
+    ...(options.headers as Record<string, string> | undefined),
+  };
+
+  console.log('authenticatedFetch', {
+    url,
+    method: options.method ?? 'GET',
+    headers: mergedHeaders,
+    body: options.body,
+  });
   
   return fetch(url, {
     ...options,

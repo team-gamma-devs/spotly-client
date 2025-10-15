@@ -1,6 +1,6 @@
 <script lang="ts">
 	import "../app.css";
-	import { setSession } from "$lib/stores/session";
+	import { setUserStore } from "$lib/stores/session";
 	import type { LayoutData } from "./$types";
 	import Header from "$lib/components/main/Header.svelte";
 	import Footer from "$lib/components/main/Footer.svelte";
@@ -12,7 +12,7 @@
 	//SvelteKit handles data from load and children to slots as props.
 	const { data, children } = $props<{ data: LayoutData; children: any }>();
 
-	setSession(data); // This initializes the session store (stores/session.ts) with valid data from server.
+	setUserStore(data); // This initializes the session store (stores/session.ts) with valid data from server.
 
 	let showComingSoon = $derived(
 		PUBLIC_SHOW_COMING_SOON === "true" &&

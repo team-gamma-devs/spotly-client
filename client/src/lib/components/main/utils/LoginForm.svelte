@@ -7,11 +7,11 @@
     } from "flowbite-svelte-icons";
     import { enhance } from "$app/forms";
     import { goto } from "$app/navigation";
-    import { isAuth } from "$lib/stores/auth";
 
     let loading = $state(false);
     let errorMessage = $state("");
     let successMessage = $state("");
+
 </script>
 
 <form
@@ -36,7 +36,7 @@
             } else if (result.type === "redirect") {
                 successMessage = "Redirecting...";
                 await new Promise((resolve) => setTimeout(resolve, 1500)); // you can delete, but actually it's kinda nice to have.
-                console.log(result.location); // checking what url am I getting
+                console.log(`In LoginForm: ${result.location}`); // checking what url am I getting
                 goto(result.location);
             }
         };
@@ -84,11 +84,6 @@
     >
         I lost my Holberton Account
     </a>
-    {#if !$isAuth}
-    <Button color="red" type="button" onclick={() => isAuth.set(true)} class="block mx-auto w-48 text-center mt-4">
-        Just Log Me In Bitch!
-    </Button>
-    {/if}
     <Button
         type="submit"
         color="green"
