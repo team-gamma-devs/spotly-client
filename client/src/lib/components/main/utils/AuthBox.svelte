@@ -1,9 +1,18 @@
 <script lang="ts">
-  import { getUserStore } from "$lib/stores/session";
+  import { page } from '$app/state';
+    import { onMount } from "svelte";
 
   let { authorizedContent, unauthorizedContent } = $props();
+
+  // user derived will be object when user is logged and null if not.
   
-  const user = getUserStore();
+  const user = $derived(page.data.user);
+
+  console.log(`Before mount: ${user}`); // Ignore this.
+
+  onMount(()=>{
+    console.log(`After login the user: ${user}`);
+  })
 
 </script>
 
