@@ -4,7 +4,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { authenticatedFetch } from '$lib/server/auth_req';
+import { authenticatedFetch } from '$lib/server/authFetch';
 
 export const actions: Actions = {
     default: async ({ request, cookies }) => {

@@ -5,7 +5,7 @@ import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
     // `locals.user` was securely populated by the `hooks.server.ts` file.
-    // We just pass it along to the client-side layout.
+    // just pass it along to the client-side layout.
     return {
         user: locals.user
     };

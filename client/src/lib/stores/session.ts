@@ -1,34 +1,26 @@
-import { readable } from 'svelte/store';
+import { readable, type Readable } from 'svelte/store';
 import { setContext, getContext } from 'svelte';
+import type { User } from '../../ambient';
 
-export interface Session {
-    isAuthenticated: boolean;
-    userRole: 'graduate' | 'manager' | null;
+// This can be your actual user type from the backend
+
+// _id: "b70119aa-8414-4a21-9f45-84a6281744e6"
+// full_name: "gabriel barnada"
+// email: "gabedere2@live.com"
+// cohort: 26
+// token: "rwi1KM61230-98asdndasdasd2198nasd21-0-d12983lUA" <- do not handle.
+// token_state: false
+// log_state: false
+// created_at: 2025-10-14T20:32:24.626+00:00
+// expires_at: 2025-11-13T20:32:24.626+00:00
+
+const USER_KEY = Symbol('user');
+
+export function setUserStore(initialData: User) {
+    const userStore = readable(initialData);
+    setContext(USER_KEY, userStore);
 }
 
-const SESSION_SECRET = Symbol('session'); // unique key for the context API
-
-/**
- * Creates and sets the read-only session store in Svelte's context.
- * This should only be called once, in the root +layout.svelte.
- * @param initialData The session data securely passed from the server.
- */
-export function setSession(initialData: Session) {
-    const session = {
-        isAuthenticated: readable(initialData.isAuthenticated),
-        userRole: readable(initialData.userRole)
-    };
-    setContext(SESSION_SECRET, session);
-}
-
-/**
- * Retrieves the session stores from Svelte's context.
- * This can be called in any component.
- * @returns The read-only session stores.
- */
-export function getSession() {
-    return getContext<{
-        isAuthenticated: typeof readable<boolean>;
-        userRole: typeof readable<'graduate' | 'manager' | null>;
-    }>(SESSION_SECRET);
+export function getUserStore() {
+    return getContext<Readable<User>>(USER_KEY);
 }

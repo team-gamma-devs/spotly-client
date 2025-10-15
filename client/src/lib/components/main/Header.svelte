@@ -14,14 +14,17 @@
         Button,
     } from "flowbite-svelte";
     import AuthBox from "./utils/AuthBox.svelte";
-    import { userRole, isAuth } from "$lib/stores/auth";
     import { page } from "$app/state";
+    import { getUserStore } from "$lib/stores/session"
+
+    const user = getUserStore();
 
     let activeUrl = $derived(page.url.pathname);
     let activeClass =
         "text-white bg-primary-400 md:bg-transparent font-bold md:text-white hover:text-black md:hover:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
     let nonActiveClass =
         "text-gray-700 dark:text-white md:text-gray-200 md:hover:text-white md:hover:font-bold";
+    
 </script>
 
 <Navbar
@@ -46,7 +49,7 @@
                 {activeUrl}
                 classes={{ active: activeClass, nonActive: nonActiveClass }}
             >
-                {#if $userRole == "manager"}
+                {#if $user?.role == "manager"}
                     <NavLi
                         href="/app/manager/"
                         class="relative"
@@ -57,7 +60,7 @@
                         class="relative"
                         style="top:2px;">Status</NavLi
                     >
-                {:else if $userRole == "graduate"}
+                {:else if $user?.role == "graduate"}
                     <NavLi
                         href="/app/graduate/"
                         class="relative"
@@ -97,19 +100,19 @@
                     >
                 </DropdownHeader>
                 <DropdownGroup>
-                    {#if $userRole === "graduate"}
+                    {#if $user?.role == "graduate"}
                         <DropdownItem
                             class="cursor-pointer"
                             href="/app/graduate/settings">Settings</DropdownItem
                         >
-                    {:else if $userRole === "manager"}
+                    {:else if $user?.role == "manager"}
                         <DropdownItem
                             class="cursor-pointer"
                             href="/app/manager/settings">Settings</DropdownItem
                         >
                     {/if}
                 </DropdownGroup>
-                <DropdownHeader class="cursor-pointer" onclick={()=>{isAuth.set(false)}}>Sign out</DropdownHeader>
+                <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
             </Dropdown>
         {/snippet}
         {#snippet unauthorizedContent()}
