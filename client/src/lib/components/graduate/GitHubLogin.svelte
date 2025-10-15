@@ -1,17 +1,14 @@
 <script lang="ts">
-    import { isLoggedGithub } from "$lib/stores/auth";
     import BtnGitHubLogin from "./utils/BtnGitHubLogin.svelte";
     import GenericBoxInvisible from "../main/utils/GenericBoxInvisible.svelte";
     import GenericBoxVisible from "../main/utils/GenericBoxVisible.svelte";
     // Maybe here we need to implement a store that tells us wether the user has already logged in
     // to his github account and if it has,
+
+    const isLoggedGithub = false; //Fallback for now.
 </script>
 
 <GenericBoxInvisible>
-<!-- <div
-    id="github-login-box"
-    class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
-> -->
     <div
         id="logo-container"
         class="w-full flex items-center justify-center"
@@ -29,7 +26,7 @@
             id="info-box"
             class="flex flex-col items-center justify-center gap-3 px-2 pt-1 pb-3"
         >
-            {#if $isLoggedGithub}
+            {#if isLoggedGithub}
                 You're already logged in to your GitHub account
             {:else}
                 <h1 class="text-xl">
@@ -63,7 +60,6 @@
     >
         Continue without login in to GitHub...
     </a>
-<!-- </div> -->
 </GenericBoxInvisible>
 
 <style>
