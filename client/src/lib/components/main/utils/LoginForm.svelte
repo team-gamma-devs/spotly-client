@@ -29,12 +29,10 @@
             console.log('Inside LoginForm: ' + JSON.stringify(result));
             if (result.type === "failure" && result.data)
             {
-                console.error("Well... Crap...");
                 errorMessage = String(result.data.error) || "Something went wrong, call the FBI.";
             }
             if (result.type === "success" && result.data) {
                 if (result.data.success === false) {
-                    console.error("Well... Shit...");
                     errorMessage =
                         String(result.data.error) || "Something went wrong";
                 } else {
@@ -74,7 +72,7 @@
         placeholder="pepe@holbertonschool.com"
         maxlength={30}
         required
-        class="pl-8 w-auto sm:min-w-[300px]"
+        class="pl-8 w-auto sm:min-w-[300px] w-full"
     >
         {#snippet left()}
             <EnvelopeSolid class="h-5 w-5 text-gray-500 dark:text-gray-400" />

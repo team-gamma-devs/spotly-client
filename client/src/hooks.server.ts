@@ -21,11 +21,30 @@ import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { authenticatedFetch } from '$lib/server/authFetch';
 
+import { dev } from '$app/environment';
+
 /**
  * This hook runs on every request to SvelteKit's server.
  * It's the central point for validating the user's session.
  */
 export const handle: Handle = async ({ event, resolve }) => {
+
+    // ************** DEVELOPMENT *******************
+    if (dev) {
+        event.locals.user = {
+            id: 'dev-user-123',
+            full_name: 'Dev User',
+            email: 'dev@example.com',
+            role: 'manager',
+            cohort: 15,
+            token_state: true,
+            log_state: true,
+            created_at: new Date().toISOString(),
+            expires_at: new Date().toISOString()
+        };
+        return resolve(event);
+    }
+
     const sessionToken = event.cookies.get('spotly_session');
 
     if (!sessionToken) {
@@ -43,7 +62,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
         if (response.ok) {
             const user = await response.json();
-            event.locals.user = user; // The user is valid
+            event.locals.user = user;
         } else {
             event.locals.user = null;
             event.cookies.delete('spotly_session', { path: '/' });

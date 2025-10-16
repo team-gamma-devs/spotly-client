@@ -4,7 +4,7 @@
   export const data: any = undefined;
 </script>
 
-<AuthBox>
+<AuthBox requiredRole={"graduate"}>
   {#snippet authorizedContent()}
     <slot />
   {/snippet}

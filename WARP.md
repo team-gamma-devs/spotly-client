@@ -1,6 +1,7 @@
 # WARP.md
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
+To help catch bugs-predeployment. Pre-bundle the routine Catch'em All!
 
 ## Development Commands
 
