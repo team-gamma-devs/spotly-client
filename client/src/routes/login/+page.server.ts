@@ -19,7 +19,7 @@ export const actions: Actions = {
 
         try {
             const body = { email };
-            const response = await authenticatedFetch(`${BACKEND_URL}/auth/`, {
+            const response = await authenticatedFetch(`${BACKEND_URL}/auth/login`, {
                 method: "POST",
                 body: JSON.stringify(body),
             })
@@ -32,8 +32,14 @@ export const actions: Actions = {
             const loginData = await response.json();
             accessToken = loginData.access_token;
 
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error calling login endpoint:", error);
+
+            if (error.cause?.code === "ECONNREFUSED") {
+                return fail(503, {
+                    error: "Authentication service is not available, call the FBI."
+                })
+            }
             return fail(500, { error: 'Could not connect to authentication service.' });
         }
         cookies.set('spotly_session', accessToken, {
@@ -44,7 +50,7 @@ export const actions: Actions = {
             sameSite: 'lax'
         });
 
-        throw redirect(303, '/app/dashboard');
+        throw redirect(303, '/app/');
     }
 };
 

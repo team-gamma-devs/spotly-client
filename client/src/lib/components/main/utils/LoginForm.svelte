@@ -7,6 +7,7 @@
     } from "flowbite-svelte-icons";
     import { enhance } from "$app/forms";
     import { goto } from "$app/navigation";
+    import { error } from "@sveltejs/kit";
 
     let loading = $state(false);
     let errorMessage = $state("");
@@ -25,9 +26,15 @@
 
         return async ({ result }) => {
             loading = false;
-            console.log('Pepitop!' + JSON.stringify(result));
+            console.log('Inside LoginForm: ' + JSON.stringify(result));
+            if (result.type === "failure" && result.data)
+            {
+                console.error("Well... Crap...");
+                errorMessage = String(result.data.error) || "Something went wrong, call the FBI.";
+            }
             if (result.type === "success" && result.data) {
                 if (result.data.success === false) {
+                    console.error("Well... Shit...");
                     errorMessage =
                         String(result.data.error) || "Something went wrong";
                 } else {
@@ -44,7 +51,7 @@
 >
     {#if errorMessage}
         <div
-            class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-red-700 dark:text-red-400"
+            class="max-w-[300px] mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-red-700 dark:text-red-400 flex items-center justify-center"
         >
             <ExclamationCircleSolid class="inline w-4 h-4 mr-2" />
             {errorMessage}
@@ -52,7 +59,7 @@
     {/if}
     {#if successMessage}
         <div
-            class="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded text-green-700 dark:text-green-400"
+            class="max-w-[300px] mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded text-green-700 dark:text-green-400 flex items-center justify-center"
         >
             <CheckCircleSolid class="inline w-4 h-4 mr-2" />
             {successMessage}

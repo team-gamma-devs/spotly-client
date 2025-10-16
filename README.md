@@ -5,7 +5,11 @@
 ![Vite](https://img.shields.io/badge/Vite-7.1.7-646cff?style=for-the-badge&logo=vite)
 ![Tailwind CSS](https://img.shields.io/npm/v/tailwindcss?label=Tailwind%20CSS&style=for-the-badge&logo=tailwindcss)
 ![Flowbite Svelte](https://img.shields.io/npm/v/flowbite-svelte?style=for-the-badge&logo=flowbite)
-![pnpm](https://img.shields.io/badge/pnpm-locked-39a0ff?style=for-the-badge&logo=pnpm)
+![pnpm](https://img.shields.io/badge/pnpm-10.18.0-39a0ff?style=for-the-badge&logo=pnpm)
+
+
+![Warp](https://img.shields.io/badge/Warp-Autodeployment%20Manager-1e1e3f?style=for-the-badge&logo=warp&logoColor=39a0ff)
+
 
 ## Quick local setup
 
