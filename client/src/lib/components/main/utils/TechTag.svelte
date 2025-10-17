@@ -63,7 +63,7 @@
 <input
     type="checkbox"
     id="{color}-option"
-    value="{title}"
+    value={title}
     class="hidden peer tech-tag-checkbox"
     required={false}
     bind:checked={$tagSelected}
@@ -71,20 +71,31 @@
 
 <label
     for="{color}-option"
-    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 ring-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 hover:bg-gray-50 transition-color duration-150 text-sm"
+    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 ring-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 hover:bg-gray-50 transition-color duration-150 text-sm h-6"
     style="background-color: var(--color-{color});"
-    onmouseover={()=>{hovered = true; ; console.log("Hovered!")}}
-    onfocus={()=>{()=>{hovered = true; ; console.log("Hovered!")}}}
-    onmouseleave={()=>{hovered = false; ; console.log("Hovered!")}}
+    onmouseover={() => {
+        hovered = true;
+        console.log("Hovered!");
+    }}
+    onfocus={() => {
+        () => {
+            hovered = true;
+            console.log("Hovered!");
+        };
+    }}
+    onmouseleave={() => {
+        hovered = false;
+        console.log("Hovered!");
+    }}
 >
     {#if $tagSelected}
-        <div class="symbol-container mr-1 w-4 h-4 flex items-center justify-center">
-            <div class:hidden={!hovered} class="discard-symbol mr-1">
-                <TrashBinOutline class="text-white h-3.5 w-3.5" />
+        <div class="symbol-container mr-1 flex items-center justify-center">
+            <div class:hidden={!hovered} class="discard-symbol mr-.5">
+                <TrashBinOutline class="text-white h-3 w-3" />
             </div>
 
-            <div class:hidden={hovered} class="selected-symbol mr-1">
-                <CheckCircleOutline class="text-white h-3.5 w-3.5" />
+            <div class:hidden={hovered} class="selected-symbol mr-.5">
+                <CheckCircleOutline class="text-white h-3 w-3" />
             </div>
         </div>
     {/if}

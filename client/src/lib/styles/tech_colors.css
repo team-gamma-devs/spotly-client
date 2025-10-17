@@ -1,0 +1,34 @@
+/* 
+  This file contains the color definitions for technology filter tags.
+  It defines a light and dark theme version for each color.
+*/
+
+@theme {
+  /* ******************* Light Theme Tag Colors *************************** */
+  --color-tag-default: rgb(150, 150, 159);
+  --color-react: rgb(19, 78, 179);
+  --color-typescript: #3178c6;
+  --color-angular: #dd0031;
+  --color-mongodb: #47a248;
+  --color-python: #3776ab;
+  --color-svelte: #ff3e00;
+  --color-vue: #4fc08d;
+  --color-node: #5fa04e;
+  --color-fastapi: #009688;
+  --color-ruby: #cc342d;
+}
+
+.dark {
+  /* ******************* Dark Theme Tag Colors *************************** */
+  --color-tag-default: rgb(52, 52, 54);
+  --color-react: rgb(23, 51, 100);
+  --color-typescript: #2b68ae;
+  --color-angular: #a70025;
+  --color-mongodb: #3a8a3b;
+  --color-python: #2d638f;
+  --color-svelte: #d93500;
+  --color-vue: #3e9d73;
+  --color-node: #4c823f;
+  --color-fastapi: #00796d;
+  --color-ruby: #a62a24;
+}

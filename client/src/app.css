@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "$lib/styles/tech_colors.css";
 
 @plugin 'flowbite/plugin';
 
@@ -40,10 +41,6 @@
   --color-primary-900: #771a17;
   --color-primary-950: #400a0a;
 
-  /* ******************* For the Filter Tags - Dark Theme *************************** */
-  --color-tag-default: rgb(150, 150, 159);
-  --color-react: rgb(19, 78, 179);
-
   --color-background: rgba(230, 243, 245, 0.426);
   --color-box-bg: rgb(247, 247, 254);
   /* --color-header-bg: rgb(222 226 228); */
@@ -79,9 +76,6 @@
   --color-primary-900: #633720;
   --color-primary-950: #391b0f;
 
-  /* ******************* For the Filter Tags - Dark Theme *************************** */
-  --color-tag-default: rgb(52, 52, 54);
-  --color-react: rgb(23, 51, 100);
 
   --color-background: rgba(14, 17, 22, 0.675);
   --color-box-bg: rgb(22, 22, 24);
