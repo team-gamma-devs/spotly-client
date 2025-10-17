@@ -32,16 +32,20 @@ export const handle: Handle = async ({ event, resolve }) => {
     // ************** DEVELOPMENT *******************
     if (dev) {
         event.locals.user = {
-            id: 'dev-user-123',
-            full_name: 'Dev User',
-            email: 'dev@example.com',
-            role: 'manager',
-            cohort: 15,
-            token_state: true,
-            log_state: true,
+            _id: "dev-user-123",
+            first_name: "Pepe",
+            last_name: "Pelotas",
+            email: "pepe@pelotas.com",
+            avatar_url: "pfp_fallback.svg",
+            cohort: 23,
+            github_info: "",
+            cv_info: "",
+            tutors_feedback: [""],
+            tech_stack: ["react", "mongodb", "pepe", "tailwind"],
+            role: "manager",
             created_at: new Date().toISOString(),
-            expires_at: new Date().toISOString()
-        };
+            updated_at: new Date().toISOString(),
+        }
         return resolve(event);
     }
 

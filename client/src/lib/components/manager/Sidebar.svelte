@@ -11,9 +11,10 @@
         Button,
     } from "flowbite-svelte";
     import { FilterSolid } from "flowbite-svelte-icons";
-    import FilterBox from "./utils/FilterBox.svelte";
-    import { page } from "$app/state";
+    import { FilterBox, SelectedTagsBox } from "./utils/";
     import { onMount } from "svelte";
+    import ManagerInventory from "./ManagerInventory.svelte";
+    import TechTag from "../main/utils/TechTag.svelte";
 
     const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Don't delete.
     const demoSidebarUi = uiHelpers();
@@ -21,10 +22,10 @@
 
     let isDemoOpen = $state(false); // Controls the sidebar open/close state
     let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput.
-    let activeUrl = $state("Technologies"); // Keep it URL although I'm not using URL but the sidebar expects it.
+    let activeUrl = $state("Technologies");
     let loading = $state(false);
-    let selectedTags: Array<string> = []; // This will hold the tags that the client will select, they can be any sort of tags to be send to the backend. Will ask fede to implemenet GraphQL.
-
+    let selectedTags: Array<string> = []; // This will hold the tags that the client will select,
+    // they can be any sort of tags to be send to the backend.
     let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100";
     let nonActiveClass = "p-2 hover:bg-primary-100";
 
@@ -39,9 +40,8 @@
     }
 
     onMount(() => {
-        // apply full height to that sneaky bastard.
-        // The ninja element is anaccessible Flowbite element, but it's not accessible.
-        // So you gotta inject the classes to the DOM
+        // The ninja element is an inaccessible Flowbite element.
+        // So you gotta inject the classes through the DOM.
         applyFullHeightToNinjaElement();
     });
 
@@ -53,10 +53,13 @@
             el.parentElement.classList.add("sm:h-full");
             console.log("Found the ninja!!");
         }
-    }
+    };
 </script>
 
-<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
+<SidebarButton
+    onclick={demoSidebarUi.toggle}
+    class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer"
+/>
 <!-- < This is the hamburger menu -->
 <div class="relative min-h-[100dvh]">
     <!-- < If this is the whole container we will have to render shit here -->
@@ -73,16 +76,11 @@
             active: activeClass,
         }}
     >
-        <SidebarGroup
-            class=" w-full"
-            id="son-of-ninja-element"
-        >
-            <!-- This is the inner tabs something is adding margin-->
+        <SidebarGroup class=" w-full" id="son-of-ninja-element">
             <SidebarDropdownWrapper
                 label="Filters"
                 classes={{ btn: "p-2 cursor-pointer hover:bg-primary-100" }}
             >
-                <!-- now we need to activate one check the active and nonactive stuff-->
                 {#snippet icon()}
                     <FilterSolid
                         class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -124,53 +122,22 @@
                     }}
                 />
             </SidebarDropdownWrapper>
-            <!-- <SidebarItem label="Kanban" {spanClass} href="/">
-                {#snippet icon()}
-                    <GridSolid
-                        class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    />
-                {/snippet}
-                {#snippet subtext()}
-                    <span
-                        class="ms-3 inline-flex items-center justify-center rounded-full bg-gray-200 px-2 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                        >Pro</span
-                    >
-                {/snippet}
-            </SidebarItem>
-            <SidebarItem label="Inbox" {spanClass} href="/">
-                {#snippet icon()}
-                    <MailBoxSolid
-                        class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    />
-                {/snippet}
-                {#snippet subtext()}
-                    <span
-                        class="bg-primary-200 text-primary-600 dark:bg-primary-900 dark:text-primary-200 ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full p-3 text-sm font-medium"
-                        >3</span
-                    >
-                {/snippet}
-            </SidebarItem>
-            <SidebarItem label="Sidebar" href="/components/sidebar">
-                {#snippet icon()}
-                    <UserSolid
-                        class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    />
-                {/snippet}
-            </SidebarItem> -->
         </SidebarGroup>
 
         <SidebarGroup border>
-            <div
-                id="selected-tags-wrapper"
-                class="min-h-[60px] w-full bg-black text-white px-2 py-1"
-            >
-                Here Selected Tags will go
-            </div>
+            <!-- This displays what filter tag the user queries for search (tech tags, english level, tutor feedback) -->
+            <SelectedTagsBox />
         </SidebarGroup>
 
         <SidebarGroup border>
+            <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
             <FilterBox {selectedFilter} />
         </SidebarGroup>
+
+        {#if selectedFilter === "Technologies"}
+            <!-- This displays available tags in the case where filter = technologies -->
+            <SidebarGroup border>Available Tags:</SidebarGroup>
+        {/if}
 
         <SidebarGroup border>
             <Button
@@ -181,8 +148,7 @@
             >
         </SidebarGroup>
     </Sidebar>
-    <div id="manager-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2">
-    </div>
+    <ManagerInventory />
 </div>
 
 <style>
