@@ -1,10 +1,13 @@
 /* 
   This file contains the color definitions for technology filter tags.
   It defines a light and dark theme version for each color.
+
+  The text color for the tags will always be white. when dark/light theme only adjust contrast.
 */
 
 @theme {
   /* ******************* Light Theme Tag Colors *************************** */
+  --color-active-tag: rgb(253, 122, 0);
   --color-tag-default: rgb(150, 150, 159);
   --color-react: rgb(19, 78, 179);
   --color-typescript: #3178c6;
@@ -20,6 +23,7 @@
 
 .dark {
   /* ******************* Dark Theme Tag Colors *************************** */
+  --color-active-tag: rgb(44, 179, 10);
   --color-tag-default: rgb(52, 52, 54);
   --color-react: rgb(23, 51, 100);
   --color-typescript: #2b68ae;

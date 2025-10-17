@@ -36,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             first_name: "Pepe",
             last_name: "Pelotas",
             email: "pepe@pelotas.com",
-            avatar_url: "pfp_fallback.svg",
+            avatar_url: "pfp-fallback.svg",
             cohort: 23,
             github_info: "",
             cv_info: "",

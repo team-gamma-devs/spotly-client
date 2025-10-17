@@ -6,44 +6,6 @@
         * Title: This must be collected from the availableFilterTags constant.
         * Color: Also must be collected from the availableFilterTags.
 -->
-<!-- <script lang="ts">
-    import { writable } from "svelte/store";
-    import { CheckCircleOutline, TrashBinOutline } from "flowbite-svelte-icons";
-
-    export const userId = "pepe1";
-    export const title = "React";
-    export const color = "react";
-
-    // store that holds the current checked state of the checkbox with id `${color}-option`
-    export const tagSelected = writable(false);
-</script>
-
-<input
-    type="checkbox"
-    id="{color}-option"
-    value=""
-    class="hidden peer tech-tag-checkbox"
-    required={false}
-    bind:checked={$tagSelected}
-/>
-<label
-    for="{color}-option"
-    class="inline-flex items-center justify-between px-2 py-0 text-foreground bg-{color} border-2 border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:border-gray-700 peer-checked:border-accent dark:peer-checked:border-accent hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-white dark:bg-{color} dark:hover:bg-gray-700"
->
-    {#if $tagSelected}
-         Shows if tag selected, but not if selected and hovered.$host
-        <div class="selected-symbol">
-            <CheckCircleOutline class="dark:text-green-400" />
-        </div>
-        Shows if tag is hovered, must overwrite div.class-box
-        <div class="discard-symbol">
-            <TrashBinOutline class="dark:text-red-400" />
-        </div>
-    {/if}
-    <div class="block">
-        <div class="w-full text-lg font-semibold">{title}</div>
-    </div>
-</label> -->
 
 <script lang="ts">
     import { writable } from "svelte/store";
@@ -57,6 +19,7 @@
 
     // store that holds the current checked state of the checkbox
     // $props could make it easier, but a writable is also valid.
+
     export const tagSelected = writable(false);
 </script>
 
@@ -71,7 +34,7 @@
 
 <label
     for="{color}-option"
-    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 ring-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 hover:bg-gray-50 transition-color duration-150 text-sm h-6"
+    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 ring-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 peer-checked:ring-active-tag hover:bg-gray-50 transition-color duration-150 text-sm h-6"
     style="background-color: var(--color-{color});"
     onmouseover={() => {
         hovered = true;
