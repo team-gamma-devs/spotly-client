@@ -1,22 +1,3 @@
-// import type { Handle } from '@sveltejs/kit';
-// import { getUserFromRequest } from '$lib/server/auth';
-
-// export const handle: Handle = async ({ event, resolve }) => {
-//   // resolve user first then handle the font preload crap, don't throw on failure.
-//   try {
-//     event.locals.user = await getUserFromRequest(event);
-//   } catch (e) {
-//     console.warn('auth: failed to resolve user', e);
-//     event.locals.user = null;
-//   }
-
-//   const response = await resolve(event, {
-//     preload: ({ type }) => type === 'font'
-//   });
-
-//   return response;
-// };
-
 import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { authenticatedFetch } from '$lib/server/authFetch';
@@ -24,8 +5,19 @@ import { authenticatedFetch } from '$lib/server/authFetch';
 import { dev } from '$app/environment';
 
 /**
- * This hook runs on every request to SvelteKit's server.
- * It's the central point for validating the user's session.
+ * Global SvelteKit Server Hook for session validation.
+ *
+ * This function executes on every server request to:
+ * 1. Bypass authentication in development mode with a mock user.
+ * 2. Check for the 'spotly_session' cookie.
+ * 3. Validate the session token against the backend's /auth/me endpoint.
+ * 4. Populate event.locals.user with the authenticated user data or null.
+ * 5. Clean up expired/invalid cookies.
+ *
+ * @param {object} context - The SvelteKit hook context.
+ * @param {import('@sveltejs/kit').RequestEvent} context.event - The current request event, containing cookies and locals.
+ * @param {function} context.resolve - The function to continue processing the request through the SvelteKit middleware chain.
+ * @returns {Promise<import('@sveltejs/kit').Response>} The resolved response object.
  */
 export const handle: Handle = async ({ event, resolve }) => {
 
