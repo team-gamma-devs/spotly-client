@@ -55,7 +55,9 @@
     onMount(() => {
         // The ninja element is an inaccessible Flowbite element.
         // So you gotta inject the classes through the DOM.
+        // This took so long...
         applyFullHeightToNinjaElement();
+        applySidebarConstraints();
     });
 
     const applyFullHeightToNinjaElement = () => {
@@ -67,6 +69,16 @@
             console.log("Found the ninja!!");
         }
     };
+
+    const applySidebarConstraints = () => {
+        const sidebarWrapper = document.querySelector('[class*="fixed"][class*="inset-y-0"]') 
+            || document.querySelector('.sidebar-wrapper');
+        
+        if (sidebarWrapper) {
+            (sidebarWrapper as HTMLElement).style.maxHeight = '100vh';
+            (sidebarWrapper as HTMLElement).style.overflow = 'hidden';
+        }
+    };
 </script>
 
 <SidebarButton
@@ -76,101 +88,132 @@
 <!-- < This is the hamburger menu -->
 <div class="relative min-h-[100dvh]">
     <!-- < If this is the whole container we will have to render shit here -->
-    <Sidebar
-        {activeUrl}
-        backdrop={false}
-        isOpen={isDemoOpen}
-        closeSidebar={closeDemoSidebar}
-        params={{ x: -50, duration: 50 }}
-        class="z-50 h-full bg-background dark:bg-background blur-bg"
-        position="absolute"
-        classes={{
-            nonactive: nonActiveClass,
-            active: activeClass,
-        }}
-    >
-        <SidebarGroup class=" w-full" id="son-of-ninja-element">
-            <SidebarDropdownWrapper
-                label="Filters"
-                classes={{ btn: "p-2 cursor-pointer hover:bg-primary-100" }}
-            >
-                {#snippet icon()}
-                    <FilterSolid
-                        class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    />
-                {/snippet}
-                <SidebarItem
-                    label="Technologies"
-                    class="cursor-pointer filter-tag {selectedFilter ===
-                    'Technologies'
-                        ? 'active-label'
-                        : ''}"
-                    onclick={() => {
-                        selectedFilter = "Technologies";
-                        activeUrl = "Technologies";
-                    }}
-                />
+    <div class="sidebar-wrapper">
+        <Sidebar
+            {activeUrl}
+            backdrop={false}
+            isOpen={isDemoOpen}
+            closeSidebar={closeDemoSidebar}
+            params={{ x: -50, duration: 50 }}
+            class="z-50 sidebar-constrained bg-background dark:bg-background blur-bg"
+            position="absolute"
+            classes={{
+                nonactive: nonActiveClass,
+                active: activeClass,
+            }}
+        >
+            <div class="sidebar-inner">
+                <SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
+                    <SidebarDropdownWrapper
+                        label="Filters"
+                        classes={{ btn: "p-2 cursor-pointer hover:bg-primary-100" }}
+                    >
+                        {#snippet icon()}
+                            <FilterSolid
+                                class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                            />
+                        {/snippet}
+                        <SidebarItem
+                            label="Technologies"
+                            class="cursor-pointer filter-tag {selectedFilter ===
+                            'Technologies'
+                                ? 'active-label'
+                                : ''}"
+                            onclick={() => {
+                                selectedFilter = "Technologies";
+                                activeUrl = "Technologies";
+                            }}
+                        />
 
-                <SidebarItem
-                    label="English Level"
-                    class="cursor-pointer filter-tag {selectedFilter ===
-                    'English Level'
-                        ? 'active-label'
-                        : ''}"
-                    onclick={() => {
-                        selectedFilter = "English Level";
-                        activeUrl = "English Level";
-                    }}
-                />
-                <SidebarItem
-                    label="Feedback"
-                    class="cursor-pointer filter-tag {selectedFilter ===
-                    'Feedback'
-                        ? 'active-label'
-                        : ''}"
-                    onclick={() => {
-                        selectedFilter = "Feedback";
-                        activeUrl = "Feedback";
-                        applyFullHeightToNinjaElement();
-                    }}
-                />
-            </SidebarDropdownWrapper>
-        </SidebarGroup>
+                        <SidebarItem
+                            label="English Level"
+                            class="cursor-pointer filter-tag {selectedFilter ===
+                            'English Level'
+                                ? 'active-label'
+                                : ''}"
+                            onclick={() => {
+                                selectedFilter = "English Level";
+                                activeUrl = "English Level";
+                            }}
+                        />
+                        <SidebarItem
+                            label="Feedback"
+                            class="cursor-pointer filter-tag {selectedFilter ===
+                            'Feedback'
+                                ? 'active-label'
+                                : ''}"
+                            onclick={() => {
+                                selectedFilter = "Feedback";
+                                activeUrl = "Feedback";
+                                applyFullHeightToNinjaElement();
+                            }}
+                        />
+                    </SidebarDropdownWrapper>
+                </SidebarGroup>
 
-        <SidebarGroup border>
-            <!-- This displays what filter tag the user queries for search (tech tags, english level, tutor feedback) -->
-            Selected Tags
-            <SelectedTagsBox {selectedTags} {deselectTag} />
-        </SidebarGroup>
+                <SidebarGroup border class="flex-shrink-0">
+                    <!-- This displays what filter tag the user queries for search (tech tags, english level, tutor feedback) -->
+                    Selected Tags
+                    <SelectedTagsBox {selectedTags} {deselectTag} />
+                </SidebarGroup>
 
-        <SidebarGroup border>
-            <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
-            <FilterBox {selectedFilter} bind:techKeyword />
-        </SidebarGroup>
+                <div class="sidebar-scrollable">
+                    <SidebarGroup border>
+                        <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
+                        <FilterBox {selectedFilter} bind:techKeyword />
+                    </SidebarGroup>
 
-        {#if selectedFilter === "Technologies"}
-            <!-- This displays the available filters to be selected  -->
-            <SidebarGroup border>
-                Available Tags
-                <AvailableTagsBox
-                    keyword={techKeyword}
-                    {selectedTags}
-                    {selectTag}
-                />
-            </SidebarGroup>
-        {/if}
+                    {#if selectedFilter === "Technologies"}
+                        <!-- This displays the available filters to be selected  -->
+                        <SidebarGroup border>
+                            Available Tags
+                            <AvailableTagsBox
+                                keyword={techKeyword}
+                                {selectedTags}
+                                {selectTag}
+                            />
+                        </SidebarGroup>
+                    {/if}
+                </div>
 
-        <SidebarGroup border>
-            <Button
-                color="alternative"
-                class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
-                onclick={handleSubmit}
-                {loading}>Search</Button
-            >
-        </SidebarGroup>
-    </Sidebar>
+                <SidebarGroup border class="flex-shrink-0">
+                    <Button
+                        color="alternative"
+                        class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
+                        onclick={handleSubmit}
+                        {loading}>Search</Button
+                    >
+                </SidebarGroup>
+            </div>
+        </Sidebar>
+    </div>
     <ManagerInventory />
 </div>
 
 <style>
+    .sidebar-wrapper {
+        max-height: 100vh;
+        overflow: hidden;
+    }
+
+    :global(.sidebar-constrained) {
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
+    }
+
+    .sidebar-inner {
+        display: flex;
+        flex-direction: column;
+        min-height: 90dvh;
+        max-height: 100dvh;
+        overflow: hidden;
+    }
+
+    .sidebar-scrollable {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 0;
+    }
 </style>
