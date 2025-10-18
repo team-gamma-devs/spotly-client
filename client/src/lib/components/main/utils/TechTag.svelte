@@ -39,6 +39,7 @@
     let uniqueId = $state("");
 
     const tagAction = $derived($tagSelected ? "Remove tag" : "Add tag");
+    const tagColor = $derived(`background-color: var(--color-${color});`);
 
     // This is to control the id's for the tags, if the tag is inside a graduate card, it gets the graduate's ID-color-tag
     // Otherwise fallbacks to a global counter, that way there are not repeated ID tags.
@@ -59,22 +60,21 @@
 
 <label
     for={uniqueId}
-    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 ring-gray-200 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 peer-checked:ring-active-tag hover:bg-gray-50 transition-color duration-150 text-sm h-6"
+    class="inline-flex items-center justify-between px-2 py-0 text-white ring-2 rounded-md cursor-pointer dark:hover:text-gray-200 dark:ring-gray-700 hover:ring-accent dark:peer-checked:text-gray-300 peer-checked:ring-active-tag hover:bg-gray-50 transition-color duration-150 text-sm h-6"
     title={tagAction}
-    style="background-color: var(--color-{color});"
+    style={tagColor}
     onmouseover={() => {
         hovered = true;
-        console.log("Hovered!");
+        console.log("Hovered! " + uniqueId);
     }}
     onfocus={() => {
         () => {
             hovered = true;
-            console.log("Hovered!");
         };
     }}
     onmouseleave={() => {
         hovered = false;
-        console.log("Hovered!");
+        console.log("Unhovered! "+ uniqueId);
     }}
 >
     {#if $tagSelected}

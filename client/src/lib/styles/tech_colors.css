@@ -5,18 +5,18 @@
   The text color for the tags will always be white. when dark/light theme only adjust contrast.
 */
 
-@theme {
+:root {
   /* ******************* Light Theme Tag Colors *************************** */
   --color-active-tag: rgb(253, 122, 0);
-  --color-tag-default: rgb(150, 150, 159);
+  --color-tag-default: rgb(46, 46, 54);
   --color-react: rgb(19, 78, 179);
   --color-typescript: #3178c6;
   --color-angular: #dd0031;
-  --color-mongodb: #47a248;
+  --color-mongodb: #62a963;
   --color-python: #3776ab;
-  --color-svelte: #ff3e00;
-  --color-vue: #4fc08d;
-  --color-node: #5fa04e;
+  --color-svelte: #d1542a;
+  --color-vue: #32a370;
+  --color-node: #47bc2a;
   --color-fastapi: #009688;
   --color-ruby: #cc342d;
 }
