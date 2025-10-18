@@ -82,7 +82,7 @@
         *Use your Holberton email
     </p>
     <a
-        href="/help"
+        href="/login/help"
         class=" text-sm text-blue-700 hover:text-blue-800 mt-2
             dark:text-blue-300 dark:hover:text-blue-200 underline decoration-1 underline-offset-2 transition-colors block text-center"
         aria-label="Lost Holberton Account"

@@ -47,11 +47,14 @@
 		rel="preload"
 		href="/images/abstract-bg-light-desktop.webp"
 		as="image"
+		media="(prefers-color-scheme: light)"
 	/>
+
 	<link
 		rel="preload"
 		href="/images/abstract-bg-dark-desktop.webp"
 		as="image"
+		media="(prefers-color-scheme: dark)"
 	/>
 </svelte:head>
 {#if showComingSoon}
