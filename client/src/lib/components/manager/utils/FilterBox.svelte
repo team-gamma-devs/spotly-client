@@ -1,9 +1,10 @@
 <script lang="ts">
     import { Label, Input, Select, Radio, MultiSelect } from "flowbite-svelte";
-    export let selectedFilter: string = "";
 
-    let selectedEnglishLevel: string = "";
-    let multiSelectedTutors: string[] = [];
+    let { techKeyword = $bindable(), selectedFilter } = $props();
+
+    let selectedEnglishLevel: string = $state("");
+    let multiSelectedTutors: string[] = $state([]);
 
     let levels: { value: string; name: string }[] = [
         { value: "advanced", name: "Advanced" },
@@ -20,7 +21,9 @@
 
     const applyFullHeightToBitchElement = () => {
         const el = document.querySelector("#this-element-is-a-bitch");
-        if (el?.parentElement) { el.parentElement.classList.add("h-full"); }
+        if (el?.parentElement) {
+            el.parentElement.classList.add("h-full");
+        }
     };
 </script>
 
@@ -28,7 +31,11 @@
     Select {selectedFilter ? selectedFilter : "Filter"}
 </Label>
 {#if selectedFilter == "Technologies"}
-    <Input id="default-input" placeholder="Enter Keyword" />
+    <Input
+        id="technologies-text-input"
+        placeholder="Enter Keyword"
+        bind:value={techKeyword}
+    />
 {:else if selectedFilter == "English Level"}
     <Select class="mt-2" items={levels} bind:value={selectedEnglishLevel} />
 {:else if selectedFilter == "Feedback"}
@@ -38,5 +45,3 @@
         onclick={applyFullHeightToBitchElement}
     />
 {/if}
-
-
