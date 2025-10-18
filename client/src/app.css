@@ -101,10 +101,7 @@
   --color-button-bg: #aa442d;
 
   /* Color for the tags */
-
-  
 }
-
 
 @source "../node_modules/flowbite-svelte/dist";
 @source "../node_modules/flowbite-svelte-icons/dist";
