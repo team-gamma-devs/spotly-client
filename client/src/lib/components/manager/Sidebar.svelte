@@ -11,27 +11,40 @@
         Button,
     } from "flowbite-svelte";
     import { FilterSolid } from "flowbite-svelte-icons";
-    import { FilterBox, SelectedTagsBox } from "./utils/";
+    import { FilterBox, SelectedTagsBox, AvailableTagsBox } from "./utils/";
     import { onMount } from "svelte";
     import ManagerInventory from "./ManagerInventory.svelte";
-    import TechTag from "../main/utils/TechTag.svelte";
+    import {
+        availableFilterTags,
+        type FilterTag,
+    } from "$lib/constants/filterTags";
 
     const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Don't delete.
     const demoSidebarUi = uiHelpers();
     const closeDemoSidebar = demoSidebarUi.close;
 
-    let isDemoOpen = $state(false); // Controls the sidebar open/close state
-    let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput.
-    let activeUrl = $state("Technologies");
-    let loading = $state(false);
-    let selectedTags: Array<string> = []; // This will hold the tags that the client will select,
-    // they can be any sort of tags to be send to the backend.
     let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100";
     let nonActiveClass = "p-2 hover:bg-primary-100";
+
+    let techKeyword = $state(""); // State for controlling the technology text input.
+    let selectedTags = $state<FilterTag[]>([]);
+    let isDemoOpen = $state(false); // Controls the sidebar open/close state
+    let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput. This is for the menu, not the tech tags
+    let activeUrl = $state("Technologies"); // To control the sidebar menus.
+    let loading = $state(false);
 
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
     });
+
+    function selectTag(tag: FilterTag) {
+        if (!selectedTags.find((t) => t.code === tag.code)) {
+            selectedTags.push(tag);
+        }
+    }
+    function deselectTag(tag: FilterTag) {
+        selectedTags = selectedTags.filter((t) => t.code !== tag.code);
+    }
 
     async function handleSubmit() {
         loading = true;
@@ -126,17 +139,25 @@
 
         <SidebarGroup border>
             <!-- This displays what filter tag the user queries for search (tech tags, english level, tutor feedback) -->
-            <SelectedTagsBox />
+            Selected Tags
+            <SelectedTagsBox {selectedTags} {deselectTag} />
         </SidebarGroup>
 
         <SidebarGroup border>
             <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
-            <FilterBox {selectedFilter} />
+            <FilterBox {selectedFilter} bind:techKeyword />
         </SidebarGroup>
 
         {#if selectedFilter === "Technologies"}
-            <!-- This displays available tags in the case where filter = technologies -->
-            <SidebarGroup border>Available Tags:</SidebarGroup>
+            <!-- This displays the available filters to be selected  -->
+            <SidebarGroup border>
+                Available Tags
+                <AvailableTagsBox
+                    keyword={techKeyword}
+                    {selectedTags}
+                    {selectTag}
+                />
+            </SidebarGroup>
         {/if}
 
         <SidebarGroup border>

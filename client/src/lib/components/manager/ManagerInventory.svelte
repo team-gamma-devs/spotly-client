@@ -5,5 +5,4 @@
 
 
 <div class='h-full overflow-auto px-4 md:ml-64 ring-2 ring-red-700'>
-    <TechTag></TechTag>
 </div>
