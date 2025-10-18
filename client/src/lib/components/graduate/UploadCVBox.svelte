@@ -16,20 +16,19 @@
 
     // Derived states for validation errors
     const linkedInError = $derived(
-        form?.validation?.linkedin ? form.validation.linkedin : null
+        form?.validation?.linkedin ? form.validation.linkedin : null,
     );
     const personalCvError = $derived(
-        form?.validation?.personal ? form.validation.personal : null
+        form?.validation?.personal ? form.validation.personal : null,
     );
-    const generalError = $derived(
-        form?.error ? form.error : null
-    );
-    const uploadSuccess = $derived(
-        form?.success === true
-    );
-
+    const generalError = $derived(form?.error ? form.error : null);
+    const uploadSuccess = $derived(form?.success === true);
+    /**
+     * Navigates the user to the dashboard upon successful upload.
+     * This is triggered by the "Continue" button after success.
+     */
     async function handleContinue() {
-        await goto("/app/dashboard");
+        await goto("/app/graduate");
     }
 </script>
 
@@ -43,10 +42,11 @@
             classes="hidden md:block md:flex md:items-center md:justify-center"
         />
     </div>
-    
+
     <div class="w-full max-w-3xl mx-5 my-4">
         <div
-            class="flex flex-col md:flex-row items-center md:items-center gap-4 border border-gray-200 dark:border-slate-800 rounded-lg p-4 md:p-5 shadow-sm"
+            class="flex flex-col md:flex-row items-center md:items-center gap-4 border
+                    border-gray-200 dark:border-slate-800 rounded-lg p-4 md:p-5 shadow-sm"
         >
             <div class="items-center m-auto">
                 <h3
@@ -73,8 +73,9 @@
                         {/if}
                         <span
                             class="text-sm text-foreground dark:text-slate-100 pt-1"
-                            >LinkedIn-generated PDF</span
                         >
+                            LinkedIn-generated PDF
+                        </span>
                     </li>
                     <li class="flex items-start gap-3">
                         {#if uploadSuccess}
@@ -88,8 +89,9 @@
                         {/if}
                         <span
                             class="text-sm text-foreground dark:text-slate-100 pt-1"
-                            >Personal CV (PDF or DOCX)</span
                         >
+                            Personal CV (PDF or DOCX)
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -120,7 +122,8 @@
             </div>
             {#if linkedInError}
                 <Alert color="red" class="mt-2 w-full">
-                    <span class="font-semibold">LinkedIn PDF:</span> {linkedInError}
+                    <span class="font-semibold">LinkedIn PDF:</span>
+                    {linkedInError}
                 </Alert>
             {/if}
         </div>
@@ -137,7 +140,8 @@
             </div>
             {#if personalCvError}
                 <Alert color="red" class="mt-2 w-full">
-                    <span class="font-semibold">Personal CV:</span> {personalCvError}
+                    <span class="font-semibold">Personal CV:</span>
+                    {personalCvError}
                 </Alert>
             {/if}
         </div>
@@ -159,7 +163,7 @@
         {/if}
 
         <div class="p-2 flex items-center justify-center gap-3">
-            {#if !uploadSuccess}
+            <!-- {#if !uploadSuccess}
                 <Button
                     type="submit"
                     color="blue"
@@ -177,7 +181,15 @@
                 >
                     Continue
                 </Button>
-            {/if}
+            {/if} -->
+            <!-- DEBUG ONLY! -->
+            <Button
+                color="green"
+                class="my-3 min-w-[120px]"
+                onclick={handleContinue}
+            >
+                Continue
+            </Button>
         </div>
     </form>
 </GenericBoxVisible>

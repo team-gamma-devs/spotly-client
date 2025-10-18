@@ -9,9 +9,13 @@ interface ValidationErrors {
     linkedin?: string;
     personal?: string;
 }
-
 /**
- * Validates a file for type and size
+ * Validates an uploaded file against size and allowed file extensions/MIME types.
+ *
+ * @param {File | null} file - The file object from the FormData, or null if missing.
+ * @param {string[]} allowedTypes - An array of allowed file extensions (e.g., ['pdf', 'docx']).
+ * @param {string} fieldName - A human-readable name for the field (e.g., 'LinkedIn PDF').
+ * @returns {string | null} An error message string if validation fails, or null if validation passes.
  */
 function validateFile(
     file: File | null, 
@@ -36,7 +40,7 @@ function validateFile(
     // 1 case per format.
     const allowedMimeTypes = allowedTypes.map(ext => {
         switch(ext) {
-            case 'pdf': return String('application/pdf'); // Don't know why it complains if I don't convert to string.
+            case 'pdf': return String('application/pdf'); // Don't understand why it complains if I don't convert to string.
             case 'docx': return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
             default: return '';
         }
@@ -48,7 +52,11 @@ function validateFile(
 
     return null;
 }
-
+/**
+ * Defines the form actions available for file uploads.
+ *
+ * @type {import('@sveltejs/kit').Actions}
+ */
 export const actions: Actions = {
     uploadFiles: async ({ request, cookies }) => {
         const formData = await request.formData();
