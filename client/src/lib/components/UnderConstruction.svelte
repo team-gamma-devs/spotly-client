@@ -1,6 +1,6 @@
 <div
     id="text-container"
-    class="nice-bg flex flex-col justify-center items-center px-4"
+    class="nice-bg flex flex-col justify-center items-center px-4 ring-2"
 >
     <div
         class="mt-auto flex flex-col justify-center items-center text-white zalando-font text-center"
@@ -59,6 +59,7 @@
         background-size: cover;
         background-position: center;
         min-height: 100vh;
+        width: 100dvw;
     }
     
     #holberton-logo-img {
