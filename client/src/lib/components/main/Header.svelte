@@ -15,9 +15,8 @@
     } from "flowbite-svelte";
     import AuthBox from "./utils/AuthBox.svelte";
     import { page } from "$app/state";
-    import { getUserStore } from "$lib/stores/session"
 
-    const user = getUserStore();
+    const user = $derived(page.data.user);
 
     let activeUrl = $derived(page.url.pathname);
     let activeClass =
@@ -49,7 +48,7 @@
                 {activeUrl}
                 classes={{ active: activeClass, nonActive: nonActiveClass }}
             >
-                {#if $user?.role == "manager"}
+                {#if user?.role == "manager"}
                     <NavLi
                         href="/app/manager/"
                         class="relative"
@@ -60,7 +59,7 @@
                         class="relative"
                         style="top:2px;">Status</NavLi
                     >
-                {:else if $user?.role == "graduate"}
+                {:else if user?.role == "graduate"}
                     <NavLi
                         href="/app/graduate/"
                         class="relative"
@@ -100,12 +99,12 @@
                     >
                 </DropdownHeader>
                 <DropdownGroup>
-                    {#if $user?.role == "graduate"}
+                    {#if user?.role == "graduate"}
                         <DropdownItem
                             class="cursor-pointer"
                             href="/app/graduate/settings">Settings</DropdownItem
                         >
-                    {:else if $user?.role == "manager"}
+                    {:else if user?.role == "manager"}
                         <DropdownItem
                             class="cursor-pointer"
                             href="/app/manager/settings">Settings</DropdownItem
