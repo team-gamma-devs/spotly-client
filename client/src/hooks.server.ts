@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { authenticatedFetch } from '$lib/server/authFetch';
+import { signedJsonFetch } from '$lib/server/authFetch';
 
 import { dev } from '$app/environment';
 
@@ -34,7 +34,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             cv_info: "",
             tutors_feedback: [""],
             tech_stack: ["react", "mongodb", "pepe", "tailwind"],
-            role: "graduate",
+            role: "manager",
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
         }
@@ -49,7 +49,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     try {
-        const response = await authenticatedFetch(`${BACKEND_URL}/auth/me`, {
+        const response = await signedJsonFetch(`${BACKEND_URL}/auth/me`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${sessionToken}`

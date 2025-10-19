@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { authenticatedFetch } from '$lib/server/authFetch';
+import { signedMultipartFetch } from '$lib/server/authFetch';
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
 
@@ -18,8 +18,8 @@ interface ValidationErrors {
  * @returns {string | null} An error message string if validation fails, or null if validation passes.
  */
 function validateFile(
-    file: File | null, 
-    allowedTypes: string[], 
+    file: File | null,
+    allowedTypes: string[],
     fieldName: string
 ): string | null {
 
@@ -39,7 +39,7 @@ function validateFile(
 
     // 1 case per format.
     const allowedMimeTypes = allowedTypes.map(ext => {
-        switch(ext) {
+        switch (ext) {
             case 'pdf': return String('application/pdf'); // Don't understand why it complains if I don't convert to string.
             case 'docx': return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
             default: return '';
@@ -62,6 +62,8 @@ export const actions: Actions = {
         const formData = await request.formData();
         const linkedinPdf = formData.get('linkedin_pdf') as File | null;
         const personalCv = formData.get('personal_cv') as File | null;
+        const magicToken = formData.get('magic_token') as string | null;
+
         console.log("I'm Inside!!")
 
         const validationErrors: ValidationErrors = {};
@@ -69,47 +71,57 @@ export const actions: Actions = {
         const linkedinError = validateFile(linkedinPdf, ['pdf'], 'LinkedIn PDF');
         if (linkedinError) {
             validationErrors.linkedin = linkedinError;
-            console.log("error: "+linkedinError)
+            console.log("error: " + linkedinError)
         }
 
         const personalError = validateFile(personalCv, ['pdf', 'docx'], 'Personal CV');
         if (personalError) {
             validationErrors.personal = personalError;
         }
-    
+
         // if there are any error, I'll return them for the UI.
         if (Object.keys(validationErrors).length > 0) {
-            return fail(400, { 
+            return fail(400, {
                 validation: validationErrors,
-                success: false 
+                success: false
             });
         }
 
-        try {
-            const uploadFormData = new FormData();
-            uploadFormData.append('linkedin_pdf', linkedinPdf!);
-            uploadFormData.append('personal_cv', personalCv!);
+        if (!magicToken) {
+            return fail(401, { error: 'Authentication token is missing. Please refresh and try again.' });
+        }
 
-            const response = await authenticatedFetch(
-                `${BACKEND_URL}/graduate/upload-files`, 
+
+        try {
+            const url = new URL(`${BACKEND_URL}/signup`);
+            url.searchParams.append('token', magicToken);
+
+            const response = await signedMultipartFetch(
+                url.toString(),
                 {
                     method: 'POST',
-                    body: uploadFormData,
-                    headers: {
-                        // TODO: Might have to append crap here.
-                    }
+                    body: formData
                 }
             );
 
             if (!response.ok) {
                 const errorData = await response.json();
-                return fail(response.status, { 
+                return fail(response.status, {
                     error: errorData.detail || 'Upload failed. Please try again.',
-                    success: false 
+                    success: false
                 });
             }
+            const responseData = await response.json();
+            const jwt = responseData.accessToken; // Aliased to camel case.
 
-            return { 
+            cookies.set('spotly_session', jwt, {
+                path: '/',
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 60 * 60 * 24 * 7 // 1 week
+            });
+
+            return {
                 success: true,
                 message: 'Files uploaded successfully!'
             };
@@ -124,9 +136,9 @@ export const actions: Actions = {
                 });
             }
 
-            return fail(500, { 
+            return fail(500, {
                 error: 'Could not connect to upload service. Please try again.',
-                success: false 
+                success: false
             });
         }
     }

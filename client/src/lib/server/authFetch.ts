@@ -1,6 +1,12 @@
 import { createHmac } from 'crypto';
 import { BACKEND_SECRET } from '$env/static/private';
 
+/**
+ * Generates a SHA256 HMAC signature for a given payload and timestamp.
+ * @param payload The stringified request body. For multipart requests, this should be an empty string.
+ * @param timestamp The timestamp of the request in milliseconds.
+ * @returns The hexadecimal signature string.
+ */
 export function signRequest(payload: string, timestamp: number): string {
   if (!BACKEND_SECRET) {
     throw new Error('BACKEND_SECRET environment variable is not set');
@@ -10,17 +16,17 @@ export function signRequest(payload: string, timestamp: number): string {
   return createHmac('sha256', BACKEND_SECRET).update(message).digest('hex');
 }
 
-export function createAuthHeaders(body?: any): Headers {
+/**
+ * Creates authentication headers for application/json requests.
+ * The signature is generated from the stringified JSON body.
+ * @param body The request body object.
+ * @returns A Headers object with the required authentication headers.
+ */
+function createJsonAuthHeaders(body?: any): Headers {
   const timestamp = Date.now();
   const payload = body ? JSON.stringify(body) : '';
   const signature = signRequest(payload, timestamp);
   
-//   console.log(JSON.stringify({
-//     'Content-Type': 'application/json',
-//     'X-Signature': signature,
-//     'X-Timestamp': timestamp.toString(),
-//     'X-Frontend-Origin': 'vercel-spotly-client'
-//   }));
   return new Headers({
     'Content-Type': 'application/json',
     'X-Signature': signature,
@@ -29,23 +35,56 @@ export function createAuthHeaders(body?: any): Headers {
   });
 }
 
-// util to make auth'd requests
-export async function authenticatedFetch(url: string, options: RequestInit = {}): Promise<Response> {
+/**
+ * A fetch utility for making signed requests with a JSON body.
+ * Use this for all standard API calls that don't involve file uploads.
+ * @param url The URL to fetch.
+ * @param options The request options, including the body to be signed.
+ * @returns The fetch Response promise.
+ */
+export async function signedJsonFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const body = options.body;
-  const authHeaders = createAuthHeaders(body ? JSON.parse(body as string) : undefined);
-
-  // This is to see wtf I'm sending.
-  const mergedHeaders = {
-    ...Object.fromEntries(authHeaders.entries()),
-    ...(options.headers as Record<string, string> | undefined),
-  };
-
-  console.log('authenticatedFetch', {
-    url,
-    method: options.method ?? 'GET',
-    headers: mergedHeaders,
-    body: options.body,
+  const authHeaders = createJsonAuthHeaders(body ? JSON.parse(body as string) : undefined);
+  
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...Object.fromEntries(authHeaders.entries()),
+      ...options.headers,
+    },
   });
+}
+
+/**
+ * Creates authentication headers for multipart/form-data requests.
+ * The signature is generated with an empty payload because the FormData
+ * body cannot be read and stringified on the server.
+ * @returns A Headers object with the required authentication headers.
+ */
+function createMultipartAuthHeaders(): Headers {
+  const timestamp = Date.now();
+  const payload = '';
+  const signature = signRequest(payload, timestamp);
+
+  return new Headers({
+    'X-Signature': signature,
+    'X-Timestamp': timestamp.toString(),
+    'X-Frontend-Origin': 'vercel-spotly-client'
+  });
+}
+
+/**
+ * A fetch utility for making signed multipart/form-data requests (file uploads).
+ * @param url The URL to fetch.
+ * @param options The request options. The body MUST be a FormData object.
+ * @returns The fetch Response promise.
+ */
+export async function signedMultipartFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  if (!(options.body instanceof FormData)) {
+    throw new Error('signedMultipartFetch is only for FormData bodies.');
+  }
+
+  const authHeaders = createMultipartAuthHeaders();
   
   return fetch(url, {
     ...options,

@@ -4,5 +4,5 @@
 </script>
 
 
-<div class='h-full overflow-auto px-4 md:ml-64 ring-2 ring-red-700'>
+<div class='h-[100dvh] overflow-auto px-4 md:ml-64'>
 </div>

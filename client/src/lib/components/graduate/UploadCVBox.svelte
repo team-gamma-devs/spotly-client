@@ -10,6 +10,7 @@
     import { applyAction, enhance } from "$app/forms";
     import { goto } from "$app/navigation";
     import type { ActionData } from "../../../routes/app/graduate/upload_cv/$types";
+    import { page } from "$app/state";
 
     let { form = $bindable() }: { form: ActionData } = $props();
     let isLoading = $state(false);
@@ -23,6 +24,7 @@
     );
     const generalError = $derived(form?.error ? form.error : null);
     const uploadSuccess = $derived(form?.success === true);
+    const magicToken = $derived(page.url.searchParams.get("token")); // This holds the magic link token.
     /**
      * Navigates the user to the dashboard upon successful upload.
      * This is triggered by the "Continue" button after success.
@@ -110,6 +112,8 @@
             };
         }}
     >
+    <!-- This hidden input sends the magic link from the url -->
+        <input type="hidden" name="magic_token" value={magicToken} /> 
         <div class="p-2 flex flex-col items-center justify-center">
             <Label class="pb-1 pl-2 w-full">LinkedIn's Generated PDF</Label>
             <div class="inline-file-input flex gap-2 w-full">
@@ -163,6 +167,7 @@
         {/if}
 
         <div class="p-2 flex items-center justify-center gap-3">
+            <!-- Real shit, don't delete -->
             <!-- {#if !uploadSuccess}
                 <Button
                     type="submit"
