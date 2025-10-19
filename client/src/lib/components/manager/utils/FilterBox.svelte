@@ -1,19 +1,19 @@
 <script lang="ts">
     import { Label, Input, Select, Radio, MultiSelect } from "flowbite-svelte";
 
-    let { 
-        techKeyword = $bindable(), 
+    let {
+        techKeyword = $bindable(),
         selectedFilter,
-        selectedEnglishLevel = $bindable(),
-        multiSelectedTutors = $bindable()
+        multiSelectedEnglishLevel = $bindable(),
+        multiSelectedTutors = $bindable(),
     } = $props();
 
-    let levels: { value: string; name: string }[] = [
+    let englishLevels: { value: string; name: string }[] = [
         { value: "advanced", name: "Advanced" },
         { value: "intermediate", name: "Intermediate" },
         { value: "basic", name: "Basic" },
     ];
-    
+
     let tutorsList: { value: string; name: string }[] = [
         { value: "jav_val", name: "Javier Valenziani" },
         { value: "ign_cap", name: "Ignacio Capezzolo" },
@@ -41,7 +41,7 @@
         bind:value={techKeyword}
     />
 {:else if selectedFilter == "English Level"}
-    <Select class="mt-2" items={levels} bind:value={selectedEnglishLevel} />
+    <MultiSelect items={englishLevels} bind:value={multiSelectedEnglishLevel} />
 {:else if selectedFilter == "Feedback"}
     <MultiSelect
         items={tutorsList}
