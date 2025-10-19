@@ -53,6 +53,7 @@
 		as="image"
 		media="(prefers-color-scheme: dark)"
 	/>
+	<title>Spotly | {page.data.title ?? 'Empowering Holbies!'}</title>
 </svelte:head>
 {#if showComingSoon}
 	<UnderConstruction />

@@ -2,6 +2,7 @@
 // When we handle auth, this will update the auth store.
 import type { LayoutServerLoad } from './$types';
 
+
 /**
  * Server-side load function for the root layout.
  *

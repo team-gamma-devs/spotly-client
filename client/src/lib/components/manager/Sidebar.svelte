@@ -255,6 +255,7 @@
                             class="w-[20%] flex items-center justify-center cursor-pointer"
                             onclick={clearSearch}
                             aria-label="Clear Search Filters"
+                            title="Clear Search Filters"
                         >
                             <TrashBinOutline class="m-0 p-0" />
                         </Button>
@@ -265,6 +266,7 @@
                             class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
                             onclick={handleSubmit}
                             aria-label="Submit Search with Selected Filters"
+                            title="Submit Search with Selected Filters"
                             {loading}>Search</Button
                         >
                     </div>
