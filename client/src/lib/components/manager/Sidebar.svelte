@@ -33,6 +33,10 @@
     let activeUrl = $state("Technologies"); // To control the sidebar menus.
     let loading = $state(false);
 
+    // NEW: State for English level and tutors
+    let selectedEnglishLevel = $state("");
+    let multiSelectedTutors = $state<string[]>([]);
+
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
     });
@@ -42,20 +46,36 @@
             selectedTags.push(tag);
         }
     }
+    
     function deselectTag(tag: FilterTag) {
         selectedTags = selectedTags.filter((t) => t.code !== tag.code);
     }
 
     async function handleSubmit() {
         loading = true;
+
+        // Build the query object
+        const tagsToQuery = {
+            technologies: selectedTags.map(tag => tag.name),
+            english_level: selectedEnglishLevel || null,
+            tutors_feedback: multiSelectedTutors
+        };
+
+        console.log("Query Object:", tagsToQuery);
+        console.log("JSON String:", JSON.stringify(tagsToQuery, null, 2));
+
+        // TODO: Send to backend here
+        // await fetch('/api/search', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(tagsToQuery)
+        // });
+
         await new Promise((resolve) => setTimeout(resolve, 2000));
         loading = false;
     }
 
     onMount(() => {
-        // The ninja element is an inaccessible Flowbite element.
-        // So you gotta inject the classes through the DOM.
-        // This took so long...
         applyFullHeightToNinjaElement();
         applySidebarConstraints();
     });
@@ -85,9 +105,8 @@
     onclick={demoSidebarUi.toggle}
     class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer"
 />
-<!-- < This is the hamburger menu -->
+
 <div class="relative min-h-[100dvh]">
-    <!-- < If this is the whole container we will have to render shit here -->
     <div class="sidebar-wrapper">
         <Sidebar
             {activeUrl}
@@ -160,7 +179,12 @@
                 <div class="sidebar-scrollable">
                     <SidebarGroup border>
                         <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
-                        <FilterBox {selectedFilter} bind:techKeyword />
+                        <FilterBox 
+                            {selectedFilter} 
+                            bind:techKeyword 
+                            bind:selectedEnglishLevel
+                            bind:multiSelectedTutors
+                        />
                     </SidebarGroup>
 
                     {#if selectedFilter === "Technologies"}
@@ -178,6 +202,7 @@
 
                 <SidebarGroup border class="flex-shrink-0">
                     <Button
+                        id="submit-search-btn"
                         color="alternative"
                         class="w-full font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
                         onclick={handleSubmit}
