@@ -100,6 +100,9 @@
             (sidebarWrapper as HTMLElement).style.overflow = "hidden";
         }
     };
+    const clearSearch = () => {
+        console.log("Clearing up stuff...");
+    };
 </script>
 
 <SidebarButton
@@ -139,11 +142,13 @@
                             />
                         {/snippet}
                         <SidebarItem
-                            label="Technologies"
-                            class="cursor-pointer filter-tag {selectedFilter ===
+                            label="{selectedFilter === 'Technologies'
+                                ? '>'
+                                : ''} Technologies"
+                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'Technologies'
-                                ? 'active-label'
-                                : ''}"
+                                ? 'active-label pl-2'
+                                : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "Technologies";
                                 activeUrl = "Technologies";
@@ -151,22 +156,27 @@
                         />
 
                         <SidebarItem
-                            label="English Level"
-                            class="cursor-pointer filter-tag {selectedFilter ===
+                            label="{selectedFilter === 'English Level'
+                                ? '>'
+                                : ''} English Level"
+                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'English Level'
-                                ? 'active-label'
-                                : ''}"
+                                ? 'active-label pl-2'
+                                : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "English Level";
                                 activeUrl = "English Level";
                             }}
                         />
+
                         <SidebarItem
-                            label="Feedback"
-                            class="cursor-pointer filter-tag {selectedFilter ===
+                            label="{selectedFilter === 'Feedback'
+                                ? '>'
+                                : ''} Feedback"
+                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'Feedback'
-                                ? 'active-label'
-                                : ''}"
+                                ? 'active-label pl-2'
+                                : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "Feedback";
                                 activeUrl = "Feedback";
@@ -206,19 +216,25 @@
                     {/if}
                 </div>
 
-                <SidebarGroup border class="flex-shrink-0"> <!-- SidebarGroup doesn't apply class, leave it nonetheless, maybe I'll refactor to be a plain div if problems arise -->
-                    <div class="flex items-center justify-center gap-2 w-full p-1">
+                <SidebarGroup border class="flex-shrink-0">
+                    <!-- SidebarGroup doesn't apply class, leave it nonetheless, maybe I'll refactor to be a plain div if problems arise -->
+                    <div
+                        class="flex items-center justify-center gap-2 w-full p-1"
+                    >
                         <Button
                             id="clear-search-btn"
                             class="w-[20%] flex items-center justify-center cursor-pointer"
+                            onclick={clearSearch}
+                            aria-label="Clear Search Filters"
                         >
-                            <TrashBinOutline class="m-0 p-0"/>
+                            <TrashBinOutline class="m-0 p-0" />
                         </Button>
                         <Button
                             id="submit-search-btn"
                             color="alternative"
                             class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
                             onclick={handleSubmit}
+                            aria-label="Submit Search with Selected Filters"
                             {loading}>Search</Button
                         >
                     </div>
