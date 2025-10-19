@@ -15,6 +15,7 @@
     } from "flowbite-svelte";
     import AuthBox from "./utils/AuthBox.svelte";
     import { page } from "$app/state";
+    import { enhance } from "$app/forms";
 
     const user = $derived(page.data.user);
 
@@ -23,7 +24,6 @@
         "text-white bg-primary-400 md:bg-transparent font-bold md:text-white hover:text-black md:hover:text-white md:dark:text-foreground dark:text-black dark:bg-primary-300 md:dark:bg-transparent";
     let nonActiveClass =
         "text-gray-700 dark:text-white md:text-gray-200 md:hover:text-white md:hover:font-bold";
-    
 </script>
 
 <Navbar
@@ -110,8 +110,16 @@
                             href="/app/manager/settings">Settings</DropdownItem
                         >
                     {/if}
+                    <form method="POST" action="/logout" use:enhance>
+                        <Button
+                            color="secondary"
+                            type="submit"
+                            class="cursor-pointer rounded-none w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                        >
+                            Sign out
+                        </Button>
+                    </form>
                 </DropdownGroup>
-                <DropdownHeader class="cursor-pointer">Sign out</DropdownHeader>
             </Dropdown>
         {/snippet}
         {#snippet unauthorizedContent()}

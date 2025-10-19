@@ -21,6 +21,7 @@ import { dev } from '$app/environment';
  */
 export const handle: Handle = async ({ event, resolve }) => {
 
+    const sessionToken = event.cookies.get('spotly_session');
     // ************** DEVELOPMENT *******************
     if (dev) {
         event.locals.user = {
@@ -41,7 +42,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         return resolve(event);
     }
 
-    const sessionToken = event.cookies.get('spotly_session');
+
 
     if (!sessionToken) {
         event.locals.user = null;
