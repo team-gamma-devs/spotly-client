@@ -19,42 +19,54 @@
         type FilterTag,
     } from "$lib/constants/filterTags";
 
-    const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Don't delete.
+    const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Flowbite utility class, Don't delete.
+    
+    // Flowbite sidebar UI helper for controlling open/close state
     const demoSidebarUi = uiHelpers();
     const closeDemoSidebar = demoSidebarUi.close;
 
-    let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100";
-    let nonActiveClass = "p-2 hover:bg-primary-100";
+    let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100"; // this comes from Flowbite's Sidebar component. So I can't really modify it.
+    let nonActiveClass = "p-2 hover:bg-gray-300";                                // Currently only nonActiveClass applies, IDK why.
 
-    let techKeyword = $state(""); // State for controlling the technology text input.
-    let selectedTags = $state<FilterTag[]>([]);
-    let isDemoOpen = $state(false); // Controls the sidebar open/close state
-    let selectedFilter = $state(""); // Selected filter used in conjuction with showTextInput. This is for the menu, not the tech tags
-    let activeUrl = $state("Technologies"); // To control the sidebar menus.
-    let loading = $state(false);
+    // ****************** FILTER STATE ******************
+    let techKeyword = $state("");                         // Keyword input for searching/filtering technologies (used in Technologies filter)
+    let selectedTags = $state<FilterTag[]>([]);           // Array of selected technology tags that will be sent in the search query    
+    let isDemoOpen = $state(false);                       // Controls whether the sidebar is open or closed
+    let selectedFilter = $state("");                      // Tracks which filter category is currently selected, it tells what to display to FilterBox and what AvailableTagsBox shows.
+    let activeUrl = $state("Technologies");               // Controls the active/highlighted state in the sidebar navigation menu 
+    let loading = $state(false);                          // Loading state for the submit button (shows spinner during search)
+    let multiSelectedEnglishLevel = $state<string[]>([]); // Array of selected English levels, binded with the multiSelectBox inside FilterBox.
+    let multiSelectedTutors = $state<string[]>([]);       // Array of selected tutor codenames, also binded.
 
-    // NEW: State for English level and tutors
-    let multiSelectedEnglishLevel = $state<string[]>([]);
-    let multiSelectedTutors = $state<string[]>([]);
-
+    // Sync sidebar open/close state with Flowbite's UI helper
     $effect(() => {
         isDemoOpen = demoSidebarUi.isOpen;
     });
 
+    /**
+     * Adds a technology tag to the selected tags array
+     * Prevents duplicate selections by checking if tag already exists
+     */
     function selectTag(tag: FilterTag) {
         if (!selectedTags.find((t) => t.code === tag.code)) {
             selectedTags.push(tag);
         }
     }
 
+    /**
+     * Removes a technology tag from the selected tags array
+     * Used when user clicks on a tag in SelectedTagsBox to deselect it
+     */
     function deselectTag(tag: FilterTag) {
         selectedTags = selectedTags.filter((t) => t.code !== tag.code);
     }
 
+    /**
+     * Handles the search submission
+     * Collects all selected filters and prepares them for backend query
+     */
     async function handleSubmit() {
         loading = true;
-
-        // Build the query object
         const tagsToQuery = {
             technologies: selectedTags.map((tag) => tag.name),
             englishLevel: multiSelectedEnglishLevel,
@@ -75,11 +87,27 @@
         loading = false;
     }
 
+    /**
+     * Clears all selected filters and resets the search state
+     */
+    const clearSearch = () => {
+        console.log("Clearing up stuff...");
+        selectedTags = [];
+        multiSelectedEnglishLevel = [];
+        multiSelectedTutors = [];
+        techKeyword = "";
+    };
+
     onMount(() => {
         applyFullHeightToNinjaElement();
         applySidebarConstraints();
     });
 
+    /**
+     * Workaround for Flowbite's inaccessible element styling
+     * Applies full height classes to the parent of #son-of-ninja-element
+     * This ensures proper vertical sizing of the dropdown wrapper
+     */
     const applyFullHeightToNinjaElement = () => {
         const el = document.querySelector("#son-of-ninja-element");
         if (el?.parentElement) {
@@ -90,6 +118,10 @@
         }
     };
 
+    /**
+     * Constrains the sidebar wrapper to viewport height
+     * Prevents sidebar from growing beyond screen bounds
+     */
     const applySidebarConstraints = () => {
         const sidebarWrapper =
             document.querySelector('[class*="fixed"][class*="inset-y-0"]') ||
@@ -99,9 +131,6 @@
             (sidebarWrapper as HTMLElement).style.maxHeight = "100vh";
             (sidebarWrapper as HTMLElement).style.overflow = "hidden";
         }
-    };
-    const clearSearch = () => {
-        console.log("Clearing up stuff...");
     };
 </script>
 
@@ -133,7 +162,7 @@
                     <SidebarDropdownWrapper
                         label="Filters"
                         classes={{
-                            btn: "p-2 cursor-pointer hover:bg-primary-100",
+                            btn: "p-2 cursor-pointer hover:bg-gray-300",
                         }}
                     >
                         {#snippet icon()}
@@ -141,13 +170,15 @@
                                 class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                             />
                         {/snippet}
+                        
+                        <!-- ************* Technologies ************** -->
                         <SidebarItem
                             label="{selectedFilter === 'Technologies'
-                                ? '>'
+                                ? '▸'
                                 : ''} Technologies"
                             class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'Technologies'
-                                ? 'active-label pl-2'
+                                ? 'active pl-2'
                                 : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "Technologies";
@@ -155,13 +186,14 @@
                             }}
                         />
 
+                        <!-- *************** English Level *************** -->
                         <SidebarItem
                             label="{selectedFilter === 'English Level'
-                                ? '>'
+                                ? '▸'
                                 : ''} English Level"
                             class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'English Level'
-                                ? 'active-label pl-2'
+                                ? 'active pl-2'
                                 : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "English Level";
@@ -169,13 +201,14 @@
                             }}
                         />
 
+                        <!-- **************** Tutor Feedback ***************** -->
                         <SidebarItem
                             label="{selectedFilter === 'Feedback'
-                                ? '>'
+                                ? '▸'
                                 : ''} Feedback"
                             class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
                             'Feedback'
-                                ? 'active-label pl-2'
+                                ? 'active pl-2'
                                 : 'pl-0'}"
                             onclick={() => {
                                 selectedFilter = "Feedback";
@@ -187,14 +220,12 @@
                 </SidebarGroup>
 
                 <SidebarGroup border class="flex-shrink-0">
-                    <!-- This displays what filter tag the user queries for search (tech tags, english level, tutor feedback) -->
                     Selected Tags
                     <SelectedTagsBox {selectedTags} {deselectTag} />
                 </SidebarGroup>
 
                 <div class="sidebar-scrollable">
                     <SidebarGroup border>
-                        <!-- This displays what filter the user clicks on (tech tags, english level, tutor feedback) -->
                         <FilterBox
                             {selectedFilter}
                             bind:techKeyword
@@ -204,7 +235,6 @@
                     </SidebarGroup>
 
                     {#if selectedFilter === "Technologies"}
-                        <!-- This displays the available filters to be selected  -->
                         <SidebarGroup border>
                             Available Tags
                             <AvailableTagsBox
@@ -217,7 +247,6 @@
                 </div>
 
                 <SidebarGroup border class="flex-shrink-0">
-                    <!-- SidebarGroup doesn't apply class, leave it nonetheless, maybe I'll refactor to be a plain div if problems arise -->
                     <div
                         class="flex items-center justify-center gap-2 w-full p-1"
                     >
@@ -229,6 +258,7 @@
                         >
                             <TrashBinOutline class="m-0 p-0" />
                         </Button>
+                        
                         <Button
                             id="submit-search-btn"
                             color="alternative"
@@ -242,6 +272,7 @@
             </div>
         </Sidebar>
     </div>
+    
     <ManagerInventory />
 </div>
 
@@ -250,13 +281,11 @@
         max-height: 100vh;
         overflow: hidden;
     }
-
     :global(.sidebar-constrained) {
         height: 100vh !important;
         max-height: 100vh !important;
         overflow: hidden !important;
     }
-
     .sidebar-inner {
         display: flex;
         flex-direction: column;
@@ -264,7 +293,6 @@
         max-height: 100dvh;
         overflow: hidden;
     }
-
     .sidebar-scrollable {
         flex: 1;
         overflow-y: auto;
