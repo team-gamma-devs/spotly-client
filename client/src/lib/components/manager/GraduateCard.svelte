@@ -65,13 +65,13 @@
 		tutorsFeedback = {
 			'Javier Valenziani': {
 				created_at: '2025-09-20T15:57:58.745Z',
-				professional_score: "Mediocre",
-				technical_score: "Mediocre",
+				professional_score: 'Mediocre',
+				technical_score: 'Mediocre',
 			},
 			'Edison Cavani': {
 				created_at: '2025-10-20T15:57:58.745Z',
-				professional_score: "Mediocre",
-				technical_score: "Mediocre",
+				professional_score: 'Mediocre',
+				technical_score: 'Mediocre',
 			},
 		} as TutorFeedback,
 	} = $props();
@@ -116,7 +116,7 @@
 			month: 'short',
 			day: 'numeric',
 		});
-	}
+	};
 </script>
 
 <div
@@ -229,17 +229,19 @@
 		</div>
 
 		<!-- tutors feedback, on click display dialog with tutors feedback -->
-		<Button
-			type="button"
-			class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
-			aria-label="Tutors Feedback"
-			title="Tutors Feedback"
-			onclick={() => {
-				showTutorsFeedback = true;
-			}}
-		>
-			<AddressBookSolid class="w-5 h-5" />
-		</Button>
+		{#if tutorsFeedback}
+			<Button
+				type="button"
+				class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
+				aria-label="Tutors Feedback"
+				title="Tutors Feedback"
+				onclick={() => {
+					showTutorsFeedback = true;
+				}}
+			>
+				<AddressBookSolid class="w-5 h-5" />
+			</Button>
+		{/if}
 	</div>
 </div>
 

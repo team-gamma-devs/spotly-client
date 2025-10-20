@@ -7,32 +7,120 @@
 
 :root {
 	/* ******************* Light Theme Tag Colors *************************** */
-	--color-active-tag: rgb(253, 122, 0);
+	--color-active-tag: rgb(230, 105, 0);
 	--color-tag-default: rgb(46, 46, 54);
-	--color-react: rgb(19, 78, 179);
-	--color-typescript: #3178c6;
-	--color-angular: #dd0031;
-	--color-mongodb: #62a963;
-	--color-python: #3776ab;
-	--color-svelte: #d1542a;
-	--color-vue: #32a370;
-	--color-node: #47bc2a;
-	--color-fastapi: #009688;
-	--color-ruby: #cc342d;
+	
+	/* Frontend Frameworks */
+	--color-react: #2a36e2;      /* brighter blue */
+	--color-vue: #3aa777;        /* deeper green */
+	--color-angular: #c3002f;    /* slightly darker red */
+	--color-svelte: #e53900;     /* slightly darker orange */
+	--color-nextjs: #202020;     /* softened black for better readability */
+	
+	/* Programming Languages */
+	--color-javascript: #b89f00; /* darker yellow */
+	--color-typescript: #2564a9; /* more contrast */
+	--color-python: #2d5f91;     /* richer tone */
+	--color-java: #005a7a;       /* deeper blue */
+	--color-c: #7c8fa1;          /* darker gray-blue */
+	--color-cpp: #004b7a;        /* darker for contrast */
+	--color-csharp: #1b781b;     /* deeper green */
+	--color-go: #0086a8;         /* slightly darker cyan */
+	--color-ruby: #a72d25;       /* deeper red */
+	--color-php: #5e68a6;        /* slightly darker lavender-blue */
+	--color-rust: #a93a24;       /* deeper reddish-brown */
+	
+	/* Backend Frameworks */
+	--color-node: #2b7a2b;       /* darker green */
+	--color-express: #303030;    /* lighter black */
+	--color-django: #0e4030;     /* brighter green tone */
+	--color-fastapi: #008477;    /* deeper teal */
+	--color-flask: #202020;      /* match express */
+	--color-spring: #5b9b34;     /* darker lime */
+	--color-rails: #a80000;      /* deeper red */
+	--color-laravel: #e0241a;    /* richer red */
+	
+	/* Databases */
+	--color-mongodb: #3a8b3a;    /* deeper green */
+	--color-postgresql: #27537a; /* darker blue */
+	--color-mysql: #356a8f;      /* more contrast */
+	--color-redis: #b72f26;      /* darker red */
+	--color-firebase: #c86000;   /* darker orange */
+	
+	/* DevOps & Cloud */
+	--color-docker: #1f7edc;     /* darker blue */
+	--color-kubernetes: #2856cc; /* more saturated */
+	--color-aws: #e07d00;        /* darker orange */
+	--color-azure: #0062a8;      /* deeper blue */
+	--color-gcp: #3267e0;        /* richer tone */
+	--color-terraform: #64339d;  /* deeper purple */
+	
+	/* Tools & Others */
+	--color-git: #d34726;        /* darker orange-red */
+	--color-graphql: #c80084;    /* darker magenta */
+	--color-tailwind: #0592b0;   /* slightly darker cyan */
+	--color-sass: #b05885;       /* darker pink */
+	--color-webpack: #62baf1;    /* more contrast */
+	--color-linux: #4e1763;      /* darker purple */
+	--color-bash: #3b821d;       /* deeper green */
 }
 
 .dark {
 	/* ******************* Dark Theme Tag Colors *************************** */
-	--color-active-tag: rgb(44, 179, 10);
+	--color-active-tag: rgb(44, 179, 10); /* good contrast with white text */
 	--color-tag-default: rgb(52, 52, 54);
-	--color-react: rgb(23, 51, 100);
-	--color-typescript: #2b68ae;
-	--color-angular: #a70025;
-	--color-mongodb: #3a8a3b;
-	--color-python: #2d638f;
-	--color-svelte: #d93500;
-	--color-vue: #3e9d73;
-	--color-node: #4c823f;
-	--color-fastapi: #00796d;
-	--color-ruby: #a62a24;
+	
+	/* Frontend Frameworks */
+	--color-react: #0d5b84;      /* darker cyan-blue for white text */
+	--color-vue: #2a6145;        /* dark forest green */
+	--color-angular: #73001e;    /* deep red */
+	--color-svelte: #8a2400;     /* dark orange-red */
+	--color-nextjs: #1a1a1a;     /* fine for white text */
+	
+	/* Programming Languages */
+	--color-javascript: #8c7a00; /* dark gold */
+	--color-typescript: #1e4f87; /* navy blue */
+	--color-python: #224d74;     /* dark steel blue */
+	--color-java: #00445d;       /* dark blue */
+	--color-c: #506475;          /* muted gray-blue */
+	--color-cpp: #003c5e;        /* deeper blue */
+	--color-csharp: #145514;     /* deep forest green */
+	--color-go: #006978;         /* dark cyan */
+	--color-ruby: #6f1f1a;       /* dark red */
+	--color-php: #43476f;        /* dark lavender-blue */
+	--color-rust: #712a18;       /* dark rust tone */
+	
+	/* Backend Frameworks */
+	--color-node: #205c20;       /* dark green */
+	--color-express: #2a2a2a;    /* neutral */
+	--color-django: #0a3326;     /* very dark green */
+	--color-fastapi: #006157;    /* deep teal */
+	--color-flask: #2a2a2a;      /* same neutral */
+	--color-spring: #4b7c2d;     /* darker lime green */
+	--color-rails: #7a0000;      /* deep crimson */
+	--color-laravel: #8c1a10;    /* darker red */
+	
+	/* Databases */
+	--color-mongodb: #2e6930;    /* dark green */
+	--color-postgresql: #23496b; /* deep blue */
+	--color-mysql: #2f5572;      /* dark blue */
+	--color-redis: #8f2720;      /* dark red */
+	--color-firebase: #9b6100;   /* darker amber */
+	
+	/* DevOps & Cloud */
+	--color-docker: #17669c;     /* darker blue */
+	--color-kubernetes: #254c99; /* navy */
+	--color-aws: #995f00;        /* darker orange-brown */
+	--color-azure: #00518c;      /* deep azure */
+	--color-gcp: #305bb7;        /* dark google blue */
+	--color-terraform: #563184;  /* rich dark purple */
+	
+	/* Tools & Others */
+	--color-git: #93301e;        /* dark orange-red */
+	--color-graphql: #82135f;    /* dark magenta */
+	--color-tailwind: #046c83;   /* dark cyan */
+	--color-sass: #843a62;       /* deep pink-purple */
+	--color-webpack: #3e8fb5;    /* darker blue */
+	--color-linux: #4a3900;      /* dark golden brown */
+	--color-bash: #2e6714;       /* dark green */
 }
