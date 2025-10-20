@@ -24,8 +24,6 @@ pnpm install
 pnpm run dev
 ```
 
----
-
 ## Build & preview locally
 
 ```bash
@@ -70,6 +68,8 @@ To keep images/fonts cached without forcing clients to reload, add a `vercel.jso
 - `/_app/immutable/*` → `public, max-age=31536000, immutable`
 - `/fonts/*` → `public, max-age=31536000, immutable`
 - `/images/*` → `public, max-age=604800, stale-while-revalidate=86400`
+
+<br>
 
 # Project architecture — useful files & folders
 
@@ -118,133 +118,191 @@ Deployment & CI notes
 
 ## Authentication Flow
 
-The application uses a secure request signing mechanism to authenticate communication between the Vercel frontend and EC2 backend:
+The application uses a two-stage authentication process involving a magic link for login and a JWT for managing user sessions. All communication with the backend is secured using HMAC-SHA256 request signatures.
+
+### 1. Login & User Identification
+
+This flow handles both new and returning users.
 
 ```
-+page.server.ts → validates form → calls service → redirects
-    ↓
-lib/server/emailService.ts → makes authenticated request to backend
-    ↓
-EC2 backend → validates email against a control database, returns authentication status and token back to frontend server
+[Login Page] --(email)--> [+page.server.ts Action] --(signed req)--> [Backend API /auth/login]
 ```
 
 **Flow Details:**
-1. **Form Submission**: User submits email via login form
-2. **Server Action**: `+page.server.ts` validates form data locally
-3. **Service Layer**: `lib/server/emailService.ts` signs request and calls backend API
-4. **Backend Validation**: EC2 backend verifies request signature and checks email against Holberton CSV
-5. **Email Dispatch**: Backend sends login email if validation passes
-6. **Client Redirect**: Frontend redirects user to next step on success
+1.  **Form Submission**: A user submits their email on the `/login` page.
+2.  **Server Action**: The `login/+page.server.ts` action receives the email.
+3.  **Backend Call**: The action sends a signed request to the backend's `/auth/login` endpoint.
+4.  **Backend Logic**: The backend checks the email.
+    *   **New User**: If the email is not recognized, the backend generates a temporary `signup_token`, and responds with `{ "isFirstTime": true, "signup_token": "..." }`.
+    *   **Returning User**: If the email is recognized, the backend generates a standard JSON Web Token (JWT) and responds with `{ "isFirstTime": false, "access_token": "..." }`.
+5.  **Frontend Redirect**:
+    *   **New User**: The SvelteKit action redirects the user to the signup page (`/app/graduate/upload_cv?token=...`), passing the temporary `signup_token`. **No session cookie is set at this stage.**
+    *   **Returning User**: The action sets the JWT in a secure, `HttpOnly` cookie named `spotly_session` and redirects the user to their dashboard (`/app/graduate`).
 
-All backend requests use HMAC-SHA256 signatures with shared secrets to ensure only the frontend can make authenticated calls.
+### 2. Signup Completion (New Users)
 
-## Build & preview locally
+This flow completes the registration for new users after they follow the magic link.
 
-```bash
-# build
-pnpm run build
-
-# preview production build locally
-pnpm run preview
-# or with vercel CLI from the client folder:
-vercel --cwd .            # preview (non-prod)
-vercel --cwd . --prod    # production
+```
+[Upload CV Page] --(files, token)--> [+page.server.ts Action] --(signed req)--> [Backend API /signup]
 ```
 
-Notes:
-- The client package lives in `client/`. Use `--cwd client` when running Vercel CLI from repo root.
-- `pnpm` is the recommended package manager for this project.
+**Flow Details:**
+1.  **Form Submission**: The new user, now on the `/app/graduate/upload_cv` page, submits their CVs. The form includes the `signup_token` from the URL.
+2.  **Server Action**: The `upload_cv/+page.server.ts` action receives the files and the `signup_token`.
+3.  **Backend Call**: The action sends a signed multipart request to the backend's `/signup` endpoint, passing the `signup_token` in the URL.
+4.  **Backend Logic**: The backend validates the `signup_token`, creates the user account, saves the files, and generates a final JWT. It responds with `{ "access_token": "..." }`.
+5.  **Session Creation**: The SvelteKit action receives the JWT and sets the `spotly_session` cookie, officially logging the user in.
 
-# AuthBox — usage & SSR notes
+### 3. Authenticated Session Management
 
-AuthBox is a tiny reusable wrapper that chooses what to render depending on the auth store (`$isAuth`). It uses Svelte 5 snippets via `@render` so you can pass renderable snippets from the caller.
+This flow runs on every server-side navigation for a logged-in user.
+
+```
+[Browser Request] --(cookie)--> [hooks.server.ts] --(signed req, JWT)--> [Backend API /auth/me]
+```
+
+**Flow Details:**
+1.  **Request Interception**: The `hooks.server.ts` file intercepts every incoming request.
+2.  **Cookie Check**: It reads the `spotly_session` cookie. If it doesn't exist, the user is considered logged out.
+3.  **Token Validation**: If the cookie exists, the hook sends a signed request to the backend's `/auth/me` endpoint, passing the JWT as a `Bearer` token.
+4.  **User Hydration**: If the backend confirms the JWT is valid, it returns the user's data. The hook then populates `event.locals.user` with this data, making it available to all server `load` functions and actions for that request.
+
+### 4. Logout
+
+```
+[Logout Button] --(POST)--> [/logout Endpoint]
+```
+
+**Flow Details:**
+1.  **POST Request**: The user clicks a logout button, which submits a form via POST to the `/logout` server endpoint.
+2.  **Cookie Deletion**: The `/logout/+server.ts` endpoint deletes the `spotly_session` cookie.
+3.  **Redirect**: The user is redirected to the homepage (`/`). The `hooks.server.ts` file will now treat them as a logged-out user on all subsequent requests.
+
+
+## Server-Side Fetch Utilities (`authFetch.ts`)
+
+All server-to-backend communication is handled by a set of specialized fetch wrappers located in `src/lib/server/authFetch.ts`. These functions ensure that every request sent to the backend API is correctly signed according to the project's security protocol.
+
+### Core Signing Logic
+
+The base utility, `signRequest`, generates an HMAC-SHA256 signature from a payload and a timestamp using a shared `BACKEND_SECRET`. The message format for the signature is `timestamp:payload`.
+
+### `signedJsonFetch`
+
+This is the standard fetch utility for all API calls that send and receive JSON data.
+
+-   **Use Case**: Logging in, fetching user data, submitting simple forms.
+-   **How it Works**:
+    1.  Automatically stringifies the request `body` to create the signature payload.
+    2.  Generates the signature and timestamp.
+    3.  Adds the `Content-Type: application/json`, `X-Signature`, and `X-Timestamp` headers to the request.
+
+**Example Usage (from `login/+page.server.ts`):**
+```typescript
+import { signedJsonFetch } from '$lib/server/authFetch';
+
+const body = { email: 'user@example.com' };
+const response = await signedJsonFetch(`${BACKEND_URL}/auth/login`, {
+    method: 'POST',
+    body: JSON.stringify(body)
+});
+```
+
+### `signedMultipartFetch`
+
+This is a specialized fetch utility designed exclusively for file uploads (`multipart/form-data`).
+
+-   **Use Case**: Uploading user CVs during the signup process.
+-   **How it Works**:
+    1.  Generates the signature using an **empty string** as the payload. This is necessary because a `FormData` object cannot be read and stringified on the server. The backend must also expect an empty payload when validating a multipart request.
+    2.  Crucially, it **omits** the `Content-Type` header. This allows the `fetch` API to automatically set the correct `multipart/form-data` header with the required `boundary` string.
+
+**Example Usage (from `upload_cv/+page.server.ts`):**
+```typescript
+import { signedMultipartFetch } from '$lib/server/authFetch';
+
+// `formData` is the FormData object from the request
+const response = await signedMultipartFetch(
+    `${BACKEND_URL}/signup`,
+    {
+        method: 'POST',
+        body: formData 
+    }
+);
+```
+
+## AuthBox — usage & SSR notes
+
+AuthBox is a tiny reusable wrapper that chooses what to render depending on the user's authentication status and role, derived from SvelteKit's `$page` store. It uses Svelte 5 snippets via `@render` so you can pass renderable content from the caller.
 
 This document explains:
 - how the current AuthBox API works
-- examples to reuse it to render an error component
-- SSR considerations and a safe pattern
+- examples for simple and role-based authorization
+- how the component behaves in different states
 
----
 
 ## AuthBox API (current implementation)
-AuthBox expects two snippet props provided via the Svelte 5 snippet syntax:
+AuthBox expects the following props:
 
-- `authorizedContent` — snippet rendered when `$isAuth` is true
-- `unauthorizedContent` — snippet rendered when `$isAuth` is false
+- `authorizedContent` (required, Snippet): Rendered when the user is fully authorized (logged in and, if required, has the correct role).
+- `unauthorizedContent` (optional, Snippet): Rendered when the user is logged out. If not provided, nothing is rendered for logged-out users.
+- `requiredRole` (optional, `'manager' | 'graduate'`): Specifies the role a user must have. If provided, the user must be logged in AND have this role to be authorized.
 
----
 
-## Simple usage example (render an error component)
+## Simple Usage (Logged-in vs. Logged-out)
 
-1. Import the error component in the parent and pass snippets:
+This example shows or hides content based only on whether a user is logged in, without checking for a specific role.
 
 ```svelte
 <script>
-  import AuthBox from '$lib/components/AuthBox.svelte';
-  import Unauthorized from '$lib/components/error/Unauthorized.svelte';
+  import AuthBox from '$lib/components/main/utils/AuthBox.svelte';
 </script>
 
 <AuthBox>
   {#snippet authorizedContent()}
-    <div class="flex items-center gap-2">
-      <!-- authenticated UI -->
-      <a href="/dashboard" class="btn">Dashboard</a>
-    </div>
+    <!-- This UI is shown to ANY logged-in user -->
+    <a href="/app/dashboard" class="btn">Dashboard</a>
   {/snippet}
 
   {#snippet unauthorizedContent()}
-    <!-- simply render the Unauthorized component -->
-    <Unauthorized />
+    <!-- This UI is shown to logged-out users -->
+    <a href="/login" class="btn">Sign In</a>
   {/snippet}
 </AuthBox>
 ```
 
-This will server-render the snippet where possible and hydrate on the client.
+## Role-Based Authorization
 
-## Alternative: named-slot pattern
-If you prefer slots instead of snippet props, refactor AuthBox to use named slots:
+To protect content for a specific role, pass the `requiredRole` prop. The component handles the logic internally.
 
-AuthBox.svelte:
+**Behavior:**
+1.  If the user has the `manager` role, `authorizedContent` is rendered.
+2.  If the user is logged in but has a different role (e.g., `graduate`), the component automatically renders a built-in `<Unauthorized />` error page.
+3.  If the user is logged out, `unauthorizedContent` is rendered.
+
 ```svelte
 <script>
-  import { isAuth } from '$lib/stores/auth';
+  import AuthBox from '$lib/components/main/utils/AuthBox.svelte';
+  import ManagerDashboard from '$lib/components/manager/ManagerDashboard.svelte';
 </script>
 
-{#if $isAuth}
-  <slot name="authorized" />
-{:else}
-  <slot name="unauthorized" />
-{/if}
-```
+<!-- This AuthBox protects the manager's dashboard -->
+<AuthBox requiredRole={'manager'}>
+  {#snippet authorizedContent()}
+    <!-- This is only rendered for users with the 'manager' role -->
+    <ManagerDashboard />
+  {/snippet}
 
-Usage:
-```svelte
-<AuthBox>
-  <div slot="authorized">...</div>
-  <Unauthorized slot="unauthorized" />
+  {#snippet unauthorizedContent()}
+    <!-- You can still provide a fallback for logged-out users -->
+    <p>Please log in to access the application.</p>
+  {/snippet}
 </AuthBox>
 ```
 
-- This renders the unauthenticated fallback on the server and only switches to authenticated UI on the client after hydration (no SSR mismatch warnings).
-- If you can derive auth state on the server (via cookies/session in your load function), pass that as initial data and hydrate the store accordingly to enable true SSR rendering of the correct snippet.
-
-## Reusing to render any component (error, UI, loaders)
-You can pass any component or markup inside the snippet. Examples:
-- render `Unauthorized` or `ErrorCard`
-- render a compact avatar + dropdown
-- render a loader while client verifies auth
-
-Example showing an error with props:
-```svelte
-{#snippet unauthorizedContent()}
-  <Unauthorized message="Please sign in to continue" showLoginLink={true} />
-{/snippet}
-```
-
 ## Notes
-- Prefer snippet props when you want the caller to fully control rendering.
-- Use the slot pattern if you want a simpler component API and slot composition.
-- When possible, detect auth during SSR (load function) and set the store, so initial HTML matches the client.
-- For transient checks (tokens in localStorage), gate auth-only UI behind `browser` or `onMount`.
-- All routes under `/app/` are protected by the AuthBox.
-
+- **SSR Friendly**: The component relies on `$page.data.user`, which is populated by SvelteKit's server `load` functions. This ensures the correct content is rendered on the server, preventing UI flashes on the client.
+- **Built-in Unauthorized UI**: When a `requiredRole` is specified and the user's role does not match, AuthBox automatically displays a generic `Unauthorized` component. You do not need to handle this case manually.
+- **Flexibility**: You can pass any component or markup inside the `authorizedContent` and `unauthorizedContent` snippets.
+- **Primary Use Case**: Use this component in your layout files (e.g., `src/routes/app/manager/+layout.svelte`) to protect entire sections of your application based on user roles.
