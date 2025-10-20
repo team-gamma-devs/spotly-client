@@ -1,4 +1,5 @@
 <script>
-    import NotFound from "$lib/components/error/NotFound.svelte";
+	import NotFound from '$lib/components/error/NotFound.svelte';
 </script>
-<NotFound/>
+
+<NotFound />

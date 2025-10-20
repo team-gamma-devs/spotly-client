@@ -1,187 +1,191 @@
-@import "tailwindcss";
-@import "$lib/styles/tech_colors.css";
+@import 'tailwindcss';
+@import '$lib/styles/tech_colors.css';
 
 @plugin 'flowbite/plugin';
 
 @font-face {
-    font-family: 'Zalando Sans Expanded';
-    src: url('/fonts/ZalandoSansExpanded-Regular.woff2') format('woff2'),
-         url('/fonts/ZalandoSansExpanded-Regular.woff') format('woff'),
-         url('/fonts/ZalandoSansExpanded-VariableFont_wght.ttf') format('truetype');
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Zalando Sans Expanded';
+	src:
+		url('/fonts/ZalandoSansExpanded-Regular.woff2') format('woff2'),
+		url('/fonts/ZalandoSansExpanded-Regular.woff') format('woff'),
+		url('/fonts/ZalandoSansExpanded-VariableFont_wght.ttf') format('truetype');
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: "Figtree";
-  src: url("/fonts/Figtree-Light.woff2") format("woff2"),
-       url("/fonts/Figtree-Light.woff") format("woff"),
-       url("/fonts/Figtree-Light.ttf") format("truetype");
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Figtree';
+	src:
+		url('/fonts/Figtree-Light.woff2') format('woff2'),
+		url('/fonts/Figtree-Light.woff') format('woff'),
+		url('/fonts/Figtree-Light.ttf') format('truetype');
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ***********************  Light theme ******************* */
 @theme {
-  --color-primary-50: #fef3ee;
-  --color-primary-100: #fde4d7;
-  --color-primary-200: #fac6ae;
-  --color-primary-300: #f69e7b;
-  --color-primary-400: #f26c45;
-  --color-primary-500: #ee4a25;
-  --color-primary-600: #df2e17;
-  --color-primary-700: #b92015;
-  --color-primary-800: #931b19;
-  --color-primary-900: #771a17;
-  --color-primary-950: #400a0a;
+	--color-primary-50: #fef3ee;
+	--color-primary-100: #fde4d7;
+	--color-primary-200: #fac6ae;
+	--color-primary-300: #f69e7b;
+	--color-primary-400: #f26c45;
+	--color-primary-500: #ee4a25;
+	--color-primary-600: #df2e17;
+	--color-primary-700: #b92015;
+	--color-primary-800: #931b19;
+	--color-primary-900: #771a17;
+	--color-primary-950: #400a0a;
 
-  --color-background: rgba(230, 243, 245, 0.426);
-  --color-box-bg: rgb(247, 247, 254);
-  /* --color-header-bg: rgb(222 226 228); */
-  --color-foreground: rgb(32, 30, 30);
+	--color-background: rgba(230, 243, 245, 0.426);
+	--color-box-bg: rgb(247, 247, 254);
+	/* --color-header-bg: rgb(222 226 228); */
+	--color-foreground: rgb(32, 30, 30);
 
-  --color-accent: rgb(193, 71, 37);
-  --color-inactive: gray;
+	--color-accent: rgb(193, 71, 37);
+	--color-inactive: gray;
 
-  --color-box-shadow: rgb(226, 226, 230);
+	--color-box-shadow: rgb(226, 226, 230);
 
-  --color-gradient-start: #e9a075;
-  --color-gradient-end: #cb5554;
+	--color-gradient-start: #e9a075;
+	--color-gradient-end: #cb5554;
 
-  /* I had to hardcode this because Flowbite is a bitch. */
-  --color-gray-50: transparent;
+	/* I had to hardcode this because Flowbite is a bitch. */
+	--color-gray-50: transparent;
 
-  --scrollbar-bg: rgba(43, 30, 30, 0.06);
-  --scrollbar-thumb: rgba(177, 77, 22, 0.863);
-  --scrollbar-thumb-hover: rgba(100,100,100,0.44);
+	--scrollbar-bg: rgba(43, 30, 30, 0.06);
+	--scrollbar-thumb: rgba(177, 77, 22, 0.863);
+	--scrollbar-thumb-hover: rgba(100, 100, 100, 0.44);
 }
 
 /* ******************** Dark theme overrides ************************** */
 .dark {
-  --color-primary-50: #fbf7eb;
-  --color-primary-100: #f6eccb;
-  --color-primary-200: #edd89b;
-  --color-primary-300: #e0b651;
-  --color-primary-400: #d9a236;
-  --color-primary-500: #ca8c28;
-  --color-primary-600: #ae6d20;
-  --color-primary-700: #8b4f1d;
-  --color-primary-800: #74411f;
-  --color-primary-900: #633720;
-  --color-primary-950: #391b0f;
+	--color-primary-50: #fbf7eb;
+	--color-primary-100: #f6eccb;
+	--color-primary-200: #edd89b;
+	--color-primary-300: #e0b651;
+	--color-primary-400: #d9a236;
+	--color-primary-500: #ca8c28;
+	--color-primary-600: #ae6d20;
+	--color-primary-700: #8b4f1d;
+	--color-primary-800: #74411f;
+	--color-primary-900: #633720;
+	--color-primary-950: #391b0f;
 
+	--color-background: rgba(14, 17, 22, 0.675);
+	--color-box-bg: rgb(22, 22, 24);
+	/* --color-header-bg: rgb(16 17 17); */
+	--color-foreground: rgb(240 233 233);
 
-  --color-background: rgba(14, 17, 22, 0.675);
-  --color-box-bg: rgb(22, 22, 24);
-  /* --color-header-bg: rgb(16 17 17); */
-  --color-foreground: rgb(240 233 233);
+	--color-accent: rgb(252, 61, 61);
+	--color-inactive: rgb(223, 217, 217);
 
+	--color-box-shadow: rgb(20, 20, 23);
 
-  --color-accent: rgb(252, 61, 61);
-  --color-inactive: rgb(223, 217, 217);
+	--color-gradient-start: var(--color-background); /* This is so the gradient on light theme works. */
+	--color-gradient-end: var(--color-background);
 
-  --color-box-shadow: rgb(20, 20, 23);
+	/* I had to hardcode this because Flowbite is a bitch. */
+	--color-gray-800: transparent;
 
-  --color-gradient-start: var(--color-background); /* This is so the gradient on light theme works. */
-  --color-gradient-end: var(--color-background);
+	--scrollbar-bg: rgba(21, 20, 20, 0.06);
+	--scrollbar-thumb: rgba(211, 206, 206, 0.589);
+	--scrollbar-thumb-hover: rgba(100, 100, 100, 0.44);
 
-  /* I had to hardcode this because Flowbite is a bitch. */
-  --color-gray-800: transparent;
+	--color-button-bg: #aa442d;
 
-  --scrollbar-bg: rgba(21, 20, 20, 0.06);
-  --scrollbar-thumb: rgba(211, 206, 206, 0.589);
-  --scrollbar-thumb-hover: rgba(100,100,100,0.44);
-
-  --color-button-bg: #aa442d;
-
-  /* Color for the tags */
+	/* Color for the tags */
 }
 
 @source "../node_modules/flowbite-svelte/dist";
 @source "../node_modules/flowbite-svelte-icons/dist";
 
 @layer base {
-  input[type="search"]::-webkit-search-cancel-button {
-    display: none;
-  }
-  
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden; /* Fix for Chrome white space issue, might cause issues later :D */
-  }
-  
-  body {
-    min-width: 100%;
-    max-width: 100vw;
-  }
+	input[type='search']::-webkit-search-cancel-button {
+		display: none;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		overflow-x: hidden; /* Fix for Chrome white space issue, might cause issues later :D */
+	}
+
+	body {
+		min-width: 100%;
+		max-width: 100vw;
+	}
 }
 
 @layer utilities {
-  /* ******************* FONTS **************** */
-  .zalando-font {
-      font-family: "Zalando Sans Expanded", sans-serif;
-  }
-  .figtree-font {
-		font-family: "Figtree", sans-serif;
+	/* ******************* FONTS **************** */
+	.zalando-font {
+		font-family: 'Zalando Sans Expanded', sans-serif;
 	}
-  .smooth-render {
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    animation: smoothIn 0.3s ease 0.02s forwards;
-  }
+	.figtree-font {
+		font-family: 'Figtree', sans-serif;
+	}
+	.smooth-render {
+		opacity: 0;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+		animation: smoothIn 0.3s ease 0.02s forwards;
+	}
 
-  /* ************** GENERAL EFFECTS ************ */
-  .blur-bg {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .apply-shadow { /* Doesn't work, use shadow- from tailwind */
-    box-shadow: 10px 10px 10px var(--color-box-bg);
-  }
-  .bg-header-gradient {
-    background: linear-gradient(to left, var(--color-gradient-start), var(--color-gradient-end));
-  }
-  .text-accent {
-    color: var(--color-accent);
-  }
-  .hover\:text-accent:hover {
-    color: var(--color-accent);
-  }
-  /************** GLOBAL SCROLLBAR STYLE ***************************/
-  *::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  *::-webkit-scrollbar-track {
-    background: var(--scrollbar-bg);
-    border-radius: 9999px;
-  }
-  *::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb);
-    border-radius: 9999px;
-    border: 3px solid transparent;
-    background-clip: padding-box;
-  }
-  *::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-thumb-hover);
-  }
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
-  }
+	/* ************** GENERAL EFFECTS ************ */
+	.blur-bg {
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+	}
+	.apply-shadow {
+		/* Doesn't work, use shadow- from tailwind */
+		box-shadow: 10px 10px 10px var(--color-box-bg);
+	}
+	.bg-header-gradient {
+		background: linear-gradient(to left, var(--color-gradient-start), var(--color-gradient-end));
+	}
+	.text-accent {
+		color: var(--color-accent);
+	}
+	.hover\:text-accent:hover {
+		color: var(--color-accent);
+	}
+	/************** GLOBAL SCROLLBAR STYLE ***************************/
+	*::-webkit-scrollbar {
+		width: 12px;
+		height: 12px;
+	}
+	*::-webkit-scrollbar-track {
+		background: var(--scrollbar-bg);
+		border-radius: 9999px;
+	}
+	*::-webkit-scrollbar-thumb {
+		background-color: var(--scrollbar-thumb);
+		border-radius: 9999px;
+		border: 3px solid transparent;
+		background-clip: padding-box;
+	}
+	*::-webkit-scrollbar-thumb:hover {
+		background-color: var(--scrollbar-thumb-hover);
+	}
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+	}
 
-  @keyframes smoothIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+	@keyframes smoothIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 }

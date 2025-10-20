@@ -1,304 +1,274 @@
 <script lang="ts">
-    import {
-        Sidebar,
-        SidebarGroup,
-        SidebarItem,
-        SidebarButton,
-        SidebarDropdownWrapper,
-        uiHelpers,
-        Label,
-        Input,
-        Button,
-    } from "flowbite-svelte";
-    import { FilterSolid, TrashBinOutline } from "flowbite-svelte-icons";
-    import { FilterBox, SelectedTagsBox, AvailableTagsBox } from "./utils/";
-    import { onMount } from "svelte";
-    import ManagerInventory from "./ManagerInventory.svelte";
-    import {
-        availableFilterTags,
-        type FilterTag,
-    } from "$lib/constants/filterTags";
+	import {
+		Sidebar,
+		SidebarGroup,
+		SidebarItem,
+		SidebarButton,
+		SidebarDropdownWrapper,
+		uiHelpers,
+		Label,
+		Input,
+		Button,
+	} from 'flowbite-svelte';
+	import { FilterSolid, TrashBinOutline } from 'flowbite-svelte-icons';
+	import { FilterBox, SelectedTagsBox, AvailableTagsBox } from './utils/';
+	import { onMount } from 'svelte';
+	import ManagerInventory from './ManagerInventory.svelte';
+	import { availableFilterTags, type FilterTag } from '$lib/constants/filterTags';
 
-    const spanClass = "flex-1 ms-3 whitespace-nowrap"; // Flowbite utility class, Don't delete.
-    
-    // Flowbite sidebar UI helper for controlling open/close state
-    const demoSidebarUi = uiHelpers();
-    const closeDemoSidebar = demoSidebarUi.close;
+	const spanClass = 'flex-1 ms-3 whitespace-nowrap'; // Flowbite utility class, Don't delete.
 
-    let activeClass = "p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100"; // this comes from Flowbite's Sidebar component. So I can't really modify it.
-    let nonActiveClass = "p-2 hover:bg-gray-300";                                // Currently only nonActiveClass applies, IDK why.
+	// Flowbite sidebar UI helper for controlling open/close state
+	const demoSidebarUi = uiHelpers();
+	const closeDemoSidebar = demoSidebarUi.close;
 
-    // ****************** FILTER STATE ******************
-    let techKeyword = $state("");                         // Keyword input for searching/filtering technologies (used in Technologies filter)
-    let selectedTags = $state<FilterTag[]>([]);           // Array of selected technology tags that will be sent in the search query    
-    let isDemoOpen = $state(false);                       // Controls whether the sidebar is open or closed
-    let selectedFilter = $state("");                      // Tracks which filter category is currently selected, it tells what to display to FilterBox and what AvailableTagsBox shows.
-    let activeUrl = $state("Technologies");               // Controls the active/highlighted state in the sidebar navigation menu 
-    let loading = $state(false);                          // Loading state for the submit button (shows spinner during search)
-    let multiSelectedEnglishLevel = $state<string[]>([]); // Array of selected English levels, binded with the multiSelectBox inside FilterBox.
-    let multiSelectedTutors = $state<string[]>([]);       // Array of selected tutor codenames, also binded.
+	let activeClass = 'p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100'; // this comes from Flowbite's Sidebar component. So I can't really modify it.
+	let nonActiveClass = 'p-2 hover:bg-gray-300'; // Currently only nonActiveClass applies, IDK why.
 
-    // Sync sidebar open/close state with Flowbite's UI helper
-    $effect(() => {
-        isDemoOpen = demoSidebarUi.isOpen;
-    });
+	// ****************** FILTER STATE ******************
+	let techKeyword = $state(''); // Keyword input for searching/filtering technologies (used in Technologies filter)
+	let selectedTags = $state<FilterTag[]>([]); // Array of selected technology tags that will be sent in the search query
+	let isDemoOpen = $state(false); // Controls whether the sidebar is open or closed
+	let selectedFilter = $state(''); // Tracks which filter category is currently selected, it tells what to display to FilterBox and what AvailableTagsBox shows.
+	let activeUrl = $state('Technologies'); // Controls the active/highlighted state in the sidebar navigation menu
+	let loading = $state(false); // Loading state for the submit button (shows spinner during search)
+	let multiSelectedEnglishLevel = $state<string[]>([]); // Array of selected English levels, binded with the multiSelectBox inside FilterBox.
+	let multiSelectedTutors = $state<string[]>([]); // Array of selected tutor codenames, also binded.
 
-    /**
-     * Adds a technology tag to the selected tags array
-     * Prevents duplicate selections by checking if tag already exists
-     */
-    function selectTag(tag: FilterTag) {
-        if (!selectedTags.find((t) => t.code === tag.code)) {
-            selectedTags.push(tag);
-        }
-    }
+	// Sync sidebar open/close state with Flowbite's UI helper
+	$effect(() => {
+		isDemoOpen = demoSidebarUi.isOpen;
+	});
 
-    /**
-     * Removes a technology tag from the selected tags array
-     * Used when user clicks on a tag in SelectedTagsBox to deselect it
-     */
-    function deselectTag(tag: FilterTag) {
-        selectedTags = selectedTags.filter((t) => t.code !== tag.code);
-    }
+	/**
+	 * Adds a technology tag to the selected tags array
+	 * Prevents duplicate selections by checking if tag already exists
+	 */
+	function selectTag(tag: FilterTag) {
+		if (!selectedTags.find((t) => t.code === tag.code)) {
+			selectedTags.push(tag);
+		}
+	}
 
-    /**
-     * Handles the search submission
-     * Collects all selected filters and prepares them for backend query
-     */
-    async function handleSubmit() {
-        loading = true;
-        const tagsToQuery = {
-            technologies: selectedTags.map((tag) => tag.name),
-            englishLevel: multiSelectedEnglishLevel,
-            tutorsFeedback: multiSelectedTutors,
-        };
+	/**
+	 * Removes a technology tag from the selected tags array
+	 * Used when user clicks on a tag in SelectedTagsBox to deselect it
+	 */
+	function deselectTag(tag: FilterTag) {
+		selectedTags = selectedTags.filter((t) => t.code !== tag.code);
+	}
 
-        console.log("Query Object:", tagsToQuery);
-        console.log("JSON String:", JSON.stringify(tagsToQuery, null, 2));
+	/**
+	 * Handles the search submission
+	 * Collects all selected filters and prepares them for backend query
+	 */
+	async function handleSubmit() {
+		loading = true;
+		const tagsToQuery = {
+			technologies: selectedTags.map((tag) => tag.name),
+			englishLevel: multiSelectedEnglishLevel,
+			tutorsFeedback: multiSelectedTutors,
+		};
 
-        // TODO: Send to backend here
-        // await fetch('/api/search', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(tagsToQuery)
-        // });
+		console.log('Query Object:', tagsToQuery);
+		console.log('JSON String:', JSON.stringify(tagsToQuery, null, 2));
 
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        loading = false;
-    }
+		// TODO: Send to backend here
+		// await fetch('/api/search', {
+		//     method: 'POST',
+		//     headers: { 'Content-Type': 'application/json' },
+		//     body: JSON.stringify(tagsToQuery)
+		// });
 
-    /**
-     * Clears all selected filters and resets the search state
-     */
-    const clearSearch = () => {
-        console.log("Clearing up stuff...");
-        selectedTags = [];
-        multiSelectedEnglishLevel = [];
-        multiSelectedTutors = [];
-        techKeyword = "";
-    };
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+		loading = false;
+	}
 
-    onMount(() => {
-        applyFullHeightToNinjaElement();
-        applySidebarConstraints();
-    });
+	/**
+	 * Clears all selected filters and resets the search state
+	 */
+	const clearSearch = () => {
+		console.log('Clearing up stuff...');
+		selectedTags = [];
+		multiSelectedEnglishLevel = [];
+		multiSelectedTutors = [];
+		techKeyword = '';
+	};
 
-    /**
-     * Workaround for Flowbite's inaccessible element styling
-     * Applies full height classes to the parent of #son-of-ninja-element
-     * This ensures proper vertical sizing of the dropdown wrapper
-     */
-    const applyFullHeightToNinjaElement = () => {
-        const el = document.querySelector("#son-of-ninja-element");
-        if (el?.parentElement) {
-            el.parentElement.classList.add("h-full");
-            el.parentElement.classList.add("md:h-full");
-            el.parentElement.classList.add("sm:h-full");
-            console.log("Full height to ninja");
-        }
-    };
+	onMount(() => {
+		applyFullHeightToNinjaElement();
+		applySidebarConstraints();
+	});
 
-    /**
-     * Constrains the sidebar wrapper to viewport height
-     * Prevents sidebar from growing beyond screen bounds
-     */
-    const applySidebarConstraints = () => {
-        const sidebarWrapper =
-            document.querySelector('[class*="fixed"][class*="inset-y-0"]') ||
-            document.querySelector(".sidebar-wrapper");
+	/**
+	 * Workaround for Flowbite's inaccessible element styling
+	 * Applies full height classes to the parent of #son-of-ninja-element
+	 * This ensures proper vertical sizing of the dropdown wrapper
+	 */
+	const applyFullHeightToNinjaElement = () => {
+		const el = document.querySelector('#son-of-ninja-element');
+		if (el?.parentElement) {
+			el.parentElement.classList.add('h-full');
+			el.parentElement.classList.add('md:h-full');
+			el.parentElement.classList.add('sm:h-full');
+			console.log('Full height to ninja');
+		}
+	};
 
-        if (sidebarWrapper) {
-            (sidebarWrapper as HTMLElement).style.maxHeight = "100vh";
-            (sidebarWrapper as HTMLElement).style.overflow = "hidden";
-        }
-    };
+	/**
+	 * Constrains the sidebar wrapper to viewport height
+	 * Prevents sidebar from growing beyond screen bounds
+	 */
+	const applySidebarConstraints = () => {
+		const sidebarWrapper =
+			document.querySelector('[class*="fixed"][class*="inset-y-0"]') || document.querySelector('.sidebar-wrapper');
+
+		if (sidebarWrapper) {
+			(sidebarWrapper as HTMLElement).style.maxHeight = '100vh';
+			(sidebarWrapper as HTMLElement).style.overflow = 'hidden';
+		}
+	};
 </script>
 
-<SidebarButton
-    onclick={demoSidebarUi.toggle}
-    class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer"
-/>
+<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
 
 <div class="relative min-h-[100dvh]">
-    <div class="sidebar-wrapper">
-        <Sidebar
-            {activeUrl}
-            backdrop={false}
-            isOpen={isDemoOpen}
-            closeSidebar={closeDemoSidebar}
-            params={{ x: -50, duration: 50 }}
-            class="z-50 sidebar-constrained bg-background dark:bg-background blur-bg"
-            position="absolute"
-            classes={{
-                nonactive: nonActiveClass,
-                active: activeClass,
-            }}
-        >
-            <div class="sidebar-inner">
-                <SidebarGroup
-                    class="w-full flex-shrink-0"
-                    id="son-of-ninja-element"
-                >
-                    <SidebarDropdownWrapper
-                        label="Filters"
-                        classes={{
-                            btn: "p-2 cursor-pointer hover:bg-gray-300",
-                        }}
-                    >
-                        {#snippet icon()}
-                            <FilterSolid
-                                class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                            />
-                        {/snippet}
-                        
-                        <!-- ************* Technologies ************** -->
-                        <SidebarItem
-                            label="{selectedFilter === 'Technologies'
-                                ? '▸'
-                                : ''} Technologies"
-                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
-                            'Technologies'
-                                ? 'active pl-2'
-                                : 'pl-0'}"
-                            onclick={() => {
-                                selectedFilter = "Technologies";
-                                activeUrl = "Technologies";
-                            }}
-                        />
+	<div class="sidebar-wrapper">
+		<Sidebar
+			{activeUrl}
+			backdrop={false}
+			isOpen={isDemoOpen}
+			closeSidebar={closeDemoSidebar}
+			params={{ x: -50, duration: 50 }}
+			class="z-50 sidebar-constrained bg-background dark:bg-background blur-bg"
+			position="absolute"
+			classes={{
+				nonactive: nonActiveClass,
+				active: activeClass,
+			}}
+		>
+			<div class="sidebar-inner">
+				<SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
+					<SidebarDropdownWrapper
+						label="Filters"
+						classes={{
+							btn: 'p-2 cursor-pointer hover:bg-gray-300',
+						}}
+					>
+						{#snippet icon()}
+							<FilterSolid
+								class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+							/>
+						{/snippet}
 
-                        <!-- *************** English Level *************** -->
-                        <SidebarItem
-                            label="{selectedFilter === 'English Level'
-                                ? '▸'
-                                : ''} English Level"
-                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
-                            'English Level'
-                                ? 'active pl-2'
-                                : 'pl-0'}"
-                            onclick={() => {
-                                selectedFilter = "English Level";
-                                activeUrl = "English Level";
-                            }}
-                        />
+						<!-- ************* Technologies ************** -->
+						<SidebarItem
+							label="{selectedFilter === 'Technologies' ? '▸' : ''} Technologies"
+							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Technologies'
+								? 'active pl-2'
+								: 'pl-0'}"
+							onclick={() => {
+								selectedFilter = 'Technologies';
+								activeUrl = 'Technologies';
+							}}
+						/>
 
-                        <!-- **************** Tutor Feedback ***************** -->
-                        <SidebarItem
-                            label="{selectedFilter === 'Feedback'
-                                ? '▸'
-                                : ''} Feedback"
-                            class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter ===
-                            'Feedback'
-                                ? 'active pl-2'
-                                : 'pl-0'}"
-                            onclick={() => {
-                                selectedFilter = "Feedback";
-                                activeUrl = "Feedback";
-                                applyFullHeightToNinjaElement();
-                            }}
-                        />
-                    </SidebarDropdownWrapper>
-                </SidebarGroup>
+						<!-- *************** English Level *************** -->
+						<SidebarItem
+							label="{selectedFilter === 'English Level' ? '▸' : ''} English Level"
+							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'English Level'
+								? 'active pl-2'
+								: 'pl-0'}"
+							onclick={() => {
+								selectedFilter = 'English Level';
+								activeUrl = 'English Level';
+							}}
+						/>
 
-                <SidebarGroup border class="flex-shrink-0">
-                    Selected Tags
-                    <SelectedTagsBox {selectedTags} {deselectTag} />
-                </SidebarGroup>
+						<!-- **************** Tutor Feedback ***************** -->
+						<SidebarItem
+							label="{selectedFilter === 'Feedback' ? '▸' : ''} Feedback"
+							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Feedback'
+								? 'active pl-2'
+								: 'pl-0'}"
+							onclick={() => {
+								selectedFilter = 'Feedback';
+								activeUrl = 'Feedback';
+								applyFullHeightToNinjaElement();
+							}}
+						/>
+					</SidebarDropdownWrapper>
+				</SidebarGroup>
 
-                <div class="sidebar-scrollable">
-                    <SidebarGroup border>
-                        <FilterBox
-                            {selectedFilter}
-                            bind:techKeyword
-                            bind:multiSelectedEnglishLevel
-                            bind:multiSelectedTutors
-                        />
-                    </SidebarGroup>
+				<SidebarGroup border class="flex-shrink-0">
+					Selected Tags
+					<SelectedTagsBox {selectedTags} {deselectTag} />
+				</SidebarGroup>
 
-                    {#if selectedFilter === "Technologies"}
-                        <SidebarGroup border>
-                            Available Tags
-                            <AvailableTagsBox
-                                keyword={techKeyword}
-                                {selectedTags}
-                                {selectTag}
-                            />
-                        </SidebarGroup>
-                    {/if}
-                </div>
+				<div class="sidebar-scrollable">
+					<SidebarGroup border>
+						<FilterBox {selectedFilter} bind:techKeyword bind:multiSelectedEnglishLevel bind:multiSelectedTutors />
+					</SidebarGroup>
 
-                <SidebarGroup border class="flex-shrink-0">
-                    <div
-                        class="flex items-center justify-center gap-2 w-full p-1"
-                    >
-                        <Button
-                            id="clear-search-btn"
-                            class="w-[20%] flex items-center justify-center cursor-pointer"
-                            onclick={clearSearch}
-                            aria-label="Clear Search Filters"
-                            title="Clear Search Filters"
-                        >
-                            <TrashBinOutline class="m-0 p-0" />
-                        </Button>
-                        
-                        <Button
-                            id="submit-search-btn"
-                            color="alternative"
-                            class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
-                            onclick={handleSubmit}
-                            aria-label="Submit Search with Selected Filters"
-                            title="Submit Search with Selected Filters"
-                            {loading}>Search</Button
-                        >
-                    </div>
-                </SidebarGroup>
-            </div>
-        </Sidebar>
-    </div>
-    
-    <ManagerInventory />
+					{#if selectedFilter === 'Technologies'}
+						<SidebarGroup border>
+							Available Tags
+							<AvailableTagsBox keyword={techKeyword} {selectedTags} {selectTag} />
+						</SidebarGroup>
+					{/if}
+				</div>
+
+				<SidebarGroup border class="flex-shrink-0">
+					<div class="flex items-center justify-center gap-2 w-full p-1">
+						<Button
+							id="clear-search-btn"
+							class="w-[20%] flex items-center justify-center cursor-pointer"
+							onclick={clearSearch}
+							aria-label="Clear Search Filters"
+							title="Clear Search Filters"
+						>
+							<TrashBinOutline class="m-0 p-0" />
+						</Button>
+
+						<Button
+							id="submit-search-btn"
+							color="alternative"
+							class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
+							onclick={handleSubmit}
+							aria-label="Submit Search with Selected Filters"
+							title="Submit Search with Selected Filters"
+							{loading}>Search</Button
+						>
+					</div>
+				</SidebarGroup>
+			</div>
+		</Sidebar>
+	</div>
+
+	<ManagerInventory />
 </div>
 
 <style>
-    .sidebar-wrapper {
-        max-height: 100vh;
-        overflow: hidden;
-    }
-    :global(.sidebar-constrained) {
-        height: 100vh !important;
-        max-height: 100vh !important;
-        overflow: hidden !important;
-    }
-    .sidebar-inner {
-        display: flex;
-        flex-direction: column;
-        min-height: 90dvh;
-        max-height: 100dvh;
-        overflow: hidden;
-    }
-    .sidebar-scrollable {
-        flex: 1;
-        overflow-y: auto;
-        overflow-x: hidden;
-        min-height: 0;
-    }
+	.sidebar-wrapper {
+		max-height: 100vh;
+		overflow: hidden;
+	}
+	:global(.sidebar-constrained) {
+		height: 100vh !important;
+		max-height: 100vh !important;
+		overflow: hidden !important;
+	}
+	.sidebar-inner {
+		display: flex;
+		flex-direction: column;
+		min-height: 90dvh;
+		max-height: 100dvh;
+		overflow: hidden;
+	}
+	.sidebar-scrollable {
+		flex: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+		min-height: 0;
+	}
 </style>

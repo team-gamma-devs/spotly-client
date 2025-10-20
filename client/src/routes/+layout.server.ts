@@ -2,7 +2,6 @@
 // When we handle auth, this will update the auth store.
 import type { LayoutServerLoad } from './$types';
 
-
 /**
  * Server-side load function for the root layout.
  *
@@ -16,7 +15,7 @@ import type { LayoutServerLoad } from './$types';
  * @returns {Promise<{ user: any }>} An object containing the user data (or null if unauthenticated).
  */
 export const load: LayoutServerLoad = async ({ locals }) => {
-    return {
-        user: locals.user
-    };
+	return {
+		user: locals.user,
+	};
 };

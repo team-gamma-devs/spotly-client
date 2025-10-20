@@ -7,72 +7,72 @@ import { signedJsonFetch } from '$lib/server/authFetch';
  * Defines the form actions available for the login page.
  */
 export const actions: Actions = {
-    /**
-     * Handles the login form submission.
-     * 1. Validates the email.
-     * 2. Calls the backend authentication endpoint.
-     * 3. Checks for an `isFirstTime` flag in the response.
-     * 4. If `isFirstTime` is true:
-     *    - Redirects to the CV upload page with a temporary signup token.
-     * 5. If `isFirstTime` is false:
-     *    - Sets a secure, HttpOnly session cookie with the JWT.
-     *    - Redirects the user to their dashboard.
-     */
-    default: async ({ request, cookies }) => {
-        const form = await request.formData();
-        const email = form.get('email');
+	/**
+	 * Handles the login form submission.
+	 * 1. Validates the email.
+	 * 2. Calls the backend authentication endpoint.
+	 * 3. Checks for an `isFirstTime` flag in the response.
+	 * 4. If `isFirstTime` is true:
+	 *    - Redirects to the CV upload page with a temporary signup token.
+	 * 5. If `isFirstTime` is false:
+	 *    - Sets a secure, HttpOnly session cookie with the JWT.
+	 *    - Redirects the user to their dashboard.
+	 */
+	default: async ({ request, cookies }) => {
+		const form = await request.formData();
+		const email = form.get('email');
 
-        if (!email || typeof email !== 'string') {
-            return fail(400, { error: 'A valid email is required.' });
-        }
+		if (!email || typeof email !== 'string') {
+			return fail(400, { error: 'A valid email is required.' });
+		}
 
-        try {
-            const body = { email };
+		try {
+			const body = { email };
 
-            // Aca fede me tenes que devolver alguna forma de authentication, un token temporal o algo que yo pueda guardar
-            // Y luego hacer un fetch al backend para validad la sesion. Yo uso access_token.
-            const response = await signedJsonFetch(`${BACKEND_URL}/auth/login`, {
-                method: 'POST',
-                body: JSON.stringify(body)
-            });
+			// Aca fede me tenes que devolver alguna forma de authentication, un token temporal o algo que yo pueda guardar
+			// Y luego hacer un fetch al backend para validad la sesion. Yo uso access_token.
+			const response = await signedJsonFetch(`${BACKEND_URL}/auth/login`, {
+				method: 'POST',
+				body: JSON.stringify(body),
+			});
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                return fail(response.status, { error: errorData.detail || 'Login failed.' });
-            }
+			if (!response.ok) {
+				const errorData = await response.json();
+				return fail(response.status, { error: errorData.detail || 'Login failed.' });
+			}
 
-            const loginData = await response.json();
-            if (loginData.isFirstTime) {
-                const signupToken = loginData.signup_token;
-                if (!signupToken) {
-                    return fail(500, { error: 'Signup token was not provided for a new user.' });
-                }
-                throw redirect(303, `/app/graduate/upload_cv?token=${signupToken}`);
-            } else {
-                const accessToken = loginData.access_token;
-                if (!accessToken) {
-                    return fail(500, { error: 'Access token was not provided for an existing user.' });
-                }
+			const loginData = await response.json();
+			if (loginData.isFirstTime) {
+				const signupToken = loginData.signup_token;
+				if (!signupToken) {
+					return fail(500, { error: 'Signup token was not provided for a new user.' });
+				}
+				throw redirect(303, `/app/graduate/upload_cv?token=${signupToken}`);
+			} else {
+				const accessToken = loginData.access_token;
+				if (!accessToken) {
+					return fail(500, { error: 'Access token was not provided for an existing user.' });
+				}
 
-                cookies.set('spotly_session', accessToken, {
-                    path: '/',
-                    httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',  // pnpm handles env with pnpm dev | run build, how delightful!!!
-                    maxAge: 60 * 60 * 24 * 7, // 1 week
-                    sameSite: 'lax'
-                });
+				cookies.set('spotly_session', accessToken, {
+					path: '/',
+					httpOnly: true,
+					secure: process.env.NODE_ENV === 'production', // pnpm handles env with pnpm dev | run build, how delightful!!!
+					maxAge: 60 * 60 * 24 * 7, // 1 week
+					sameSite: 'lax',
+				});
 
-                throw redirect(303, '/app/graduate');
-            }
-        } catch (error: any) {
-            console.error('Error calling login endpoint:', error);
+				throw redirect(303, '/app/graduate');
+			}
+		} catch (error: any) {
+			console.error('Error calling login endpoint:', error);
 
-            if (error.cause?.code === 'ECONNREFUSED') {
-                return fail(503, {
-                    error: 'Authentication service is not available.'
-                });
-            }
-            return fail(500, { error: 'Could not connect to authentication service.' });
-        }
-    }
+			if (error.cause?.code === 'ECONNREFUSED') {
+				return fail(503, {
+					error: 'Authentication service is not available.',
+				});
+			}
+			return fail(500, { error: 'Could not connect to authentication service.' });
+		}
+	},
 };

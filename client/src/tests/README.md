@@ -5,11 +5,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Testing](https://img.shields.io/badge/Testing-E2E%20%7C%20Unit%20%7C%20Component-brightgreen?style=for-the-badge)
 
-
 ![Status](https://img.shields.io/badge/Test_Setup-Complete-success?style=flat-square)
 ![Coverage](https://img.shields.io/badge/Coverage-Auth_Flow-blue?style=flat-square)
 ![Framework](https://img.shields.io/badge/Framework-Cypress_+_Vitest-orange?style=flat-square)
-
 
 ### Cypress Installation
 
@@ -33,7 +31,7 @@ pnpm dlx cypress open
 pnpm run test:e2e         # Run E2E tests headlessly
 pnpm run test:e2e:ui      # Open Cypress UI for E2E tests
 
-# Component Testing  
+# Component Testing
 pnpm run test:component   # Run component tests headlessly
 
 # Unit Testing
@@ -66,10 +64,10 @@ cypress/
 
 BAH! I don't need tests bro.
 
-
 ## Test Data
 
 Test fixtures are located in `cypress/fixtures/`:
+
 - `test-users.json` - Mock user data
 - `sample-cv.pdf` - Test file for uploads
 - `sample-linkedin.pdf` - Test LinkedIn document
@@ -77,24 +75,28 @@ Test fixtures are located in `cypress/fixtures/`:
 ## Config
 
 Go ahead, make a mess
+
 - **Cypress config:** `cypress.config.ts`
-- **Vitest config:** `vitest.config.ts`  
+- **Vitest config:** `vitest.config.ts`
 - **TypeScript:** `cypress/tsconfig.json`
 
 ## If things blow up
 
 **Cypress binary not found:**
+
 ```bash
 npx cypress cache clear
 npx cypress install
 ```
 
 **Import errors in tests:**
+
 ```bash
 # Ensure proper path aliases in cypress.config.ts
 ```
 
 **Tests failing in CI:**
+
 ```bash
 # Use headless mode for CI
 cypress run --headless

@@ -17,34 +17,36 @@ Once you've created a project and installed dependencies with `pnpm install`, st
 ```sh
 pnpm dev
 ```
+
 ### TailwindCSS
 
 If you're using VSCode, you might want to associate CSS files as TailwindCSS, for this create or add this to `.vscode/settings.json`:
+
 ```json
 {
-  "files.associations": {
-    "*.css": "tailwindcss",
-    "tailwind.config.js": "javascript",
-    "tailwind.config.ts": "typescript"
-  },
-  "tailwindCSS.includeLanguages": {
-    "svelte": "html",
-    "html": "html",
-    "css": "css",
-    "scss": "css"
-  },
-  "tailwindCSS.experimental.configFile": "client/tailwind.config.js",
-  "tailwindCSS.rootFontSize": 16,
-  "tailwindCSS.validate": true,
-  "tailwindCSS.lint.cssConflict": "warning",
-  "tailwindCSS.lint.invalidApply": "error",
-  "tailwindCSS.lint.invalidScreen": "error",
-  "tailwindCSS.lint.invalidVariant": "error",
-  "tailwindCSS.lint.invalidConfigPath": "error",
-  "tailwindCSS.lint.invalidTailwindDirective": "error",
-  "tailwindCSS.lint.recommendedVariantOrder": "warning",
-  "css.validate": false,
-  "scss.validate": false
+	"files.associations": {
+		"*.css": "tailwindcss",
+		"tailwind.config.js": "javascript",
+		"tailwind.config.ts": "typescript"
+	},
+	"tailwindCSS.includeLanguages": {
+		"svelte": "html",
+		"html": "html",
+		"css": "css",
+		"scss": "css"
+	},
+	"tailwindCSS.experimental.configFile": "client/tailwind.config.js",
+	"tailwindCSS.rootFontSize": 16,
+	"tailwindCSS.validate": true,
+	"tailwindCSS.lint.cssConflict": "warning",
+	"tailwindCSS.lint.invalidApply": "error",
+	"tailwindCSS.lint.invalidScreen": "error",
+	"tailwindCSS.lint.invalidVariant": "error",
+	"tailwindCSS.lint.invalidConfigPath": "error",
+	"tailwindCSS.lint.invalidTailwindDirective": "error",
+	"tailwindCSS.lint.recommendedVariantOrder": "warning",
+	"css.validate": false,
+	"scss.validate": false
 }
 ```
 
@@ -55,7 +57,9 @@ To create a production version of your app:
 ```sh
 pnpm run build
 ```
+
 or preview:
+
 ```sh
 pnpm run preview
 ```

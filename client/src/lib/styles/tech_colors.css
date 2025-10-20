@@ -6,33 +6,33 @@
 */
 
 :root {
-  /* ******************* Light Theme Tag Colors *************************** */
-  --color-active-tag: rgb(253, 122, 0);
-  --color-tag-default: rgb(46, 46, 54);
-  --color-react: rgb(19, 78, 179);
-  --color-typescript: #3178c6;
-  --color-angular: #dd0031;
-  --color-mongodb: #62a963;
-  --color-python: #3776ab;
-  --color-svelte: #d1542a;
-  --color-vue: #32a370;
-  --color-node: #47bc2a;
-  --color-fastapi: #009688;
-  --color-ruby: #cc342d;
+	/* ******************* Light Theme Tag Colors *************************** */
+	--color-active-tag: rgb(253, 122, 0);
+	--color-tag-default: rgb(46, 46, 54);
+	--color-react: rgb(19, 78, 179);
+	--color-typescript: #3178c6;
+	--color-angular: #dd0031;
+	--color-mongodb: #62a963;
+	--color-python: #3776ab;
+	--color-svelte: #d1542a;
+	--color-vue: #32a370;
+	--color-node: #47bc2a;
+	--color-fastapi: #009688;
+	--color-ruby: #cc342d;
 }
 
 .dark {
-  /* ******************* Dark Theme Tag Colors *************************** */
-  --color-active-tag: rgb(44, 179, 10);
-  --color-tag-default: rgb(52, 52, 54);
-  --color-react: rgb(23, 51, 100);
-  --color-typescript: #2b68ae;
-  --color-angular: #a70025;
-  --color-mongodb: #3a8a3b;
-  --color-python: #2d638f;
-  --color-svelte: #d93500;
-  --color-vue: #3e9d73;
-  --color-node: #4c823f;
-  --color-fastapi: #00796d;
-  --color-ruby: #a62a24;
+	/* ******************* Dark Theme Tag Colors *************************** */
+	--color-active-tag: rgb(44, 179, 10);
+	--color-tag-default: rgb(52, 52, 54);
+	--color-react: rgb(23, 51, 100);
+	--color-typescript: #2b68ae;
+	--color-angular: #a70025;
+	--color-mongodb: #3a8a3b;
+	--color-python: #2d638f;
+	--color-svelte: #d93500;
+	--color-vue: #3e9d73;
+	--color-node: #4c823f;
+	--color-fastapi: #00796d;
+	--color-ruby: #a62a24;
 }

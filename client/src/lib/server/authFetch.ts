@@ -8,12 +8,12 @@ import { BACKEND_SECRET } from '$env/static/private';
  * @returns The hexadecimal signature string.
  */
 export function signRequest(payload: string, timestamp: number): string {
-  if (!BACKEND_SECRET) {
-    throw new Error('BACKEND_SECRET environment variable is not set');
-  }
-  
-  const message = `${timestamp}:${payload}`;
-  return createHmac('sha256', BACKEND_SECRET).update(message).digest('hex');
+	if (!BACKEND_SECRET) {
+		throw new Error('BACKEND_SECRET environment variable is not set');
+	}
+
+	const message = `${timestamp}:${payload}`;
+	return createHmac('sha256', BACKEND_SECRET).update(message).digest('hex');
 }
 
 /**
@@ -23,16 +23,16 @@ export function signRequest(payload: string, timestamp: number): string {
  * @returns A Headers object with the required authentication headers.
  */
 function createJsonAuthHeaders(body?: any): Headers {
-  const timestamp = Date.now();
-  const payload = body ? JSON.stringify(body) : '';
-  const signature = signRequest(payload, timestamp);
-  
-  return new Headers({
-    'Content-Type': 'application/json',
-    'X-Signature': signature,
-    'X-Timestamp': timestamp.toString(),
-    'X-Frontend-Origin': 'vercel-spotly-client'
-  });
+	const timestamp = Date.now();
+	const payload = body ? JSON.stringify(body) : '';
+	const signature = signRequest(payload, timestamp);
+
+	return new Headers({
+		'Content-Type': 'application/json',
+		'X-Signature': signature,
+		'X-Timestamp': timestamp.toString(),
+		'X-Frontend-Origin': 'vercel-spotly-client',
+	});
 }
 
 /**
@@ -43,16 +43,16 @@ function createJsonAuthHeaders(body?: any): Headers {
  * @returns The fetch Response promise.
  */
 export async function signedJsonFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const body = options.body;
-  const authHeaders = createJsonAuthHeaders(body ? JSON.parse(body as string) : undefined);
-  
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...Object.fromEntries(authHeaders.entries()),
-      ...options.headers,
-    },
-  });
+	const body = options.body;
+	const authHeaders = createJsonAuthHeaders(body ? JSON.parse(body as string) : undefined);
+
+	return fetch(url, {
+		...options,
+		headers: {
+			...Object.fromEntries(authHeaders.entries()),
+			...options.headers,
+		},
+	});
 }
 
 /**
@@ -62,15 +62,15 @@ export async function signedJsonFetch(url: string, options: RequestInit = {}): P
  * @returns A Headers object with the required authentication headers.
  */
 function createMultipartAuthHeaders(): Headers {
-  const timestamp = Date.now();
-  const payload = '';
-  const signature = signRequest(payload, timestamp);
+	const timestamp = Date.now();
+	const payload = '';
+	const signature = signRequest(payload, timestamp);
 
-  return new Headers({
-    'X-Signature': signature,
-    'X-Timestamp': timestamp.toString(),
-    'X-Frontend-Origin': 'vercel-spotly-client'
-  });
+	return new Headers({
+		'X-Signature': signature,
+		'X-Timestamp': timestamp.toString(),
+		'X-Frontend-Origin': 'vercel-spotly-client',
+	});
 }
 
 /**
@@ -80,17 +80,17 @@ function createMultipartAuthHeaders(): Headers {
  * @returns The fetch Response promise.
  */
 export async function signedMultipartFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  if (!(options.body instanceof FormData)) {
-    throw new Error('signedMultipartFetch is only for FormData bodies.');
-  }
+	if (!(options.body instanceof FormData)) {
+		throw new Error('signedMultipartFetch is only for FormData bodies.');
+	}
 
-  const authHeaders = createMultipartAuthHeaders();
-  
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...Object.fromEntries(authHeaders.entries()),
-      ...options.headers,
-    },
-  });
+	const authHeaders = createMultipartAuthHeaders();
+
+	return fetch(url, {
+		...options,
+		headers: {
+			...Object.fromEntries(authHeaders.entries()),
+			...options.headers,
+		},
+	});
 }

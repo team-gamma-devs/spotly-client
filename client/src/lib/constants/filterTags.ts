@@ -6,20 +6,20 @@
 // React, TypeScript, Angular or MongoDB will be the majority.
 
 export type FilterTag = {
-    code: string, // The tag's key (react, typescript)
-    name: string, // To display on html.
-    color: string // Tailwind variable title. (--color-react, --color-)
-}
+	code: string; // The tag's key (react, typescript)
+	name: string; // To display on html.
+	color: string; // Tailwind variable title. (--color-react, --color-)
+};
 
 export const availableFilterTags: FilterTag[] = [
-    { code: 'react', name: 'React', color: 'react' },
-    { code: 'typescript', name: 'TypeScript', color: 'typescript' },
-    { code: 'angular', name: 'Angular', color: 'angular' },
-    { code: 'mongodb', name: 'MongoDB', color: 'mongodb' },
-    { code: 'python', name: 'Python', color: 'python' },
-    { code: 'svelte', name: 'Svelte', color: 'svelte' },
-    { code: 'vue', name: 'Vue.js', color: 'vue' },
-    { code: 'node', name: 'Node.js', color: 'node' },
-    { code: 'fastapi', name: 'FastAPI', color: 'fastapi' },
-    { code: 'ruby', name: 'Ruby', color: 'ruby' }
+	{ code: 'react', name: 'React', color: 'react' },
+	{ code: 'typescript', name: 'TypeScript', color: 'typescript' },
+	{ code: 'angular', name: 'Angular', color: 'angular' },
+	{ code: 'mongodb', name: 'MongoDB', color: 'mongodb' },
+	{ code: 'python', name: 'Python', color: 'python' },
+	{ code: 'svelte', name: 'Svelte', color: 'svelte' },
+	{ code: 'vue', name: 'Vue.js', color: 'vue' },
+	{ code: 'node', name: 'Node.js', color: 'node' },
+	{ code: 'fastapi', name: 'FastAPI', color: 'fastapi' },
+	{ code: 'ruby', name: 'Ruby', color: 'ruby' },
 ];
