@@ -5,6 +5,7 @@
 
 	/**
 	 Fallback for the graduate card id if user id is not passed.
+	 Same as 
 	*/
 	export function nextId() {
 		globalCounter += 1;
@@ -16,6 +17,7 @@
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 	import TechTag from '../main/utils/TechTag.svelte';
 	import type { FilterTag } from '$lib/constants/filterTags';
+	import { availableFilterTags } from '$lib/constants/filterTags';
 	import { Button } from 'flowbite-svelte';
 	import {
 		GithubSolid,
@@ -32,7 +34,7 @@
 		avatarUrl = '',
 		updatedAt = 'Long Time Ago...',
 		cohort = 'n/a',
-		techStack = ['React'],
+		techStack = ["react", "vue.js", "vue", "mongo", "pepe", "papacito", "mamacita", "changos", "charangos", "vue.js", "vue", "mongo", "pepe", "papacito", "mamacita", "changos", "charangos"], // Can be a string or a FilterTag porp
 		tutorsFeedback = [],
 		githubUrl = '',
 		linkedinUrl = '',
@@ -40,22 +42,39 @@
 
 	const uniqueId = `graduate-card-${id || nextId()}`;
 	const imageSrc = $derived(avatarUrl || pfpFallback);
+
+	const techTags = $derived( //This monster converts the tags to proper techtags for randoms.
+		techStack.map((tech) => {
+			if (typeof tech === 'object' && tech.code) return tech;
+			const tagName = typeof tech === 'string' ? tech.toLowerCase() : '';
+			const foundTag = availableFilterTags.find(
+				(t) => t.name.toLowerCase() === tagName || t.code === tagName
+			);
+			return foundTag || {
+				code: tagName,
+				name: typeof tech === 'string' ? tech : 'Unknown',
+				color: 'tag-default'
+			};
+		})
+	);
 </script>
 
 <div
 	id={uniqueId}
-	class="card-container p-4 blur-bg w-auto min-w-[400px] flex flex-col gap-3
+	class="card-container p-4 blur-bg w-auto min-w-[200px] max-w-[500px] flex flex-col gap-3
 		ring-1 ring-gray-200 dark:ring-gray-900 bg-background rounded-lg shadow-md"
 >
-	<div class="flex gap-3 items-start">
+	<div class="flex gap-2 items-start">
 		<div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700">
 			<img src={imageSrc} alt="Graduate Profile" class="w-full h-full object-cover" />
 		</div>
 
-		<div class="flex-1">
+		<!-- *********** Card Header *************** -->
+		<div class="flex-1 ring-1 ring-red-600">
 			<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
 			<p class="text-sm text-gray-500 dark:text-gray-400">{updatedAt}</p>
-			<div class="flex gap-2 mt-2">
+			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
+			<div class="flex gap-2 mt-2 ring-1 ring-green-600">
 				{#if githubUrl}
 					<a
 						href={githubUrl}
@@ -82,15 +101,19 @@
 		</div>
 	</div>
 
-	{#if techStack.length > 0}
-		<div class="flex flex-wrap gap-1.5">
-			{#each techStack as tag}
+	<!-- The TECH TAGS! Gorgeous isn't it? -->
+	 <!-- For now, Using absolute w-h but the idea is to be able to cap the parent w-h and let it overflow Y -->
+	{#if techTags.length > 0}
+		<div class="flex flex-wrap gap-1.5 max-h-[90px] overflow-y-auto">
+			{#each techTags as tag}
 				<TechTag {tag} checked={true} editable={false} />
 			{/each}
 		</div>
 	{/if}
 
+	<!-- ***************** Card Footer *******************  -->
 	<div class="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+		<!-- Add Note Button: Not implemented but leave it. -->
 		<Button
 			type="button"
 			color="alternative"
@@ -101,6 +124,7 @@
 			<AnnotationSolid class="w-4 h-4" />
 			<span>Notes</span>
 		</Button>
+		
 		<!-- Here added annotations will go, don't know how fede will store each annotation, but we should iterate over them and create a component -->
 		<div
 			id="{uniqueId}-annotations-container"
@@ -110,6 +134,7 @@
 			<AnnotationOutline class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transitions-colors duration-200" />
 		</div>
 
+		<!-- tutors feedback, on clikc display dialog with tutors feedback -->
 		<Button
 			type="button"
 			class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
