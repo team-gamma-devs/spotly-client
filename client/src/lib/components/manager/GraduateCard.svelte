@@ -28,23 +28,60 @@
 		PhoneSolid,
 	} from 'flowbite-svelte-icons';
 
+	type Annotation = {
+		created_at: string;
+		message: string;
+	};
+
+	type TutorFeedback = {
+		[tutorName: string]: {
+			created_at: string;
+			professional_score: string;
+			technical_score: string;
+		};
+	};
+
 	let {
 		id = '',
 		firstName = 'Pepe',
 		lastName = 'Pelotas',
 		email = 'pepe@pelotas.com',
 		avatarUrl = '',
-		updatedAt = 'Long Time Ago...',
 		cohort = 'n/a',
-		techStack = ['react', 'vue.js', 'vue', 'react'],
-		githubUrl = 'https://www.github.com/glovek08',
-		linkedinUrl = 'https://www.linkedin.com',
+		techStack = ['react', 'pepe', 'Slack'],
+		githubUrl = 'https://github.com/glovek08',
+		linkedinUrl = 'https://linkedin.com/',
+		updatedAt = 'Long Time Ago...',
+		annotations = [
+			{
+				created_at: '2025-10-20T15:57:58.745Z',
+				message: 'This holbie wears nice clothing.',
+			},
+			{
+				created_at: '2025-10-15T10:30:00.000Z',
+				message: 'Great team player and communicator.',
+			},
+		] as Annotation[],
+		tutorsFeedback = {
+			'Javier Valenziani': {
+				created_at: '2025-09-20T15:57:58.745Z',
+				professional_score: "Mediocre",
+				technical_score: "Mediocre",
+			},
+			'Edison Cavani': {
+				created_at: '2025-10-20T15:57:58.745Z',
+				professional_score: "Mediocre",
+				technical_score: "Mediocre",
+			},
+		} as TutorFeedback,
 	} = $props();
 
 	const uniqueId = `graduate-card-${id || nextId()}`;
 	const imageSrc = $derived(avatarUrl || pfpFallback);
 
-	let showContactModal = $state(false);
+	let showContactModal = $state(false); // Modal for the graduate's contact information.
+	let showAnnotationsModal = $state(false); // Modal for the graduate's annotations.
+	let showTutorsFeedback = $state(false); // Modal for the tutor's feedback on this graduate.
 
 	const techTags = $derived(
 		//This monster converts the tags to proper techtags for randoms.
@@ -61,6 +98,25 @@
 			);
 		}),
 	);
+
+	/**
+	 * Formats a date string into a more readable 'MMM D, YYYY' format.
+	 *
+	 * This function takes a string that can be parsed by the `Date` constructor
+	 * and converts it into a localized string format for the 'en-US' locale,
+	 * resulting in an output like "Oct 20, 2025".
+	 *
+	 * @param {string} dateString - The string representation of the date to format.
+	 * @returns {string} The formatted date string (e.g., "Oct 20, 2025").
+	 */
+	const formatDate = (dateString: string): string => {
+		const date = new Date(dateString);
+		return date.toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+		});
+	}
 </script>
 
 <div
@@ -74,11 +130,11 @@
 		</div>
 
 		<!-- *********** Card Header *************** -->
-		<div class="flex-1 ring-1 ring-red-600">
+		<div class="flex-1">
 			<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
 			<p class="text-sm text-gray-500 dark:text-gray-400">{updatedAt}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
-			<div class="flex gap-2 mt-2 ring-1 ring-green-600">
+			<div class="flex gap-2 mt-2">
 				{#if githubUrl}
 					<a
 						href={githubUrl}
@@ -111,7 +167,9 @@
 						class="flex items-center cursor-pointer p-1 text-sm rounded transition-colors"
 						aria-label="Contact"
 						title="Contact Information"
-						onclick={() => { showContactModal = true; }}
+						onclick={() => {
+							showContactModal = true;
+						}}
 					>
 						<PhoneSolid class="shrink-0" />
 					</Button>
@@ -131,38 +189,54 @@
 	{/if}
 
 	<!-- ***************** Card Footer *******************  -->
-	<div class="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
-		<!-- Add Note Button: Not implemented but leave it. -->
+	<div class="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700 mb-0 mt-auto">
+		<!-- Add Note Button -->
 		<Button
 			type="button"
 			color="alternative"
 			class="flex items-center gap-1.5 cursor-pointer px-3 py-1.5 text-sm rounded transition-colors"
 			aria-label="See Annotations"
 			title="See Annotations"
+			onclick={() => {
+				showAnnotationsModal = true;
+			}}
 		>
 			<AnnotationSolid class="w-4 h-4" />
 			<span>Notes</span>
 		</Button>
 
-		<!-- Here added annotations will go, don't know how fede will store each annotation, but we should iterate over them and create a component -->
+		<!-- Annotations preview -->
 		<div
 			id="{uniqueId}-annotations-container"
 			class="flex items-center justify-start ml-2 mr-auto h-full min-h-[25px] min-w-[50px] overflow-x-auto"
 		>
-			<AnnotationOutline
-				class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transitions-colors duration-200"
-			/>
-			<AnnotationOutline
-				class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transitions-colors duration-200"
-			/>
+			{#each annotations.slice(0, 3) as annotation}
+				<AnnotationOutline
+					class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+					onclick={() => {
+						showAnnotationsModal = true;
+					}}
+				/>
+			{/each}
+			{#if annotations.length === 0}
+				<AnnotationOutline
+					class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+					onclick={() => {
+						showAnnotationsModal = true;
+					}}
+				/>
+			{/if}
 		</div>
 
-		<!-- tutors feedback, on clikc display dialog with tutors feedback -->
+		<!-- tutors feedback, on click display dialog with tutors feedback -->
 		<Button
 			type="button"
 			class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
 			aria-label="Tutors Feedback"
 			title="Tutors Feedback"
+			onclick={() => {
+				showTutorsFeedback = true;
+			}}
 		>
 			<AddressBookSolid class="w-5 h-5" />
 		</Button>
@@ -170,11 +244,101 @@
 </div>
 
 <!-- ********************* Contact Modal *************************** -->
-<Modal title="Contact Information for {firstName} {lastName}" class="bg-white dark:bg-background blur-bg text-foreground" bind:open={showContactModal}>
-	<p class="">Email: {email}</p>
-	<!-- {#snippet footer()}
-		<Button color="primary" class ="cursor-pointer mr-0 ml-auto" onclick={() => { showContactModal = false; }}>Close</Button>
-	{/snippet} -->
+<Modal
+	title="Contact Information"
+	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	bind:open={showContactModal}
+>
+	<div class="space-y-3">
+		<h3 class="text-lg font-semibold">{firstName} {lastName}</h3>
+		<div class="space-y-2">
+			<p class="text-sm text-gray-600 dark:text-gray-400">
+				<span class="font-medium">Email:</span>
+			</p>
+			<a href="mailto:{email}" class="text-primary-600 dark:text-primary-400 hover:underline">
+				{email}
+			</a>
+		</div>
+	</div>
+	{#snippet footer()}
+		<Button
+			color="primary"
+			class="cursor-pointer mr-0 ml-auto"
+			onclick={() => {
+				showContactModal = false;
+			}}>Close</Button
+		>
+	{/snippet}
 </Modal>
-<!-- ******************* Tutors Feedback ************************* -->
- 
+
+<!-- ********************* Annotations Modal *************************** -->
+<Modal
+	title="Annotations"
+	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	bind:open={showAnnotationsModal}
+>
+	<div class="space-y-4">
+		<h3 class="text-lg font-semibold">Notes for {firstName} {lastName}</h3>
+		{#if annotations.length > 0}
+			<div class="space-y-3 max-h-96 overflow-y-auto">
+				{#each annotations as annotation}
+					<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+						<p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+							{formatDate(annotation.created_at)}
+						</p>
+						<p class="text-gray-800 dark:text-gray-200">{annotation.message}</p>
+					</div>
+				{/each}
+			</div>
+		{:else}
+			<p class="text-gray-500 dark:text-gray-400 italic">No annotations yet.</p>
+		{/if}
+	</div>
+	{#snippet footer()}
+		<Button
+			color="primary"
+			class="cursor-pointer mr-0 ml-auto"
+			onclick={() => {
+				showAnnotationsModal = false;
+			}}>Close</Button
+		>
+	{/snippet}
+</Modal>
+
+<!-- ******************* Tutors Feedback Modal ************************* -->
+<Modal
+	title="Tutors Feedback"
+	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	bind:open={showTutorsFeedback}
+>
+	<div class="space-y-4">
+		<h3 class="text-lg font-semibold">Feedback for {firstName} {lastName}</h3>
+		{#if Object.keys(tutorsFeedback).length > 0}
+			<div class="space-y-4 max-h-96 overflow-y-auto">
+				{#each Object.entries(tutorsFeedback) as [tutorName, feedback]}
+					<div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+						<div class="flex items-center justify-between mb-2">
+							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{tutorName}</h4>
+							<p class="text-xs text-gray-500 dark:text-gray-400">
+								{formatDate(feedback.created_at)}
+							</p>
+						</div>
+						<p class="text-gray-800 dark:text-gray-200">Professional Score: {feedback.professional_score}</p>
+						<p class="text-gray-800 dark:text-gray-200">Technical Score: {feedback.technical_score}</p>
+					</div>
+				{/each}
+			</div>
+		{:else}
+			<p class="text-gray-500 dark:text-gray-400 italic">No tutor feedback yet.</p>
+		{/if}
+	</div>
+	{#snippet footer()}
+		<Button
+			color="primary"
+			class="cursor-pointer mr-0 ml-auto"
+			onclick={() => {
+				showTutorsFeedback = false;
+			}}>Close</Button
+		>
+	{/snippet}
+</Modal>

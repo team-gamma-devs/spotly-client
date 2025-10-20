@@ -24,6 +24,24 @@ pnpm install
 pnpm run dev
 ```
 
+## Environment Variables
+
+### Required (Server-side)
+- `BACKEND_URL` - Backend API base URL
+- `BACKEND_SECRET` - Shared secret for HMAC request signing
+
+### Required (Client-side)
+- `PUBLIC_API_URL` - Public-facing API URL (optional if using relative paths)
+
+### Optional
+- `NODE_ENV` - Environment (development/production)
+
+Create a `.env` file in the `client/` directory:
+```env
+BACKEND_URL=http://localhost:3000
+BACKEND_SECRET=your-secret-here
+```
+
 ## Build & preview locally
 
 ```bash
@@ -70,6 +88,26 @@ To keep images/fonts cached without forcing clients to reload, add a `vercel.jso
 - `/images/*` → `public, max-age=604800, stale-while-revalidate=86400`
 
 <br>
+
+## Common Problems I've encountered
+
+### "Cannot read properties of undefined (reading 'src')"
+- **Cause**: `enhanced:img` receiving undefined src in SSR
+- **Fix**: Use regular `<img>` with fallback or ensure src is always defined
+
+### Session not persisting
+- **Cause**: Cookie not being set with correct attributes
+- **Fix**: Check `cookies.set()` includes `path: '/', httpOnly: true, secure: true`
+
+### Violating node ( ͡° ͜ʖ ͡°): Incorrect use of `<label for=FORM_ELEMENT>`
+
+- **Cause**: I don't know.
+- **Fix**: Ignore/Hide issues like this, doesn't appear to cause problems.
+
+## Testing
+
+**QA Engineer** Mr. Martin Marrero Will provide extensive documentation on testing.
+
 
 # Project architecture — useful files & folders
 
