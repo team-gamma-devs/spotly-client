@@ -110,12 +110,16 @@
 	 * @returns {string} The formatted date string (e.g., "Oct 20, 2025").
 	 */
 	const formatDate = (dateString: string): string => {
+		try {
 		const date = new Date(dateString);
 		return date.toLocaleDateString('en-US', {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
 		});
+		} catch {
+			return "Unformateable Date";
+		}
 	};
 </script>
 
@@ -135,7 +139,7 @@
 				<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
 				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white">{cohort}</p>
 			</div>
-			<p class="text-sm text-gray-500 dark:text-gray-400">{updatedAt}</p>
+			<p class="text-sm text-gray-500 dark:text-gray-400">Last update: {formatDate(updatedAt)}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
 			<div class="flex gap-2 mt-2">
 				{#if githubUrl}
@@ -257,7 +261,7 @@
 	<div class="space-y-3">
 		<h3 class="text-lg font-semibold">{firstName} {lastName}</h3>
 		<div class="space-y-2">
-			<p class="text-sm text-gray-600 dark:text-gray-400">
+			<p class="text-sm text-gray-600 dark:text-gray-400 inline">
 				<span class="font-medium">Email:</span>
 			</p>
 			<a href="mailto:{email}" class="text-primary-600 dark:text-primary-400 hover:underline">

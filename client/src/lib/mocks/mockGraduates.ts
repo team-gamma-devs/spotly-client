@@ -1,5 +1,7 @@
 
 // Auto-generated
+
+// I'm thinking that feedbck should be rated like this: ["Poor", "Average", "Good", "Excellent"] 
 type Annotation = {
 	created_at: string;
 	message: string;
@@ -70,7 +72,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'David Martinez': {
+			'Ignacio Capenziani': {
 				created_at: '2025-10-12T14:20:00.000Z',
 				professional_score: 'Good',
 				technical_score: 'Excellent',
@@ -103,15 +105,15 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'Sarah Johnson': {
+			'Ignacio Capenziani': {
 				created_at: '2025-10-10T09:00:00.000Z',
-				professional_score: 'Outstanding',
+				professional_score: 'Excellent',
 				technical_score: 'Good',
 			},
-			'Lisa Wang': {
+			'Javier Valezzolo': {
 				created_at: '2025-09-30T15:30:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Excellent',
+				professional_score: 'Poor',
+				technical_score: 'Poor',
 			},
 		},
 	},
@@ -123,15 +125,15 @@ export const mockGraduates: Graduate[] = [
 		avatarUrl: 'https://i.pravatar.cc/150?img=13',
 		cohort: 'C23',
 		techStack: ['Java', 'Spring Boot', 'Kubernetes', 'MySQL'],
-		githubUrl: 'https://github.com/carlosmendez',
+		githubUrl: '',
 		linkedinUrl: 'https://linkedin.com/in/carlosmendez',
 		updatedAt: 'Oct 20, 2025',
 		annotations: [],
 		tutorsFeedback: {
-			'Michael Chen': {
+			'Javier Valezzolo': {
 				created_at: '2025-10-18T11:15:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Good',
+				professional_score: 'Poor',
+				technical_score: 'Poor',
 			},
 		},
 	},
@@ -153,15 +155,15 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'David Martinez': {
+			'Javier Valezzolo': {
 				created_at: '2025-10-08T13:45:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Outstanding',
+				professional_score: 'Poor',
+				technical_score: 'Average',
 			},
-			'Sarah Johnson': {
+			'Pagarico Fedenini': {
 				created_at: '2025-09-25T09:30:00.000Z',
-				professional_score: 'Outstanding',
-				technical_score: 'Excellent',
+				professional_score: 'Poor',
+				technical_score: 'Poor',
 			},
 		},
 	},
@@ -174,7 +176,7 @@ export const mockGraduates: Graduate[] = [
 		cohort: 'C23',
 		techStack: ['Go', 'gRPC', 'Docker', 'Terraform'],
 		githubUrl: 'https://github.com/rajpatel',
-		linkedinUrl: 'https://linkedin.com/in/rajpatel',
+		linkedinUrl: '',
 		updatedAt: 'Oct 19, 2025',
 		annotations: [
 			{
@@ -187,7 +189,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'Lisa Wang': {
+			'Pagarico Fedenini': {
 				created_at: '2025-10-14T16:20:00.000Z',
 				professional_score: 'Good',
 				technical_score: 'Excellent',
@@ -199,10 +201,10 @@ export const mockGraduates: Graduate[] = [
 		firstName: 'Sofia',
 		lastName: 'Garcia',
 		email: 'sofia.garcia@holberton.com',
-		avatarUrl: 'https://i.pravatar.cc/150?img=10',
+		avatarUrl: '',
 		cohort: 'C22',
 		techStack: ['Ruby', 'Rails', 'PostgreSQL', 'Heroku'],
-		githubUrl: 'https://github.com/sofiagarcia',
+		githubUrl: '',
 		linkedinUrl: 'https://linkedin.com/in/sofiagarcia',
 		updatedAt: 'Oct 15, 2025',
 		annotations: [
@@ -212,12 +214,12 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'Michael Chen': {
+			'Pagarico Fedenini': {
 				created_at: '2025-10-09T12:00:00.000Z',
 				professional_score: 'Excellent',
 				technical_score: 'Good',
 			},
-			'David Martinez': {
+			'Ignacio Capenziani': {
 				created_at: '2025-09-27T14:30:00.000Z',
 				professional_score: 'Good',
 				technical_score: 'Excellent',
@@ -246,10 +248,10 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'Sarah Johnson': {
+			'Pagarico Fedenini': {
 				created_at: '2025-10-11T15:45:00.000Z',
 				professional_score: 'Good',
-				technical_score: 'Outstanding',
+				technical_score: 'Poor',
 			},
 		},
 	},
@@ -271,12 +273,12 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'Lisa Wang': {
+			'Pagarico Fedenini': {
 				created_at: '2025-10-16T10:30:00.000Z',
-				professional_score: 'Outstanding',
+				professional_score: 'Good',
 				technical_score: 'Excellent',
 			},
-			'Michael Chen': {
+			'Javier Cappenziani': {
 				created_at: '2025-10-02T13:20:00.000Z',
 				professional_score: 'Excellent',
 				technical_score: 'Excellent',
@@ -305,10 +307,40 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {
-			'David Martinez': {
+			'Pagarico Fedenini': {
 				created_at: '2025-10-13T11:00:00.000Z',
 				professional_score: 'Good',
 				technical_score: 'Good',
+			},
+		},
+	},
+	{
+		id: '11',
+		firstName: 'Gabriel',
+		lastName: 'San',
+		email: 'elmascapo@holberton.com',
+		avatarUrl: 'https://ca.slack-edge.com/T0423U1MW21-U08BFD05VD1-23499eb54714-512',
+		cohort: 'C26',
+		techStack: ['Svelte', 'Tailwind', 'Vercel'],
+		githubUrl: 'https://github.com/glovek08',
+		linkedinUrl: '',
+		updatedAt: '0420-10-20T08:00:00.000Z',
+		annotations: [
+			{
+				created_at: '2025-10-20T08:00:00.000Z',
+				message: 'Incredible! The Goat!',
+			},
+		],
+		tutorsFeedback: {
+			'Pagarico Fedenini': {
+				created_at: '2025-10-16T10:30:00.000Z',
+				professional_score: 'Poor',
+				technical_score: 'Average',
+			},
+			'Bill Gates': {
+				created_at: '2025-10-02T13:20:00.000Z',
+				professional_score: 'Impressious',
+				technical_score: 'Magnificus',
 			},
 		},
 	},
