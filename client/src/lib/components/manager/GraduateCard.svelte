@@ -131,7 +131,10 @@
 
 		<!-- *********** Card Header *************** -->
 		<div class="flex-1">
-			<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
+			<div class="w-full flex items-center justify-start gap-2">
+				<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
+				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white">{cohort}</p>
+			</div>
 			<p class="text-sm text-gray-500 dark:text-gray-400">{updatedAt}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
 			<div class="flex gap-2 mt-2">
@@ -229,7 +232,7 @@
 		</div>
 
 		<!-- tutors feedback, on click display dialog with tutors feedback -->
-		{#if tutorsFeedback}
+		{#if Object.keys(tutorsFeedback).length > 0}
 			<Button
 				type="button"
 				class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
