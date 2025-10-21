@@ -1,1 +1,5 @@
-The is status for manager
+
+<!-- <script>
+  import Sidebar from "$lib/components/manager/Sidebar.svelte";
+</script>
+<Sidebar/> -->

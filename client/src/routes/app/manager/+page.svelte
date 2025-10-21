@@ -1,5 +1,5 @@
 <script>
-	import Sidebar from '$lib/components/manager/Sidebar.svelte';
+	import Sidebar from '$lib/components/manager/DashboardSidebar.svelte';
 	// import { page } from "$app/state";
 	// page.data.title = ""
 </script>

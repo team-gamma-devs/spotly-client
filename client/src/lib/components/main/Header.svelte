@@ -39,7 +39,7 @@
 			<!-- When it's wrapper -->
 			<NavUl
 				class="dark:bg-zinc-950 md:dark:bg-transparent"
-				{activeUrl}
+				activeUrl={activeUrl === '/app/manager/' || activeUrl === '/app/manager' ? '/app/manager/' : activeUrl}
 				classes={{ active: activeClass, nonActive: nonActiveClass }}
 			>
 				{#if user?.role == 'manager'}
@@ -47,11 +47,6 @@
 					<NavLi href="/app/manager/status" class="relative" style="top:2px;">Status</NavLi>
 				{:else if user?.role == 'graduate'}
 					<NavLi href="/app/graduate/" class="relative" style="top:2px;">Dashboard</NavLi>
-					<!-- <NavLi
-                        href="/graduate/status"
-                        class="relative"
-                        style="top:2px;">Status</NavLi
-                    > -->
 				{/if}
 			</NavUl>
 			<div class="flex items-center md:order-2 sm:order-2 order-2 cursor-pointer mr-2 ml-auto sm:mr-2 sm:ml-2">

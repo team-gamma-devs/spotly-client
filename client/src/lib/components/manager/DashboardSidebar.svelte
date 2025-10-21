@@ -11,7 +11,7 @@
 		Button,
 	} from 'flowbite-svelte';
 	import { FilterSolid, TrashBinOutline } from 'flowbite-svelte-icons';
-	import { FilterBox, SelectedTagsBox, AvailableTagsBox } from './utils/';
+	import { FilterBox, SelectedTagsBox, AvailableTagsBox } from './utils';
 	import { onMount } from 'svelte';
 	import ManagerInventory from './ManagerInventory.svelte';
 	import { availableFilterTags, type FilterTag } from '$lib/constants/filterTags';
