@@ -47,6 +47,7 @@
 		lastName = 'Pelotas',
 		email = 'pepe@pelotas.com',
 		avatarUrl = '',
+		englishLevel = 'n/a',
 		cohort = 'n/a',
 		techStack = ['react', 'pepe', 'Slack'],
 		githubUrl = 'https://github.com/glovek08',
@@ -137,7 +138,8 @@
 		<div class="flex-1">
 			<div class="w-full flex items-center justify-start gap-2">
 				<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
-				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white">{cohort}</p>
+				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white" title="Cohort: {cohort}">{cohort}</p>
+				<p class="text-sm ring-1 ring-gray-700 rounded-md px-1 py-0.3 font-bold text-foreground" title="English Level: {englishLevel}">🇬🇧 {englishLevel}</p>
 			</div>
 			<p class="text-sm text-gray-500 dark:text-gray-400">Last update: {formatDate(updatedAt)}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->

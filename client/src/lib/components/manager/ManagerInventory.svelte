@@ -23,6 +23,7 @@
 				lastName={graduate.lastName}
 				email={graduate.email}
 				avatarUrl={graduate.avatarUrl}
+				englishLevel={graduate.englishLevel}
 				cohort={graduate.cohort}
 				techStack={graduate.techStack}
 				githubUrl={graduate.githubUrl}

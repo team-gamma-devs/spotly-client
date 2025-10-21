@@ -35,7 +35,7 @@
 </Label>
 
 {#if selectedFilter == 'Technologies'}
-	<Input id="technologies-text-input" placeholder="Enter Keyword" bind:value={techKeyword} />
+	<Input id="technologies-text-input" placeholder="Enter Keyword" bind:value={techKeyword} maxlength={30}/>
 {:else if selectedFilter == 'English Level'}
 	<MultiSelect items={englishLevels} bind:value={multiSelectedEnglishLevel} />
 {:else if selectedFilter == 'Feedback'}

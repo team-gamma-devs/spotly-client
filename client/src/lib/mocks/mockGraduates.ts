@@ -21,6 +21,7 @@ type Graduate = {
 	lastName: string;
 	email: string;
 	avatarUrl: string;
+	englishLevel: string;
 	cohort: string;
 	techStack: string[];
 	githubUrl: string;
@@ -37,6 +38,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Rodriguez',
 		email: 'maria.rodriguez@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=1',
+		englishLevel: "Advanced",
 		cohort: 'C23',
 		techStack: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
 		githubUrl: 'https://github.com/mariarodriguez',
@@ -60,6 +62,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Patterson',
 		email: 'james.patterson@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=12',
+		englishLevel: "Advanced",
 		cohort: 'C23',
 		techStack: ['Python', 'Django', 'AWS', 'Redis'],
 		githubUrl: 'https://github.com/jpatterson',
@@ -85,6 +88,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Okonkwo',
 		email: 'aisha.okonkwo@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=5',
+		englishLevel: "Advanced",
 		cohort: 'C22',
 		techStack: ['JavaScript', 'Vue.js', 'MongoDB', 'Express'],
 		githubUrl: 'https://github.com/aokonkwo',
@@ -123,6 +127,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Mendez',
 		email: 'carlos.mendez@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=13',
+		englishLevel: "Basic",
 		cohort: 'C23',
 		techStack: ['Java', 'Spring Boot', 'Kubernetes', 'MySQL'],
 		githubUrl: '',
@@ -143,6 +148,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Thompson',
 		email: 'emma.thompson@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=9',
+		englishLevel: "Intermediate",
 		cohort: 'C22',
 		techStack: ['TypeScript', 'Angular', 'Firebase', 'GraphQL'],
 		githubUrl: 'https://github.com/emmathompson',
@@ -173,6 +179,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Patel',
 		email: 'raj.patel@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=15',
+		englishLevel: "Basic",
 		cohort: 'C23',
 		techStack: ['Go', 'gRPC', 'Docker', 'Terraform'],
 		githubUrl: 'https://github.com/rajpatel',
@@ -202,6 +209,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Garcia',
 		email: 'sofia.garcia@holberton.com',
 		avatarUrl: '',
+		englishLevel: "Intermediate",
 		cohort: 'C22',
 		techStack: ['Ruby', 'Rails', 'PostgreSQL', 'Heroku'],
 		githubUrl: '',
@@ -232,6 +240,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Mensah',
 		email: 'kwame.mensah@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=14',
+		englishLevel: "Basic",
 		cohort: 'C23',
 		techStack: ['C', 'Linux', 'Bash', 'Git'],
 		githubUrl: 'https://github.com/kwamemensah',
@@ -261,6 +270,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Zhang',
 		email: 'lily.zhang@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=47',
+		englishLevel: "Advanced",
 		cohort: 'C22',
 		techStack: ['React', 'Next.js', 'Tailwind', 'Vercel'],
 		githubUrl: 'https://github.com/lilyzhang',
@@ -291,6 +301,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Hassan',
 		email: 'ahmed.hassan@holberton.com',
 		avatarUrl: 'https://i.pravatar.cc/150?img=11',
+		englishLevel: "Intermediate",
 		cohort: 'C23',
 		techStack: ['PHP', 'Laravel', 'MySQL', 'Apache'],
 		githubUrl: 'https://github.com/ahmedhassan',
@@ -320,6 +331,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'San',
 		email: 'elmascapo@holberton.com',
 		avatarUrl: 'https://ca.slack-edge.com/T0423U1MW21-U08BFD05VD1-23499eb54714-512',
+		englishLevel: "Basic",
 		cohort: 'C26',
 		techStack: ['Svelte', 'Tailwind', 'Vercel'],
 		githubUrl: 'https://github.com/glovek08',
@@ -350,6 +362,7 @@ export const mockGraduates: Graduate[] = [
 		lastName: 'Newell',
 		email: 'elmascapo@holberton.com',
 		avatarUrl: 'https://media.licdn.com/dms/image/v2/C5603AQH0M2JmCkssGg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1655779665424?e=2147483647&v=beta&t=34WUe4mxClKKR8rmUTFJyzW0LvDfHugQA3eNAQe11nM',
+		englishLevel: "Basic",
 		cohort: 'C26',
 		techStack: ['React.js', 'Tailwind', 'Vercel'],
 		githubUrl: 'https://github.com/ignacio-capezzolo',
