@@ -66,4 +66,5 @@ export const availableFilterTags: FilterTag[] = [
 	{ code: 'webpack', name: 'Webpack', color: 'webpack' },
 	{ code: 'linux', name: 'Linux', color: 'linux' },
 	{ code: 'bash', name: 'Bash', color: 'bash' },
+	{ code: 'pepe', name: 'Pelotas', color: 'tag-default' },
 ];

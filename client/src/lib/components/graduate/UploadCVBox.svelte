@@ -124,7 +124,7 @@
 
 		<div class="p-2 flex items-center justify-center gap-3">
 			<!-- Real shit, don't delete -->
-			<!-- {#if !uploadSuccess}
+			{#if !uploadSuccess}
                 <Button
                     type="submit"
                     color="blue"
@@ -142,7 +142,7 @@
                 >
                     Continue
                 </Button>
-            {/if} -->
+            {/if}
 			<!-- DEBUG ONLY! -->
 			<Button color="green" class="my-3 min-w-[120px]" onclick={handleContinue}>Continue</Button>
 		</div>

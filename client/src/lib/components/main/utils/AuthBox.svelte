@@ -26,7 +26,8 @@
 	import { page } from '$app/state';
 	import type { Snippet } from 'svelte';
 	import type { User } from '../../../../ambient';
-	import Unauthorized from '$lib/components/error/Unauthorized.svelte';
+	import Unauthorized from '$lib/components/error/Unauthorized.svelte'; // Can't use 
+	import { goto } from '$app/navigation';
 
 	type AuthBoxProps = {
 		authorizedContent: Snippet;
@@ -45,7 +46,6 @@
 		currentUser: User,
 		role?: 'manager' | 'graduate',
 	): 'LOGGED_OUT' | 'AUTHORIZED' | 'UNAUTHORIZED_ROLE' {
-		// console.log("Am I running?, my role is: " + user.role)
 		if (!currentUser) {
 			return 'LOGGED_OUT';
 		}
@@ -54,15 +54,20 @@
 		}
 		return 'AUTHORIZED';
 	}
+
 	const authStatus = $derived(getAuthStatus(user, requiredRole));
+
+	$effect(() => {
+		if (authStatus === 'LOGGED_OUT') {
+			goto('/login');
+		} else if (authStatus === 'UNAUTHORIZED_ROLE') {
+			goto('/');
+		}
+	});
 </script>
 
 {#if authStatus === 'AUTHORIZED'}
 	{@render authorizedContent()}
-{:else if authStatus === 'UNAUTHORIZED_ROLE'}
-	<Unauthorized />
-{:else if authStatus === 'LOGGED_OUT'}
-	{#if unauthorizedContent}
-		{@render unauthorizedContent()}
-	{/if}
+{:else if unauthorizedContent}
+	{@render unauthorizedContent()}
 {/if}

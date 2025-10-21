@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
+	import usaIcon from '$lib/assets/svgs/united-states-flag-icon.svg';
 	import TechTag from '../main/utils/TechTag.svelte';
 	import type { FilterTag } from '$lib/constants/filterTags';
 	import { availableFilterTags } from '$lib/constants/filterTags';
@@ -122,6 +123,9 @@
 			return "Unformateable Date";
 		}
 	};
+	const addNoteToGraduate = () => {
+		console.log(`Note added to ${firstName} ${lastName}`)
+	}
 </script>
 
 <div
@@ -139,7 +143,9 @@
 			<div class="w-full flex items-center justify-start gap-2">
 				<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
 				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white" title="Cohort: {cohort}">{cohort}</p>
-				<p class="text-sm ring-1 ring-gray-700 rounded-md px-1 py-0.3 font-bold text-foreground" title="English Level: {englishLevel}">🇬🇧 {englishLevel}</p>
+				<p class="text-xs ring-1 ring-gray-700 rounded-md px-1 py-0.3 font-bold text-foreground flex items-center justify-center gap-1" title="English Level: {englishLevel}">
+					<img class="inline rounded-[2px]" src={usaIcon} alt="USA" width=13 height=5/> {englishLevel}
+				</p>
 			</div>
 			<p class="text-sm text-gray-500 dark:text-gray-400">Last update: {formatDate(updatedAt)}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
@@ -346,7 +352,14 @@
 	{#snippet footer()}
 		<Button
 			color="primary"
-			class="cursor-pointer mr-0 ml-auto"
+			class="cursor-pointer"
+			onclick={() => {
+				showTutorsFeedback = false;
+			}}>Close</Button
+		>
+				<Button
+			color="primary"
+			class="cursor-pointer"
 			onclick={() => {
 				showTutorsFeedback = false;
 			}}>Close</Button
