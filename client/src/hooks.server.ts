@@ -1,6 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
+import { mockUserState } from './lib/mocks/mockUserState';
 
 import { dev } from '$app/environment';
 
@@ -23,21 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('spotly_session');
 	// ************** DEVELOPMENT *******************
 	if (dev) {
-		event.locals.user = {
-			_id: 'dev-user-123',
-			first_name: 'Pepe',
-			last_name: 'Pelotas',
-			email: 'pepe@pelotas.com',
-			avatar_url: 'pfp-fallback.svg',
-			cohort: 23,
-			github_info: '',
-			cv_info: '',
-			tutors_feedback: [''],
-			tech_stack: ['react', 'mongodb', 'pepe', 'tailwind'],
-			role: 'manager',
-			created_at: new Date().toISOString(),
-			updated_at: new Date().toISOString(),
-		};
+		event.locals.user = mockUserState;
 		return resolve(event);
 	}
 

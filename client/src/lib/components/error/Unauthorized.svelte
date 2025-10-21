@@ -1,6 +1,9 @@
 <script>
+	import { page } from '$app/state';
 	import { Button } from 'flowbite-svelte';
 	import { UserAddSolid, UsersGroupSolid } from 'flowbite-svelte-icons';
+
+	const user = $derived(page.data.user);
 </script>
 
 <!-- The styles for unauthorized are mostly based on NotFound CompositionEvent. -->
@@ -17,17 +20,24 @@
 	</div>
 
 	<div class="flex-1 flex flex-col items-center justify-center md:items-start text-center md:text-left gap-3 p-2">
-		<h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">401</h1>
-		<h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">Unauthorized</h2>
-		<p class="text-sm md:text-base dark:text-gray-400 text-center">
-			You must log in to see this page. Make sure you're logged in with the correct account.
-		</p>
-
-		<div class="w-full md:max-w-[300px] flex flex-col md:flex-row gap-3 mt-4 m-auto">
-			<Button class="w-full bg-[#ee4a25] dark:bg-[#ee4a25] hover:bg-[#aa442d] font-bold" href="/login">
-				<UsersGroupSolid class="h-5 w-5 mr-2" /> Log In
-			</Button>
-		</div>
+		{#if user}
+			<h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">403</h1>
+			<h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">Forbidden</h2>
+			<p class="text-sm md:text-base dark:text-gray-400 text-center mx-auto">
+				You don't have permission to access this page.
+			</p>
+		{:else}
+			<h1 class="text-6xl md:text-9xl font-extrabold w-full text-center">401</h1>
+			<h2 class="text-2xl md:text-4xl font-semibold mb-2 w-full text-center">Unauthorized</h2>
+			<p class="text-sm md:text-base dark:text-gray-400 text-center">
+				You must log in to see this page. Make sure you’re logged in with the correct account.
+			</p>
+			<div class="w-full md:max-w-[300px] flex flex-col md:flex-row gap-3 mt-4 m-auto">
+				<Button class="w-full bg-[#ee4a25] dark:bg-[#ee4a25] hover:bg-[#aa442d] font-bold" href="/login">
+					<UsersGroupSolid class="h-5 w-5 mr-2" /> Log In
+				</Button>
+			</div>
+		{/if}
 	</div>
 </div>
 

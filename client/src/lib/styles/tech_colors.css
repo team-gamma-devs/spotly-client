@@ -12,10 +12,11 @@
 	
 	/* Frontend Frameworks */
 	--color-react: #2a36e2;      /* brighter blue */
+	--color-reactjs: rgb(31, 48, 99);
 	--color-vue: #3aa777;        /* deeper green */
 	--color-angular: #c3002f;    /* slightly darker red */
 	--color-svelte: #e53900;     /* slightly darker orange */
-	--color-nextjs: #202020;     /* softened black for better readability */
+	--color-nextjs: #536a2a;     /* softened black for better readability */
 	
 	/* Programming Languages */
 	--color-javascript: #b89f00; /* darker yellow */
@@ -72,10 +73,11 @@
 	
 	/* Frontend Frameworks */
 	--color-react: #0d5b84;      /* darker cyan-blue for white text */
+	--color-reactjs: rgb(43, 65, 132);
 	--color-vue: #2a6145;        /* dark forest green */
 	--color-angular: #73001e;    /* deep red */
 	--color-svelte: #8a2400;     /* dark orange-red */
-	--color-nextjs: #1a1a1a;     /* fine for white text */
+	--color-nextjs: #496d36;     /* fine for white text */
 	
 	/* Programming Languages */
 	--color-javascript: #8c7a00; /* dark gold */

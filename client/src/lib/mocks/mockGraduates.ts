@@ -344,4 +344,34 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 	},
+		{
+		id: '11',
+		firstName: 'Gabe',
+		lastName: 'Newell',
+		email: 'elmascapo@holberton.com',
+		avatarUrl: 'https://media.licdn.com/dms/image/v2/C5603AQH0M2JmCkssGg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1655779665424?e=2147483647&v=beta&t=34WUe4mxClKKR8rmUTFJyzW0LvDfHugQA3eNAQe11nM',
+		cohort: 'C26',
+		techStack: ['React.js', 'Tailwind', 'Vercel'],
+		githubUrl: 'https://github.com/ignacio-capezzolo',
+		linkedinUrl: '',
+		updatedAt: '0420-10-20T08:00:00.000Z',
+		annotations: [
+			{
+				created_at: '2025-10-20T08:00:00.000Z',
+				message: 'Incredible! The Goat!',
+			},
+		],
+		tutorsFeedback: {
+			'Pagarico Fedenini': {
+				created_at: '2025-10-16T10:30:00.000Z',
+				professional_score: 'Poor',
+				technical_score: 'Average',
+			},
+			'Bill Gates': {
+				created_at: '2025-10-02T13:20:00.000Z',
+				professional_score: 'Impressious',
+				technical_score: 'Magnificus',
+			},
+		},
+	},
 ];

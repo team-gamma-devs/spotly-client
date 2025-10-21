@@ -1,0 +1,15 @@
+export const mockUserState = {
+  _id: 'dev-user-123',
+  first_name: 'Pepe',
+  last_name: 'Pelotas',
+  email: 'pepe@pelotas.com',
+  avatar_url: 'pfp-fallback.svg',
+  cohort: 23,
+  github_info: '',
+  cv_info: '',
+  tutors_feedback: [''],
+  tech_stack: ['react', 'mongodb', 'pepe', 'tailwind'],
+  role: 'manager',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
