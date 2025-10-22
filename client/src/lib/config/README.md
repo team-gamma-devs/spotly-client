@@ -1,0 +1,1 @@
+This directory holds configurable data, for example error messages that the client can update.

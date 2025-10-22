@@ -344,3 +344,7 @@ To protect content for a specific role, pass the `requiredRole` prop. The compon
 - **Built-in Unauthorized UI**: When a `requiredRole` is specified and the user's role does not match, AuthBox automatically displays a generic `Unauthorized` component. You do not need to handle this case manually.
 - **Flexibility**: You can pass any component or markup inside the `authorizedContent` and `unauthorizedContent` snippets.
 - **Primary Use Case**: Use this component in your layout files (e.g., `src/routes/app/manager/+layout.svelte`) to protect entire sections of your application based on user roles.
+
+# Client Configuration
+
+Inside `src/lib/config/content.json` you have updateable content that the client can manually update from the UI.

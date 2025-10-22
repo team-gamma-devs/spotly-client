@@ -1,5 +1,6 @@
 <script>
 	import BtnGoBack from '$lib/components/main/utils/BtnGoBack.svelte';
+	import content from '$lib/config/content.json';
 </script>
 
 <section
@@ -14,6 +15,15 @@
 	</div>
 	<div id="hr" class="w-full h-[1px] bg-primary-700 my-5"></div>
 	<article>
-		In case you lost your Holberton you must contact Holberton staff at: <strong>*911</strong>
+		{#if content.supportEmail}
+			{content.lostAccount.message}
+			<a
+				href="mailto:{content.supportEmail}"
+				class="text-primary-600 dark:text-primary-400 hover:underline"
+				aria-label="Support Email Address">{content.supportEmail}</a
+			>
+		{:else}
+			<p>We're currently working on better support features.</p>
+		{/if}
 	</article>
 </section>
