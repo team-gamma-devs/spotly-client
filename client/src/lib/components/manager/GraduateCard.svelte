@@ -257,7 +257,7 @@
 <!-- ********************* Contact Modal *************************** -->
 <Modal
 	title="Contact Information"
-	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	class="bg-box-bg dark:bg-box-bg blur-bg text-foreground mx-5 md:mx-auto"
 	bind:open={showContactModal}
 >
 	<div class="space-y-3">

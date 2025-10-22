@@ -5,65 +5,233 @@
 // -B: Since they're graduates, chances of knowing a huge range of technolgies are low.
 // React, TypeScript, Angular or MongoDB will be the majority.
 
+// Adding more tags:
+// 1 - Just add the tag in the respective section inside availableFilterTags.
+// 2 - If you want a custom color set its color parameter to something unique or use "tag-default" 
+// for the default CSS color.
+// 3 - Update src/lib/styles/tech_colors.css with the new color parameter for each :root(light)/.dark theme.
+// 4 - Voila!! Just make sure it has good dark/ligh contrast.
+
 export type FilterTag = {
 	code: string; // The tag's key (react, typescript)
 	name: string; // To display on html.
 	color: string; // CSS variable name (--color-react, --color-typescript)
 };
 
+export const selectableFilterTags: FilterTag[] = [
+	// This is the array you must update with the backend available tags.
+]
+
 export const availableFilterTags: FilterTag[] = [
-	// Frontend Frameworks & Libraries
-	{ code: 'react', name: 'React', color: 'react' },
-	{ code: 'reactjs', name: 'React.js', color: 'reactjs' },
-	{ code: 'vue', name: 'Vue.js', color: 'vue' },
-	{ code: 'angular', name: 'Angular', color: 'angular' },
-	{ code: 'svelte', name: 'Svelte', color: 'svelte' },
-	{ code: 'next.js', name: 'Next.js', color: 'nextjs' },
-	
-	// Programming Languages
-	{ code: 'javascript', name: 'JavaScript', color: 'javascript' },
-	{ code: 'typescript', name: 'TypeScript', color: 'typescript' },
-	{ code: 'python', name: 'Python', color: 'python' },
-	{ code: 'java', name: 'Java', color: 'java' },
-	{ code: 'c', name: 'C', color: 'c' },
-	{ code: 'cpp', name: 'C++', color: 'cpp' },
-	{ code: 'csharp', name: 'C#', color: 'csharp' },
-	{ code: 'go', name: 'Go', color: 'go' },
-	{ code: 'ruby', name: 'Ruby', color: 'ruby' },
-	{ code: 'php', name: 'PHP', color: 'php' },
-	{ code: 'rust', name: 'Rust', color: 'rust' },
-	
-	// Backend Frameworks
-	{ code: 'node.js', name: 'Node.js', color: 'node' },
-	{ code: 'express', name: 'Express', color: 'express' },
-	{ code: 'django', name: 'Django', color: 'django' },
-	{ code: 'fastapi', name: 'FastAPI', color: 'fastapi' },
-	{ code: 'flask', name: 'Flask', color: 'flask' },
-	{ code: 'spring', name: 'Spring Boot', color: 'spring' },
-	{ code: 'rails', name: 'Rails', color: 'rails' },
-	{ code: 'laravel', name: 'Laravel', color: 'laravel' },
-	
-	// Databases
-	{ code: 'mongodb', name: 'MongoDB', color: 'mongodb' },
-	{ code: 'postgresql', name: 'PostgreSQL', color: 'postgresql' },
-	{ code: 'mysql', name: 'MySQL', color: 'mysql' },
-	{ code: 'redis', name: 'Redis', color: 'redis' },
-	{ code: 'firebase', name: 'Firebase', color: 'firebase' },
-	
-	// DevOps & Cloud
-	{ code: 'docker', name: 'Docker', color: 'docker' },
-	{ code: 'kubernetes', name: 'Kubernetes', color: 'kubernetes' },
-	{ code: 'aws', name: 'AWS', color: 'aws' },
-	{ code: 'azure', name: 'Azure', color: 'azure' },
-	{ code: 'gcp', name: 'GCP', color: 'gcp' },
-	{ code: 'terraform', name: 'Terraform', color: 'terraform' },
-	
-	// Tools & Others
-	{ code: 'git', name: 'Git', color: 'git' },
-	{ code: 'graphql', name: 'GraphQL', color: 'graphql' },
-	{ code: 'tailwind', name: 'Tailwind CSS', color: 'tailwind' },
-	{ code: 'sass', name: 'Sass', color: 'sass' },
-	{ code: 'webpack', name: 'Webpack', color: 'webpack' },
-	{ code: 'linux', name: 'Linux', color: 'linux' },
-	{ code: 'bash', name: 'Bash', color: 'bash' },
+	// In this array you must set all available tags that are ready to be setted by a graduate in his settings page.
+  // Frontend Frameworks & Libraries
+  { code: 'react', name: 'React', color: 'react' },
+  { code: 'reactjs', name: 'React.js', color: 'reactjs' },
+  { code: 'vue', name: 'Vue.js', color: 'vue' },
+  { code: 'angular', name: 'Angular', color: 'angular' },
+  { code: 'svelte', name: 'Svelte', color: 'svelte' },
+  { code: 'next.js', name: 'Next.js', color: 'nextjs' },
+  { code: 'nuxt', name: 'Nuxt.js', color: 'nuxt' },
+  { code: 'solid', name: 'Solid.js', color: 'solid' },
+  { code: 'qwik', name: 'Qwik', color: 'qwik' },
+  { code: 'astro', name: 'Astro', color: 'astro' },
+  { code: 'remix', name: 'Remix', color: 'remix' },
+  { code: 'gatsby', name: 'Gatsby', color: 'gatsby' },
+  { code: 'preact', name: 'Preact', color: 'preact' },
+  { code: 'lit', name: 'Lit', color: 'lit' },
+  { code: 'alpinejs', name: 'Alpine.js', color: 'alpinejs' },
+  { code: 'htmx', name: 'HTMX', color: 'htmx' },
+
+  // Mobile Development
+  { code: 'reactnative', name: 'React Native', color: 'reactnative' },
+  { code: 'flutter', name: 'Flutter', color: 'flutter' },
+  { code: 'ionic', name: 'Ionic', color: 'ionic' },
+  { code: 'xamarin', name: 'Xamarin', color: 'xamarin' },
+  { code: 'swiftui', name: 'SwiftUI', color: 'swiftui' },
+  { code: 'kotlin', name: 'Kotlin', color: 'kotlin' },
+  { code: 'swift', name: 'Swift', color: 'swift' },
+  { code: 'dart', name: 'Dart', color: 'dart' },
+
+  // Programming Languages
+  { code: 'javascript', name: 'JavaScript', color: 'javascript' },
+  { code: 'typescript', name: 'TypeScript', color: 'typescript' },
+  { code: 'python', name: 'Python', color: 'python' },
+  { code: 'java', name: 'Java', color: 'java' },
+  { code: 'c', name: 'C', color: 'c' },
+  { code: 'cpp', name: 'C++', color: 'cpp' },
+  { code: 'csharp', name: 'C#', color: 'csharp' },
+  { code: 'go', name: 'Go', color: 'go' },
+  { code: 'ruby', name: 'Ruby', color: 'ruby' },
+  { code: 'php', name: 'PHP', color: 'php' },
+  { code: 'rust', name: 'Rust', color: 'rust' },
+  { code: 'scala', name: 'Scala', color: 'scala' },
+  { code: 'elixir', name: 'Elixir', color: 'elixir' },
+  { code: 'haskell', name: 'Haskell', color: 'haskell' },
+  { code: 'clojure', name: 'Clojure', color: 'clojure' },
+  { code: 'erlang', name: 'Erlang', color: 'erlang' },
+  { code: 'r', name: 'R', color: 'r' },
+  { code: 'julia', name: 'Julia', color: 'julia' },
+  { code: 'matlab', name: 'MATLAB', color: 'matlab' },
+  { code: 'perl', name: 'Perl', color: 'perl' },
+  { code: 'lua', name: 'Lua', color: 'lua' },
+  { code: 'groovy', name: 'Groovy', color: 'groovy' },
+  { code: 'assembly', name: 'Assembly', color: 'assembly' },
+
+  // Backend Frameworks
+  { code: 'node.js', name: 'Node.js', color: 'node' },
+  { code: 'express', name: 'Express', color: 'express' },
+  { code: 'django', name: 'Django', color: 'django' },
+  { code: 'fastapi', name: 'FastAPI', color: 'fastapi' },
+  { code: 'flask', name: 'Flask', color: 'flask' },
+  { code: 'spring', name: 'Spring Boot', color: 'spring' },
+  { code: 'rails', name: 'Rails', color: 'rails' },
+  { code: 'laravel', name: 'Laravel', color: 'laravel' },
+  { code: 'nestjs', name: 'NestJS', color: 'nestjs' },
+  { code: 'koa', name: 'Koa', color: 'koa' },
+  { code: 'adonis', name: 'AdonisJS', color: 'adonis' },
+  { code: 'symfony', name: 'Symfony', color: 'symfony' },
+  { code: 'aspnet', name: 'ASP.NET', color: 'aspnet' },
+  { code: 'gin', name: 'Gin', color: 'gin' },
+  { code: 'fiber', name: 'Fiber', color: 'fiber' },
+  { code: 'phoenix', name: 'Phoenix', color: 'phoenix' },
+  { code: 'actix', name: 'Actix', color: 'actix' },
+  { code: 'rocket', name: 'Rocket', color: 'rocket' },
+
+  // Databases
+  { code: 'mongodb', name: 'MongoDB', color: 'mongodb' },
+  { code: 'postgresql', name: 'PostgreSQL', color: 'postgresql' },
+  { code: 'mysql', name: 'MySQL', color: 'mysql' },
+  { code: 'redis', name: 'Redis', color: 'redis' },
+  { code: 'firebase', name: 'Firebase', color: 'firebase' },
+  { code: 'sqlite', name: 'SQLite', color: 'sqlite' },
+  { code: 'mariadb', name: 'MariaDB', color: 'mariadb' },
+  { code: 'cassandra', name: 'Cassandra', color: 'cassandra' },
+  { code: 'elasticsearch', name: 'Elasticsearch', color: 'elasticsearch' },
+  { code: 'dynamodb', name: 'DynamoDB', color: 'dynamodb' },
+  { code: 'couchdb', name: 'CouchDB', color: 'couchdb' },
+  { code: 'neo4j', name: 'Neo4j', color: 'neo4j' },
+  { code: 'influxdb', name: 'InfluxDB', color: 'influxdb' },
+  { code: 'cockroachdb', name: 'CockroachDB', color: 'cockroachdb' },
+  { code: 'supabase', name: 'Supabase', color: 'supabase' },
+  { code: 'planetscale', name: 'PlanetScale', color: 'planetscale' },
+  { code: 'prisma', name: 'Prisma', color: 'prisma' },
+
+  // DevOps & Cloud
+  { code: 'docker', name: 'Docker', color: 'docker' },
+  { code: 'kubernetes', name: 'Kubernetes', color: 'kubernetes' },
+  { code: 'aws', name: 'AWS', color: 'aws' },
+  { code: 'azure', name: 'Azure', color: 'azure' },
+  { code: 'gcp', name: 'GCP', color: 'gcp' },
+  { code: 'terraform', name: 'Terraform', color: 'terraform' },
+  { code: 'ansible', name: 'Ansible', color: 'ansible' },
+  { code: 'jenkins', name: 'Jenkins', color: 'jenkins' },
+  { code: 'circleci', name: 'CircleCI', color: 'circleci' },
+  { code: 'githubactions', name: 'GitHub Actions', color: 'githubactions' },
+  { code: 'gitlab', name: 'GitLab', color: 'gitlab' },
+  { code: 'travis', name: 'Travis CI', color: 'travis' },
+  { code: 'vagrant', name: 'Vagrant', color: 'vagrant' },
+  { code: 'puppet', name: 'Puppet', color: 'puppet' },
+  { code: 'chef', name: 'Chef', color: 'chef' },
+  { code: 'nginx', name: 'Nginx', color: 'nginx' },
+  { code: 'apache', name: 'Apache', color: 'apache' },
+  { code: 'vercel', name: 'Vercel', color: 'vercel' },
+  { code: 'netlify', name: 'Netlify', color: 'netlify' },
+  { code: 'heroku', name: 'Heroku', color: 'heroku' },
+  { code: 'digitalocean', name: 'DigitalOcean', color: 'digitalocean' },
+  { code: 'cloudflare', name: 'Cloudflare', color: 'cloudflare' },
+
+  // Testing
+  { code: 'jest', name: 'Jest', color: 'jest' },
+  { code: 'mocha', name: 'Mocha', color: 'mocha' },
+  { code: 'cypress', name: 'Cypress', color: 'cypress' },
+  { code: 'selenium', name: 'Selenium', color: 'selenium' },
+  { code: 'playwright', name: 'Playwright', color: 'playwright' },
+  { code: 'vitest', name: 'Vitest', color: 'vitest' },
+  { code: 'pytest', name: 'Pytest', color: 'pytest' },
+  { code: 'junit', name: 'JUnit', color: 'junit' },
+  { code: 'jasmine', name: 'Jasmine', color: 'jasmine' },
+  { code: 'testinglibrary', name: 'Testing Library', color: 'testinglibrary' },
+
+  // State Management
+  { code: 'redux', name: 'Redux', color: 'redux' },
+  { code: 'mobx', name: 'MobX', color: 'mobx' },
+  { code: 'zustand', name: 'Zustand', color: 'zustand' },
+  { code: 'recoil', name: 'Recoil', color: 'recoil' },
+  { code: 'jotai', name: 'Jotai', color: 'jotai' },
+  { code: 'pinia', name: 'Pinia', color: 'pinia' },
+  { code: 'vuex', name: 'Vuex', color: 'vuex' },
+  { code: 'ngrx', name: 'NgRx', color: 'ngrx' },
+
+  // Build Tools & Bundlers
+  { code: 'webpack', name: 'Webpack', color: 'webpack' },
+  { code: 'vite', name: 'Vite', color: 'vite' },
+  { code: 'rollup', name: 'Rollup', color: 'rollup' },
+  { code: 'parcel', name: 'Parcel', color: 'parcel' },
+  { code: 'esbuild', name: 'esbuild', color: 'esbuild' },
+  { code: 'turbopack', name: 'Turbopack', color: 'turbopack' },
+  { code: 'gulp', name: 'Gulp', color: 'gulp' },
+  { code: 'grunt', name: 'Grunt', color: 'grunt' },
+  { code: 'babel', name: 'Babel', color: 'babel' },
+
+  // Tools & Others
+  { code: 'git', name: 'Git', color: 'git' },
+  { code: 'graphql', name: 'GraphQL', color: 'graphql' },
+  { code: 'tailwind', name: 'Tailwind CSS', color: 'tailwind' },
+  { code: 'sass', name: 'Sass', color: 'sass' },
+  { code: 'less', name: 'Less', color: 'less' },
+  { code: 'stylus', name: 'Stylus', color: 'stylus' },
+  { code: 'postcss', name: 'PostCSS', color: 'postcss' },
+  { code: 'linux', name: 'Linux', color: 'linux' },
+  { code: 'bash', name: 'Bash', color: 'bash' },
+  { code: 'vim', name: 'Vim', color: 'vim' },
+  { code: 'vscode', name: 'VS Code', color: 'vscode' },
+  { code: 'intellij', name: 'IntelliJ IDEA', color: 'intellij' },
+  { code: 'figma', name: 'Figma', color: 'figma' },
+  { code: 'photoshop', name: 'Photoshop', color: 'photoshop' },
+  { code: 'illustrator', name: 'Illustrator', color: 'illustrator' },
+  { code: 'sketch', name: 'Sketch', color: 'sketch' },
+  { code: 'storybook', name: 'Storybook', color: 'storybook' },
+  { code: 'jira', name: 'Jira', color: 'jira' },
+  { code: 'confluence', name: 'Confluence', color: 'confluence' },
+  { code: 'notion', name: 'Notion', color: 'notion' },
+  { code: 'slack', name: 'Slack', color: 'slack' },
+  { code: 'discord', name: 'Discord', color: 'discord' },
+
+  // APIs & Protocols
+  { code: 'rest', name: 'REST API', color: 'rest' },
+  { code: 'grpc', name: 'gRPC', color: 'grpc' },
+  { code: 'websocket', name: 'WebSocket', color: 'websocket' },
+  { code: 'socketio', name: 'Socket.io', color: 'socketio' },
+  { code: 'oauth', name: 'OAuth', color: 'oauth' },
+  { code: 'jwt', name: 'JWT', color: 'jwt' },
+  { code: 'openapi', name: 'OpenAPI', color: 'openapi' },
+  { code: 'swagger', name: 'Swagger', color: 'swagger' },
+
+  // CMS & E-commerce
+  { code: 'wordpress', name: 'WordPress', color: 'wordpress' },
+  { code: 'contentful', name: 'Contentful', color: 'contentful' },
+  { code: 'strapi', name: 'Strapi', color: 'strapi' },
+  { code: 'sanity', name: 'Sanity', color: 'sanity' },
+  { code: 'shopify', name: 'Shopify', color: 'shopify' },
+  { code: 'woocommerce', name: 'WooCommerce', color: 'woocommerce' },
+  { code: 'magento', name: 'Magento', color: 'magento' },
+
+  // AI & ML
+  { code: 'tensorflow', name: 'TensorFlow', color: 'tensorflow' },
+  { code: 'pytorch', name: 'PyTorch', color: 'pytorch' },
+  { code: 'scikitlearn', name: 'scikit-learn', color: 'scikitlearn' },
+  { code: 'keras', name: 'Keras', color: 'keras' },
+  { code: 'opencv', name: 'OpenCV', color: 'opencv' },
+  { code: 'pandas', name: 'Pandas', color: 'pandas' },
+  { code: 'numpy', name: 'NumPy', color: 'numpy' },
+  { code: 'jupyter', name: 'Jupyter', color: 'jupyter' },
+  { code: 'openai', name: 'OpenAI', color: 'openai' },
+  { code: 'huggingface', name: 'Hugging Face', color: 'huggingface' },
+
+  // Blockchain
+  { code: 'solidity', name: 'Solidity', color: 'solidity' },
+  { code: 'ethereum', name: 'Ethereum', color: 'ethereum' },
+  { code: 'web3', name: 'Web3.js', color: 'web3' },
+  { code: 'hardhat', name: 'Hardhat', color: 'hardhat' },
+  { code: 'truffle', name: 'Truffle', color: 'truffle' },
 ];
