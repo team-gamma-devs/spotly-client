@@ -17,7 +17,7 @@
 	<GenericBoxVisible classes="px-10">
 		<div id="form-header" class=" flex items-center justify-between w-full mb-4">
 			<h1 class="text-xl">Login</h1>
-			<BtnGoBack classes="hidden md:block md:flex md:items-center md:justify-center" />
+			<BtnGoBack targetUrl="/" classes="hidden md:block md:flex md:items-center md:justify-center" />
 		</div>
 
 		<LoginForm />

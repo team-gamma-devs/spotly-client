@@ -16,7 +16,7 @@
 	<div id="hr" class="w-full h-[1px] bg-primary-700 my-5"></div>
 	<article>
 		{#if content.supportEmail}
-			{content.lostAccount.message}
+			<p>{content.lostAccount.message}</p>
 			<a
 				href="mailto:{content.supportEmail}"
 				class="text-primary-600 dark:text-primary-400 hover:underline"
