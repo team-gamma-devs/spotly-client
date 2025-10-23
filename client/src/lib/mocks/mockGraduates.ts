@@ -40,7 +40,7 @@ export const mockGraduates: Graduate[] = [
 		avatarUrl: 'https://i.pravatar.cc/150?img=1',
 		englishLevel: "Advanced",
 		cohort: 'C23',
-		techStack: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
+		techStack: ['React', 'Node.js', 'PostgreSQL', 'Docker', 'C++'],
 		githubUrl: 'https://github.com/mariarodriguez',
 		linkedinUrl: 'https://linkedin.com/in/mariarodriguez',
 		updatedAt: 'Oct 18, 2025',
