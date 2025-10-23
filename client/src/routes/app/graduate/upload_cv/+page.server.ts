@@ -8,6 +8,7 @@ const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
 interface ValidationErrors {
 	linkedin?: string;
 	personal?: string;
+	avatar?: string;
 }
 /**
  * Validates an uploaded file against size and allowed file extensions/MIME types.
@@ -15,10 +16,14 @@ interface ValidationErrors {
  * @param {File | null} file - The file object from the FormData, or null if missing.
  * @param {string[]} allowedTypes - An array of allowed file extensions (e.g., ['pdf', 'docx']).
  * @param {string} fieldName - A human-readable name for the field (e.g., 'LinkedIn PDF').
+ * @param {boolean} isOptional - Whether the file is optional (default: false).
  * @returns {string | null} An error message string if validation fails, or null if validation passes.
  */
-function validateFile(file: File | null, allowedTypes: string[], fieldName: string): string | null {
+function validateFile(file: File | null, allowedTypes: string[], fieldName: string, isOptional: boolean = false): string | null {
 	if (!file || file.size === 0) {
+		if (isOptional) {
+			return null;
+		}
 		return `${fieldName} is required.`;
 	}
 
@@ -40,6 +45,11 @@ function validateFile(file: File | null, allowedTypes: string[], fieldName: stri
 					return String('application/pdf'); // Don't understand why it complains if I don't convert to string.
 				case 'docx':
 					return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+				case 'jpg':
+				case 'jpeg':
+					return 'image/jpeg';
+				case 'png':
+					return 'image/png';
 				default:
 					return '';
 			}
@@ -60,11 +70,30 @@ function validateFile(file: File | null, allowedTypes: string[], fieldName: stri
 export const actions: Actions = {
 	uploadFiles: async ({ request, cookies }) => {
 		const formData = await request.formData();
-		const linkedinPdf = formData.get('linkedin_pdf') as File | null;
-		const personalCv = formData.get('personal_cv') as File | null;
-		const magicToken = formData.get('magic_token') as string | null;
-
+		const linkedinPdf = formData.get("linkedin_pdf") as File | null;
+		const personalCv = formData.get("personal_cv") as File | null;
+		const avatar = formData.get("avatar") as File | null;
+		// const magicToken = formData.get("magic_token") as string | null;
+		const magicToken = "I'm magic Johnson!";
 		console.log("I'm Inside!!");
+		console.log("*************** FormData Contents *********");
+		console.log("Magic Token:", magicToken);
+		console.log("LinkedIn PDF:", linkedinPdf ? {
+			name: linkedinPdf.name,
+			size: linkedinPdf.size,
+			type: linkedinPdf.type
+		} : "NOT PROVIDED");
+		console.log("Personal CV:", personalCv ? {
+			name: personalCv.name,
+			size: personalCv.size,
+			type: personalCv.type
+		} : "NOT PROVIDED");
+		console.log("Avatar:", avatar ? {
+			name: avatar.name,
+			size: avatar.size,
+			type: avatar.type
+		} : "NOT PROVIDED");
+		console.log("***********");
 
 		const validationErrors: ValidationErrors = {};
 
@@ -77,6 +106,11 @@ export const actions: Actions = {
 		const personalError = validateFile(personalCv, ['pdf', 'docx'], 'Personal CV');
 		if (personalError) {
 			validationErrors.personal = personalError;
+		}
+
+		const avatarError = validateFile(avatar, ['jpg', 'jpeg', 'png'], 'Avatar', true);
+		if (avatarError) {
+			validationErrors.avatar = avatarError;
 		}
 
 		// if there are any error, I'll return them for the UI.
@@ -95,19 +129,29 @@ export const actions: Actions = {
 			const url = new URL(`${BACKEND_URL}/signup`);
 			url.searchParams.append('token', magicToken);
 
+			console.log('=== Sending to backend ===');
+			console.log('URL:', url.toString());
+			console.log('FormData keys:', Array.from(formData.keys()));
+
 			const response = await signedMultipartFetch(url.toString(), {
 				method: 'POST',
 				body: formData,
 			});
 
+			console.log('=== Backend response ===');
+			console.log('Status:', response.status);
+			console.log('OK:', response.ok);
+
 			if (!response.ok) {
 				const errorData = await response.json();
+				console.log('Error data:', errorData);
 				return fail(response.status, {
 					error: errorData.detail || 'Upload failed. Please try again.',
 					success: false,
 				});
 			}
 			const responseData = await response.json();
+			console.log('Success response:', responseData);
 			const jwt = responseData.accessToken; // Aliased to camel case.
 
 			cookies.set('spotly_session', jwt, {

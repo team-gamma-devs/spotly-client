@@ -5,10 +5,6 @@
 </script>
 
 <GenericBoxInvisible>
-	<!-- <div
-    id="login-box"
-    class="flex flex-col items-center justify-center ring-2 ring-green-600 p-2 gap-3 mx-auto mt-10 mb-10 md:mt-auto md:mb-auto"
-> -->
 	<div id="form-logo-container" class="w-full flex items-center justify-center">
 		<enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" width="50" height="50" alt="Spotly Logo"></enhanced:img>
 		<h4 id="signup-header" class="zalando-font text-2xl">Spotly</h4>

@@ -15,6 +15,7 @@
 	// Derived states for validation errors
 	const linkedInError = $derived(form?.validation?.linkedin ? form.validation.linkedin : null);
 	const personalCvError = $derived(form?.validation?.personal ? form.validation.personal : null);
+	const avatarError = $derived(form?.validation?.avatar ? form.validation.avatar : null);
 	const generalError = $derived(form?.error ? form.error : null);
 	const uploadSuccess = $derived(form?.success === true);
 	const magicToken = $derived(page.url.searchParams.get('token')); // This holds the magic link token.
@@ -27,7 +28,7 @@
 	}
 </script>
 
-<GenericBoxVisible>
+<GenericBoxVisible classes="mt-10 mb-10 md:m-auto">
 	<div id="form-header" class="w-full p-2 gap-3 flex items-center justify-between mb-2">
 		<h1 class="text-xl">Upload Files</h1>
 		<BtnGoBack classes="hidden md:block md:flex md:items-center md:justify-center" />
@@ -39,21 +40,21 @@
                     border-gray-200 dark:border-slate-800 rounded-lg p-4 md:p-5 shadow-sm"
 		>
 			<div class="items-center m-auto">
-				<h3 class="text-lg md:text-xl font-semibold text-foreground dark:text-white leading-tight">
+				<h3 class="text-lg md:text-xl font-semibold text-foreground dark:text-white leading-tight text-center">
 					To continue, please upload
 				</h3>
-				<p class="mt-1 text-sm text-muted-foreground dark:text-slate-400">
-					Both files are required to proceed. Max size: 3MB per file.
+				<p class="mt-1 text-sm text-muted-foreground dark:text-slate-400 text-center">
+					Required files are marked with *. Max size: 3MB per file.
 				</p>
 
-				<ul class="mt-3 grid gap-2 md:gap-1 pl-4">
+				<ul class="mt-3 grid gap-2 md:gap-1 pl-4 items-center justify-center">
 					<li class="flex items-start gap-3">
 						{#if uploadSuccess}
 							<CheckCircleSolid class="shrink-0 h-6 w-6 mb-2 text-green-600" />
 						{:else}
 							<ExclamationCircleSolid class="shrink-0 h-6 w-6 mb-2 text-red-600" />
 						{/if}
-						<span class="text-sm text-foreground dark:text-slate-100 pt-1"> LinkedIn-generated PDF </span>
+						<span class="text-sm text-foreground dark:text-slate-100 pt-1"> LinkedIn-generated PDF * </span>
 					</li>
 					<li class="flex items-start gap-3">
 						{#if uploadSuccess}
@@ -61,7 +62,7 @@
 						{:else}
 							<ExclamationCircleSolid class="shrink-0 h-6 w-6 text-red-600" />
 						{/if}
-						<span class="text-sm text-foreground dark:text-slate-100 pt-1"> Personal CV (PDF or DOCX) </span>
+						<span class="text-sm text-foreground dark:text-slate-100 pt-1"> Personal CV (PDF or DOCX) * </span>
 					</li>
 				</ul>
 			</div>
@@ -83,7 +84,7 @@
 		<!-- This hidden input sends the magic link from the url -->
 		<input type="hidden" name="magic_token" value={magicToken} />
 		<div class="p-2 flex flex-col items-center justify-center">
-			<Label class="pb-1 pl-2 w-full">LinkedIn's Generated PDF</Label>
+			<Label class="pb-1 pl-2 w-full">LinkedIn's Generated PDF *</Label>
 			<div class="inline-file-input flex gap-2 w-full">
 				<Fileupload name="linkedin_pdf" required disabled={uploadSuccess} accept=".pdf" />
 			</div>
@@ -96,7 +97,7 @@
 		</div>
 
 		<div class="p-2 flex flex-col items-center justify-center">
-			<Label class="pb-1 pl-2 w-full">Your Personal CV</Label>
+			<Label class="pb-1 pl-2 w-full">Your Personal CV *</Label>
 			<div class="inline-file-input flex gap-2 w-full">
 				<Fileupload name="personal_cv" required disabled={uploadSuccess} accept=".pdf,.docx" />
 			</div>
@@ -104,6 +105,22 @@
 				<Alert color="red" class="mt-2 w-full">
 					<span class="font-semibold">Personal CV:</span>
 					{personalCvError}
+				</Alert>
+			{/if}
+		</div>
+
+		<div class="p-2 flex flex-col items-center justify-center">
+			<Label class="pb-1 pl-2 w-full">Profile Avatar (Optional)</Label>
+			<div class="inline-file-input flex gap-2 w-full">
+				<Fileupload name="avatar" disabled={uploadSuccess} accept=".jpg,.jpeg,.png" />
+			</div>
+			<p class="text-xs text-muted-foreground dark:text-slate-400 mt-1 w-full pl-2">
+				Supported formats: JPG, JPEG, PNG
+			</p>
+			{#if avatarError}
+				<Alert color="red" class="mt-2 w-full">
+					<span class="font-semibold">Avatar:</span>
+					{avatarError}
 				</Alert>
 			{/if}
 		</div>
@@ -118,17 +135,17 @@
 		<!-- Success message -->
 		{#if uploadSuccess}
 			<div class="p-2">
-				<Alert color="green" class="w-full">Both files uploaded successfully!</Alert>
+				<Alert color="green" class="w-full">Files uploaded successfully!</Alert>
 			</div>
 		{/if}
 
 		<div class="p-2 flex items-center justify-center gap-3">
 			<!-- Real shit, don't delete -->
-			<!-- {#if !uploadSuccess}
+			{#if !uploadSuccess}
                 <Button
                     type="submit"
                     color="blue"
-                    class="my-3 min-w-[120px]"
+                    class="my-3 min-w-[120px] cursor-pointer"
                     disabled={isLoading}
                     loading={isLoading}
                 >
@@ -142,9 +159,9 @@
                 >
                     Continue
                 </Button>
-            {/if} -->
+            {/if}
 			<!-- DEBUG ONLY! -->
-			<Button color="green" class="my-3 min-w-[120px]" onclick={handleContinue}>Continue</Button>
+			<Button color="green" class="my-3 min-w-[120px] cursor-pointer" onclick={handleContinue}>Continue</Button>
 		</div>
 	</form>
 </GenericBoxVisible>
