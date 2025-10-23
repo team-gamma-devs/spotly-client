@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+	import GenericBoxInvisible from '$lib/components/main/utils/GenericBoxInvisible.svelte';
 	import { Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
@@ -11,12 +12,16 @@
 </script>
 
 {#if user}
-	<h1>
-		Welcome {user.first_name}
-		{user.last_name}!!
-	</h1>
+	<GenericBoxInvisible>
+		<h1>
+			Welcome {user.first_name}
+			{user.last_name}!!
+		</h1>
+	</GenericBoxInvisible>
 {:else}
-	<h1>Welcome!</h1>
-	<h2>please log in to start using Spotly!</h2>
-	<Button color="green" href="/login">Log In</Button>
+	<GenericBoxInvisible>
+		<h1 class="text-xl font-bold">Welcome!</h1>
+		<h2>Please log in to start using Spotly!</h2>
+		<Button color="green" href="/login">Log In</Button>
+	</GenericBoxInvisible>
 {/if}
