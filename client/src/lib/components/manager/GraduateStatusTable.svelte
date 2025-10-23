@@ -13,7 +13,6 @@
 	} from 'flowbite-svelte';
 	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid } from 'flowbite-svelte-icons';
 	import { GraduatePills } from '$lib/mocks/mockGraduatePill';
-	import GraduatePill from './GraduatePill.svelte';
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
   // TODO: The pagination stuff.
@@ -39,15 +38,15 @@
 	function getStatusBadgeProps(status: string): { color: BadgeColor; class: string } {
 		switch (status) {
 			case 'Accepted':
-				return { color: 'green' as const, class: 'w-full bg-green-300 dark:bg-green-900 font-bold' };
+				return { color: 'green' as const, class: 'w-full bg-green-300 dark:bg-green-900 font-bold max-w-[150px] py-1.5' };
 			case 'Invited':
-				return { color: 'blue' as const, class: 'w-full bg-blue-300 dark:bg-blue-950 font-bold' };
+				return { color: 'blue' as const, class: 'w-full bg-blue-300 dark:bg-blue-950 font-bold max-w-[150px] py-1.5' };
 			case 'Pending':
-				return { color: 'yellow' as const, class: 'w-full bg-yellow-300 dark:bg-yellow-900 font-bold' };
+				return { color: 'yellow' as const, class: 'w-full bg-yellow-200 dark:bg-yellow-900 font-bold max-w-[150px] py-1.5' };
 			case 'Expired':
-				return { color: 'red' as const, class: 'w-full bg-red-300 dark:bg-red-900 font-bold' };
+				return { color: 'red' as const, class: 'w-full bg-red-300 dark:bg-red-900 font-bold max-w-[150px] py-1.5' };
 			default:
-				return { color: 'gray' as const, class: 'w-full bg-gray-300 dark:bg-gray-700 font-bold' };
+				return { color: 'gray' as const, class: 'w-full bg-gray-300 dark:bg-gray-700 font-bold max-w-[150px] py-1.5' };
 		}
 	}
 
