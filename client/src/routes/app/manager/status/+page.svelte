@@ -1,5 +1,9 @@
-
-<!-- <script>
-  import Sidebar from "$lib/components/manager/Sidebar.svelte";
+<script>
+	import GraduateStatusTable from '$lib/components/manager/GraduateStatusTable.svelte';
+	import StatusSidebar from '$lib/components/manager/StatusSidebar.svelte';
+  import { TrashBinSolid } from 'flowbite-svelte-icons';
 </script>
-<Sidebar/> -->
+
+<div class="flex flex-col w-full items-center justify-center">
+  <StatusSidebar/>
+</div>

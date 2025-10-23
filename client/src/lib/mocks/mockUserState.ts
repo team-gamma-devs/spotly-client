@@ -9,7 +9,7 @@ export const mockUserState = {
   cv_info: '',
   tutors_feedback: [''],
   tech_stack: ['react', 'mongodb', 'pepe', 'tailwind'],
-  role: 'graduate',
+  role: 'manager',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
 };
