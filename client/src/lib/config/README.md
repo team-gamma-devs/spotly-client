@@ -1,1 +1,0 @@
-This directory holds configurable non-restricted data, for example: error messages that the client with manager role can update.
