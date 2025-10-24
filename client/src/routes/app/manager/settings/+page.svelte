@@ -13,9 +13,9 @@
 <GenericBoxVisible>
 	<div class="w-full flex items-center justify-between gap-5 w-full md:min-w-[400px] px-5">
 		<h1 class="text-xl">Settings</h1>
-		<BtnGoBack targetUrl="/app/graduate" />
+		<BtnGoBack targetUrl="/app/manager" />
 	</div>
-	
+
 	<div class="px-10 py-5 w-full">
 		{#await data.config}
 			<TextPlaceholder size="md" class="m-2" />
@@ -33,8 +33,8 @@
 					</Alert>
 				{/if}
 
-				<form 
-					method="POST" 
+				<form
+					method="POST"
 					action="?/updateConfig"
 					use:enhance={() => {
 						isSubmitting = true;
@@ -43,15 +43,16 @@
 							isSubmitting = false;
 						};
 					}}
-					class="space-y-6"
+					class="space-y-6 w-full max-w-[500px]"
 				>
 					<div class="">
-						<Label for="supportEmail" class="mb-2">Support Email</Label>
+						<Label for="support-email-input" class="mb-2 text-md text-foreground font-bold">Support Email</Label>
+            <p class="text-sm mb-2 text-gray-400">Graduates will contact this email if they can't access the app.</p>
 						<Input
-							id="supportEmail"
+							id="support-email-input"
 							name="supportEmail"
 							type="email"
-              class=""
+							class="w-full max-w-[500px]"
 							value={config.supportEmail}
 							placeholder="support@example.com"
 							required
@@ -60,11 +61,12 @@
 					</div>
 
 					<div>
-						<Label for="lostAccountMsg" class="mb-2">Lost Account Message</Label>
+						<Label for="lost-account-msg-input" class="mb-2 text-md text-foreground font-bold">Lost Account Message</Label>
+            <p class="text-sm mb-2 text-gray-400">Graduates will see this when they click on "Lost my Holberton Account".</p>
 						<Textarea
-							id="lostAccountMsg"
+							id="lost-account-msg-input"
 							name="lostAccountMsg"
-              class="w-full max-w-[500px] min-h-[100px]"
+							class="w-full max-w-[500px] min-h-[100px]"
 							value={config.lostAccountMsg}
 							placeholder="Enter the message users will see..."
 							required
