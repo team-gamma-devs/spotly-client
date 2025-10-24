@@ -47,7 +47,7 @@
 				>
 					<div class="">
 						<Label for="support-email-input" class="mb-2 text-md text-foreground font-bold">Support Email</Label>
-            <p class="text-sm mb-2 text-gray-400">Graduates will contact this email if they can't access the app.</p>
+            <p class="text-sm mb-2 text-gray-500 dark:text-gray-400">Graduates will contact this email if they can't access the app.</p>
 						<Input
 							id="support-email-input"
 							name="supportEmail"
@@ -62,7 +62,7 @@
 
 					<div>
 						<Label for="lost-account-msg-input" class="mb-2 text-md text-foreground font-bold">Lost Account Message</Label>
-            <p class="text-sm mb-2 text-gray-400">Graduates will see this when they click on "Lost my Holberton Account".</p>
+            <p class="text-sm mb-2 text-gray-500 dark:text-gray-400">Graduates will see this when they click on "Lost my Holberton Account".</p>
 						<Textarea
 							id="lost-account-msg-input"
 							name="lostAccountMsg"
