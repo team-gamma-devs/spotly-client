@@ -45,8 +45,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			const user = await response.json();
 			event.locals.user = user;
 		} else {
+			// Sync this with logout/+page.server.ts
 			event.locals.user = null;
 			event.cookies.delete('spotly_session', { path: '/' });
+			event.cookies.delete('github_token', { path: '/' });
+			event.cookies.delete('github_username', { path: '/' });
 		}
 	} catch (error) {
 		console.error('Error validating session with backend:', error);

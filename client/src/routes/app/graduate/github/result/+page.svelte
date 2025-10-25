@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import GenericBoxInvisible from '$lib/components/main/utils/GenericBoxInvisible.svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
-	import { TextPlaceholder, Button } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
 	import { Spinner } from "flowbite-svelte";
 
 	let success = false;
@@ -37,7 +37,7 @@
 			{#if loading}
 				<!-- Loading State -->
 				<div class="w-full max-w-sm space-y-4">
-					<Spinner/>
+					<Spinner size="16" color="primary"/>
 				</div>
 			{:else if success}
 				<!-- Success State -->

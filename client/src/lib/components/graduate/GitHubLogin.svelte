@@ -2,6 +2,7 @@
 	import BtnGitHubLogin from './utils/BtnGitHubLogin.svelte';
 	import GenericBoxInvisible from '../main/utils/GenericBoxInvisible.svelte';
 	import GenericBoxVisible from '../main/utils/GenericBoxVisible.svelte';
+	import { Spinner } from 'flowbite-svelte';
 	// Maybe here we need to implement a store that tells us wether the user has already logged in
 	// to his github account and if it has,
 
