@@ -1,124 +1,367 @@
 <script lang="ts">
-    import type { PageData } from '../../../routes/app/graduate/$types';
+	import { onMount } from 'svelte';
+	import type { ApexOptions } from 'apexcharts';
+	import { Chart } from '@flowbite-svelte-plugins/chart';
+	import { InboxFullSolid, UsersGroupSolid, StarSolid } from 'flowbite-svelte-icons';
+	import { Spinner, Button } from 'flowbite-svelte';
+	import type { PageData } from '../../../routes/app/graduate/$types';
+	import type { GithubData } from '$lib/server/githubFetch';
+	import { GenericBoxVisible } from '../main/utils';
 
-    let { data }: { data: PageData } = $props();
+	let { data }: { data: PageData } = $props();
 
-    // Destructure the GitHub-related data from the page data
-    const userGithubData = $derived(data.userGithubData);
-    const githubError = $derived(data.githubError);
-    const githubUsername = $derived(data.githubUsername);
+	const githubUsername = $derived(data.githubUsername);
+
+	let githubData: GithubData | null = $state(null);
+	let loading = $state(false);
+	let error = $state<string | null>(null);
+	let chartOptions: ApexOptions | null = $state(null);
+
+	onMount(async () => {
+		if (!githubUsername) return;
+
+		loading = true;
+		error = null;
+
+		try {
+			const response = await fetch('/app/graduate/api/github');
+			if (!response.ok) {
+				throw new Error('Failed to fetch GitHub data');
+			}
+			githubData = await response.json();
+
+			if (githubData) {
+				const repoNames = githubData.topRepos.map((repo) => repo.name);
+				const repoSizes = githubData.topRepos.map((repo) => repo.diskUsage);
+				const repoStars = githubData.topRepos.map((repo) => repo.stargazers_count);
+
+				chartOptions = {
+					series: [
+						{
+							name: 'Size (KB)',
+							data: repoSizes,
+							color: '#3B82F6'
+						},
+						{
+							name: 'Stars',
+							data: repoStars,
+							color: '#FBBF24'
+						}
+					],
+					chart: {
+						sparkline: {
+							enabled: false
+						},
+						type: 'bar',
+						width: '100%',
+						height: 350,
+						toolbar: {
+							show: false
+						}
+					},
+					fill: {
+						opacity: 1
+					},
+					plotOptions: {
+						bar: {
+							horizontal: true,
+							columnWidth: '100%',
+							borderRadiusApplication: 'end',
+							borderRadius: 6,
+							dataLabels: {
+								position: 'top'
+							}
+						}
+					},
+					legend: {
+						show: true,
+						position: 'bottom'
+					},
+					dataLabels: {
+						enabled: false
+					},
+					tooltip: {
+						shared: true,
+						intersect: false
+					},
+					xaxis: {
+						labels: {
+							show: true,
+							style: {
+								fontFamily: 'Inter, sans-serif',
+								cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+							}
+						},
+						categories: repoNames,
+						axisTicks: {
+							show: false
+						},
+						axisBorder: {
+							show: false
+						}
+					},
+					yaxis: {
+						labels: {
+							show: true,
+							style: {
+								fontFamily: 'Inter, sans-serif',
+								cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+							}
+						}
+					},
+					grid: {
+						show: true,
+						strokeDashArray: 4,
+						padding: {
+							left: 2,
+							right: 2,
+							top: -20
+						}
+					}
+				};
+			}
+		} catch (err) {
+			error = err instanceof Error ? err.message : 'An error occurred';
+		} finally {
+			loading = false;
+		}
+	});
 </script>
 
 <div class="github-container">
-    {#if githubUsername}
-        {#if githubError}
-            <!-- Error State -->
-            <div class="error-state">
-                <p class="text-red-500 text-sm">{githubError}</p>
-                <a href="/app/graduate/github" class="text-blue-500 hover:underline text-xs">
-                    Reconnect GitHub
-                </a>
-            </div>
-        {:else if userGithubData}
-            <!-- Success State: Display GitHub Stats -->
-            <div class="github-stats">
-                <h3 class="text-lg font-semibold mb-3">GitHub Stats</h3>
+	{#if githubUsername}
+		{#if loading}
+			<!-- Loading State -->
+			<div class="loading-state">
+				<Spinner size="16" />
+				<p class="text-sm text-gray-500 mt-2">Loading GitHub data...</p>
+			</div>
+		{:else if error}
+			<!-- Error State -->
+			<div class="error-state">
+				<p class="text-red-500 text-sm">{error}</p>
+				<Button color="red" href="/app/graduate/github">Reconnect Github</Button>
+			</div>
+		{:else if githubData && chartOptions}
+			<div class="github-stats">
+				<!-- Profile Header -->
+				<div class="header-section mb-6">
+					<h3 class="text-xl font-semibold mb-2">GitHub Stats</h3>
+					<h4 class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+						<a
+							href="https://github.com/team-gamma-devs/git-gud-stats"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex items-center gap-1 hover:text-gray-700 dark:hover:text-gray-300"
+						>
+							Powered By
+							<enhanced:img
+								src="$lib/assets/svgs/ggs-logo.svg"
+								width="24"
+								height="24"
+								class="inline"
+								alt="GGS Logo"
+							/>
+							GGS
+						</a>
+					</h4>
+				</div>
 
-                <!-- Profile Section -->
-                <div class="profile mb-4">
-                    <img
-                        src={userGithubData.profile.avatar_url}
-                        alt={userGithubData.profile.login}
-                        class="w-16 h-16 rounded-full mb-2"
-                    />
-                    <h4 class="font-medium">{userGithubData.profile.name || userGithubData.profile.login}</h4>
-                    {#if userGithubData.profile.bio}
-                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{userGithubData.profile.bio}</p>
-                    {/if}
-                    <div class="stats-row flex gap-3 mt-2 text-xs text-gray-600 dark:text-gray-400">
-                        <span>📦 {userGithubData.profile.public_repos} repos</span>
-                        <span>👥 {userGithubData.profile.followers} followers</span>
-                    </div>
-                </div>
+				<!-- Profile Card -->
+				<GenericBoxVisible classes="profile-card mb-6">
+					<div class="flex flex-col items-center text-center p-4">
+						<img
+							src={githubData.avatar_url}
+							alt="GitHub Avatar"
+							class="w-20 h-20 rounded-full mb-3 ring-2 ring-gray-200 dark:ring-gray-700"
+						/>
+						<div class="stats-row flex gap-4 text-sm text-gray-600 dark:text-gray-400">
+							<span class="flex items-center gap-1">
+								<InboxFullSolid class="w-5 h-5" />
+								{githubData.public_repos} repos
+							</span>
+							<span class="flex items-center gap-1">
+								<UsersGroupSolid class="w-5 h-5" />
+								{githubData.followers} followers
+							</span>
+						</div>
+					</div>
+				</GenericBoxVisible>
 
-                <!-- Top Repositories -->
-                <div class="top-repos mb-4">
-                    <h4 class="text-sm font-semibold mb-2">Top Repositories</h4>
-                    <div class="space-y-2">
-                        {#each userGithubData.topRepos.slice(0, 3) as repo}
-                            <a
-                                href={repo.html_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="block p-2 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-                            >
-                                <div class="flex items-center justify-between">
-                                    <span class="text-sm font-medium truncate">{repo.name}</span>
-                                    <span class="text-xs">⭐ {repo.stargazers_count}</span>
-                                </div>
-                                {#if repo.language}
-                                    <span class="text-xs text-gray-500">{repo.language}</span>
-                                {/if}
-                            </a>
-                        {/each}
-                    </div>
-                </div>
+				<div class="grid-container">
+					<!-- *************** Top Repos *************** -->
+					<div class="chart-box content-box bg-background dark:bg-background
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg">
+						<div class="box-header">
+							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Top 5 Repositories</h4>
+							<p class="text-sm text-gray-500 dark:text-gray-400">By repository size</p>
+						</div>
+						<div class="chart-wrapper">
+							<Chart options={chartOptions} />
+						</div>
+					</div>
 
-                <!-- Top Languages -->
-                <div class="languages">
-                    <h4 class="text-sm font-semibold mb-2">Top Languages</h4>
-                    <div class="space-y-1">
-                        {#each userGithubData.languageStats.slice(0, 5) as lang}
-                            <div class="language-item">
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span>{lang.name}</span>
-                                    <span>{lang.percentage.toFixed(1)}%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                    <div
-                                        class="bg-blue-500 h-2 rounded-full transition-all"
-                                        style="width: {lang.percentage}%"
-                                    ></div>
-                                </div>
-                            </div>
-                        {/each}
-                    </div>
-                </div>
-            </div>
-        {:else}
-            <!-- Loading State -->
-            <div class="loading-state">
-                <p class="text-sm text-gray-500">Loading GitHub data...</p>
-            </div>
-        {/if}
-    {:else}
-        <!-- Not Connected State -->
-        <div class="connect-prompt">
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                Connect your GitHub account to see your stats
-            </p>
-            <a
-                href="/app/graduate/github"
-                class="inline-block px-4 py-2 bg-gradient-to-br from-[#3a8a5f] to-[#4FAB78] text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-all"
-            >
-                Connect GitHub
-            </a>
-        </div>
-    {/if}
+					<!-- *********** Repo Links ********************* -->
+					<div class="links-box content-box bg-background dark:bg-background
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg">
+						<div class="box-header">
+							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Quick Links</h4>
+						</div>
+						<div class="space-y-2">
+							{#each githubData.topRepos as repo}
+								<a
+									href={repo.html_url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="repo-link"
+								>
+									<div class="flex items-center justify-between gap-2">
+										<span class="text-sm font-medium truncate">{repo.name}</span>
+										<div class="flex items-center gap-2 text-xs shrink-0">
+											<span class="flex items-center gap-1">
+												<StarSolid class="w-3 h-3" />
+												{repo.stargazers_count}
+											</span>
+											<span class="text-gray-500">{(repo.diskUsage / 1024).toFixed(1)} MB</span>
+										</div>
+									</div>
+									{#if repo.language}
+										<span class="text-xs text-gray-500 dark:text-gray-400">{repo.language}</span>
+									{/if}
+								</a>
+							{/each}
+						</div>
+					</div>
+
+					<!-- ************ Top Langs *********************** -->
+					<div class="languages-box content-box bg-background dark:bg-background
+    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg">
+						<div class="box-header">
+							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Top 5 Languages</h4>
+						</div>
+						<div class="space-y-3">
+							{#each githubData.languageStats as lang}
+								<div class="language-item">
+									<div class="flex justify-between text-sm mb-1.5">
+										<span class="font-medium">{lang.name}</span>
+										<span class="text-gray-500 dark:text-gray-400">{lang.percentage.toFixed(1)}%</span>
+									</div>
+									<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+										<div
+											class="bg-blue-500 h-2.5 rounded-full transition-all duration-300"
+											style="width: {lang.percentage}%"
+										></div>
+									</div>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
+	{:else}
+		<!-- Not Connected State -->
+		<div class="connect-prompt">
+			<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+				Connect your GitHub account to see your stats
+			</p>
+			<Button href="/app/graduate/github" class="transition-all">Connect GitHub</Button>
+		</div>
+	{/if}
 </div>
 
 <style>
-    .github-container {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        background: var(--box-bg);
-    }
+	.github-container {
+		padding: 1rem;
+		border-radius: 0.5rem;
+		width: 100%;
+	}
 
-    .profile img {
-        margin: 0 auto;
-    }
+	.loading-state,
+	.error-state,
+	.connect-prompt {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 3rem 1rem;
+	}
 
-    .language-item {
-        margin-bottom: 0.5rem;
-    }
+	.github-stats {
+		width: 100%;
+	}
+
+	/* Responsive Grid Layout */
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		width: 100%;
+	}
+
+	/* Content boxes styling */
+	.content-box {
+		padding: 1.25rem;
+		border-radius: 0.5rem;
+		width: 100%;
+		height: fit-content;
+	}
+
+	/* Profile card styling */
+	.profile-card-wrapper {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.profile-card {
+		padding: 1.5rem;
+		border-radius: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		width: fit-content;
+	}
+
+	/* Make chart box span 2 columns on larger screens */
+	@media (min-width: 1024px) {
+		.grid-container {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.chart-box {
+			grid-column: span 2;
+		}
+	}
+
+	/* Box headers */
+	.box-header {
+		padding-bottom: 0.75rem;
+		margin-bottom: 0.75rem;
+		border-bottom: 1px solid rgb(229 231 235);
+	}
+
+	:global(.dark) .box-header {
+		border-bottom-color: rgb(55 65 81);
+	}
+
+	/* Chart wrapper */
+	.chart-wrapper {
+		width: 100%;
+		min-height: 350px;
+	}
+
+	/* Repository links */
+	.repo-link {
+		display: block;
+		padding: 0.75rem;
+		border-radius: 0.5rem;
+		transition: all 0.2s;
+	}
+
+	/* Language items */
+	.language-item {
+		width: 100%;
+	}
 </style>
