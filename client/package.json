@@ -21,6 +21,7 @@
 	"devDependencies": {
 		"@cypress/svelte": "^3.0.0",
 		"@cypress/vite-dev-server": "^7.0.0",
+		"@flowbite-svelte-plugins/chart": "^0.2.4",
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/adapter-vercel": "^5.10.3",
 		"@sveltejs/enhanced-img": "^0.8.3",

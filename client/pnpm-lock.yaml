@@ -14,6 +14,9 @@ importers:
       '@cypress/vite-dev-server':
         specifier: ^7.0.0
         version: 7.0.0(cypress@15.4.0)
+      '@flowbite-svelte-plugins/chart':
+        specifier: ^0.2.4
+        version: 0.2.4(svelte@5.39.6)(tailwindcss@4.1.13)
       '@sveltejs/adapter-auto':
         specifier: ^6.0.0
         version: 6.1.0(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@24.7.2)(jiti@2.6.0)(lightningcss@1.30.1)))(svelte@5.39.6)(vite@7.1.7(@types/node@24.7.2)(jiti@2.6.0)(lightningcss@1.30.1)))
@@ -267,6 +270,12 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@flowbite-svelte-plugins/chart@0.2.4':
+    resolution: {integrity: sha512-0+Cmw7m7QqlhzPOVU7zFH/qrp1X1zLEoTiBPws83EucDZCETru5eE5rlmbH+SZxPH9Id4EMahpZzXKIgZ0cyLA==}
+    peerDependencies:
+      svelte: ^5.0.0
+      tailwindcss: ^4.1.4
 
   '@img/colour@1.0.0':
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -861,6 +870,9 @@ packages:
   ansi-styles@6.2.3:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
     engines: {node: '>=12'}
+
+  apexcharts@4.7.0:
+    resolution: {integrity: sha512-iZSrrBGvVlL+nt2B1NpqfDuBZ9jX61X9I2+XV0hlYXHtTwhwLTHDKGXjNXAgFBDLuvSYCB/rq2nPWVPRv2DrGA==}
 
   apexcharts@5.3.5:
     resolution: {integrity: sha512-I04DY/WBZbJgJD2uixeV5EzyiL+J5LgKQXEu8rctqAwyRmKv44aDVeofJoLdTJe3ao4r2KEQfCgtVzXn6pqirg==}
@@ -2242,6 +2254,12 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
+  '@flowbite-svelte-plugins/chart@0.2.4(svelte@5.39.6)(tailwindcss@4.1.13)':
+    dependencies:
+      apexcharts: 4.7.0
+      svelte: 5.39.6
+      tailwindcss: 4.1.13
+
   '@img/colour@1.0.0': {}
 
   '@img/sharp-darwin-arm64@0.34.4':
@@ -2757,6 +2775,15 @@ snapshots:
   ansi-styles@5.2.0: {}
 
   ansi-styles@6.2.3: {}
+
+  apexcharts@4.7.0:
+    dependencies:
+      '@svgdotjs/svg.draggable.js': 3.0.6(@svgdotjs/svg.js@3.2.5)
+      '@svgdotjs/svg.filter.js': 3.0.9
+      '@svgdotjs/svg.js': 3.2.5
+      '@svgdotjs/svg.resize.js': 2.0.5(@svgdotjs/svg.js@3.2.5)(@svgdotjs/svg.select.js@4.0.3(@svgdotjs/svg.js@3.2.5))
+      '@svgdotjs/svg.select.js': 4.0.3(@svgdotjs/svg.js@3.2.5)
+      '@yr/monotone-cubic-spline': 1.0.3
 
   apexcharts@5.3.5:
     dependencies:
