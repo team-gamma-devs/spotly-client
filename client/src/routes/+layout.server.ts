@@ -12,10 +12,14 @@ import type { LayoutServerLoad } from './$types';
  *
  * @param {object} context - The SvelteKit load context.
  * @param {object} context.locals - The server-side locals object, containing the `user` data.
- * @returns {Promise<{ user: any }>} An object containing the user data (or null if unauthenticated).
+ * @param {object} context.cookies - The cookies object to check for GitHub authentication.
+ * @returns {Promise<{ user: any; githubUsername: string | null }>} An object containing the user data and GitHub username.
  */
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+	const githubUsername = cookies.get('github_username');
+	
 	return {
 		user: locals.user,
+		githubUsername: githubUsername || null,
 	};
 };
