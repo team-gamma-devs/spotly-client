@@ -2,9 +2,12 @@
 	import { Sidebar, SidebarGroup, SidebarItem, SidebarButton, uiHelpers } from 'flowbite-svelte';
 	import { ChartOutline, GridSolid, MailBoxSolid, UserSolid } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';
+	import GitHubDataContainer from './GitHubDataContainer.svelte';
+	import type { PageData } from '../../../routes/app/graduate/$types';
 
 	let activeUrl = $state(page.url.pathname);
 	let isDemoOpen = $state(false);
+	let { data }: { data: PageData } = $props();
 
 	const demoSidebarUi = uiHelpers();
 	const closeDemoSidebar = demoSidebarUi.close;
@@ -42,5 +45,7 @@
 			</SidebarItem>
 		</SidebarGroup>
 	</Sidebar>
-	<div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2"></div>
+	<div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2">
+		<GitHubDataContainer {data} />
+	</div>
 </div>

@@ -1,3 +1,3 @@
 <script>
-  import Sidebar from "./DashboardSidebar.svelte";
+  import Sidebar from "./ManagerSidebar.svelte";
 </script>
