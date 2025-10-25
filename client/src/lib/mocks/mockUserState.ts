@@ -4,6 +4,7 @@ export const mockUserState = {
   last_name: 'Pelotas',
   email: 'pepe@pelotas.com',
   avatar_url: 'pfp-fallback.svg',
+  isFirstTime: false,
   cohort: 23,
   github_info: '',
   cv_info: '',

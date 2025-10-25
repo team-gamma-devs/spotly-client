@@ -4,4 +4,5 @@
 
 <section id="dashboard-wrapper" class="w-full">
 	<Sidebar />
+	
 </section>

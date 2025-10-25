@@ -18,7 +18,7 @@ export const actions: Actions = {
 	 *    - Sets a secure, HttpOnly session cookie with the JWT.
 	 *    - Redirects the user to their dashboard.
 	 */
-	default: async ({ request, cookies }) => {
+	login: async ({ request, cookies }) => {
 		const form = await request.formData();
 		const email = form.get('email');
 
