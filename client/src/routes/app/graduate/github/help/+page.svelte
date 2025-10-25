@@ -72,11 +72,5 @@
 				></span
 			>
 		</li>
-		<li>
-			<strong class="text-slate-900 dark:text-slate-100">Public Data:</strong>
-			<span class="text-slate-600 dark:text-slate-300">
-				Even without logging in, if you introduce your GitHub account name, we'll be able to fetch only publica data.</span
-			>
-		</li>
 	</ul>
 </section>

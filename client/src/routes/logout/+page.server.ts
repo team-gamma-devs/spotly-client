@@ -14,10 +14,16 @@
 // → event.locals.user = null
 
 import { redirect } from '@sveltejs/kit';
-import type { RequestHandler } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
-export const POST: RequestHandler = async ({ cookies }) => {
-	cookies.delete('spotly_session', { path: '/' });
-	console.log('Deleting...');
-	throw redirect(303, '/');
+export const actions: Actions = {
+	default: async ({ cookies }) => {
+		cookies.delete('spotly_session', { path: '/' });
+		cookies.delete('github_token', { path: '/' });
+		cookies.delete('github_username', { path: '/' });
+		
+		console.log('Deleting session and GitHub auth...');
+		
+		throw redirect(303, '/login');
+	}
 };

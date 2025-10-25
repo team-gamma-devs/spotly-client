@@ -15,7 +15,8 @@
 	} from 'flowbite-svelte';
 	import AuthBox from './utils/AuthBox.svelte';
 	import { page } from '$app/state';
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	const user = $derived(page.data.user);
 
@@ -65,10 +66,13 @@
 					{:else if user?.role == 'manager'}
 						<DropdownItem class="cursor-pointer" href="/app/manager/settings">Settings</DropdownItem>
 					{/if}
-					<form method="POST" action="/logout" use:enhance>
+					<form
+						method="POST"
+						action="/logout"
+						use:enhance>
 						<Button
-							color="secondary"
 							type="submit"
+							color="secondary"
 							class="cursor-pointer rounded-none w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
 						>
 							Sign out

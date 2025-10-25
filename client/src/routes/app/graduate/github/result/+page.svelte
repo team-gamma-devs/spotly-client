@@ -1,19 +1,23 @@
 <script lang="ts">
-	import { page } from '$app/state';
+	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import GenericBoxInvisible from '$lib/components/main/utils/GenericBoxInvisible.svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
+	import { TextPlaceholder, Button } from 'flowbite-svelte';
+	import { Spinner } from "flowbite-svelte";
 
 	let success = false;
 	let username = '';
 	let error = '';
 	let message = '';
+	let loading = true;
 
 	onMount(() => {
-		success = page.url.searchParams.get('success') === 'true';
-		username = page.url.searchParams.get('username') || '';
-		error = page.url.searchParams.get('error') || '';
-		message = page.url.searchParams.get('message')?.replace(/\+/g, ' ') || '';
+		success = $page.url.searchParams.get('success') === 'true';
+		username = $page.url.searchParams.get('username') || '';
+		error = $page.url.searchParams.get('error') || '';
+		message = $page.url.searchParams.get('message')?.replace(/\+/g, ' ') || '';
+		loading = false;
 	});
 </script>
 
@@ -30,8 +34,13 @@
 
 	<GenericBoxVisible>
 		<div class="flex flex-col items-center justify-center gap-4 px-6 py-8">
-			{#if success}
-				<!-- **************** Success *************** -->
+			{#if loading}
+				<!-- Loading State -->
+				<div class="w-full max-w-sm space-y-4">
+					<Spinner/>
+				</div>
+			{:else if success}
+				<!-- Success State -->
 				<div class="success-icon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -54,14 +63,9 @@
 					Your GitHub account <strong class="text-foreground">@{username}</strong> has been connected.
 					You can now access your GitHub statistics.
 				</p>
-				<a
-					href="/app/graduate/upload_cv"
-					class="mt-4 px-6 py-3 bg-gradient-to-br from-[#3a8a5f] to-[#4FAB78] text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-				>
-					Continue to Next Step
-				</a>
+				<Button color="green" href="/app/graduate/upload_cv" class="mt-4 px-6 py-3">Continue to Next Step</Button>
 			{:else}
-				<!-- **********  Error ************** -->
+				<!-- ******************** Error ************ -->
 				<div class="error-icon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +106,7 @@
 		</div>
 	</GenericBoxVisible>
 
-	{#if !success}
+	{#if !loading && !success}
 		<p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-4">
 			Error code: {error || 'unknown'}
 		</p>
