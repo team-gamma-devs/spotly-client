@@ -26,12 +26,10 @@ export const availableFilterTags: FilterTag[] = [
 	// In this array you must set all available tags that are ready to be setted by a graduate in his settings page.
   // Frontend Frameworks & Libraries
   { code: 'react', name: 'React', color: 'react' },
-  { code: 'reactjs', name: 'React.js', color: 'reactjs' },
   { code: 'vue', name: 'Vue.js', color: 'vue' },
   { code: 'angular', name: 'Angular', color: 'angular' },
   { code: 'svelte', name: 'Svelte', color: 'svelte' },
   { code: 'next.js', name: 'Next.js', color: 'nextjs' },
-  { code: 'nuxt', name: 'Nuxt.js', color: 'nuxt' },
   { code: 'solid', name: 'Solid.js', color: 'solid' },
   { code: 'qwik', name: 'Qwik', color: 'qwik' },
   { code: 'astro', name: 'Astro', color: 'astro' },
@@ -85,7 +83,6 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'lua', name: 'Lua', color: 'lua' },
   { code: 'groovy', name: 'Groovy', color: 'groovy' },
   { code: 'assembly', name: 'Assembly', color: 'assembly' },
-  { code: 'kotlin', name: 'Kotlin', color: 'kotlin' },
   { code: 'objectivec', name: 'Objective-C', color: 'objectivec' },
   { code: 'vb', name: 'Visual Basic', color: 'vb' },
   { code: 'sql', name: 'SQL', color: 'sql' },
@@ -116,7 +113,6 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'fastify', name: 'Fastify', color: 'fastify' },
   { code: 'hapi', name: 'Hapi', color: 'hapi' },
   { code: 'nomads', name: 'Nomads.js', color: 'nomads' },
-  { code: 'strapi', name: 'Strapi', color: 'strapi' },
   { code: 'wagtail', name: 'Wagtail', color: 'wagtail' },
   { code: 'gorilla', name: 'Gorilla', color: 'gorilla' },
   { code: 'beego', name: 'Beego', color: 'beego' },

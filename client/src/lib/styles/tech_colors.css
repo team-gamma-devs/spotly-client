@@ -25,28 +25,28 @@
 	--color-gatsby: #663399;
 	--color-preact: #673ab8;
 	--color-lit: #324fff;
-	--color-alpinejs: #77c1d2;
-	--color-htmx: #3d72d7;
+	--color-alpinejs: #3a8ba0; /* Darkened from #77c1d2 */
+	--color-htmx: #2d5bb0; /* Darkened from #3d72d7 */
 	--color-sveltekit: #d63d00;
 	--color-nuxtjs: #00a878;
 	--color-ember: #e84e40;
 	--color-backbonejs: #3333cc;
-	
+
 	/* Mobile Development */
 	--color-reactnative: #2a36e2;
 	--color-flutter: #0468d7;
-	--color-ionic: #3880ff;
-	--color-xamarin: #3498db;
+	--color-ionic: #2d66cc; /* Darkened from #3880ff */
+	--color-xamarin: #2878b0; /* Darkened from #3498db */
 	--color-swiftui: #ff6b35;
 	--color-kotlin: #7f52ff;
 	--color-swift: #fa7343;
 	--color-dart: #0175c2;
 	--color-nativeandroid: #3ddc84;
 	--color-nativeios: #000000;
-	--color-tauri: #24c8db;
+	--color-tauri: #1a9cb0; /* Darkened from #24c8db */
 	--color-electron: #2b2e3a;
 	--color-cordova: #e8175d;
-	
+
 	/* Programming Languages */
 	--color-javascript: #b89f00;
 	--color-typescript: #2564a9;
@@ -71,19 +71,19 @@
 	--color-lua: #000080;
 	--color-groovy: #4298b8;
 	--color-assembly: #6e4c13;
-	--color-objectivec: #438eff;
+	--color-objectivec: #3366cc; /* Darkened from #438eff */
 	--color-vb: #945db7;
 	--color-sql: #cc2927;
 	--color-plsql: #cc2927;
 	--color-tsql: #cc2927;
 	--color-html: #ca630e;
 	--color-css: #252580;
-	
+
 	/* Backend Frameworks */
 	--color-node: #2b7a2b;
 	--color-express: #303030;
 	--color-django: #0e4030;
-	--color-fastapi: #008477;
+	--color-fastapi: #006d5f; /* Darkened from #008477 */
 	--color-flask: #202020;
 	--color-spring: #5b9b34;
 	--color-rails: #a80000;
@@ -103,9 +103,9 @@
 	--color-nomads: #5a2d7d;
 	--color-strapi: #2e7eea;
 	--color-wagtail: #17a2b8;
-	--color-gorilla: #006dd7;
+	--color-gorilla: #0055aa; /* Darkened from #006dd7 */
 	--color-beego: #ff7324;
-	
+
 	/* Databases */
 	--color-mongodb: #3a8b3a;
 	--color-postgresql: #27537a;
@@ -119,21 +119,21 @@
 	--color-dynamodb: #4053d6;
 	--color-couchdb: #e42528;
 	--color-neo4j: #008cc1;
-	--color-influxdb: #22adf6;
+	--color-influxdb: #1a87c2; /* Darkened from #22adf6 */
 	--color-cockroachdb: #6933ff;
-	--color-supabase: #3ecf8e;
+	--color-supabase: #2e9f6e; /* Darkened from #3ecf8e */
 	--color-planetscale: #000000;
 	--color-prisma: #2d3748;
 	--color-mongodbalas: #3a8b3a;
-	--color-airtable: #18bfff;
+	--color-airtable: #1295cc; /* Darkened from #18bfff */
 	--color-notiondb: #000000;
 	--color-solr: #d82417;
 	--color-milvus: #00a79d;
-	--color-weaviate: #129b84;
+	--color-weaviate: #0e7a66; /* Darkened from #129b84 */
 	--color-oracle: #f80000;
 	--color-sqlserver: #cc2927;
 	--color-scylla: #4e8b9d;
-	
+
 	/* DevOps & Cloud */
 	--color-docker: #1f7edc;
 	--color-kubernetes: #2856cc;
@@ -144,7 +144,7 @@
 	--color-ansible: #ee0000;
 	--color-jenkins: #d24939;
 	--color-circleci: #343434;
-	--color-githubactions: #2088ff;
+	--color-githubactions: #1a6acc; /* Darkened from #2088ff */
 	--color-gitlab: #fc6d26;
 	--color-travis: #3eaaaf;
 	--color-vagrant: #1563ff;
@@ -153,73 +153,73 @@
 	--color-nginx: #009639;
 	--color-apache: #d22128;
 	--color-vercel: #000000;
-	--color-netlify: #00c7b7;
+	--color-netlify: #009c8c; /* Darkened from #00c7b7 */
 	--color-heroku: #430098;
 	--color-digitalocean: #0080ff;
 	--color-cloudflare: #f38020;
-	--color-render: #46e3b7;
+	--color-render: #35b690; /* Darkened from #46e3b7 */
 	--color-railway: #0b0d0e;
-	--color-fly: #7b3ff2;
-	--color-linode: #00a0df;
+	--color-fly: #6230c2; /* Darkened from #7b3ff2 */
+	--color-linode: #007db2; /* Darkened from #00a0df */
 	--color-vultr: #1f4788;
 	--color-hetzner: #d10601;
 	--color-prometheus: #e6522c;
 	--color-grafana: #f96630;
 	--color-datadog: #632ca6;
-	--color-newrelic: #1ce783;
-	
+	--color-newrelic: #15b562; /* Darkened from #1ce783 */
+
 	/* Testing */
 	--color-jest: #c21325;
 	--color-mocha: #8d6748;
 	--color-cypress: #17202c;
-	--color-selenium: #43b02a;
-	--color-playwright: #2ead33;
-	--color-vitest: #729b1b;
-	--color-pytest: #0a9edc;
+	--color-selenium: #338821; /* Darkened from #43b02a */
+	--color-playwright: #238726; /* Darkened from #2ead33 */
+	--color-vitest: #5a7a15; /* Darkened from #729b1b */
+	--color-pytest: #087bb0; /* Darkened from #0a9edc */
 	--color-junit: #25a162;
 	--color-jasmine: #8a4182;
 	--color-testinglibrary: #e33332;
 	--color-appium: #4e8f47;
-	--color-cucumber: #23d96c;
+	--color-cucumber: #1ca854; /* Darkened from #23d96c */
 	--color-robot: #00a651;
 	--color-testcafe: #0d4c7f;
 	--color-nightwatch: #0d8f4f;
-	
+
 	/* State Management */
 	--color-redux: #764abc;
 	--color-mobx: #ff9955;
 	--color-zustand: #443e38;
 	--color-recoil: #3578e5;
 	--color-jotai: #000000;
-	--color-pinia: #ffd859;
+	--color-pinia: #ccaa00; /* Darkened from #ffd859 */
 	--color-vuex: #3aa777;
 	--color-ngrx: #412846;
 	--color-xstate: #2c3e50;
-	--color-tanstackquery: #ff4154;
+	--color-tanstackquery: #cc3343; /* Darkened from #ff4154 */
 	--color-swr: #000000;
-	
+
 	/* Build Tools & Bundlers */
-	--color-webpack: #62baf1;
-	--color-vite: #646cff;
+	--color-webpack: #4a94c2; /* Darkened from #62baf1 */
+	--color-vite: #5054cc; /* Darkened from #646cff */
 	--color-rollup: #ec4a3f;
-	--color-parcel: #e7a97f;
-	--color-esbuild: #ffcf00;
-	--color-turbopack: #0096ff;
+	--color-parcel: #c88a60; /* Darkened from #e7a97f */
+	--color-esbuild: #cca300; /* Darkened from #ffcf00 */
+	--color-turbopack: #0077cc; /* Darkened from #0096ff */
 	--color-gulp: #cf4647;
 	--color-grunt: #fba919;
-	--color-babel: #f9dc3e;
-	--color-swc: #f4d9c5;
+	--color-babel: #c7a91f; /* Darkened from #f9dc3e */
+	--color-swc: #c2a888; /* Darkened from #f4d9c5 */
 	--color-nx: #143055;
-	--color-turborepo: #0891b2;
-	
+	--color-turborepo: #06748d; /* Darkened from #0891b2 */
+
 	/* Tools & Others */
 	--color-git: #d34726;
 	--color-graphql: #c80084;
-	--color-tailwind: #0592b0;
+	--color-tailwind: #04748d; /* Darkened from #0592b0 */
 	--color-sass: #b05885;
 	--color-less: #1d365d;
 	--color-stylus: #333333;
-	--color-post: #dd3a0a;
+	--color-postcss: #dd3a0a;
 	--color-linux: #4e1763;
 	--color-bash: #3b821d;
 	--color-vim: #019733;
@@ -228,7 +228,7 @@
 	--color-figma: #f24e1e;
 	--color-photoshop: #001e36;
 	--color-illustrator: #ff9a00;
-	--color-sketch: #f7b500;
+	--color-sketch: #c79300; /* Darkened from #f7b500 */
 	--color-storybook: #ff4785;
 	--color-jira: #0052cc;
 	--color-confluence: #172b4d;
@@ -237,18 +237,18 @@
 	--color-discord: #5865f2;
 	--color-bootstrapui: #712cf9;
 	--color-materialui: #007fff;
-	--color-chakraui: #81e6d9;
+	--color-chakraui: #4db5a6; /* Darkened from #81e6d9 */
 	--color-shadcnui: #000000;
 	--color-antdesign: #1890ff;
 	--color-primereact: #3366cc;
 	--color-framer: #0055ff;
-	--color-gsap: #88ce02;
+	--color-gsap: #6ba000; /* Darkened from #88ce02 */
 	--color-threejs: #000000;
 	--color-babylonjs: #912783;
-	--color-canvas: #ff9900;
+	--color-canvas: #cc7700; /* Darkened from #ff9900 */
 	--color-webgl: #8b0000;
-	--color-svg: #ff9900;
-	
+	--color-svg: #cc7700; /* Darkened from #ff9900 */
+
 	/* APIs & Protocols */
 	--color-rest: #009688;
 	--color-grpc: #244c5a;
@@ -257,13 +257,13 @@
 	--color-oauth: #4285f4;
 	--color-jwt: #000000;
 	--color-openapi: #6ba539;
-	--color-swagger: #85ea2d;
+	--color-swagger: #6bb824; /* Darkened from #85ea2d */
 	--color-mqtt: #660066;
 	--color-amqp: #ff6600;
 	--color-kafka: #000000;
 	--color-rabbitmq: #ff6600;
 	--color-webhook: #5a67d8;
-	
+
 	/* CMS & E-commerce */
 	--color-wordpress: #21759b;
 	--color-contentful: #2478cc;
@@ -274,7 +274,7 @@
 	--color-magento: #ee672f;
 	--color-medusa: #1d1d1d;
 	--color-saleor: #118c4f;
-	
+
 	/* AI & ML */
 	--color-tensorflow: #ff6f00;
 	--color-pytorch: #ee4c2c;
@@ -285,22 +285,22 @@
 	--color-numpy: #013243;
 	--color-jupyter: #f37626;
 	--color-openai: #10a37f;
-	--color-huggingface: #ff9d00;
+	--color-huggingface: #cc7d00; /* Darkened from #ff9d00 */
 	--color-langchain: #1c3144;
 	--color-anthropic: #d97706;
-	--color-llama: #ffffff;
+	--color-llama: #333333; /* Changed from #ffffff (white) */
 	--color-replicate: #2c3e50;
 	--color-vertexai: #3367d6;
-	
+
 	/* Blockchain */
 	--color-solidity: #363636;
 	--color-ethereum: #3c3c3d;
 	--color-web3: #f16822;
-	--color-hardhat: #fff100;
+	--color-hardhat: #ccbf00; /* Darkened from #fff100 */
 	--color-truffle: #5e464d;
 	--color-ethersjs: #2e5090;
-	--color-polygon: #8247e5;
-	--color-bitcoin: #f7931a;
+	--color-polygon: #6836b8; /* Darkened from #8247e5 */
+	--color-bitcoin: #c77315; /* Darkened from #f7931a */
 }
 
 .dark {
