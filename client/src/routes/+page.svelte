@@ -5,7 +5,6 @@
 	import { onMount } from 'svelte';
 
 	const user = $derived(page.data.user);
-	let { data } = $props();
 
 	onMount(() => {
 		console.log(JSON.stringify(user));
@@ -18,11 +17,11 @@
 			Welcome {user.first_name}
 			{user.last_name}!!
 		</h1>
-		<ul>
+		<!-- <ul> Check supabase integration
 			{#each data.countries as country}
 				<li>{country.name}</li>
 			{/each}
-		</ul>
+		</ul> -->
 	</GenericBoxInvisible>
 {:else}
 	<GenericBoxInvisible>
