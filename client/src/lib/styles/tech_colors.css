@@ -12,7 +12,7 @@
 	
 	/* Frontend Frameworks */
 	--color-react: #2a36e2;
-	--color-reactjs: rgb(31, 48, 99);
+	--color-reactjs: #2a36e2;
 	--color-vue: #3aa777;
 	--color-angular: #c3002f;
 	--color-svelte: #e53900;
@@ -309,8 +309,8 @@
 	--color-tag-default: rgb(52, 52, 54);
 	
 	/* Frontend Frameworks */
-	--color-react: #0d5b84;
-	--color-reactjs: rgb(43, 65, 132);
+	--color-react: #2b4184;
+	--color-reactjs: #2b4184;
 	--color-vue: #2a6145;
 	--color-angular: #73001e;
 	--color-svelte: #8a2400;

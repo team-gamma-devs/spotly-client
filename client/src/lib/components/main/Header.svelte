@@ -15,10 +15,10 @@
 	} from 'flowbite-svelte';
 	import AuthBox from './utils/AuthBox.svelte';
 	import { page } from '$app/state';
-	import { enhance, applyAction } from '$app/forms';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { enhance } from '$app/forms';
 
 	const user = $derived(page.data.user);
+	const userPfp = $derived(page.data.user.avatar_url);
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass =
@@ -51,7 +51,7 @@
 				{/if}
 			</NavUl>
 			<div class="flex items-center md:order-2 sm:order-2 order-2 cursor-pointer mr-2 ml-auto sm:mr-2 sm:ml-2">
-				<Avatar id="avatar-menu" src="/images/abstract-user-flat-4.svg" class="max-w-[40px] my-2" />
+				<Avatar id="avatar-menu" src={userPfp} class="max-w-[40px] my-2" />
 				<NavHamburger class="cursor-pointer text-white dark:text-foreground dark:hover:text-white hover:text-black" />
 			</div>
 			<DarkMode class="mx-2 md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white" />

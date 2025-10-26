@@ -57,7 +57,7 @@ export const mockUserState: UserState = {
   last_name: 'Paganini',
   email: 'perfedefer@gmail.com',
   avatar_url:
-    'pfp-fallback.svg',
+    'https://media.4-paws.org/d/2/5/f/d25ff020556e4b5eae747c55576f3b50886c0b90/cut%20cat%20serhio%2002-1813x1811-720x719.jpg',
   avatar_path: '',
   role: 'manager',
   created_at: { $date: '2025-10-25T19:43:24.025Z' },

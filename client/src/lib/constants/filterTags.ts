@@ -26,6 +26,7 @@ export const availableFilterTags: FilterTag[] = [
 	// In this array you must set all available tags that are ready to be setted by a graduate in his settings page.
   // Frontend Frameworks & Libraries
   { code: 'react', name: 'React', color: 'react' },
+  { code: 'reactjs', name: 'React.js', color: 'reactjs' },
   { code: 'vue', name: 'Vue.js', color: 'vue' },
   { code: 'angular', name: 'Angular', color: 'angular' },
   { code: 'svelte', name: 'Svelte', color: 'svelte' },
