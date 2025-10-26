@@ -10,3 +10,4 @@
 //   throw new redirect(307, "https://spotly.work/app/graduate");
 // }
 // // user = supabase.auth.get_user(access_token)
+

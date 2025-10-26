@@ -258,7 +258,7 @@
 		<!-- Not Connected State -->
 		<div class="connect-prompt">
 			<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Connect your GitHub account to see your stats</p>
-			<BtnGitHubLogin targetUrl="/app/graduate/github"/>
+			<BtnGitHubLogin targetUrl="/app/graduate/github" />
 			<h4 class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-5">
 				<a
 					href="https://github.com/team-gamma-devs/git-gud-stats"
@@ -309,12 +309,7 @@
 		width: 100%;
 		height: fit-content;
 	}
-	.profile-card-wrapper {
-		display: flex;
-		justify-content: center;
-		width: 100%;
-	}
-
+	/* svelte-ignore css-unused-selector */
 	.profile-card {
 		padding: 1.5rem;
 		border-radius: 0.5rem;
@@ -357,14 +352,14 @@
 		border-radius: 0.5rem;
 		transition: all 0.2s;
 	}
-  /* don't add to tailwind cause it messes with mah flow. just let css handle on client. */
-  .repo-link:hover {
+	/* don't add to tailwind cause it messes with mah flow. just let css handle on client. */
+	.repo-link:hover {
 		background-color: rgb(243 244 246);
 	}
-  :global(.dark) .repo-link {
+	:global(.dark) .repo-link {
 		background-color: rgb(31 41 55);
 	}
-  :global(.dark) .repo-link:hover {
+	:global(.dark) .repo-link:hover {
 		background-color: rgb(55 65 81);
 	}
 

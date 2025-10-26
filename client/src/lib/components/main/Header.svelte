@@ -18,7 +18,7 @@
 	import { enhance } from '$app/forms';
 
 	const user = $derived(page.data.user);
-	const userPfp = $derived(page.data.user.avatar_url);
+	const userPfp = $derived(page.data.user?.avatar_url || '$lib/assets/svgs/pfp-fallback.svg');
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass =
@@ -66,10 +66,7 @@
 					{:else if user?.role == 'manager'}
 						<DropdownItem class="cursor-pointer" href="/app/manager/settings">Settings</DropdownItem>
 					{/if}
-					<form
-						method="POST"
-						action="/logout"
-						use:enhance>
+					<form method="POST" action="/logout" use:enhance>
 						<Button
 							type="submit"
 							color="secondary"

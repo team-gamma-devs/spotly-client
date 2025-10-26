@@ -1,155 +1,45 @@
-// import { redirect, error } from '@sveltejs/kit';
-// import type { RequestHandler } from './$types';
-
-// import { CLIENT_SECRET, CLIENT_ID } from '$env/static/private';
-
-// export const GET: RequestHandler = async ({ url, cookies }) => {
-// 	const code = url.searchParams.get('code');
-// 	const state = url.searchParams.get('state');
-// 	const errorParam = url.searchParams.get('error');
-// 	const errorDescription = url.searchParams.get('error_description');
-
-// 	// Validate state for CSRF protection
-// 	if (state !== 'random_state_string') {
-// 		return redirect(
-// 			302,
-// 			'/app/graduate/github/result?success=false&error=invalid_state&message=Invalid+state+parameter'
-// 		);
-// 	}
-
-// 	// Handle GitHub OAuth errors
-// 	if (errorParam) {
-// 		console.error(`GitHub OAuth Error: ${errorParam}`);
-// 		console.error(`Error Description: ${errorDescription}`);
-
-// 		const errorMessages: Record<string, string> = {
-// 			access_denied:
-// 				'You cancelled the GitHub authorization. Please try again if you want to continue.',
-// 			incorrect_client_credentials:
-// 				'GitHub app configuration error. Please contact support.',
-// 			redirect_uri_mismatch: 'Configuration error. Please contact support.',
-// 			bad_verification_code: 'Authorization expired. Please try logging in again.'
-// 		};
-
-// 		const userMessage =
-// 			errorMessages[errorParam] || `GitHub authorization failed: ${errorDescription}`;
-
-// 		return redirect(
-// 			302,
-// 			`/app/graduate/github/result?success=false&error=${errorParam}&message=${userMessage.replace(/ /g, '+')}`
-// 		);
-// 	}
-
-// 	// Ensure code is present
-// 	if (!code) {
-// 		console.error('Code not found!');
-// 		return redirect(
-// 			302,
-// 			'/app/graduate/github/result?success=false&error=no_code&message=Authorization+code+not+found'
-// 		);
-// 	}
-
-// 	try {
-// 		// Exchange code for access token
-// 		const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
-// 			method: 'POST',
-// 			headers: {
-// 				Accept: 'application/json',
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify({
-// 				client_id: CLIENT_ID,
-// 				client_secret: CLIENT_SECRET,
-// 				code: code
-// 			})
-// 		});
-
-// 		if (!tokenResponse.ok) {
-// 			const responseText = await tokenResponse.text();
-// 			console.error(`Failed HTTP request: ${responseText}`);
-// 			return redirect(
-// 				302,
-// 				'/app/graduate/github/result?success=false&error=token_error&message=Failed+to+exchange+code'
-// 			);
-// 		}
-
-// 		const tokenData = await tokenResponse.json();
-// 		const accessToken = tokenData.access_token;
-
-// 		if (!accessToken) {
-// 			console.error('Access token not found in response');
-// 			return redirect(
-// 				302,
-// 				'/app/graduate/github/result?success=false&error=no_token&message=Access+token+not+found'
-// 			);
-// 		}
-
-// 		// Get user information
-// 		const userResponse = await fetch('https://api.github.com/user', {
-// 			headers: {
-// 				Authorization: `token ${accessToken}`,
-// 				Accept: 'application/json'
-// 			}
-// 		});
-
-// 		if (!userResponse.ok) {
-// 			console.error("Couldn't get user info");
-// 			return redirect(
-// 				302,
-// 				'/app/graduate/github/result?success=false&error=user_info_error&message=Could+not+retrieve+user+info'
-// 			);
-// 		}
-
-// 		const userData = await userResponse.json();
-// 		const username = userData.login;
-
-// 		console.log(`Successfully authenticated user: ${username}`);
-
-// 		// Store the access token and username in httpOnly cookies for security
-// 		cookies.set('github_token', accessToken, {
-// 			path: '/',
-// 			httpOnly: true,
-// 			secure: false, // Set to true in production with HTTPS
-// 			sameSite: 'lax',
-// 			maxAge: 60 * 60 * 24 * 30 // 30 days
-// 		});
-
-// 		cookies.set('github_username', username, {
-// 			path: '/',
-// 			httpOnly: false, // Can be read by client
-// 			secure: false, // Set to true in production
-// 			sameSite: 'lax',
-// 			maxAge: 60 * 60 * 24 * 30 // 30 days
-// 		});
-
-// 		// Redirect to success page with username
-// 		throw redirect(302, `/app/graduate/github/result?success=true&username=${username}`);
-// 	} catch (err) {
-// 		// Re-throw SvelteKit redirects
-// 		if (err && typeof err === 'object' && 'status' in err && 'location' in err) {
-// 			throw err;
-// 		}
-		
-// 		console.error(`Unexpected error during authentication:`, err);
-// 		throw redirect(
-// 			302,
-// 			'/app/graduate/github/result?success=false&error=server_error&message=An+unexpected+error+occurred'
-// 		);
-// 	}
-// };
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { CLIENT_ID, CLIENT_SECRET } from '$env/static/private';
 
+/**
+ * Handles the OAuth 2.0 callback from GitHub after the user authorizes the application.
+ *
+ * This endpoint exchanges the temporary `code` provided by GitHub for an access token,
+ * retrieves the authenticated user's data from the GitHub API, and stores relevant information
+ * in secure HTTP-only cookies for future authenticated requests.
+ *
+ * @module routes/app/graduate/github/callback
+ * @function GET
+ * @type {import('@sveltejs/kit').RequestHandler}
+ *
+ * @param {object} event - The SvelteKit request event.
+ * @param {URL} event.url - The URL instance representing the current request.
+ * @param {import('@sveltejs/kit').Cookies} event.cookies - Cookie management interface.
+ *
+ * @returns {Promise<Response | never>} Redirects to the result page depending on the outcome.
+ *
+ * @throws {Redirect} - Throws a redirect to `/app/graduate/github/result` with an appropriate query parameter
+ * indicating success or the type of error encountered.
+ *
+ * @example
+ * // Example redirect URL GitHub calls after user authorization:
+ * // /api/github/callback?code=123456
+ *
+ * // On success, redirects to:
+ * // /app/graduate/github/result?success=true
+ *
+ * // On failure, redirects to:
+ * // /app/graduate/github/result?error=oauth_failed
+ */
 export const GET: RequestHandler = async ({ url, cookies }) => {
   const code = url.searchParams.get('code');
-  
+
   if (!code) {
     return new Response('Missing authorization code', { status: 400 });
   }
 
   try {
-    // Exchange code for access token
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
       headers: {
@@ -164,8 +54,8 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     });
 
     const tokenData = await tokenResponse.json();
-    
-    // DEBUG: Log the token response
+
+    // DEBUG: log response
     console.log('GitHub OAuth Token Response:', {
       hasAccessToken: !!tokenData.access_token,
       tokenType: tokenData.token_type,
@@ -179,7 +69,6 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
       throw redirect(303, '/app/graduate/github/result?error=no_token');
     }
 
-    // Get user info
     const userResponse = await fetch('https://api.github.com/user', {
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
@@ -198,13 +87,13 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     }
 
     const userData = await userResponse.json();
-    
+
+    // DEBUG: Log basic user info
     console.log('GitHub User Data:', {
       login: userData.login,
       id: userData.id
     });
 
-    // Store credentials in HttpOnly cookies
     cookies.set('github_token', tokenData.access_token, {
       path: '/',
       httpOnly: true,
@@ -221,7 +110,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
       maxAge: 60 * 60 * 24 * 30
     });
 
-    // DEBUG: Verify cookies were set
+    // DEBUG: ookies are set?
     console.log('Cookies set successfully:', {
       token: cookies.get('github_token')?.slice(0, 20) + '...',
       username: cookies.get('github_username')
@@ -230,7 +119,9 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     throw redirect(303, '/app/graduate/github/result?success=true');
   } catch (error: any) {
     console.error('GitHub OAuth callback error:', error);
-    if (error.status === 303) throw error; // Re-throw redirects
+
+    if (error.status === 303) throw error;
+
     throw redirect(303, '/app/graduate/github/result?error=oauth_failed');
   }
 };

@@ -58,7 +58,7 @@ async function githubGraphQLRequest<T>(token: string, query: string, variables?:
     console.error('GitHub GraphQL Error:', { status: res.status, response: text });
     const error = new Error(`GitHub GraphQL error: ${res.status} ${res.statusText}`);
     // @ts-expect-error Adding status for error handling
-    error.status = res.status; // If status is not present, kill the president.
+    error.status = res.status;
     throw error;
   }
 
@@ -129,7 +129,7 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
 
   const data = await githubGraphQLRequest<any>(token, query, { login: username });
 
-  // Process language statistics
+  // Get langs statistics
   const languageMap = new Map<string, number>();
   let totalBytes = 0;
 
@@ -151,7 +151,7 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
       percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0
     }));
 
-  // Transform repos and sort by diskUsage (size in KB)
+  // Transforms repos and sort by diskUsage (size in KB)
   const topRepos = data.user.topRepos.nodes
     .map((repo: any) => ({
       name: repo.name,
