@@ -2,6 +2,7 @@
 	import BtnGoBack from '$lib/components/main/utils/BtnGoBack.svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
 	import { TextPlaceholder, Button, Label, Input, Textarea, Alert } from 'flowbite-svelte';
+	import { Spinner } from 'flowbite-svelte';
 	import { enhance } from '$app/forms';
 
 	export let data;
@@ -16,9 +17,9 @@
 		<BtnGoBack targetUrl="/app/manager" />
 	</div>
 
-	<div class="px-10 py-5 w-full">
+	<div class="px-10 py-5 w-full flex items-center justify-center">
 		{#await data.config}
-			<TextPlaceholder size="md" class="m-2" />
+			<Spinner size="16" />
 		{:then config}
 			{#if config}
 				{#if form?.success}

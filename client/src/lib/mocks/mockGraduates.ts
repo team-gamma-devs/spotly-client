@@ -1,4 +1,3 @@
-
 // Auto-generated
 
 // I'm thinking that feedbck should be rated like this: ["Poor", "Average", "Good", "Excellent"] 
@@ -29,6 +28,7 @@ type Graduate = {
 	updatedAt: string;
 	annotations: Annotation[];
 	tutorsFeedback: TutorFeedback;
+	works_in_it: boolean;
 };
 
 export const mockGraduates: Graduate[] = [
@@ -55,6 +55,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		],
 		tutorsFeedback: {},
+		works_in_it: true,
 	},
 	{
 		id: '2',
@@ -81,6 +82,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Excellent',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '3',
@@ -120,6 +122,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Poor',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '4',
@@ -141,6 +144,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Poor',
 			},
 		},
+		works_in_it: false,
 	},
 	{
 		id: '5',
@@ -172,6 +176,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Poor',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '6',
@@ -202,6 +207,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Excellent',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '7',
@@ -233,6 +239,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Excellent',
 			},
 		},
+		works_in_it: false,
 	},
 	{
 		id: '8',
@@ -263,6 +270,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Poor',
 			},
 		},
+		works_in_it: false,
 	},
 	{
 		id: '9',
@@ -294,6 +302,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Excellent',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '10',
@@ -324,6 +333,7 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Good',
 			},
 		},
+		works_in_it: true,
 	},
 	{
 		id: '11',
@@ -355,9 +365,10 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Magnificus',
 			},
 		},
+		works_in_it: true,
 	},
-		{
-		id: '11',
+	{
+		id: '12',
 		firstName: 'Gabe',
 		lastName: 'Newell',
 		email: 'elmascapo@holberton.com',
@@ -386,5 +397,6 @@ export const mockGraduates: Graduate[] = [
 				technical_score: 'Magnificus',
 			},
 		},
+		works_in_it: false,
 	},
 ];

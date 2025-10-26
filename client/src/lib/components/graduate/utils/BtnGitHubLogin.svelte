@@ -1,5 +1,9 @@
+<script lang="ts">
+	export let targetUrl = '/app/graduate/github/authorize';
+</script>
+
 <a
-	href="/app/graduate/github/authorize"
+	href={targetUrl}
 	class="flex items-center justify-center gap-2 px-6 py-3 bg-[#24292e] hover:bg-[#1a1e22] text-white rounded-lg font-semibold transition-colors"
 >
 	<svg
