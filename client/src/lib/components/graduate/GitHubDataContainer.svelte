@@ -143,7 +143,7 @@
 				<Button color="red" href="/app/graduate/github">Reconnect Github</Button>
 			</div>
 		{:else if githubData && chartOptions}
-			<div class="github-stats max-w-[2400px]">
+			<div class="github-stats max-w-[2300px]">
 				<!-- ************** Profile Header ***************** -->
 				<div class="header-section mb-6">
 					<h3 class="text-xl font-semibold mb-2">GitHub Stats</h3>

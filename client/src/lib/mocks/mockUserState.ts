@@ -59,7 +59,7 @@ export const mockUserState: UserState = {
   avatar_url:
     'https://media.4-paws.org/d/2/5/f/d25ff020556e4b5eae747c55576f3b50886c0b90/cut%20cat%20serhio%2002-1813x1811-720x719.jpg',
   avatar_path: '',
-  role: 'manager',
+  role: 'graduate',
   created_at: { $date: '2025-10-25T19:43:24.025Z' },
   updated_at: { $date: '2025-10-25T19:43:24.025Z' },
   github_info: 'https://github.com/federico-paganini',

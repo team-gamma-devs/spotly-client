@@ -98,7 +98,7 @@
 	let showTutorsFeedback = $state(false); // Modal for the tutor's feedback on this graduate.
 
 	let newAnnotation = $state('');
-	let formError = $state("");
+	let formError = $state('');
 	let isSubmitting = $state(false);
 
 	const techTags = $derived(
@@ -242,7 +242,6 @@
 
 	<!-- ***************** Card Footer *******************  -->
 	<div class="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700 mb-0 mt-auto">
-		<!-- Add Note Button -->
 		<Button
 			type="button"
 			color="alternative"
@@ -257,26 +256,27 @@
 			<span>Notes</span>
 		</Button>
 
-		<!-- Annotations preview -->
 		<div
 			id="{uniqueId}-annotations-container"
 			class="flex items-center justify-start ml-2 mr-auto h-full min-h-[25px] min-w-[50px] overflow-x-auto"
 		>
-			{#each annotations.slice(0, 3) as annotation}
-				<AnnotationOutline
-					class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
-					onclick={() => {
-						showAnnotationsModal = true;
-					}}
-				/>
-			{/each}
-			{#if annotations.length === 0}
-				<AnnotationOutline
-					class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
-					onclick={() => {
-						showAnnotationsModal = true;
-					}}
-				/>
+			{#if annotations.length > 0}
+				{#each annotations.slice(0, 3) as annotation}
+					<AnnotationOutline
+						class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+						onclick={() => {
+							showAnnotationsModal = true;
+						}}
+					/>
+				{/each}
+				{#if annotations.length === 0}
+					<AnnotationOutline
+						class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+						onclick={() => {
+							showAnnotationsModal = true;
+						}}
+					/>
+				{/if}
 			{/if}
 		</div>
 
@@ -380,10 +380,10 @@
 		use:enhance={() => {
 			isSubmitting = true;
 			formError = '';
-			
+
 			return async ({ result, update }) => {
 				isSubmitting = false;
-				
+
 				if (result.type === 'success') {
 					showAddAnnotationModal = false;
 					newAnnotation = '';
@@ -393,7 +393,7 @@
 				} else if (result.type === 'error') {
 					formError = 'An unexpected error occurred. Please try again.';
 				}
-				
+
 				await update();
 			};
 		}}
@@ -402,13 +402,13 @@
 
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Add note for {firstName} {lastName}</h3>
-			
+
 			{#if formError}
 				<div class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
 					<p class="text-sm text-red-600 dark:text-red-400">{formError}</p>
 				</div>
 			{/if}
-			
+
 			<div>
 				<Label for="annotation-textarea" class="mb-2">Annotation (max 300 characters)</Label>
 				<Textarea
@@ -425,7 +425,7 @@
 					{newAnnotation.length}/300 characters
 				</p>
 			</div>
-			<div id="add-annotation-modal-footer">
+			<div id="add-annotation-modal-footer flex items-center justify-center gap-3">
 				<Button
 					color="alternative"
 					class="cursor-pointer"
@@ -437,12 +437,7 @@
 						formError = '';
 					}}>Cancel</Button
 				>
-				<Button 
-					color="green" 
-					class="cursor-pointer" 
-					type="submit" 
-					disabled={!newAnnotation.trim() || isSubmitting}
-				>
+				<Button color="green" class="cursor-pointer" type="submit" disabled={!newAnnotation.trim() || isSubmitting}>
 					{isSubmitting ? 'Saving...' : 'Save'}
 				</Button>
 			</div>

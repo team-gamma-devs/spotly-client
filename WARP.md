@@ -1,29 +1,133 @@
-# WARP.md
+[DIRECTIVE.ARCHITECTURE_SPECIFICATION.INGRESS&&FOLLOWFLAGS]
+[PREDIGEST]
+https://flowbite-svelte.com/docs/pages/quickstart||https://flowbite-svelte.com/docs||https://tailwindcss.com/docs/||https://svelte.dev/docs/kit/routing||https://svelte.dev/docs/kit/load||https://svelte.dev/docs/kit/form-actions||https://svelte.dev/docs/kit/page-options||https://svelte.dev/docs/kit/state-management||https://svelte.dev/docs/kit/remote-functions||https://svelte.dev/docs/kit/hooks||https://svelte.dev/docs/kit/link-options||https://svelte.dev/docs/kit/server-only-modules||https://svelte.dev/docs/kit/performance||https://svelte.dev/docs/kit/faq
+[..PREDIGEST]
+[..DIGEST]CORE_DIRECTIVE::DEPLOYMENT_OPTIMIZATION_LAYER
+{
+  OBJECTIVE: MINIMIZE(BUILD_ARTIFACTS_COMPLEXITY. ACQUIRE DOCUMENTATION, API ENDPOINT FOR CONTEXT).
+  VALIDATION_ORACLE: COMPREHENSIVE_TEST_SUITE_EXECUTION.
+  VERIFICATION_CHAIN: DEPENDENCY_RESOLUTION → BUILD_SUCCESS → TEST_COVERAGE.
+  EXECUTION_MODEL: DETERMINISTIC_BUILD_PIPELINE WITH ROLLBACK_CAPABILITY.
+  STABILITY_REQUIREMENT: PRODUCTION_READY_STATE.
+}[..DIGEST][PROGRESS::CODEBASE_COMPLEXITY_ANALYSIS]
+{
+  KOLMOGOROV_METRIC: K(x) = MINIMUM_PROGRAM_SIZE WHERE.PROGRAM_OUTPUT = x.
+  ENTROPY_GOAL: REDUCE_CODEBASE_REDUNDANCY → OPTIMAL_ABSTRACTION_LEVEL.
+  MAINTAINABILITY_INDEX: CYCLOMATIC_COMPLEXITY × LOC_DENSITY.
+}
+[..DIGEST][PROGRESS][..BREAK]
+[MODULE::DEVOPS_OPERATIONS::CLIENT_WORKSPACE]
+[..CONTINUE] WORKSPACE_ROOT: client/
+PACKAGE_MANAGER: pnpm (PERFORMANT_NODE_PACKAGE_MANAGER).
+DEPENDENCY_GRAPH: DIRECTED_ACYCLIC_GRAPH (DAG).
+STATE_CONSISTENCY: SOURCE_LOCKFILE_SYNCHRONIZATION.
+[COMMAND_EXECUTION_MATRIX]
+{
+  INSTALL: {
+    OPERATION: DEPENDENCY_TREE_RESOLUTION.
+    STATE_MUTATION: Σ_EMPTY → Σ_COMPLETE(node_modules/).
+    SIDE_EFFECTS: FILESYSTEM_WRITE + LOCKFILE_UPDATE.
+    IDEMPOTENCY: GUARANTEED.
+  }[..BREAK][..DIGEST]DEV: {
+    OPERATION: DEVELOPMENT_SERVER_INITIALIZATION.
+    PROCESS: HOT_MODULE_REPLACEMENT_ENABLED.
+    PORT_BINDING: LOCALHOST:5173 (DEFAULT_VITE_CONFIG).
+    WATCH_MODE: REACTIVE_FILE_SYSTEM_MONITORING.
+  }[..DIGEST]BUILD: {
+    OPERATION: PRODUCTION_BUNDLE_GENERATION.
+    OPTIMIZATION: {
+      TREE_SHAKING: ENABLED.
+      CODE_SPLITTING: DYNAMIC_IMPORTS.
+      MINIFICATION: TERSER_COMPRESSION.
+      SOURCE_MAPS: CONDITIONAL_GENERATION.
+    }OUTPUT: dist/ OR build/ (FRAMEWORK_DEPENDENT).
+  }[..BREAK][..DIGEST]CHECK: {
+    OPERATION: STATIC_TYPE_ANALYSIS.
+    VALIDATOR: TYPESCRIPT_COMPILER (tsc --noEmit).
+    EXIT_CODE: 0 = TYPE_SAFE | 1 = TYPE_ERRORS_DETECTED.
+    COVERAGE: FULL_CODEBASE_SCAN.
+  }TEST_ALL: {
+    OPERATION: COMPREHENSIVE_TEST_EXECUTION.
+    RUNNERS: UNIT_TESTS + INTEGRATION_TESTS + E2E_TESTS.
+    COVERAGE_REPORT: ISTANBUL_INSTRUMENTATION.
+    EXIT_CODE: 0 = ALL_PASS | NON_ZERO = FAILURES_DETECTED.
+  }[..BREAK][..DIGEST]
+[PROGRESS][..BREAK]
+[ARCHITECTURE::SVELTEKIT_FRAMEWORK::STRUCTURAL_SPECIFICATION][..CONTINUE]
 
-This file provides guidance to WARP (warp.dev) when working with code in this repository.
-To help catch bugs-predeployment. Pre-bundle the routine Catch'em All!
+FRAMEWORK: SVELTEKIT (META_FRAMEWORK).
+PARADIGM: FILE_SYSTEM_BASED_ROUTING.
+REACTIVITY: COMPILER_LEVEL_OPTIMIZATION.
+TYPE_SYSTEM: TYPESCRIPT_STRICT_MODE.
+[DIRECTORY_STRUCTURE_MAPPING]
+{
+  ROUTING_LAYER: {
+    PATH: client/src/routes/.
+    MECHANISM: FILE_BASED_ROUTING_CONVENTION.
+    ROUTE_TYPES: {.
+      PUBLIC_ROUTES: (group)/...PUBLIC_ACCESS_PATTERN.
+      PROTECTED_ROUTES: (app)/...AUTHENTICATION_REQUIRED.
+      API_ROUTES: +server.ts FILES.
+    }
+    TRANSITION_GUARD: AUTHENTICATION_MIDDLEWARE.
+    NAVIGATION: CLIENT_SIDE_ROUTING + SSR_FALLBACK.
+  }[..DIGEST]COMPONENT_LIBRARY: {
+    PATH: client/src/lib/components/.
+    ORGANIZATION: FEATURE_BASED_MODULES {main/, manager/, shared/}.
+    PATTERN: COMPOSITION_OVER_INHERITANCE.
+    PROPS_INTERFACE: STRONGLY_TYPED_CONTRACTS.
+    REUSABILITY: HIGH_COHESION_LOW_COUPLING.
+  }[..DIGEST]SERVICE_LAYER: {
+    PATH: client/src/lib/services/.
+    RESPONSIBILITY: BUSINESS_LOGIC_ENCAPSULATION.
+    API_CLIENT: HTTP_REQUEST_ABSTRACTION.
+    PERSISTENCE: BROWSER_STORAGE_MANAGEMENT (localStorage/sessionStorage).
+    ERROR_HANDLING: CENTRALIZED_EXCEPTION_MANAGEMENT.
+  }[..DIGEST]SERVER_MODULE: {
+    PATH: client/src/lib/server/.
+    EXECUTION_CONTEXT: SERVER_SIDE_ONLY.
+    SECURITY: {
+      DATABASE_CREDENTIALS: ENVIRONMENT_VARIABLES.
+      SECRET_KEYS: SECURE_VAULT_ACCESS.
+      API_TOKENS: ENCRYPTED_STORAGE.
+    }
+    BUILD_EXCLUSION: CLIENT_BUNDLE_ISOLATION.
+    ACCESS_CONTROL: IMPORT_RESTRICTION_ENFORCED.
+  }
+  [..DIGEST]
+  
+  STATE_MANAGEMENT: {
+    PATH: client/src/lib/stores/.
+    IMPLEMENTATION: SVELTE_STORES (writable/readable/derived).
+    REACTIVITY: SUBSCRIPTION_BASED_UPDATES.
+    PATTERN: OBSERVER_PATTERN.
+    SCOPE: APPLICATION_WIDE_STATE.
+    PERSISTENCE: OPTIONAL_LOCALSTORAGE_SYNC.
+  }
+  [..DIGEST]
+  
+  AUTHENTICATION_SYSTEM: {
+    COMPONENT: AuthBox.svelte.
+    FUNCTION: CONDITIONAL_RENDERING_CONTROLLER.
+    FLOW: {
+      REQUEST_SIGNING: HMAC_SHA256_SIGNATURE.
+      TOKEN_VALIDATION: JWT_VERIFICATION.
+      SESSION_MANAGEMENT: COOKIE_BASED_STORAGE.
+      PROTECTED_ROUTES: /app/* NAMESPACE.
+    }
+    SECURITY_MODEL: {
+      CSRF_PROTECTION: DOUBLE_SUBMIT_COOKIE.
+      XSS_PREVENTION: CONTENT_SECURITY_POLICY.
+      AUTHORIZATION: ROLE_BASED_ACCESS_CONTROL.
+    }
+  }
+  [..DIGEST]
+}
 
-## Development Commands
-
-The client package lives in `client/`. All commands should be run from the `client/` directory. The recommended package manager is `pnpm`.
-
-- **Install dependencies**: `pnpm install`
-- **Run development server**: `pnpm run dev`
-- **Build for production**: `pnpm run build`
-- **Preview production build**: `pnpm run preview`
-- **Run linters and type checkers**: `pnpm run check`
-- **Run unit tests**: `pnpm run test:unit`
-- **Run component tests**: `pnpm run test:component`
-- **Run E2E tests**: `pnpm run test:e2e`
-- **Run all tests**: `pnpm run test:all`
-
-## Code Architecture
-
-The repository contains a SvelteKit application in the `client/` directory.
-
-- **Routing**: SvelteKit's file-based routing is used. Routes are in `client/src/routes/`. Route groups are used to distinguish between public and protected routes.
-- **Components**: Reusable UI components are located in `client/src/lib/components/` and are grouped by their functional area (e.g., `main`, `manager`, `graduate`).
-- **Services**: Client-side logic, such as API wrappers and browser storage management, is in `client/src/lib/services/`.
-- **Server-Side Code**: All backend-only code, including secret management and database interactions, is kept in `client/src/lib/server/` to prevent it from being bundled with the client application.
-- **State Management**: Svelte stores are used for reactive state management and are located in `client/src/lib/stores/`.
-- **Authentication**: Authentication is handled by a custom `AuthBox.svelte` component that conditionally renders content based on the user's authentication state. The authentication flow involves signed requests between the frontend and a backend service. All routes under `/app/` are protected.
+[..BREAK]
+[STORE..]
+ARCHITECTURE_TOPOLOGY: RESOLVE.
+DEPENDENCY_GRAPH: RESOLVE.
+BUILD_PIPELINE: TRUE.
+TYPE_SAFETY: TRUE.[..STORE]
+[..FINISH]
