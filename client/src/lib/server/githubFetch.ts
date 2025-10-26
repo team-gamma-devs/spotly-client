@@ -1,5 +1,7 @@
 import type { Cookies } from '@sveltejs/kit';
-import { GITHUB_GRAPHQL_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+
+const GITHUB_GRAPHQL_URL = env.GITHUB_GRAPHQL_URL;
 
 export type GithubRepo = {
   name: string;

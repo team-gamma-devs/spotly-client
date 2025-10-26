@@ -1,5 +1,8 @@
 import { createHmac } from 'crypto';
-import { BACKEND_SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+
+const BACKEND_SECRET = env.BACKEND_SECRET;
+
 
 /**
  * Generates a SHA256 HMAC signature for a given payload and timestamp.
