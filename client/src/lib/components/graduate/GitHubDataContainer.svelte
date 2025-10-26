@@ -353,7 +353,7 @@
 
 	.repo-link {
 		display: block;
-		padding: 0.75rem;c
+		padding: 0.75rem;
 		border-radius: 0.5rem;
 		transition: all 0.2s;
 	}
