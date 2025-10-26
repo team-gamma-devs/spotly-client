@@ -45,6 +45,11 @@ function createJsonAuthHeaders(body?: any): Headers {
 export async function signedJsonFetch(url: string, options: RequestInit = {}): Promise<Response> {
 	const body = options.body;
 	const authHeaders = createJsonAuthHeaders(body ? JSON.parse(body as string) : undefined);
+	console.log("****** Signed JSON Called With **********");
+	console.log("URL: " + url);
+	console.log("Options: " + options);
+	console.log("Body:" + body);
+	console.log("authHeaders: " + JSON.stringify(Object.fromEntries(authHeaders.entries())));
 
 	return fetch(url, {
 		...options,

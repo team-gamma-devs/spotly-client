@@ -37,7 +37,7 @@ export interface UserCVInfo {
 }
 
 export interface UserState {
-  _id: MongoObjectId;
+  id: MongoObjectId;
   first_name: string;
   last_name: string;
   email: string;
@@ -52,7 +52,7 @@ export interface UserState {
 }
 
 export const mockUserState: UserState = {
-  _id: { $oid: '68fd528c007c411b4191e836' },
+  id: { $oid: '68fd528c007c411b4191e836' },
   first_name: 'Federico',
   last_name: 'Paganini',
   email: 'perfedefer@gmail.com',

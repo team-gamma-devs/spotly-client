@@ -19,7 +19,7 @@
 	import TechTag from '../main/utils/TechTag.svelte';
 	import type { FilterTag } from '$lib/constants/filterTags';
 	import { availableFilterTags } from '$lib/constants/filterTags';
-	import { Button, Modal } from 'flowbite-svelte';
+	import { Button, Modal, Textarea, Label } from 'flowbite-svelte';
 	import {
 		GithubSolid,
 		LinkedinSolid,
@@ -28,17 +28,21 @@
 		AnnotationOutline,
 		PhoneSolid,
 	} from 'flowbite-svelte-icons';
+	import { enhance } from '$app/forms';
 
 	type Annotation = {
+		id: string;
 		created_at: string;
 		message: string;
+		tutorId: string;
 	};
 
 	type TutorFeedback = {
-		[tutorName: string]: {
+		[tutorId: string]: {
 			created_at: string;
-			professional_score: string;
-			technical_score: string;
+			professional_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
+			technical_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
+			tutorName: string;
 		};
 	};
 
@@ -48,7 +52,7 @@
 		lastName = 'Pelotas',
 		email = 'pepe@pelotas.com',
 		avatarUrl = '',
-		englishLevel = 'n/a',
+		englishLevel = 'Basic' as 'Basic' | 'Intermediate' | 'Advanced',
 		cohort = 'n/a',
 		techStack = ['react', 'pepe', 'Slack'],
 		githubUrl = 'https://github.com/glovek08',
@@ -56,24 +60,30 @@
 		updatedAt = 'Long Time Ago...',
 		annotations = [
 			{
+				id: 'a1b2c3d4-e5f6-7890-0001-000000000001',
 				created_at: '2025-10-20T15:57:58.745Z',
 				message: 'This holbie wears nice clothing.',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 			{
+				id: 'a1b2c3d4-e5f6-7890-0002-000000000002',
 				created_at: '2025-10-15T10:30:00.000Z',
 				message: 'Great team player and communicator.',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 		] as Annotation[],
 		tutorsFeedback = {
-			'Javier Valenziani': {
+			'e5f6a7b8-c9d0-1234-5678-ef0123456789': {
 				created_at: '2025-09-20T15:57:58.745Z',
-				professional_score: 'Mediocre',
-				technical_score: 'Mediocre',
+				professional_score: 'Average',
+				technical_score: 'Average',
+				tutorName: 'Javier Valenziani',
 			},
-			'Edison Cavani': {
+			'd4e5f6a7-b8c9-0123-4567-def012234567': {
 				created_at: '2025-10-20T15:57:58.745Z',
-				professional_score: 'Mediocre',
-				technical_score: 'Mediocre',
+				professional_score: 'Average',
+				technical_score: 'Average',
+				tutorName: 'Edison Cavani',
 			},
 		} as TutorFeedback,
 		works_in_it = false,
@@ -84,7 +94,12 @@
 
 	let showContactModal = $state(false); // Modal for the graduate's contact information.
 	let showAnnotationsModal = $state(false); // Modal for the graduate's annotations.
+	let showAddAnnotationModal = $state(false); // Modal to add new annotation.
 	let showTutorsFeedback = $state(false); // Modal for the tutor's feedback on this graduate.
+
+	let newAnnotation = $state('');
+	let formError = $state("");
+	let isSubmitting = $state(false);
 
 	const techTags = $derived(
 		//This monster converts the tags to proper techtags for randoms.
@@ -123,9 +138,6 @@
 		} catch {
 			return 'Unformateable Date';
 		}
-	};
-	const addNoteToGraduate = () => {
-		console.log(`Note added to ${firstName} ${lastName}`);
 	};
 </script>
 
@@ -338,13 +350,104 @@
 	</div>
 	{#snippet footer()}
 		<Button
-			color="primary"
+			color="alternative"
 			class="cursor-pointer mr-0 ml-auto"
 			onclick={() => {
 				showAnnotationsModal = false;
 			}}>Close</Button
 		>
+		<Button
+			color="green"
+			class="cursor-pointer mx-4"
+			onclick={() => {
+				showAnnotationsModal = false;
+				showAddAnnotationModal = true;
+			}}>Add</Button
+		>
 	{/snippet}
+</Modal>
+
+<!-- ******************* ADD ANNOTATION MODAL ************************** -->
+<Modal
+	title="Add Annotation"
+	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	bind:open={showAddAnnotationModal}
+>
+	<!-- This form submits to client/src/routes/app/manager/+page.server.ts -->
+	<form
+		method="POST"
+		action="?/addAnnotation"
+		use:enhance={() => {
+			isSubmitting = true;
+			formError = '';
+			
+			return async ({ result, update }) => {
+				isSubmitting = false;
+				
+				if (result.type === 'success') {
+					showAddAnnotationModal = false;
+					newAnnotation = '';
+					formError = '';
+				} else if (result.type === 'failure') {
+					formError = JSON.stringify(result.data?.error) || 'An error occurred while adding the annotation';
+				} else if (result.type === 'error') {
+					formError = 'An unexpected error occurred. Please try again.';
+				}
+				
+				await update();
+			};
+		}}
+	>
+		<input type="hidden" name="graduated_id" value={id} />
+
+		<div class="space-y-4">
+			<h3 class="text-lg font-semibold">Add note for {firstName} {lastName}</h3>
+			
+			{#if formError}
+				<div class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+					<p class="text-sm text-red-600 dark:text-red-400">{formError}</p>
+				</div>
+			{/if}
+			
+			<div>
+				<Label for="annotation-textarea" class="mb-2">Annotation (max 300 characters)</Label>
+				<Textarea
+					id="annotation-textarea"
+					name="annotation"
+					placeholder="Enter your annotation here..."
+					bind:value={newAnnotation}
+					maxlength={300}
+					required
+					disabled={isSubmitting}
+					class="w-full"
+				/>
+				<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+					{newAnnotation.length}/300 characters
+				</p>
+			</div>
+			<div id="add-annotation-modal-footer">
+				<Button
+					color="alternative"
+					class="cursor-pointer"
+					type="reset"
+					disabled={isSubmitting}
+					onclick={() => {
+						showAddAnnotationModal = false;
+						newAnnotation = '';
+						formError = '';
+					}}>Cancel</Button
+				>
+				<Button 
+					color="green" 
+					class="cursor-pointer" 
+					type="submit" 
+					disabled={!newAnnotation.trim() || isSubmitting}
+				>
+					{isSubmitting ? 'Saving...' : 'Save'}
+				</Button>
+			</div>
+		</div>
+	</form>
 </Modal>
 
 <!-- ******************* Tutors Feedback Modal ************************* -->
@@ -357,10 +460,10 @@
 		<h3 class="text-lg font-semibold">Feedback for {firstName} {lastName}</h3>
 		{#if Object.keys(tutorsFeedback).length > 0}
 			<div class="space-y-4 max-h-96 overflow-y-auto">
-				{#each Object.entries(tutorsFeedback) as [tutorName, feedback]}
+				{#each Object.entries(tutorsFeedback) as [tutorId, feedback]}
 					<div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 						<div class="flex items-center justify-between mb-2">
-							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{tutorName}</h4>
+							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{feedback.tutorName}</h4>
 							<p class="text-xs text-gray-500 dark:text-gray-400">
 								{formatDate(feedback.created_at)}
 							</p>
@@ -376,14 +479,7 @@
 	</div>
 	{#snippet footer()}
 		<Button
-			color="primary"
-			class="cursor-pointer"
-			onclick={() => {
-				showTutorsFeedback = false;
-			}}>Close</Button
-		>
-		<Button
-			color="primary"
+			color="alternative"
 			class="cursor-pointer"
 			onclick={() => {
 				showTutorsFeedback = false;
