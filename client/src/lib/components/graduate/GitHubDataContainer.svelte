@@ -7,6 +7,7 @@
 	import type { PageData } from '../../../routes/app/graduate/$types';
 	import type { GithubData } from '$lib/server/githubFetch';
 	import { GenericBoxVisible } from '../main/utils';
+	import BtnGitHubLogin from './utils/BtnGitHubLogin.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -128,7 +129,7 @@
 	});
 </script>
 
-<div class="github-container flex items-center justify-center">
+<section class="github-container flex items-center justify-center">
 	{#if githubUsername}
 		{#if loading}
 			<div class="loading-state">
@@ -257,10 +258,22 @@
 		<!-- Not Connected State -->
 		<div class="connect-prompt">
 			<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Connect your GitHub account to see your stats</p>
-			<Button href="/app/graduate/github" class="transition-all">Connect GitHub</Button>
+			<BtnGitHubLogin targetUrl="/app/graduate/github"/>
+			<h4 class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-5">
+				<a
+					href="https://github.com/team-gamma-devs/git-gud-stats"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center gap-1 hover:text-gray-700 dark:hover:text-gray-300"
+				>
+					Powered By
+					<enhanced:img src="$lib/assets/svgs/ggs-logo.svg" width="24" height="24" class="inline" alt="GGS Logo" />
+					GGS
+				</a>
+			</h4>
 		</div>
 	{/if}
-</div>
+</section>
 
 <style>
 	.github-container {

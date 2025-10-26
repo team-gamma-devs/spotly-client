@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Sidebar, SidebarGroup, SidebarItem, SidebarButton, uiHelpers } from 'flowbite-svelte';
 	import { ChartOutline, GithubSolid } from 'flowbite-svelte-icons';
-	import GitHubDataContainer from './GitHubDataContainer.svelte';
+	import { GithubDataContainer, GraduateDashboard } from './index';
 	import type { PageData } from '../../../routes/app/graduate/$types';
 	import { page } from '$app/state';
 
@@ -19,7 +19,6 @@
 
 	function handleNavClick(label: string) {
 		activeUrl = label;
-		// Close sidebar on mobile after selection
 		if (window.innerWidth < 768) {
 			closeDemoSidebar();
 		}
@@ -77,19 +76,15 @@
 	</Sidebar>
 
 	<div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2">
+		<!-- ********  GRADUATE DASHBOARD! ************** -->
 		{#if activeUrl === 'Dashboard'}
-			<div class="dashboard-content">
-				<h1 class="text-2xl font-bold mb-4">Dashboard</h1>
-				<p class="text-gray-600 dark:text-gray-400">Welcome {page.data.username}!</p>
-			</div>
-		{:else if activeUrl === 'GitHub Stats'}
-			<GitHubDataContainer {data} />
+			<GraduateDashboard/>
+		<!-- ******** GITHUB DASHBOARD! ************** -->
+		{:else if activeUrl === 'GitHub Stats'} 
+			<GithubDataContainer {data} />
 		{/if}
 	</div>
 </div>
 
 <style>
-	.dashboard-content {
-		padding: 1rem;
-	}
 </style>

@@ -76,6 +76,7 @@
 				technical_score: 'Mediocre',
 			},
 		} as TutorFeedback,
+		works_in_it = false,
 	} = $props();
 
 	const uniqueId = `graduate-card-${id || nextId()}`;
@@ -113,19 +114,19 @@
 	 */
 	const formatDate = (dateString: string): string => {
 		try {
-		const date = new Date(dateString);
-		return date.toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		});
+			const date = new Date(dateString);
+			return date.toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+			});
 		} catch {
-			return "Unformateable Date";
+			return 'Unformateable Date';
 		}
 	};
 	const addNoteToGraduate = () => {
-		console.log(`Note added to ${firstName} ${lastName}`)
-	}
+		console.log(`Note added to ${firstName} ${lastName}`);
+	};
 </script>
 
 <div
@@ -142,10 +143,34 @@
 		<div class="flex-1">
 			<div class="w-full flex items-center justify-start gap-2">
 				<h3 class="font-semibold text-lg">{firstName} {lastName}</h3>
-				<p class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white" title="Cohort: {cohort}">{cohort}</p>
-				<p class="text-xs ring-1 ring-gray-700 rounded-md px-1 py-0.3 font-bold text-foreground flex items-center justify-center gap-1" title="English Level: {englishLevel}">
-					<img class="inline rounded-[2px]" src={usaIcon} alt="USA" width=13 height=5/> {englishLevel}
+				<p
+					class="text-sm bg-red-800 dark:bg-red-900 rounded-md px-1 py-0.3 font-bold text-white"
+					title="Cohort: {cohort}"
+				>
+					{cohort}
 				</p>
+				<p
+					class="text-xs ring-1 ring-gray-700 rounded-md px-1 py-0.3 font-bold text-foreground flex items-center justify-center gap-1"
+					title="English Level: {englishLevel}"
+				>
+					<img class="inline rounded-[2px]" src={usaIcon} alt="USA" width="13" height="5" />
+					{englishLevel}
+				</p>
+				{#if works_in_it}
+					<span
+						class="text-xs bg-yellow-600 dark:bg-orange-900 rounded-md px-1.5 font-bold text-white font-bold flex items-center justify-center"
+						title="Currently Working"
+					>
+						Working
+					</span>
+				{:else}
+					<span
+						class="text-xs bg-green-600 dark:bg-green-900 rounded-md px-1.5 font-bold text-white font-bold flex items-center justify-center"
+						title="Currently Working"
+					>
+						Available
+					</span>
+				{/if}
 			</div>
 			<p class="text-sm text-gray-500 dark:text-gray-400">Last update: {formatDate(updatedAt)}</p>
 			<!-- If available, this will list the links to the graduate's github and linkedin profiles -->
@@ -357,7 +382,7 @@
 				showTutorsFeedback = false;
 			}}>Close</Button
 		>
-				<Button
+		<Button
 			color="primary"
 			class="cursor-pointer"
 			onclick={() => {
