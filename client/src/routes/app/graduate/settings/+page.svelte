@@ -9,6 +9,5 @@
     <p>|</p>
 		<h3 class="mt-1.5 text-sm">COMING SOON...</h3>
 	</div>
-
 	<ImagePlaceholder size="sm" />
 </GenericBoxVisible>
