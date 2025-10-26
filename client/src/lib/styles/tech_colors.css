@@ -27,6 +27,10 @@
 	--color-lit: #324fff;
 	--color-alpinejs: #77c1d2;
 	--color-htmx: #3d72d7;
+	--color-sveltekit: #d63d00;
+	--color-nuxtjs: #00a878;
+	--color-ember: #e84e40;
+	--color-backbonejs: #3333cc;
 	
 	/* Mobile Development */
 	--color-reactnative: #2a36e2;
@@ -37,6 +41,11 @@
 	--color-kotlin: #7f52ff;
 	--color-swift: #fa7343;
 	--color-dart: #0175c2;
+	--color-nativeandroid: #3ddc84;
+	--color-nativeios: #000000;
+	--color-tauri: #24c8db;
+	--color-electron: #2b2e3a;
+	--color-cordova: #e8175d;
 	
 	/* Programming Languages */
 	--color-javascript: #b89f00;
@@ -62,6 +71,13 @@
 	--color-lua: #000080;
 	--color-groovy: #4298b8;
 	--color-assembly: #6e4c13;
+	--color-objectivec: #438eff;
+	--color-vb: #945db7;
+	--color-sql: #cc2927;
+	--color-plsql: #cc2927;
+	--color-tsql: #cc2927;
+	--color-html: #ca630e;
+	--color-css: #252580;
 	
 	/* Backend Frameworks */
 	--color-node: #2b7a2b;
@@ -82,6 +98,13 @@
 	--color-phoenix: #fd4f00;
 	--color-actix: #a93a24;
 	--color-rocket: #d33847;
+	--color-fastify: #000000;
+	--color-hapi: #e74c3c;
+	--color-nomads: #5a2d7d;
+	--color-strapi: #2e7eea;
+	--color-wagtail: #17a2b8;
+	--color-gorilla: #006dd7;
+	--color-beego: #ff7324;
 	
 	/* Databases */
 	--color-mongodb: #3a8b3a;
@@ -101,6 +124,15 @@
 	--color-supabase: #3ecf8e;
 	--color-planetscale: #000000;
 	--color-prisma: #2d3748;
+	--color-mongodbalas: #3a8b3a;
+	--color-airtable: #18bfff;
+	--color-notiondb: #000000;
+	--color-solr: #d82417;
+	--color-milvus: #00a79d;
+	--color-weaviate: #129b84;
+	--color-oracle: #f80000;
+	--color-sqlserver: #cc2927;
+	--color-scylla: #4e8b9d;
 	
 	/* DevOps & Cloud */
 	--color-docker: #1f7edc;
@@ -125,6 +157,16 @@
 	--color-heroku: #430098;
 	--color-digitalocean: #0080ff;
 	--color-cloudflare: #f38020;
+	--color-render: #46e3b7;
+	--color-railway: #0b0d0e;
+	--color-fly: #7b3ff2;
+	--color-linode: #00a0df;
+	--color-vultr: #1f4788;
+	--color-hetzner: #d10601;
+	--color-prometheus: #e6522c;
+	--color-grafana: #f96630;
+	--color-datadog: #632ca6;
+	--color-newrelic: #1ce783;
 	
 	/* Testing */
 	--color-jest: #c21325;
@@ -137,6 +179,11 @@
 	--color-junit: #25a162;
 	--color-jasmine: #8a4182;
 	--color-testinglibrary: #e33332;
+	--color-appium: #4e8f47;
+	--color-cucumber: #23d96c;
+	--color-robot: #00a651;
+	--color-testcafe: #0d4c7f;
+	--color-nightwatch: #0d8f4f;
 	
 	/* State Management */
 	--color-redux: #764abc;
@@ -147,6 +194,9 @@
 	--color-pinia: #ffd859;
 	--color-vuex: #3aa777;
 	--color-ngrx: #412846;
+	--color-xstate: #2c3e50;
+	--color-tanstackquery: #ff4154;
+	--color-swr: #000000;
 	
 	/* Build Tools & Bundlers */
 	--color-webpack: #62baf1;
@@ -158,6 +208,9 @@
 	--color-gulp: #cf4647;
 	--color-grunt: #fba919;
 	--color-babel: #f9dc3e;
+	--color-swc: #f4d9c5;
+	--color-nx: #143055;
+	--color-turborepo: #0891b2;
 	
 	/* Tools & Others */
 	--color-git: #d34726;
@@ -166,7 +219,7 @@
 	--color-sass: #b05885;
 	--color-less: #1d365d;
 	--color-stylus: #333333;
-	--color-postcss: #dd3a0a;
+	--color-post: #dd3a0a;
 	--color-linux: #4e1763;
 	--color-bash: #3b821d;
 	--color-vim: #019733;
@@ -182,6 +235,19 @@
 	--color-notion: #000000;
 	--color-slack: #4a154b;
 	--color-discord: #5865f2;
+	--color-bootstrapui: #712cf9;
+	--color-materialui: #007fff;
+	--color-chakraui: #81e6d9;
+	--color-shadcnui: #000000;
+	--color-antdesign: #1890ff;
+	--color-primereact: #3366cc;
+	--color-framer: #0055ff;
+	--color-gsap: #88ce02;
+	--color-threejs: #000000;
+	--color-babylonjs: #912783;
+	--color-canvas: #ff9900;
+	--color-webgl: #8b0000;
+	--color-svg: #ff9900;
 	
 	/* APIs & Protocols */
 	--color-rest: #009688;
@@ -192,6 +258,11 @@
 	--color-jwt: #000000;
 	--color-openapi: #6ba539;
 	--color-swagger: #85ea2d;
+	--color-mqtt: #660066;
+	--color-amqp: #ff6600;
+	--color-kafka: #000000;
+	--color-rabbitmq: #ff6600;
+	--color-webhook: #5a67d8;
 	
 	/* CMS & E-commerce */
 	--color-wordpress: #21759b;
@@ -201,6 +272,8 @@
 	--color-shopify: #95bf47;
 	--color-woocommerce: #96588a;
 	--color-magento: #ee672f;
+	--color-medusa: #1d1d1d;
+	--color-saleor: #118c4f;
 	
 	/* AI & ML */
 	--color-tensorflow: #ff6f00;
@@ -213,6 +286,11 @@
 	--color-jupyter: #f37626;
 	--color-openai: #10a37f;
 	--color-huggingface: #ff9d00;
+	--color-langchain: #1c3144;
+	--color-anthropic: #d97706;
+	--color-llama: #ffffff;
+	--color-replicate: #2c3e50;
+	--color-vertexai: #3367d6;
 	
 	/* Blockchain */
 	--color-solidity: #363636;
@@ -220,6 +298,9 @@
 	--color-web3: #f16822;
 	--color-hardhat: #fff100;
 	--color-truffle: #5e464d;
+	--color-ethersjs: #2e5090;
+	--color-polygon: #8247e5;
+	--color-bitcoin: #f7931a;
 }
 
 .dark {
@@ -244,6 +325,10 @@
 	--color-lit: #2350b3;
 	--color-alpinejs: #4d8a96;
 	--color-htmx: #2b5099;
+	--color-sveltekit: #a82800;
+	--color-nuxtjs: #00624f;
+	--color-ember: #a83a2f;
+	--color-backbonejs: #2222aa;
 	
 	/* Mobile Development */
 	--color-reactnative: #0d5b84;
@@ -254,6 +339,11 @@
 	--color-kotlin: #5a3ab3;
 	--color-swift: #b35229;
 	--color-dart: #114f85;
+	--color-nativeandroid: #2d9f5f;
+	--color-nativeios: #333333;
+	--color-tauri: #1a96a3;
+	--color-electron: #1f2529;
+	--color-cordova: #b3134a;
 	
 	/* Programming Languages */
 	--color-javascript: #8c7a00;
@@ -279,6 +369,13 @@
 	--color-lua: #00004d;
 	--color-groovy: #2e6882;
 	--color-assembly: #4a330b;
+	--color-objectivec: #2563cc;
+	--color-vb: #6b3d8e;
+	--color-sql: #9b1c1c;
+	--color-plsql: #9b1c1c;
+	--color-tsql: #9b1c1c;
+	--color-html: #ad4f01;
+	--color-css: #2121a8;
 	
 	/* Backend Frameworks */
 	--color-node: #205c20;
@@ -299,6 +396,13 @@
 	--color-phoenix: #b33700;
 	--color-actix: #712a18;
 	--color-rocket: #942b32;
+	--color-fastify: #1a1a1a;
+	--color-hapi: #b33a2f;
+	--color-nomads: #4a225f;
+	--color-strapi: #2159a5;
+	--color-wagtail: #109399;
+	--color-gorilla: #005cb3;
+	--color-beego: #cc5c1a;
 	
 	/* Databases */
 	--color-mongodb: #2e6930;
@@ -318,6 +422,15 @@
 	--color-supabase: #2d956a;
 	--color-planetscale: #1a1a1a;
 	--color-prisma: #1f2632;
+	--color-mongodbalas: #2e6930;
+	--color-airtable: #0f8f7f;
+	--color-notiondb: #1a1a1a;
+	--color-solr: #a01e0f;
+	--color-milvus: #007d7a;
+	--color-weaviate: #00644f;
+	--color-oracle: #b30000;
+	--color-sqlserver: #9b1c1c;
+	--color-scylla: #3d6b7d;
 	
 	/* DevOps & Cloud */
 	--color-docker: #17669c;
@@ -342,6 +455,16 @@
 	--color-heroku: #31006c;
 	--color-digitalocean: #005eb3;
 	--color-cloudflare: #b35b17;
+	--color-render: #2db39a;
+	--color-railway: #1a1a1a;
+	--color-fly: #5a2c99;
+	--color-linode: #0080b3;
+	--color-vultr: #1a3a5f;
+	--color-hetzner: #b30801;
+	--color-prometheus: #cc4125;
+	--color-grafana: #cc5219;
+	--color-datadog: #5f2180;
+	--color-newrelic: #10b366;
 	
 	/* Testing */
 	--color-jest: #8b0f1a;
@@ -354,6 +477,11 @@
 	--color-junit: #1b7044;
 	--color-jasmine: #5f2d59;
 	--color-testinglibrary: #a12624;
+	--color-appium: #3d5f33;
+	--color-cucumber: #1aa850;
+	--color-robot: #004d2f;
+	--color-testcafe: #0a3f5f;
+	--color-nightwatch: #0a5f37;
 	
 	/* State Management */
 	--color-redux: #543380;
@@ -364,6 +492,9 @@
 	--color-pinia: #b39640;
 	--color-vuex: #2a6145;
 	--color-ngrx: #2d1d31;
+	--color-xstate: #1f2d3d;
+	--color-tanstackquery: #cc334a;
+	--color-swr: #1a1a1a;
 	
 	/* Build Tools & Bundlers */
 	--color-webpack: #3e8fb5;
@@ -375,6 +506,9 @@
 	--color-gulp: #913032;
 	--color-grunt: #b37f12;
 	--color-babel: #b39d2b;
+	--color-swc: #b39d8a;
+	--color-nx: #0f2d4a;
+	--color-turborepo: #006b99;
 	
 	/* Tools & Others */
 	--color-git: #93301e;
@@ -399,6 +533,19 @@
 	--color-notion: #1a1a1a;
 	--color-slack: #341136;
 	--color-discord: #4047b3;
+	--color-bootstrapui: #5a3fb3;
+	--color-materialui: #0044cc;
+	--color-chakraui: #5fb39a;
+	--color-shadcnui: #1a1a1a;
+	--color-antdesign: #1575de;
+	--color-primereact: #2952b3;
+	--color-framer: #0044cc;
+	--color-gsap: #6ba502;
+	--color-threejs: #1a1a1a;
+	--color-babylonjs: #6a1a5f;
+	--color-canvas: #cc7a00;
+	--color-webgl: #660000;
+	--color-svg: #cc6600;
 	
 	/* APIs & Protocols */
 	--color-rest: #00695f;
@@ -409,6 +556,11 @@
 	--color-jwt: #1a1a1a;
 	--color-openapi: #4b7528;
 	--color-swagger: #5fa520;
+	--color-mqtt: #4d004d;
+	--color-amqp: #cc5200;
+	--color-kafka: #1a1a1a;
+	--color-rabbitmq: #cc5200;
+	--color-webhook: #3f4fb3;
 	
 	/* CMS & E-commerce */
 	--color-wordpress: #165270;
@@ -418,6 +570,8 @@
 	--color-shopify: #688932;
 	--color-woocommerce: #6a4e5f;
 	--color-magento: #a54921;
+	--color-medusa: #1a1a1a;
+	--color-saleor: #0d6a3a;
 	
 	/* AI & ML */
 	--color-tensorflow: #b35000;
@@ -430,6 +584,11 @@
 	--color-jupyter: #b3531b;
 	--color-openai: #0c7459;
 	--color-huggingface: #b36e00;
+	--color-langchain: #12212f;
+	--color-anthropic: #a85c04;
+	--color-llama: #b3b3b3;
+	--color-replicate: #1a2d3d;
+	--color-vertexai: #2555a8;
 	
 	/* Blockchain */
 	--color-solidity: #272727;
@@ -437,4 +596,7 @@
 	--color-web3: #a74918;
 	--color-hardhat: #a89300;
 	--color-truffle: #413539;
+	--color-ethersjs: #1f3a5f;
+	--color-polygon: #6235b3;
+	--color-bitcoin: #cc7a15;
 }

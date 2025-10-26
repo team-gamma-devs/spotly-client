@@ -41,6 +41,10 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'lit', name: 'Lit', color: 'lit' },
   { code: 'alpinejs', name: 'Alpine.js', color: 'alpinejs' },
   { code: 'htmx', name: 'HTMX', color: 'htmx' },
+  { code: 'sveltekit', name: 'SvelteKit', color: 'sveltekit' },
+  { code: 'nuxtjs', name: 'Nuxt', color: 'nuxtjs' },
+  { code: 'ember', name: 'Ember.js', color: 'ember' },
+  { code: 'backbonejs', name: 'Backbone.js', color: 'backbonejs' },
 
   // Mobile Development
   { code: 'reactnative', name: 'React Native', color: 'reactnative' },
@@ -51,6 +55,11 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'kotlin', name: 'Kotlin', color: 'kotlin' },
   { code: 'swift', name: 'Swift', color: 'swift' },
   { code: 'dart', name: 'Dart', color: 'dart' },
+  { code: 'nativeandroid', name: 'Native Android', color: 'nativeandroid' },
+  { code: 'nativeios', name: 'Native iOS', color: 'nativeios' },
+  { code: 'tauri', name: 'Tauri', color: 'tauri' },
+  { code: 'electron', name: 'Electron', color: 'electron' },
+  { code: 'cordova', name: 'Apache Cordova', color: 'cordova' },
 
   // Programming Languages
   { code: 'javascript', name: 'JavaScript', color: 'javascript' },
@@ -76,6 +85,14 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'lua', name: 'Lua', color: 'lua' },
   { code: 'groovy', name: 'Groovy', color: 'groovy' },
   { code: 'assembly', name: 'Assembly', color: 'assembly' },
+  { code: 'kotlin', name: 'Kotlin', color: 'kotlin' },
+  { code: 'objectivec', name: 'Objective-C', color: 'objectivec' },
+  { code: 'vb', name: 'Visual Basic', color: 'vb' },
+  { code: 'sql', name: 'SQL', color: 'sql' },
+  { code: 'plsql', name: 'PL/SQL', color: 'plsql' },
+  { code: 'tsql', name: 'T-SQL', color: 'tsql' },
+  { code: 'html', name: 'HTML', color: 'html' },
+  { code: 'css', name: 'CSS', color: 'css'},
 
   // Backend Frameworks
   { code: 'node.js', name: 'Node.js', color: 'node' },
@@ -96,6 +113,13 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'phoenix', name: 'Phoenix', color: 'phoenix' },
   { code: 'actix', name: 'Actix', color: 'actix' },
   { code: 'rocket', name: 'Rocket', color: 'rocket' },
+  { code: 'fastify', name: 'Fastify', color: 'fastify' },
+  { code: 'hapi', name: 'Hapi', color: 'hapi' },
+  { code: 'nomads', name: 'Nomads.js', color: 'nomads' },
+  { code: 'strapi', name: 'Strapi', color: 'strapi' },
+  { code: 'wagtail', name: 'Wagtail', color: 'wagtail' },
+  { code: 'gorilla', name: 'Gorilla', color: 'gorilla' },
+  { code: 'beego', name: 'Beego', color: 'beego' },
 
   // Databases
   { code: 'mongodb', name: 'MongoDB', color: 'mongodb' },
@@ -115,6 +139,15 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'supabase', name: 'Supabase', color: 'supabase' },
   { code: 'planetscale', name: 'PlanetScale', color: 'planetscale' },
   { code: 'prisma', name: 'Prisma', color: 'prisma' },
+  { code: 'mongodb-atlas', name: 'MongoDB Atlas', color: 'mongodbalas' },
+  { code: 'airtable', name: 'Airtable', color: 'airtable' },
+  { code: 'notion-db', name: 'Notion Database', color: 'notiondb' },
+  { code: 'solr', name: 'Apache Solr', color: 'solr' },
+  { code: 'milvus', name: 'Milvus', color: 'milvus' },
+  { code: 'weaviate', name: 'Weaviate', color: 'weaviate' },
+  { code: 'oracle', name: 'Oracle Database', color: 'oracle' },
+  { code: 'sqlserver', name: 'SQL Server', color: 'sqlserver' },
+  { code: 'scylla', name: 'ScyllaDB', color: 'scylla' },
 
   // DevOps & Cloud
   { code: 'docker', name: 'Docker', color: 'docker' },
@@ -139,6 +172,16 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'heroku', name: 'Heroku', color: 'heroku' },
   { code: 'digitalocean', name: 'DigitalOcean', color: 'digitalocean' },
   { code: 'cloudflare', name: 'Cloudflare', color: 'cloudflare' },
+  { code: 'render', name: 'Render', color: 'render' },
+  { code: 'railway', name: 'Railway', color: 'railway' },
+  { code: 'fly', name: 'Fly.io', color: 'fly' },
+  { code: 'linode', name: 'Linode', color: 'linode' },
+  { code: 'vultr', name: 'Vultr', color: 'vultr' },
+  { code: 'hetzner', name: 'Hetzner', color: 'hetzner' },
+  { code: 'prometheus', name: 'Prometheus', color: 'prometheus' },
+  { code: 'grafana', name: 'Grafana', color: 'grafana' },
+  { code: 'datadog', name: 'Datadog', color: 'datadog' },
+  { code: 'newrelic', name: 'New Relic', color: 'newrelic' },
 
   // Testing
   { code: 'jest', name: 'Jest', color: 'jest' },
@@ -151,6 +194,11 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'junit', name: 'JUnit', color: 'junit' },
   { code: 'jasmine', name: 'Jasmine', color: 'jasmine' },
   { code: 'testinglibrary', name: 'Testing Library', color: 'testinglibrary' },
+  { code: 'appium', name: 'Appium', color: 'appium' },
+  { code: 'cucumber', name: 'Cucumber', color: 'cucumber' },
+  { code: 'robot', name: 'Robot Framework', color: 'robot' },
+  { code: 'testcafe', name: 'TestCafe', color: 'testcafe' },
+  { code: 'nightwatch', name: 'Nightwatch.js', color: 'nightwatch' },
 
   // State Management
   { code: 'redux', name: 'Redux', color: 'redux' },
@@ -161,6 +209,9 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'pinia', name: 'Pinia', color: 'pinia' },
   { code: 'vuex', name: 'Vuex', color: 'vuex' },
   { code: 'ngrx', name: 'NgRx', color: 'ngrx' },
+  { code: 'xstate', name: 'XState', color: 'xstate' },
+  { code: 'tanstackquery', name: 'TanStack Query', color: 'tanstackquery' },
+  { code: 'swr', name: 'SWR', color: 'swr' },
 
   // Build Tools & Bundlers
   { code: 'webpack', name: 'Webpack', color: 'webpack' },
@@ -172,6 +223,9 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'gulp', name: 'Gulp', color: 'gulp' },
   { code: 'grunt', name: 'Grunt', color: 'grunt' },
   { code: 'babel', name: 'Babel', color: 'babel' },
+  { code: 'swc', name: 'SWC', color: 'swc' },
+  { code: 'nx', name: 'Nx', color: 'nx' },
+  { code: 'turborepo', name: 'Turborepo', color: 'turborepo' },
 
   // Tools & Others
   { code: 'git', name: 'Git', color: 'git' },
@@ -196,6 +250,19 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'notion', name: 'Notion', color: 'notion' },
   { code: 'slack', name: 'Slack', color: 'slack' },
   { code: 'discord', name: 'Discord', color: 'discord' },
+  { code: 'bootstrapui', name: 'Bootstrap', color: 'bootstrapui' },
+  { code: 'materialui', name: 'Material-UI', color: 'materialui' },
+  { code: 'chakraui', name: 'Chakra UI', color: 'chakraui' },
+  { code: 'shadcnui', name: 'shadcn/ui', color: 'shadcnui' },
+  { code: 'antdesign', name: 'Ant Design', color: 'antdesign' },
+  { code: 'primereact', name: 'PrimeReact', color: 'primereact' },
+  { code: 'framer', name: 'Framer Motion', color: 'framer' },
+  { code: 'gsap', name: 'GSAP', color: 'gsap' },
+  { code: 'threejs', name: 'Three.js', color: 'threejs' },
+  { code: 'babylonjs', name: 'Babylon.js', color: 'babylonjs' },
+  { code: 'canvas', name: 'Canvas API', color: 'canvas' },
+  { code: 'webgl', name: 'WebGL', color: 'webgl' },
+  { code: 'svg', name: 'SVG', color: 'svg' },
 
   // APIs & Protocols
   { code: 'rest', name: 'REST API', color: 'rest' },
@@ -206,6 +273,11 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'jwt', name: 'JWT', color: 'jwt' },
   { code: 'openapi', name: 'OpenAPI', color: 'openapi' },
   { code: 'swagger', name: 'Swagger', color: 'swagger' },
+  { code: 'mqtt', name: 'MQTT', color: 'mqtt' },
+  { code: 'amqp', name: 'AMQP', color: 'amqp' },
+  { code: 'kafka', name: 'Apache Kafka', color: 'kafka' },
+  { code: 'rabbitmq', name: 'RabbitMQ', color: 'rabbitmq' },
+  { code: 'webhook', name: 'WebHooks', color: 'webhook' },
 
   // CMS & E-commerce
   { code: 'wordpress', name: 'WordPress', color: 'wordpress' },
@@ -215,6 +287,8 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'shopify', name: 'Shopify', color: 'shopify' },
   { code: 'woocommerce', name: 'WooCommerce', color: 'woocommerce' },
   { code: 'magento', name: 'Magento', color: 'magento' },
+  { code: 'medusa', name: 'Medusa', color: 'medusa' },
+  { code: 'saleor', name: 'Saleor', color: 'saleor' },
 
   // AI & ML
   { code: 'tensorflow', name: 'TensorFlow', color: 'tensorflow' },
@@ -227,6 +301,11 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'jupyter', name: 'Jupyter', color: 'jupyter' },
   { code: 'openai', name: 'OpenAI', color: 'openai' },
   { code: 'huggingface', name: 'Hugging Face', color: 'huggingface' },
+  { code: 'langchain', name: 'LangChain', color: 'langchain' },
+  { code: 'anthropic', name: 'Anthropic', color: 'anthropic' },
+  { code: 'llama', name: 'Llama', color: 'llama' },
+  { code: 'replicate', name: 'Replicate', color: 'replicate' },
+  { code: 'vertexai', name: 'Vertex AI', color: 'vertexai' },
 
   // Blockchain
   { code: 'solidity', name: 'Solidity', color: 'solidity' },
@@ -234,4 +313,7 @@ export const availableFilterTags: FilterTag[] = [
   { code: 'web3', name: 'Web3.js', color: 'web3' },
   { code: 'hardhat', name: 'Hardhat', color: 'hardhat' },
   { code: 'truffle', name: 'Truffle', color: 'truffle' },
-];
+  { code: 'ethersjs', name: 'Ethers.js', color: 'ethersjs' },
+  { code: 'polygon', name: 'Polygon', color: 'polygon' },
+  { code: 'bitcoin', name: 'Bitcoin', color: 'bitcoin' },
+]
