@@ -1,48 +1,78 @@
 describe('some other tests', () => {
     beforeEach(() => {
-    cy.visit('/app/graduate');
+    cy.visit('/');
   });
-
-  //it('check the login button redirection', () => {
-  //    
-  //      cy.url().should('include', '/app/graduate');
-//
-  //      cy.get('#error-container')
-  //          .should('be.visible')
-  //          .contains('Log In')
-  //          .click({force: true});
-  //      
-  //      cy.url().should('include', '/login');
-  //});
-
-  it('check the spotly link redirect', () => {
-    cy.url().should('include', '/app/graduate');
-
-    cy.get('[aria-label="Go Home"]')
-        .click({force: true})
-    
-    cy.url().should('include', '/');
-  });
-
 
   it('verification the correct change of theme', () => {
-    
-    cy.get('[aria-label="Dark mode"]').click({force: true, multiple: true})
-    cy.wait(1000)
 
-    cy.get('[class="hidden dark:block"]').click({force: true, multiples: true})
-    cy.wait(1000)
+    // image (moon) shown on button
+    cy.get('[aria-label="Dark mode"]')
+        .find('span')
+        .find('[aria-label="Dark mode"]')
+        .as('imgDark')
 
-    cy.get('[class="hidden dark:block"]')
+    // image (sun) shown on button
+    cy.get('[aria-label="Dark mode"]')
+        .find('span')
+        .find('[aria-label="Light mode"]')
+        .as('imgLight')
+
+    cy.wait(1500)
+    cy.get('[aria-label="Dark mode"]')
+        .first()
+        .click()
+
+    cy.get('@imgDark')
         .should('be.visible')
 
-    //cy.get('[aria-label="Dark mode"]').click({force: true, multiple: true})
-    //cy.wait(1000)
+    cy.wait(1500)
+    cy.get('[aria-label="Dark mode"]')
+        .last()
+        .click()
 
-    cy.get('[class="block dark:hidden"]').click({force: true, multiple: true})
-    cy.wait(1000)
-
-    cy.get('[class="block dark:hidden"]')
+    cy.wait(1500)
+    cy.get('@imgLight')
         .should('be.visible')
   });
+
+  it('checking the links on the footer', () => {
+
+      cy.get('footer')
+        .find('div:contains("Resources")')
+        .find('a:contains("Flowbite")') 
+        .should('have.attr', 'href', 'https://flowbite-svelte.com/')
+        .should('have.attr', 'target', '_blank');
+
+      cy.get('footer')
+        .find('div:contains("Resources")')
+        .find('a:contains("Tailwind CSS")') 
+        .should('have.attr', 'href', 'https://tailwindcss.com/')
+        .should('have.attr', 'target', '_blank');
+
+      cy.get('footer')
+        .find('div:contains("Follow us")')
+        .find('a:contains("GitHub")') 
+        .should('have.attr', 'href', 'https://github.com/team-gamma-devs')
+        .should('have.attr', 'target', '_blank');
+
+      cy.get('footer')
+        .find('div:contains("Follow us")')
+        .find('li a:contains("Discord")') 
+        .should('have.attr', 'href', 'https://discord.gg/HU3s6k2hrf')
+        .should('have.attr', 'target', '_blank');
+
+      cy.get('footer')
+        .find('div:contains("Legal")')
+        .find('li a:contains("Privacy Policy")') 
+        .click({force: true})
+
+      cy.url('http://localhost:5173/legal')
+
+      cy.get('footer')
+        .find('div:contains("Legal")')
+        .find('a:contains("Terms & Conditions")') 
+        .click({force: true})
+
+      cy.url('http://localhost:5173/tac')
+  })
 });
