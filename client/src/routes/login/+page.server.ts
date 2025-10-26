@@ -29,8 +29,6 @@ export const actions: Actions = {
 		try {
 			const body = { email };
 
-			// Aca fede me tenes que devolver alguna forma de authentication, un token temporal o algo que yo pueda guardar
-			// Y luego hacer un fetch al backend para validad la sesion. Yo uso access_token.
 			const response = await signedJsonFetch(`${BACKEND_URL}/auth/login`, {
 				method: 'POST',
 				body: JSON.stringify(body),
