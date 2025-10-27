@@ -15,10 +15,13 @@
 
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { supabase } from '$lib/supabaseClient';
 
 export const actions: Actions = {
 	default: async ({ cookies }) => {
-		cookies.delete('spotly_session', { path: '/' });
+		supabase.auth.signOut();
+		cookies.delete('supabase_access_token', { path: '/' });
+		cookies.delete('supabase_refresh_token', {path: '/'});
 		cookies.delete('github_token', { path: '/' });
 		cookies.delete('github_username', { path: '/' });
 		

@@ -2,6 +2,7 @@ import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { mockUserState } from './lib/mocks/mockUserState';
+import type { UserState } from './ambient';
 
 import { dev } from '$app/environment';
 
@@ -21,7 +22,7 @@ import { dev } from '$app/environment';
  * @returns {Promise<import('@sveltejs/kit').Response>} The resolved response object.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-	const sessionToken = event.cookies.get('spotly_session');
+	const sessionToken = event.cookies.get('supabase_access_token');
 	// ************** DEVELOPMENT *******************
 	// if (dev) {
 	// 	event.locals.user = mockUserState;
@@ -47,7 +48,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} else {
 			// Sync this with logout/+page.server.ts
 			event.locals.user = null;
-			event.cookies.delete('spotly_session', { path: '/' });
+			event.cookies.delete('supabase_access_token', { path: '/' });
 			event.cookies.delete('github_token', { path: '/' });
 			event.cookies.delete('github_username', { path: '/' });
 		}

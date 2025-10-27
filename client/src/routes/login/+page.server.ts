@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect,  } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
@@ -22,6 +22,8 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const email = form.get('email');
 
+		console.log("THIS IS THE EMAIL: " + email);
+
 		if (!email || typeof email !== 'string') {
 			return fail(400, { error: 'A valid email is required.' });
 		}
@@ -34,34 +36,40 @@ export const actions: Actions = {
 				body: JSON.stringify(body),
 			});
 
+			console.log(`THIS IS THE RESPONSE: ${JSON.stringify(response)}`);
+
 			if (!response.ok) {
 				const errorData = await response.json();
 				return fail(response.status, { error: errorData.detail || 'Login failed.' });
-			}
-
-			const loginData = await response.json();
-			if (loginData.isFirstTime) {
-				const signupToken = loginData.signup_token;
-				if (!signupToken) {
-					return fail(500, { error: 'Signup token was not provided for a new user.' });
-				}
-				throw redirect(303, `/app/graduate/upload_cv?token=${signupToken}`);
 			} else {
-				const accessToken = loginData.access_token;
-				if (!accessToken) {
-					return fail(500, { error: 'Access token was not provided for an existing user.' });
-				}
-
-				cookies.set('spotly_session', accessToken, {
-					path: '/',
-					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production', // pnpm handles env with pnpm dev | run build, how delightful!!!
-					maxAge: 60 * 60 * 24 * 7, // 1 week
-					sameSite: 'lax',
-				});
-
-				throw redirect(303, '/app/graduate');
+						return { success: true, msg: `Access link sent to: ${email}` };
 			}
+
+			
+
+			// if (loginData.isFirstTime) {
+			// 	const signupToken = loginData.signup_token;
+			// 	if (!signupToken) {
+			// 		return fail(500, { error: 'Signup token was not provided for a new user.' });
+			// 	}
+			// 	throw redirect(303, `/app/graduate/upload_cv?token=${signupToken}`);
+			// } else {
+			// 	const accessToken = loginData.access_token;
+			// 	if (!accessToken) {
+			// 		return fail(500, { error: 'Access token was not provided for an existing user.' });
+			// 	}
+
+			// 	cookies.set('spotly_session', accessToken, {
+			// 		path: '/',
+			// 		httpOnly: true,
+			// 		secure: process.env.NODE_ENV === 'production', // pnpm handles env with pnpm dev | run build, how delightful!!!
+			// 		maxAge: 60 * 60 * 24 * 7, // 1 week
+			// 		sameSite: 'lax',
+			// 	});
+
+			// 	throw redirect(303, '/app/graduate');
+			// }
+
 		} catch (error: any) {
 			console.error('Error calling login endpoint:', error);
 

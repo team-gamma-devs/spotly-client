@@ -29,7 +29,7 @@
 				if (result.data.success === false) {
 					errorMessage = String(result.data.error) || 'Something went wrong';
 				} else {
-					successMessage = 'Email sent successfully!';
+					successMessage = String(result.data.msg);
 				}
 			} else if (result.type === 'redirect') {
 				successMessage = 'Redirecting...';
@@ -73,7 +73,7 @@
 	<p class="text-sm mt-3 mb-5 text-right dark:text-gray-400 w-full">*Use your Holberton email</p>
 <a
 	href="/login/help"
-	class="block mt-2 text-sm text-center text-blue-600 hover:text-blue-800 
+	class="w-fit m-auto block mt-2 text-sm text-center text-blue-600 hover:text-blue-800 
            dark:text-blue-300 dark:hover:text-blue-200 underline underline-offset-2 transition-colors"
 	aria-label="Need help logging in"
 >
@@ -84,7 +84,7 @@
 		type="submit"
 		color="green"
 		class="block w-48 mx-auto font-bold cursor-pointer text-white hover:bg-green-600 hover:text-white mt-10 flex items-center justify-center"
-		disabled={loading}
+		disabled={loading || !!successMessage}
 		aria-busy={loading}
 		{loading}
 	>
