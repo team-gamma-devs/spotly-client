@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import GenericBoxInvisible from '$lib/components/main/utils/GenericBoxInvisible.svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
@@ -13,10 +13,10 @@
 	let loading = true;
 
 	onMount(() => {
-		success = $page.url.searchParams.get('success') === 'true';
-		username = $page.url.searchParams.get('username') || '';
-		error = $page.url.searchParams.get('error') || '';
-		message = $page.url.searchParams.get('message')?.replace(/\+/g, ' ') || '';
+		success = page.url.searchParams.get('success') === 'true';
+		username = page.url.searchParams.get('username') || '';
+		error = page.url.searchParams.get('error') || '';
+		message = page.url.searchParams.get('message')?.replace(/\+/g, ' ') || '';
 		loading = false;
 	});
 </script>
@@ -35,12 +35,12 @@
 	<GenericBoxVisible>
 		<div class="flex flex-col items-center justify-center gap-4 px-6 py-8">
 			{#if loading}
-				<!-- Loading State -->
+				<!-- ******* Loading State ************ -->
 				<div class="w-full max-w-sm space-y-4">
 					<Spinner size="16" color="primary"/>
 				</div>
 			{:else if success}
-				<!-- Success State -->
+				<!-- ********* Success State *********** -->
 				<div class="success-icon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
