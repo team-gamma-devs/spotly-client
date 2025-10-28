@@ -24,9 +24,10 @@ export interface MongoDate {
 
 export type UserRole = 'graduate' | 'manager';
 
-export type EnglishLevel = 'basic' | 'intermediate' | 'advanced' ;
+export type EnglishLevel = 'basic' | 'intermediate' | 'advanced';
 
 export interface UserCVInfo {
+  github_info: string;
   personal_cv_url: string;
   personal_cv_path: string;
   linkedin_url: string;
@@ -46,7 +47,6 @@ export interface UserState {
   role: UserRole;
   created_at: MongoDate;
   updated_at: MongoDate;
-  github_info: string;
   cv_info: UserCVInfo;
   cohort: number;
 }
@@ -59,11 +59,11 @@ export const mockUserState: UserState = {
   avatar_url:
     'https://media.4-paws.org/d/2/5/f/d25ff020556e4b5eae747c55576f3b50886c0b90/cut%20cat%20serhio%2002-1813x1811-720x719.jpg',
   avatar_path: '',
-  role: 'graduate',
+  role: 'manager',
   created_at: { $date: '2025-10-25T19:43:24.025Z' },
   updated_at: { $date: '2025-10-25T19:43:24.025Z' },
-  github_info: 'https://github.com/federico-paganini',
   cv_info: {
+    github_info: 'https://github.com/federico-paganini',
     personal_cv_url:
       '',
     personal_cv_path: '',
@@ -92,7 +92,7 @@ export const mockUserState: UserState = {
       'HTML',
       'GitHub',
     ],
-    english_level: 'intermediate',
+    english_level: 'advanced',
     works_in_it: true,
     last_update: { $date: '2025-10-25T19:43:23.457Z' },
   },

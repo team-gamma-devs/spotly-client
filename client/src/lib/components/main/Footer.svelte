@@ -3,7 +3,7 @@
 	import { GithubSolid, DiscordSolid } from 'flowbite-svelte-icons';
 </script>
 
-<Footer footerType="socialmedia" class="bg-background dark:bg-background rounded-none blur-bg">
+<Footer footerType="socialmedia" class="bg-background dark:bg-background rounded-none backdrop-blur-xl">
 	<div class="md:flex md:justify-between">
 		<div class="mb-6 md:mb-0 zalando-font">
 			<FooterBrand href="https://spotly.com" src="/icos/spotly-logo-color.svg" alt="Spotly Logo" name="Spotly" />

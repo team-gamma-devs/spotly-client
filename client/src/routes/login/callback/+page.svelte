@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts">  
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { supabase } from '$lib/supabaseClient';
@@ -8,7 +8,6 @@
 	onMount(async () => {
 		const hashParams = new URLSearchParams(window.location.hash.substring(1));
 
-		// Check for errors first
 		const error = hashParams.get('error');
 		const error_code = hashParams.get('error_code');
 		const error_description = hashParams.get('error_description');
@@ -16,7 +15,6 @@
 		if (error) {
 			console.error('Auth error:', error_code, error_description);
 
-			// Handle specific error cases
 			if (error_code === 'otp_expired') {
 				goto('/login?error=link_expired');
 				return;
@@ -28,15 +26,12 @@
 				return;
 			}
 		}
-
-		// Continue with normal flow
 		const access_token = hashParams.get('access_token');
 		const refresh_token = hashParams.get('refresh_token');
 		const type = hashParams.get('type');
 
 		if (access_token && type === 'magiclink') {
 			try {
-				// Set the session in Supabase client
 				const { data, error } = await supabase.auth.setSession({
 					access_token,
 					refresh_token: refresh_token || '',
@@ -54,7 +49,6 @@
 
 				const userData = await response.json();
 
-				// Redirect based on user data
 				if (userData?.role === 'manager') {
 					goto('/app/manager');
 				} else if (userData?.isFirstTime) {

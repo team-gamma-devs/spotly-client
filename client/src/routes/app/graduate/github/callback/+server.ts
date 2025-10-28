@@ -56,16 +56,16 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     const tokenData = await tokenResponse.json();
 
     // DEBUG: log response
-    console.log('GitHub OAuth Token Response:', {
-      hasAccessToken: !!tokenData.access_token,
-      tokenType: tokenData.token_type,
-      scope: tokenData.scope,
-      tokenPreview: tokenData.access_token?.slice(0, 20) + '...',
-      fullResponse: tokenData
-    });
+    // console.log('GitHub OAuth Token Response:', {
+    //   hasAccessToken: !!tokenData.access_token,
+    //   tokenType: tokenData.token_type,
+    //   scope: tokenData.scope,
+    //   tokenPreview: tokenData.access_token?.slice(0, 20) + '...',
+    //   fullResponse: tokenData
+    // });
 
     if (!tokenData.access_token) {
-      console.error('No access token in response:', tokenData);
+      console.error('No access token in response');
       throw redirect(303, '/app/graduate/github/result?error=no_token');
     }
 
@@ -89,10 +89,10 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     const userData = await userResponse.json();
 
     // DEBUG: Log basic user info
-    console.log('GitHub User Data:', {
-      login: userData.login,
-      id: userData.id
-    });
+    // console.log('GitHub User Data:', {
+    //   login: userData.login,
+    //   id: userData.id
+    // });
 
     cookies.set('github_token', tokenData.access_token, {
       path: '/',
@@ -111,17 +111,16 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     });
 
     // DEBUG: ookies are set?
-    console.log('Cookies set successfully:', {
-      token: cookies.get('github_token')?.slice(0, 20) + '...',
-      username: cookies.get('github_username')
-    });
+    // console.log('Cookies set successfully:', {
+    //   token: cookies.get('github_token')?.slice(0, 20) + '...',
+    //   username: cookies.get('github_username')
+    // });
 
     throw redirect(303, '/app/graduate/github/result?success=true');
   } catch (error: any) {
     console.error('GitHub OAuth callback error:', error);
 
     if (error.status === 303) throw error;
-
     throw redirect(303, '/app/graduate/github/result?error=oauth_failed');
   }
 };

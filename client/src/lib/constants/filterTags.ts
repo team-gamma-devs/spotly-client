@@ -18,10 +18,6 @@ export type FilterTag = {
 	color: string; // CSS variable name (--color-react, --color-typescript)
 };
 
-export const selectableFilterTags: FilterTag[] = [
-	// This is the array you must update with the backend available tags.
-]
-
 export const availableFilterTags: FilterTag[] = [
 	// In this array you must set all available tags that are ready to be setted by a graduate in his settings page.
   // Frontend Frameworks & Libraries

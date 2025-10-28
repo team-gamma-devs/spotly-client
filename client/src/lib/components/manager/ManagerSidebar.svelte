@@ -22,6 +22,13 @@
 	const demoSidebarUi = uiHelpers();
 	const closeDemoSidebar = demoSidebarUi.close;
 
+	type Props = {
+		availableTags: string[];
+		tagsError: string | null;
+	};
+
+	let { availableTags, tagsError }: Props = $props();
+
 	let activeClass = 'p-2 bg-primary-300 dark:bg-primary-300 hover:bg-red-100'; // this comes from Flowbite's Sidebar component. So I can't really modify it.
 	let nonActiveClass = 'p-2 hover:bg-gray-300'; // Currently only nonActiveClass applies, IDK why.
 
@@ -213,7 +220,7 @@
 					{#if selectedFilter === 'Technologies'}
 						<SidebarGroup border>
 							Available Tags
-							<AvailableTagsBox keyword={techKeyword} {selectedTags} {selectTag} />
+							<AvailableTagsBox keyword={techKeyword} {selectedTags} {selectTag} {availableTags} {tagsError} />
 						</SidebarGroup>
 					{/if}
 				</div>

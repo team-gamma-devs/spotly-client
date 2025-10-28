@@ -1,3 +1,5 @@
+/** File Location:  */
+
 import { fail, redirect,  } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
@@ -36,7 +38,7 @@ export const actions: Actions = {
 				body: JSON.stringify(body),
 			});
 
-			console.log(`THIS IS THE RESPONSE: ${JSON.stringify(response)}`);
+			// console.log(`THIS IS THE RESPONSE: ${JSON.stringify(response)}`);
 
 			if (!response.ok) {
 				const errorData = await response.json();
