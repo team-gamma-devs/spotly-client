@@ -171,9 +171,9 @@ export const actions: Actions = {
 			const url = new URL(`${BACKEND_URL}/signup`);
 			// url.searchParams.append('token', magicToken);
 
-			console.log('=== Sending to backend ===');
-			console.log('URL:', url.toString());
-			console.log('FormData keys:', Array.from(formData.keys()));
+			// console.log('=== Sending to backend ===');
+			// console.log('URL:', url.toString());
+			// console.log('FormData keys:', Array.from(formData.keys()));
 
 			const response = await signedMultipartFetch(url.toString(), {
 				method: 'POST',
@@ -195,7 +195,7 @@ export const actions: Actions = {
 
 			const responseData = await response.json();
 
-			console.log('Success response:', responseData);
+			// console.log('Success response:', responseData);
 
 			const jwt = responseData.accessToken;
 
@@ -212,7 +212,7 @@ export const actions: Actions = {
 			};
 		} catch (error: any) {
 
-			console.error('Error uploading files:', error);
+			// console.error('Error uploading files:', error);
 
 			if (error.cause?.code === 'ECONNREFUSED') {
 				return fail(503, {
