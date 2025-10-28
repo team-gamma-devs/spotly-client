@@ -6,46 +6,10 @@
 	import { GithubSolid, LinkedinSolid, FileCheckSolid } from 'flowbite-svelte-icons';
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 	import murica from '$lib/assets/svgs/united-states-flag-icon.svg';
+	import { mockUserState } from '$lib/mocks/mockUserState';
 
 	// const userData = page.data.user || { uncomment when you want to use the real user
-	const userData = {
-		first_name: 'Federico',
-		last_name: 'P',
-		email: '',
-		avatar_url: pfpFallback,
-		role: 'graduate',
-		cohort: 26,
-		cv_info: {
-			personal_cv_url: '',
-			linkedin_url: '',
-			github_info: 'https://github.com/federico-paganini',
-			skills: [
-				'Docker',
-				'React',
-				'Git',
-				'SQL',
-				'Flask',
-				'Nginx',
-				'MongoDB',
-				'AWS',
-				'JavaScript',
-				'TypeScript',
-				'Docker Compose',
-				'C',
-				'Bootstrap',
-				'Node.js',
-				'REST',
-				'CSS',
-				'Unittest',
-				'Python',
-				'FastAPI',
-				'HTML',
-				'GitHub',
-			],
-			english_level: 'intermediate',
-			works_in_it: true,
-		},
-	};
+	const userData = mockUserState;
 
 	const userName = `${userData.first_name} ${userData.last_name}`;
 
