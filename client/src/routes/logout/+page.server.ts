@@ -14,16 +14,19 @@
 // → event.locals.user = null
 
 import { redirect } from '@sveltejs/kit';
+import { supabase } from '$lib/supabaseClient';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ cookies }) => {
-		cookies.delete('spotly_session', { path: '/' });
+		cookies.delete('access_token', { path: '/' });
+		cookies.delete('refresh_token', { path: '/' });
 		cookies.delete('github_token', { path: '/' });
 		cookies.delete('github_username', { path: '/' });
-		
-		console.log('Deleting session and GitHub auth...');
-		
+		supabase.auth.signOut();
+
+		console.log('Goodbye...');
+
 		throw redirect(303, '/login');
 	}
 };

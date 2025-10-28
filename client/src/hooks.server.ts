@@ -2,6 +2,8 @@ import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { mockUserState } from './lib/mocks/mockUserState';
+import { supabase } from '$lib/supabaseClient';
+import type { UserAuthMe } from '$lib/mocks/mockUserMe';
 
 import { dev } from '$app/environment';
 
@@ -21,7 +23,7 @@ import { dev } from '$app/environment';
  * @returns {Promise<import('@sveltejs/kit').Response>} The resolved response object.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-	const sessionToken = event.cookies.get('spotly_session');
+	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
 	if (dev) {
 		event.locals.user = mockUserState;
@@ -42,18 +44,26 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 
 		if (response.ok) {
-			const user = await response.json();
+			const user: UserAuthMe = await response.json();
 			event.locals.user = user;
 		} else {
 			// Sync this with logout/+page.server.ts
+			console.error('Error in backend authentication response, Contact backend support.');
 			event.locals.user = null;
-			event.cookies.delete('spotly_session', { path: '/' });
+			supabase.auth.signOut();
+			event.cookies.delete('access_token', { path: '/' });
+			event.cookies.delete('refresh_token', { path: '/' });
 			event.cookies.delete('github_token', { path: '/' });
 			event.cookies.delete('github_username', { path: '/' });
 		}
 	} catch (error) {
 		console.error('Error validating session with backend:', error);
 		event.locals.user = null;
+		supabase.auth.signOut();
+		event.cookies.delete('access_token', { path: '/' });
+		event.cookies.delete('refresh_token', { path: '/' });
+		event.cookies.delete('github_token', { path: '/' });
+		event.cookies.delete('github_username', { path: '/' });
 	}
 	return resolve(event);
 };
