@@ -25,7 +25,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import type { Snippet } from 'svelte';
-	import type { User } from '../../../../ambient';
+	import type { UserState } from '../../../../ambient';
 	import Unauthorized from '$lib/components/error/Unauthorized.svelte'; // Can't use 
 	import { goto } from '$app/navigation';
 
@@ -37,13 +37,13 @@
 
 	let { authorizedContent, unauthorizedContent, requiredRole }: AuthBoxProps = $props();
 
-	const user: User = $derived(page.data.user);
+	const user: UserState = $derived(page.data.user);
 
 	/**
 	 * A pure function to calculate the authorization status.
 	 */
 	function getAuthStatus(
-		currentUser: User,
+		currentUser: UserState,
 		role?: 'manager' | 'graduate',
 	): 'LOGGED_OUT' | 'AUTHORIZED' | 'UNAUTHORIZED_ROLE' {
 		if (!currentUser) {

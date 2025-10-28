@@ -168,7 +168,7 @@ export const actions: Actions = {
 		// }
 
 		try {
-			const url = new URL(`${BACKEND_URL}/signup`);
+			const url = new URL(`${BACKEND_URL}/sign-up`);
 			// url.searchParams.append('token', magicToken);
 
 			// console.log('=== Sending to backend ===');

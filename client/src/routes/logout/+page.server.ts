@@ -16,6 +16,7 @@
 import { redirect } from '@sveltejs/kit';
 import { supabase } from '$lib/supabaseClient';
 import type { Actions } from './$types';
+import { supabase } from '$lib/supabaseClient';
 
 export const actions: Actions = {
 	default: async ({ cookies }) => {
