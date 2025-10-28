@@ -3,17 +3,17 @@
 // I'm thinking that feedback should be rated like this: ["Poor", "Average", "Good", "Excellent"] 
 type Annotation = {
 	id: string;
-	created_at: string;
+	createdAt: string;
 	message: string;
-	tutorId: string;
 };
 
 type TutorFeedback = {
-	[tutorId: string]: {
-		created_at: string;
-		professional_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
-		technical_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
+	[feedbackId: string]: {
+		createdAt: string;
+		professionalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
+		technicalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
 		tutorName: string;
+		tutorId: string;
 	};
 };
 
@@ -26,12 +26,12 @@ type Graduate = {
 	englishLevel: 'Basic' | 'Intermediate' | 'Advanced';
 	cohort: string;
 	techStack: string[];
-	githubUrl: string;
-	linkedinUrl: string;
+	githubUrl: string | null;
+	linkedinUrl: string | null;
+	annotations: Annotation[] | null;
+	tutorsFeedback: TutorFeedback | null;
 	updatedAt: string;
-	annotations: Annotation[];
-	tutorsFeedback: TutorFeedback;
-	works_in_it: boolean;
+	worksInIt: boolean;
 };
 
 export const mockGraduates: Graduate[] = [
@@ -50,19 +50,17 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-1111-111111111111',
-				created_at: '2025-10-18T14:30:00.000Z',
+				createdAt: '2025-10-18T14:30:00.000Z',
 				message: 'Excellent problem solver, very proactive in team discussions.',
-				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-2222-222222222222',
-				created_at: '2025-10-10T09:15:00.000Z',
+				createdAt: '2025-10-10T09:15:00.000Z',
 				message: 'Strong frontend skills, delivered pixel-perfect designs.',
-				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 		],
 		tutorsFeedback: {},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'a2b3c4d5-e6f7-8901-2345-678901bcdefg',
@@ -79,20 +77,20 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-3333-333333333333',
-				created_at: '2025-10-19T11:45:00.000Z',
+				createdAt: '2025-10-19T11:45:00.000Z',
 				message: 'Great at backend architecture and API design.',
-				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 		],
 		tutorsFeedback: {
-			'd4e5f6a7-b8c9-0123-4567-def012234567': {
-				created_at: '2025-10-12T14:20:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Excellent',
+			'feedback-001': {
+				createdAt: '2025-10-12T14:20:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Excellent',
 				tutorName: 'Ignacio Capenziani',
+				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'b3c4d5e6-f7a8-9012-3456-789012cdefgh',
@@ -109,38 +107,37 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-4444-444444444444',
-				created_at: '2025-10-17T08:30:00.000Z',
+				createdAt: '2025-10-17T08:30:00.000Z',
 				message: 'Consistently delivers clean, well-documented code.',
-				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-5555-555555555555',
-				created_at: '2025-10-05T13:00:00.000Z',
+				createdAt: '2025-10-05T13:00:00.000Z',
 				message: 'Mentored junior students during peer learning sessions.',
-				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-6666-666666666666',
-				created_at: '2025-09-22T16:45:00.000Z',
+				createdAt: '2025-09-22T16:45:00.000Z',
 				message: 'Led the team project with excellent communication.',
-				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 		],
 		tutorsFeedback: {
-			'd4e5f6a7-b8c9-0123-4567-def012234567': {
-				created_at: '2025-10-10T09:00:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Good',
+			'feedback-002': {
+				createdAt: '2025-10-10T09:00:00.000Z',
+				professionalScore: 'Excellent',
+				technicalScore: 'Good',
 				tutorName: 'Ignacio Capenziani',
+				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
-			'e5f6a7b8-c9d0-1234-5678-ef0123456789': {
-				created_at: '2025-09-30T15:30:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Poor',
+			'feedback-003': {
+				createdAt: '2025-09-30T15:30:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Poor',
 				tutorName: 'Javier Valezzolo',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'c4d5e6f7-a8b9-0123-4567-890123defghi',
@@ -156,14 +153,15 @@ export const mockGraduates: Graduate[] = [
 		updatedAt: 'Oct 20, 2025',
 		annotations: [],
 		tutorsFeedback: {
-			'e5f6a7b8-c9d0-1234-5678-ef0123456789': {
-				created_at: '2025-10-18T11:15:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Poor',
+			'feedback-004': {
+				createdAt: '2025-10-18T11:15:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Poor',
 				tutorName: 'Javier Valezzolo',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 		},
-		works_in_it: false,
+		worksInIt: false,
 	},
 	{
 		id: 'd5e6f7a8-b9c0-1234-5678-901234efghij',
@@ -180,26 +178,27 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-7777-777777777777',
-				created_at: '2025-10-16T10:20:00.000Z',
+				createdAt: '2025-10-16T10:20:00.000Z',
 				message: 'Exceptional attention to detail in UI/UX implementation.',
-				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
 		],
 		tutorsFeedback: {
-			'e5f6a7b8-c9d0-1234-5678-ef0123456789': {
-				created_at: '2025-10-08T13:45:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Average',
+			'feedback-005': {
+				createdAt: '2025-10-08T13:45:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Average',
 				tutorName: 'Javier Valezzolo',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
 			},
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-09-25T09:30:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Poor',
+			'feedback-006': {
+				createdAt: '2025-09-25T09:30:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Poor',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'e6f7a8b9-c0d1-2345-6789-012345fghijk',
@@ -216,26 +215,25 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-8888-888888888888',
-				created_at: '2025-10-19T15:00:00.000Z',
+				createdAt: '2025-10-19T15:00:00.000Z',
 				message: 'Strong understanding of microservices architecture.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-9999-999999999999',
-				created_at: '2025-10-12T11:30:00.000Z',
+				createdAt: '2025-10-12T11:30:00.000Z',
 				message: 'Always willing to help teammates debug issues.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-14T16:20:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Excellent',
+			'feedback-007': {
+				createdAt: '2025-10-14T16:20:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Excellent',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'f7a8b9c0-d1e2-3456-7890-123456ghijkl',
@@ -252,26 +250,27 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-aaaa-aaaaaaaaaaaa',
-				created_at: '2025-10-15T09:45:00.000Z',
+				createdAt: '2025-10-15T09:45:00.000Z',
 				message: 'Demonstrated strong test-driven development practices.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-09T12:00:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Good',
+			'feedback-008': {
+				createdAt: '2025-10-09T12:00:00.000Z',
+				professionalScore: 'Excellent',
+				technicalScore: 'Good',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
-			'd4e5f6a7-b8c9-0123-4567-def012234567': {
-				created_at: '2025-09-27T14:30:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Excellent',
+			'feedback-009': {
+				createdAt: '2025-09-27T14:30:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Excellent',
 				tutorName: 'Ignacio Capenziani',
+				tutorId: 'd4e5f6a7-b8c9-0123-4567-def012234567',
 			},
 		},
-		works_in_it: false,
+		worksInIt: false,
 	},
 	{
 		id: 'a8b9c0d1-e2f3-4567-8901-234567hijklm',
@@ -288,26 +287,25 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-bbbb-bbbbbbbbbbbb',
-				created_at: '2025-10-18T13:15:00.000Z',
+				createdAt: '2025-10-18T13:15:00.000Z',
 				message: 'Deep understanding of low-level programming concepts.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-cccc-cccccccccccc',
-				created_at: '2025-10-07T10:00:00.000Z',
+				createdAt: '2025-10-07T10:00:00.000Z',
 				message: 'Contributed to open source project during cohort.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-11T15:45:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Poor',
+			'feedback-010': {
+				createdAt: '2025-10-11T15:45:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Poor',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		},
-		works_in_it: false,
+		worksInIt: false,
 	},
 	{
 		id: 'b9c0d1e2-f3a4-5678-9012-345678ijklmn',
@@ -324,26 +322,27 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-dddd-dddddddddddd',
-				created_at: '2025-10-20T08:00:00.000Z',
+				createdAt: '2025-10-20T08:00:00.000Z',
 				message: 'Creates beautiful, responsive user interfaces.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-16T10:30:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Excellent',
+			'feedback-011': {
+				createdAt: '2025-10-16T10:30:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Excellent',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
-			'f6a7b8c9-d0e1-2345-6789-0123456789ab': {
-				created_at: '2025-10-02T13:20:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Excellent',
+			'feedback-012': {
+				createdAt: '2025-10-02T13:20:00.000Z',
+				professionalScore: 'Excellent',
+				technicalScore: 'Excellent',
 				tutorName: 'Javier Cappenziani',
+				tutorId: 'f6a7b8c9-d0e1-2345-6789-0123456789ab',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'c0d1e2f3-a4b5-6789-0123-456789jklmno',
@@ -360,26 +359,25 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-eeee-eeeeeeeeeeee',
-				created_at: '2025-10-17T14:45:00.000Z',
+				createdAt: '2025-10-17T14:45:00.000Z',
 				message: 'Reliable team member, always meets deadlines.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 			{
 				id: 'a1b2c3d4-e5f6-7890-ffff-ffffffffffff',
-				created_at: '2025-10-08T09:30:00.000Z',
+				createdAt: '2025-10-08T09:30:00.000Z',
 				message: 'Good understanding of security best practices.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-13T11:00:00.000Z',
-				professional_score: 'Good',
-				technical_score: 'Good',
+			'feedback-013': {
+				createdAt: '2025-10-13T11:00:00.000Z',
+				professionalScore: 'Good',
+				technicalScore: 'Good',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'd1e2f3a4-b5c6-7890-1234-567890klmnop',
@@ -396,26 +394,27 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'a1b2c3d4-e5f6-7890-0000-000000000000',
-				created_at: '2025-10-20T08:00:00.000Z',
+				createdAt: '2025-10-20T08:00:00.000Z',
 				message: 'Incredible! The Goat!',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-16T10:30:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Average',
+			'feedback-014': {
+				createdAt: '2025-10-16T10:30:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Average',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
-			'e5f6a7b8-c9d0-1234-5678-ef0123345678': {
-				created_at: '2025-10-02T13:20:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Excellent',
+			'feedback-015': {
+				createdAt: '2025-10-02T13:20:00.000Z',
+				professionalScore: 'Excellent',
+				technicalScore: 'Excellent',
 				tutorName: 'Bill Gates',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123345678',
 			},
 		},
-		works_in_it: true,
+		worksInIt: true,
 	},
 	{
 		id: 'a1b2c3d4-e5f6-7890-1234-abcdeffedcba',
@@ -432,25 +431,26 @@ export const mockGraduates: Graduate[] = [
 		annotations: [
 			{
 				id: 'b2c3d4e5-f6a7-8901-2345-bcdef0012345',
-				created_at: '2025-10-20T08:00:00.000Z',
+				createdAt: '2025-10-20T08:00:00.000Z',
 				message: 'Incredible! The Goat!',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
 		],
 		tutorsFeedback: {
-			'c3d4e5f6-a7b8-9012-3456-cdef01123456': {
-				created_at: '2025-10-16T10:30:00.000Z',
-				professional_score: 'Poor',
-				technical_score: 'Average',
+			'feedback-016': {
+				createdAt: '2025-10-16T10:30:00.000Z',
+				professionalScore: 'Poor',
+				technicalScore: 'Average',
 				tutorName: 'Pagarico Fedenini',
+				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
 			},
-			'e5f6a7b8-c9d0-1234-5678-ef0123345678': {
-				created_at: '2025-10-02T13:20:00.000Z',
-				professional_score: 'Excellent',
-				technical_score: 'Excellent',
+			'feedback-017': {
+				createdAt: '2025-10-02T13:20:00.000Z',
+				professionalScore: 'Excellent',
+				technicalScore: 'Excellent',
 				tutorName: 'Bill Gates',
+				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123345678',
 			},
 		},
-		works_in_it: false,
+		worksInIt: false,
 	},
 ];
