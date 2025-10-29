@@ -12,6 +12,7 @@
 	const userData = mockUserState;
 
 	const userName = `${userData.firstName} ${userData.lastName}`;
+	const userPfp = `${userData.avatarUrl || pfpFallback}`;
 
 	// same approach as in GraduateCard to convert skills to tachTags
 	const techTags = $derived(
@@ -39,7 +40,7 @@
 				<!-- ******* Header **************** -->
 				<div class="flex gap-4 items-start border-b border-gray-200 dark:border-gray-700 pb-6">
 					<div class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700">
-						<img src={userData.avatarUrl} alt="{userName}'s Profile" class="w-full h-full object-cover" />
+						<img src={userPfp} alt="{userName}'s Profile" class="w-full h-full object-cover" />
 					</div>
 
 					<div class="flex-1">

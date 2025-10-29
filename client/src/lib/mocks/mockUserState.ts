@@ -36,7 +36,7 @@ export const mockUserState: UserState = {
   email: 'perfedefer@gmail.com',
   avatarUrl:'',
   avatarPath: '',
-  role: 'manager',
+  role: 'graduate',
   createdAt: { $date: '2025-10-25T19:43:24.025Z' },
   updatedAt: { $date: '2025-10-25T19:43:24.025Z' },
   cvInfo: {

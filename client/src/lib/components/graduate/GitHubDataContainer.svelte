@@ -11,7 +11,7 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const githubUsername = $derived(data.githubUsername);
+	const githubUsername = $derived(data?.githubUsername);
 
 	let githubData: GithubData | null = $state(null);
 	let loading = $state(false);
@@ -129,23 +129,23 @@
 	});
 </script>
 
-<section class="github-container flex items-center justify-center">
+<section class="p-4 rounded-lg w-full flex items-center justify-center">
 	{#if githubUsername}
 		{#if loading}
-			<div class="loading-state">
+			<div class="flex flex-col items-center justify-center py-12 px-4">
 				<Spinner size="16" />
 				<p class="text-sm text-gray-500 mt-2">Loading GitHub data...</p>
 			</div>
 		{:else if error}
 			<!-- *************** Error ****************** -->
-			<div class="error-state">
+			<div class="flex flex-col items-center justify-center py-12 px-4">
 				<p class="text-red-500 text-sm">{error}</p>
 				<Button color="red" href="/app/graduate/github">Reconnect Github</Button>
 			</div>
 		{:else if githubData && chartOptions}
-			<div class="github-stats max-w-[2300px]">
+			<div class="w-full max-w-[2300px]">
 				<!-- ************** Profile Header ***************** -->
-				<div class="header-section mb-6">
+				<div class="mb-6">
 					<h3 class="text-xl font-semibold mb-2">GitHub Stats</h3>
 					<h4 class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
 						<a
@@ -162,14 +162,14 @@
 				</div>
 
 				<!-- ********** Profile Card ************* -->
-				<GenericBoxVisible classes="profile-card mb-6">
+				<GenericBoxVisible classes="p-6 rounded-lg mb-6 flex flex-col items-center text-center w-fit">
 					<div class="flex flex-col items-center text-center p-4">
 						<img
 							src={githubData.avatar_url}
 							alt="GitHub Avatar"
 							class="w-20 h-20 rounded-full mb-3 ring-2 ring-gray-200 dark:ring-gray-700"
 						/>
-						<div class="stats-row flex gap-4 text-sm text-gray-600 dark:text-gray-400">
+						<div class="flex gap-4 text-sm text-gray-600 dark:text-gray-400">
 							<span class="flex items-center gap-1">
 								<InboxFullSolid class="w-5 h-5" />
 								{githubData.public_repos} repos
@@ -182,32 +182,31 @@
 					</div>
 				</GenericBoxVisible>
 
-				<div class="grid-container">
+				<div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] lg:grid-cols-2 gap-6 w-full">
 					<!-- *************** Top Repos *************** -->
-					<div
-						class="chart-box content-box bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg"
-					>
-						<div class="box-header">
+					<div class="lg:col-span-2 bg-background dark:bg-background p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg w-full h-fit">
+						<div class="pb-3 mb-3 border-b border-gray-200 dark:border-gray-700">
 							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Top 5 Repositories</h4>
 							<p class="text-sm text-gray-500 dark:text-gray-400">By repository size</p>
 						</div>
-						<div class="chart-wrapper">
+						<div class="w-full min-h-[350px]">
 							<Chart options={chartOptions} />
 						</div>
 					</div>
 
 					<!-- *********** Repo Links ********************* -->
-					<div
-						class="links-box content-box bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg"
-					>
-						<div class="box-header">
+					<div class="bg-background dark:bg-background p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg w-full h-fit">
+						<div class="pb-3 mb-3 border-b border-gray-200 dark:border-gray-700">
 							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Quick Links</h4>
 						</div>
 						<div class="space-y-2">
 							{#each githubData.topRepos as repo}
-								<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="repo-link">
+								<a 
+									href={repo.html_url} 
+									target="_blank" 
+									rel="noopener noreferrer" 
+									class="block p-3 rounded-lg transition-all duration-200 bg-gray-800 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+								>
 									<div class="flex items-center justify-between gap-2">
 										<span class="text-sm font-medium truncate">{repo.name}</span>
 										<div class="flex items-center gap-2 text-xs shrink-0">
@@ -227,16 +226,13 @@
 					</div>
 
 					<!-- ************ Top Langs *********************** -->
-					<div
-						class="languages-box content-box bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg"
-					>
-						<div class="box-header">
+					<div class="bg-background dark:bg-background p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg blur-bg w-full h-fit">
+						<div class="pb-3 mb-3 border-b border-gray-200 dark:border-gray-700">
 							<h4 class="text-base font-semibold text-gray-900 dark:text-white">Top 5 Languages</h4>
 						</div>
 						<div class="space-y-3">
 							{#each githubData.languageStats as lang}
-								<div class="language-item">
+								<div class="w-full">
 									<div class="flex justify-between text-sm mb-1.5">
 										<span class="font-medium">{lang.name}</span>
 										<span class="text-gray-500 dark:text-gray-400">{lang.percentage.toFixed(1)}%</span>
@@ -256,7 +252,7 @@
 		{/if}
 	{:else}
 		<!-- Not Connected State -->
-		<div class="connect-prompt">
+		<div class="flex flex-col items-center justify-center py-12 px-4">
 			<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Connect your GitHub account to see your stats</p>
 			<BtnGitHubLogin targetUrl="/app/graduate/github" />
 			<h4 class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-5">
@@ -274,96 +270,3 @@
 		</div>
 	{/if}
 </section>
-
-<style>
-	.github-container {
-		padding: 1rem;
-		border-radius: 0.5rem;
-		width: 100%;
-	}
-
-	.loading-state,
-	.error-state,
-	.connect-prompt {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 3rem 1rem;
-	}
-
-	.github-stats {
-		width: 100%;
-	}
-
-	.grid-container {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 1.5rem;
-		width: 100%;
-	}
-
-	.content-box {
-		padding: 1.25rem;
-		border-radius: 0.5rem;
-		width: 100%;
-		height: fit-content;
-	}
-	/* svelte-ignore css-unused-selector */
-	.profile-card {
-		padding: 1.5rem;
-		border-radius: 0.5rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		width: fit-content;
-	}
-
-	/* chart box spans to 2 columns on big screens */
-	@media (min-width: 1024px) {
-		.grid-container {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.chart-box {
-			grid-column: span 2;
-		}
-	}
-
-	.box-header {
-		padding-bottom: 0.75rem;
-		margin-bottom: 0.75rem;
-		border-bottom: 1px solid rgb(229 231 235);
-	}
-
-	:global(.dark) .box-header {
-		border-bottom-color: rgb(55 65 81);
-	}
-
-	.chart-wrapper {
-		width: 100%;
-		min-height: 350px;
-	}
-
-	.repo-link {
-		display: block;
-		padding: 0.75rem;
-		border-radius: 0.5rem;
-		transition: all 0.2s;
-	}
-	/* don't add to tailwind cause it messes with mah flow. just let css handle on client. */
-	.repo-link:hover {
-		background-color: rgb(243 244 246);
-	}
-	:global(.dark) .repo-link {
-		background-color: rgb(31 41 55);
-	}
-	:global(.dark) .repo-link:hover {
-		background-color: rgb(55 65 81);
-	}
-
-	.language-item {
-		width: 100%;
-	}
-</style>
