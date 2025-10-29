@@ -16,9 +16,10 @@
 	import AuthBox from './utils/AuthBox.svelte';
 	import { page } from '$app/state';
 	import { enhance } from '$app/forms';
+	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 
 	const user = $derived(page.data.user);
-	const userPfp = $derived(page.data.user?.avatar_url || '$lib/assets/svgs/pfp-fallback.svg');
+	const userPfp = $derived(page.data.user.avatarUrl || pfpFallback);
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass =

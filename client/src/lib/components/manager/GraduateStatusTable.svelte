@@ -11,7 +11,7 @@
 		Input,
 		Modal,
 	} from 'flowbite-svelte';
-	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid } from 'flowbite-svelte-icons';
+	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid, FileCsvOutline } from 'flowbite-svelte-icons';
 	import { GraduatePills } from '$lib/mocks/mockGraduatePill';
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
@@ -96,6 +96,13 @@
 			closeModal();
 		}
 	}
+	async function handleAddTutorFeedback() {
+		// TODO: on tutor add feedbackamsdlmwkqo mdasd 
+		closeModal();
+	}
+	async function handleAddCSV() {
+		//TODO: manager can upload CSV and generate invitations.
+	}
 </script>
 
 <div class="flex gap-2 px-10 py-4 items-center justify-start bg-white dark:bg-background blur-bg">
@@ -103,6 +110,10 @@
 	<Button color="blue" onclick={handleSearch} class="cursor-pointer">
 		<SearchOutline class="w-5 h-5 me-2" />
 		Search
+	</Button>
+		<Button color="alternative" onclick={handleAddCSV} class="cursor-pointer">
+		<FileCsvOutline class="w-5 h-5 me-2" />
+		Upload CSV
 	</Button>
 </div>
 

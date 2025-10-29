@@ -34,7 +34,6 @@
 {#if showComingSoon}
 	<UnderConstruction />
 {:else}
-	<!-- Background image - fixed positioning -->
 	<div 
 		class="fixed inset-0 -z-10 pointer-events-none 
 			bg-[url('/images/abstract-bg-light-mobile.webp')] 
@@ -46,10 +45,9 @@
 		aria-hidden="true"
 	></div>
 	
-	<!-- Layout container -->
 	<div class="flex flex-col min-h-[100vh] bg-transparent">
 		<Header />
-		<main class="flex-1 min-h-[90dvh] pt-4 pb-8 mb-20 flex items-center flex-col justify-center text-foreground">
+		<main class="flex-1 min-h-[95dvh] flex items-center flex-col justify-center text-foreground">
 			{@render children?.()}
 		</main>
 		<Footer />
