@@ -59,14 +59,14 @@
 				{/snippet}
 			</SidebarItem>
 			<SidebarItem
-				label="GitHub Stats"
-				active={activeUrl === 'GitHub Stats'}
+				label="GitGudStats"
+				active={activeUrl === 'GitGudStats'}
 				class="cursor-pointer"
-				onclick={() => handleNavClick('GitHub Stats')}
+				onclick={() => handleNavClick('GitGudStats')}
 			>
 				{#snippet icon()}
 					<GithubSolid
-						class="h-5 w-5 text-foreground transition duration-75 {activeUrl === 'GitHub Stats'
+						class="h-5 w-5 text-foreground transition duration-75 {activeUrl === 'GitGudStats'
 							? 'text-black dark:text-white'
 							: 'text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'}"
 					/>
@@ -80,7 +80,7 @@
 		{#if activeUrl === 'Dashboard'}
 			<GraduateDashboard/>
 		<!-- ******** GITHUB DASHBOARD! ************** -->
-		{:else if activeUrl === 'GitHub Stats'} 
+		{:else if activeUrl === 'GitGudStats'} 
 			<GithubDataContainer {data} />
 		{/if}
 	</div>

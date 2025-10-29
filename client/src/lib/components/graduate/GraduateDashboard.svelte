@@ -34,7 +34,7 @@
 	id="graduate-cards-grid"
 	class="graduate-dashboard-container flex flex-col items-center justify-start gap-5 h-full"
 >
-	<div class="w-full max-w-[1300px]">
+	<div class="w-full max-w-[1600px]">
 		<GenericBoxVisible>
 			<div class="p-6 space-y-6">
 				<!-- ******* Header **************** -->

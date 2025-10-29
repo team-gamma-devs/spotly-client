@@ -12,6 +12,11 @@
 	let message = '';
 	let loading = true;
 
+	// Check if user has completed CV upload
+	const user = page.data.user;
+	const hasCompletedCV = user?.cvInfo?.personalCvPath || (user?.cvInfo?.skills && user.cvInfo.skills.length > 0);
+	const nextStepUrl = hasCompletedCV ? '/app/graduate' : '/app/graduate/upload_cv';
+
 	onMount(() => {
 		success = page.url.searchParams.get('success') === 'true';
 		username = page.url.searchParams.get('username') || '';
@@ -61,9 +66,15 @@
 				<h1 class="text-2xl font-semibold text-center">Connected Successfully!</h1>
 				<p class="text-center text-gray-600 dark:text-gray-400 max-w-sm">
 					Your GitHub account <strong class="text-foreground">@{username}</strong> has been connected.
-					You can now access your GitHub statistics.
+					{#if hasCompletedCV}
+						You can now view your updated profile.
+					{:else}
+						You can now access your GitHub statistics.
+					{/if}
 				</p>
-				<Button color="green" href="/app/graduate/upload_cv" class="mt-4 px-6 py-3">Continue to Next Step</Button>
+				<Button color="green" href={nextStepUrl} class="mt-4 px-6 py-3">
+					{hasCompletedCV ? 'Go to Dashboard' : 'Continue to Next Step'}
+				</Button>
 			{:else}
 				<!-- ******************** Error ************ -->
 				<div class="error-icon">
@@ -96,10 +107,10 @@
 						Try Again
 					</a>
 					<a
-						href="/app/graduate/upload_cv"
+						href={nextStepUrl}
 						class="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
 					>
-						Skip for Now
+						{hasCompletedCV ? 'Go to Dashboard' : 'Skip for Now'}
 					</a>
 				</div>
 			{/if}

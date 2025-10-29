@@ -3,6 +3,16 @@ import { env } from '$env/dynamic/private';
 
 const GITHUB_GRAPHQL_URL = env.GITHUB_GRAPHQL_URL;
 
+/**
+ * Represents a GitHub repository with relevant metadata
+ * @typedef {Object} GithubRepo
+ * @property {string} name - Repository name
+ * @property {string | null} description - Repository description
+ * @property {number} stargazers_count - Number of stars
+ * @property {string | null} language - Primary programming language
+ * @property {string} html_url - Repository URL
+ * @property {number} diskUsage - Repository size in kilobytes
+ */
 export type GithubRepo = {
   name: string;
   description: string | null;
@@ -12,12 +22,28 @@ export type GithubRepo = {
   diskUsage: number;
 };
 
+/**
+ * Represents language usage statistics across repositories
+ * @typedef {Object} GithubLanguageStats
+ * @property {string} name - Programming language name
+ * @property {number} bytes - Total bytes of code in this language
+ * @property {number} percentage - Percentage of total codebase
+ */
 export type GithubLanguageStats = {
   name: string;
   bytes: number;
   percentage: number;
 };
 
+/**
+ * Consolidated GitHub user data including repositories and statistics
+ * @typedef {Object} GithubData
+ * @property {string} avatar_url - URL to user's avatar image
+ * @property {number} public_repos - Total count of public repositories
+ * @property {number} followers - Number of followers
+ * @property {GithubRepo[]} topRepos - Top 5 repositories sorted by size
+ * @property {GithubLanguageStats[]} languageStats - Top 5 languages by usage
+ */
 export type GithubData = {
   avatar_url: string;
   public_repos: number;
@@ -26,6 +52,18 @@ export type GithubData = {
   languageStats: GithubLanguageStats[];
 };
 
+/**
+ * Validates and retrieves GitHub authentication credentials from cookies
+ * 
+ * @param {Cookies} cookies - SvelteKit cookies object
+ * @returns {{ token: string; username: string }} GitHub token and username
+ * @throws {Error} Throws 401 error if credentials are not found
+ * 
+ * @example
+ * ```typescript
+ * const { token, username } = requireGithubAuth(cookies);
+ * ```
+ */
 export function requireGithubAuth(cookies: Cookies): { token: string; username: string } {
   const token = cookies.get('github_token');
   const username = cookies.get('github_username');
@@ -41,7 +79,63 @@ export function requireGithubAuth(cookies: Cookies): { token: string; username: 
 }
 
 /**
- * Makes a GraphQL request to GitHub
+ * GraphQL response structure from GitHub API
+ * @private
+ */
+interface GraphQLResponse {
+  user: {
+    avatarUrl: string;
+    repositories: {
+      totalCount: number;
+    };
+    followers: {
+      totalCount: number;
+    };
+    topRepos: {
+      nodes: Array<{
+        name: string;
+        description: string | null;
+        url: string;
+        stargazerCount: number;
+        diskUsage: number;
+        primaryLanguage: {
+          name: string;
+        } | null;
+      }>;
+    };
+    languageRepos: {
+      nodes: Array<{
+        languages: {
+          edges: Array<{
+            size: number;
+            node: {
+              name: string;
+            };
+          }>;
+        };
+      }>;
+    };
+  };
+}
+
+/**
+ * Makes a GraphQL request to GitHub API
+ * 
+ * @template T - Expected response type
+ * @param {string} token - GitHub personal access token
+ * @param {string} query - GraphQL query string
+ * @param {any} [variables] - Optional GraphQL query variables
+ * @returns {Promise<T>} Parsed GraphQL response data
+ * @throws {Error} Throws error if request fails or GraphQL returns errors
+ * 
+ * @example
+ * ```typescript
+ * const data = await githubGraphQLRequest<GraphQLResponse>(
+ *   token, 
+ *   query, 
+ *   { login: 'username' }
+ * );
+ * ```
  */
 async function githubGraphQLRequest<T>(token: string, query: string, variables?: any): Promise<T> {
   const res = await fetch(GITHUB_GRAPHQL_URL, {
@@ -72,7 +166,30 @@ async function githubGraphQLRequest<T>(token: string, query: string, variables?:
 }
 
 /**
- * Fetches all GitHub data in a single GraphQL query
+ * Fetches comprehensive GitHub user data in a single optimized GraphQL query
+ * 
+ * Retrieves:
+ * - User profile information (avatar, follower count, repository count)
+ * - Top 5 repositories sorted by disk usage
+ * - Top 5 programming languages by total bytes of code
+ * - Language usage statistics with percentages
+ * 
+ * @param {Cookies} cookies - SvelteKit cookies object containing auth credentials
+ * @returns {Promise<GithubData>} Consolidated GitHub user data
+ * @throws {Error} Throws error if authentication fails or API request fails
+ * 
+ * @example
+ * ```typescript
+ * export async function load({ cookies }) {
+ *   try {
+ *     const githubData = await fetchGithubData(cookies);
+ *     return { githubData };
+ *   } catch (error) {
+ *     console.error('Failed to fetch GitHub data:', error);
+ *     return { githubData: null };
+ *   }
+ * }
+ * ```
  */
 export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
   const { token, username } = requireGithubAuth(cookies);
@@ -127,14 +244,14 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
     }
   `;
 
-  const data = await githubGraphQLRequest<any>(token, query, { login: username });
+  const data = await githubGraphQLRequest<GraphQLResponse>(token, query, { login: username });
 
-  // Get langs statistics
+  // Aggregate language statistics across all repositories, this is to make it presentable for the apex charts.
   const languageMap = new Map<string, number>();
   let totalBytes = 0;
 
-  data.user.languageRepos.nodes.forEach((repo: any) => {
-    repo.languages.edges.forEach((edge: any) => {
+  data.user.languageRepos.nodes.forEach((repo) => {
+    repo.languages.edges.forEach((edge) => {
       const { name } = edge.node;
       const bytes = edge.size;
       languageMap.set(name, (languageMap.get(name) || 0) + bytes);
@@ -142,7 +259,8 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
     });
   });
 
-  const languageStats = [...languageMap.entries()]
+  // Calculate top 5 languages by total bytes with percentages
+  const languageStats: GithubLanguageStats[] = [...languageMap.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
     .map(([name, bytes]) => ({
@@ -151,9 +269,9 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
       percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0
     }));
 
-  // Transforms repos and sort by diskUsage (size in KB)
-  const topRepos = data.user.topRepos.nodes
-    .map((repo: any) => ({
+  // This transforms and sort repositories by disk usage, although I would also like to sort by lines written.
+  const topRepos: GithubRepo[] = data.user.topRepos.nodes
+    .map((repo) => ({
       name: repo.name,
       description: repo.description,
       stargazers_count: repo.stargazerCount,
@@ -161,7 +279,7 @@ export async function fetchGithubData(cookies: Cookies): Promise<GithubData> {
       html_url: repo.url,
       diskUsage: repo.diskUsage
     }))
-    .sort((a: GithubRepo, b: GithubRepo) => b.diskUsage - a.diskUsage)
+    .sort((a, b) => b.diskUsage - a.diskUsage)
     .slice(0, 5);
 
   return {
