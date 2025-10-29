@@ -19,7 +19,7 @@
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 
 	const user = $derived(page.data.user);
-	const userPfp = $derived(page.data.user.avatarUrl || pfpFallback);
+	const userPfp = $derived(page.data.user?.avatarUrl || pfpFallback);
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass =
@@ -58,8 +58,8 @@
 			<DarkMode class="mx-2 md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white" />
 			<Dropdown placement="bottom" triggeredBy="#avatar-menu" class="dark:bg-box-bg bg-box-bg backdrop-blur-xl">
 				<DropdownHeader>
-					<span class="block text-sm">Pepe Pelotas</span>
-					<span class="block truncate text-sm font-medium">pepe@pelotas.com</span>
+					<span class="block text-sm">{user?.firstName}</span>
+					<span class="block truncate text-sm font-medium">{user?.lastName}</span>
 				</DropdownHeader>
 				<DropdownGroup>
 					{#if user?.role == 'graduate'}
