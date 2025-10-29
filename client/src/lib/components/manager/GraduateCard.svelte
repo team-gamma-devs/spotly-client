@@ -273,7 +273,7 @@
 <!-- ********************* Contact Modal *************************** -->
 <Modal
 	title="Contact Information"
-	class="bg-box-bg dark:bg-box-bg blur-bg text-foreground mx-5 md:mx-auto"
+	class="bg-box-bg dark:bg-box-bg backdrop-blur-xl text-foreground mx-5 md:mx-auto"
 	bind:open={showContactModal}
 >
 	<div class="space-y-3">
@@ -301,7 +301,7 @@
 <!-- ********************* Annotations Modal *************************** -->
 <Modal
 	title="Annotations"
-	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	class="bg-box-bg dark:bg-box-bg backdrop-blur-xl text-foreground mx-5 md:mx-auto"
 	bind:open={showAnnotationsModal}
 >
 	<div class="space-y-4">
@@ -343,7 +343,7 @@
 <!-- ******************* ADD ANNOTATION MODAL ************************** -->
 <Modal
 	title="Add Annotation"
-	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	class="bg-box-bg dark:bg-box-bg backdrop-blur-xl text-foreground mx-5 md:mx-auto"
 	bind:open={showAddAnnotationModal}
 >
 	<!-- This form submits to client/src/routes/app/manager/+page.server.ts -->
@@ -421,7 +421,7 @@
 <!-- ******************* Tutors Feedback Modal ************************* -->
 <Modal
 	title="Tutors Feedback"
-	class="bg-white dark:bg-background blur-bg text-foreground mx-5 md:mx-auto"
+	class="bg-box-bg dark:bg-box-bg backdrop-blur-xl text-foreground mx-5 md:mx-auto"
 	bind:open={showTutorsFeedback}
 >
 	<div class="space-y-4">

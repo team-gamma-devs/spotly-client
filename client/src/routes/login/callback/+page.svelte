@@ -50,16 +50,18 @@
 				const userData = await response.json();
 
 				if (userData?.role === 'manager') {
-					goto('/app/manager');
+					window.location.href = '/app/manager';
 				} else if (userData?.isFirstTime) {
-					goto('/app/graduate/upload_cv');
+					window.location.href = '/app/graduate/upload_cv';
 				} else if (!userData?.isFirstTime && userData?.role === 'graduate') {
-					goto('/app/graduate');
+					window.location.href = '/app/graduate';
 				} else {
           goto('/')
         }
 			} catch (error) {
 				console.error('Error:', error);
+				// Very difficult to catch this bug, but it's safe to use goto here, because the user will not be authenticated.
+				// window.location.href forces a refresh, so the server hook is triggered and the auth status changes.
 				goto('/login?error=verification_failed');
 			}
 		} else {
