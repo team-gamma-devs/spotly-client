@@ -21,7 +21,7 @@
 
 		return async ({ result }) => {
 			loading = false;
-			console.log('Inside LoginForm: ' + JSON.stringify(result));
+			// console.log('Inside LoginForm: ' + JSON.stringify(result));
 			if (result.type === 'failure' && result.data) {
 				errorMessage = String(result.data.error) || 'Something went wrong, call the FBI.';
 			}
@@ -34,7 +34,7 @@
 			} else if (result.type === 'redirect') {
 				successMessage = 'Redirecting...';
 				await new Promise((resolve) => setTimeout(resolve, 1500)); // you can delete, but actually it's kinda nice to have.
-				console.log(`In LoginForm: ${result.location}`); // checking what url am I getting
+				// console.log(`In LoginForm: ${result.location}`); // checking what url am I getting
 				goto(result.location);
 			}
 		};
