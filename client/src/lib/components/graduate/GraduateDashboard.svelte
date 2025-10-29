@@ -11,11 +11,11 @@
 	// const userData = page.data.user || { uncomment when you want to use the real user
 	const userData = mockUserState;
 
-	const userName = `${userData.first_name} ${userData.last_name}`;
+	const userName = `${userData.firstName} ${userData.lastName}`;
 
 	// same approach as in GraduateCard to convert skills to tachTags
 	const techTags = $derived(
-		(userData.cv_info?.skills || []).map((skill: string) => {
+		(userData.cvInfo?.skills || []).map((skill: string) => {
 			const tagName = typeof skill === 'string' ? skill.toLowerCase() : '';
 			const foundTag = availableFilterTags.find((t) => t.name.toLowerCase() === tagName || t.code === tagName);
 			return (
@@ -39,7 +39,7 @@
 				<!-- ******* Header **************** -->
 				<div class="flex gap-4 items-start border-b border-gray-200 dark:border-gray-700 pb-6">
 					<div class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700">
-						<img src={userData.avatar_url} alt="{userName}'s Profile" class="w-full h-full object-cover" />
+						<img src={userData.avatarUrl} alt="{userName}'s Profile" class="w-full h-full object-cover" />
 					</div>
 
 					<div class="flex-1">
@@ -53,10 +53,10 @@
 							<span
 								class="text-xs ring-1 ring-gray-700 rounded-md px-2 py-1 font-bold text-foreground capitalize flex items-center justify-center"
 							>
-								<img src={murica} alt="USA Flag" width="20" height="20" class="inline mr-2" />{userData.cv_info
-									?.english_level || 'N/A'} English
+								<img src={murica} alt="USA Flag" width="20" height="20" class="inline mr-2" />{userData.cvInfo
+									?.englishLevel || 'N/A'} English
 							</span>
-							{#if userData.cv_info?.works_in_it}
+							{#if userData.cvInfo?.worksInIt}
 								<span class="text-xs bg-green-600 dark:bg-green-700 rounded-md px-2 py-1 font-bold text-white">
 									Currently Working
 								</span>
@@ -65,9 +65,9 @@
 
 						<!-- *********** Links ****************** -->
 						<div class="flex gap-2">
-							{#if userData.cv_info?.linkedin_url}
+							{#if userData.cvInfo?.linkedinUrl}
 								<a
-									href={userData.cv_info.linkedin_url}
+									href={userData.cvInfo.linkedinUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="w-9 h-9 flex items-center justify-center rounded bg-blue-800 dark:bg-blue-900 hover:bg-blue-600 text-white transition-colors"
@@ -77,9 +77,9 @@
 									<LinkedinSolid class="w-5 h-5" />
 								</a>
 							{/if}
-							{#if userData.cv_info?.personal_cv_url}
+							{#if userData.cvInfo?.personalCvUrl}
 								<a
-									href={userData.cv_info.personal_cv_url}
+									href={userData.cvInfo.personalCvUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="w-9 h-9 flex items-center justify-center rounded bg-gray-800 dark:bg-gray-900 hover:bg-gray-600 text-white transition-colors"
@@ -89,9 +89,9 @@
 									<FileCheckSolid class="w-5 h-5" />
 								</a>
 							{/if}
-							{#if userData.cv_info?.github_info}
+							{#if userData.cvInfo?.githubInfo}
 								<a
-									href={userData.cv_info.github_info}
+									href={userData.cvInfo.githubInfo}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="w-9 h-9 flex items-center justify-center rounded bg-gray-800 dark:bg-gray-900 hover:bg-gray-600 text-white transition-colors"
@@ -131,7 +131,7 @@
 					</div>
 					<div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
 						<p class="text-2xl font-bold text-primary-600 dark:text-primary-400 capitalize">
-							{userData.cv_info?.english_level || 'N/A'}
+							{userData.cvInfo?.englishLevel || 'N/A'}
 						</p>
 						<p class="text-sm text-gray-600 dark:text-gray-400">English Level</p>
 					</div>

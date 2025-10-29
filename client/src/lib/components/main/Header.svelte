@@ -56,7 +56,7 @@
 				<NavHamburger class="cursor-pointer text-white dark:text-foreground dark:hover:text-white hover:text-black" />
 			</div>
 			<DarkMode class="mx-2 md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white" />
-			<Dropdown placement="bottom" triggeredBy="#avatar-menu" class="dark:bg-box-bg bg-box-bg">
+			<Dropdown placement="bottom" triggeredBy="#avatar-menu" class="dark:bg-box-bg bg-box-bg backdrop-blur-xl">
 				<DropdownHeader>
 					<span class="block text-sm">Pepe Pelotas</span>
 					<span class="block truncate text-sm font-medium">pepe@pelotas.com</span>

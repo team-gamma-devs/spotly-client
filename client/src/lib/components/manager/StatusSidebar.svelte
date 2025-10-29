@@ -18,16 +18,16 @@
 	});
 </script>
 
-<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
+<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer ring-1 ring-gray-300 dark:ring-gray-700" />
 
-<div class="relative w-full backdrop-blur-xl  rounded-xl">
+<div class="relative w-full rounded-xl">
 	<Sidebar
 		{activeUrl}
 		backdrop={false}
 		isOpen={isDemoOpen}
 		closeSidebar={closeDemoSidebar}
 		params={{ x: -50, duration: 50 }}
-		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background"
+		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background tracking-[1.5px] backdrop-blur-xl"
 		position="absolute"
 		classes={{ nonactive: nonActiveClass, active: activeClass }}
 	>
@@ -42,23 +42,6 @@
 					activeUrl = 'Invitations';
 				}}
 			></SidebarItem>
-
-			<!-- <SidebarItem
-				label="{selectedFilter === 'Statistics' ? '▸' : ''} Statistics"
-				class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Statistics'
-					? 'active pl-2'
-					: 'pl-0'}"
-				onclick={() => {
-					selectedFilter = 'Statistics';
-					activeUrl = 'Statistics';
-				}}
-			>
-				{#snippet icon()}
-					<ChartOutline
-						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-					/>
-				{/snippet}
-			</SidebarItem> -->
 		</SidebarGroup>
 	</Sidebar>
 	<div class="h-full overflow-auto md:ml-64">

@@ -137,7 +137,7 @@
 	};
 </script>
 
-<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
+<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer ring-1 ring-gray-300 dark:ring-gray-700" />
 
 <div class="relative w-full h-full">
 	<Sidebar
@@ -146,14 +146,14 @@
 		isOpen={isDemoOpen}
 		closeSidebar={closeDemoSidebar}
 		params={{ x: -50, duration: 50 }}
-		class="z-50 h-screen max-h-screen bg-background dark:bg-background overflow-hidden"
+		class="z-50 h-screen max-h-screen bg-background dark:bg-background overflow-hidden backdrop-blur-xl"
 		position="absolute"
 		classes={{
 			nonactive: nonActiveClass,
 			active: activeClass,
 		}}
 	>
-		<div class="flex flex-col min-h-[90dvh] max-h-[calc(100vh-80px)] overflow-hidden p-4 backdrop-blur-xl  rounded-xl">
+		<div class="flex flex-col min-h-[90dvh] max-h-[calc(100vh-80px)] overflow-hidden p-4 backdrop-blur-xl rounded-xl tracking-[1.5px]">
 			<!-- Filters Section - Fixed at top -->
 			<SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
 				<SidebarDropdownWrapper
@@ -213,7 +213,7 @@
 			</SidebarGroup>
 
 			<!-- Scrollable Middle Section -->
-			<div class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden min-h-0">
+			<div class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden">
 				<SidebarGroup border class="flex-shrink-0">
 					<FilterBox {selectedFilter} bind:techKeyword bind:multiSelectedEnglishLevel bind:multiSelectedTutors />
 				</SidebarGroup>

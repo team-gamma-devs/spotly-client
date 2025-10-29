@@ -15,7 +15,7 @@
 	import { GraduatePills } from '$lib/mocks/mockGraduatePill';
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
-  // TODO: The pagination stuff.
+	// TODO: The pagination stuff.
 
 	let graduatesList = GraduatePills.map((graduate) => ({
 		...graduate,
@@ -38,11 +38,17 @@
 	function getStatusBadgeProps(status: string): { color: BadgeColor; class: string } {
 		switch (status) {
 			case 'Accepted':
-				return { color: 'green' as const, class: 'w-full bg-green-300 dark:bg-green-900 font-bold max-w-[150px] py-1.5' };
+				return {
+					color: 'green' as const,
+					class: 'w-full bg-green-300 dark:bg-green-900 font-bold max-w-[150px] py-1.5',
+				};
 			case 'Invited':
 				return { color: 'blue' as const, class: 'w-full bg-blue-300 dark:bg-blue-950 font-bold max-w-[150px] py-1.5' };
 			case 'Pending':
-				return { color: 'yellow' as const, class: 'w-full bg-yellow-200 dark:bg-yellow-900 font-bold max-w-[150px] py-1.5' };
+				return {
+					color: 'yellow' as const,
+					class: 'w-full bg-yellow-200 dark:bg-yellow-900 font-bold max-w-[150px] py-1.5',
+				};
 			case 'Expired':
 				return { color: 'red' as const, class: 'w-full bg-red-300 dark:bg-red-900 font-bold max-w-[150px] py-1.5' };
 			default:
@@ -92,16 +98,17 @@
 	async function handleSendInvite() {
 		if (selectedGraduate) {
 			console.log('Sending invite to:', selectedGraduate.email);
-			// TODO: call the invite endpoint that triggers the resend stuff, also didn't find one in backend so must tell fede.
+			// TODO: call the invite endpoint that triggers the resend stuff.
 			closeModal();
 		}
 	}
 	async function handleAddTutorFeedback() {
-		// TODO: on tutor add feedbackamsdlmwkqo mdasd 
+		// TODO: on tutor add feedbackamsdlmwkqo mdasd
 		closeModal();
 	}
 	async function handleAddCSV() {
 		//TODO: manager can upload CSV and generate invitations.
+		
 	}
 </script>
 
@@ -111,7 +118,7 @@
 		<SearchOutline class="w-5 h-5 me-2" />
 		Search
 	</Button>
-		<Button color="alternative" onclick={handleAddCSV} class="cursor-pointer">
+	<Button color="alternative" onclick={handleAddCSV} class="cursor-pointer">
 		<FileCsvOutline class="w-5 h-5 me-2" />
 		Upload CSV
 	</Button>
@@ -158,12 +165,7 @@
 </Table>
 
 <!-- ************* Options for graduate modal ************** -->
-<Modal
-	bind:open={showModal}
-	size="xs"
-	autoclose={false}
-	class="min-w-100 bg-white dark:bg-gray-900 blur-bg"
->
+<Modal bind:open={showModal} size="xs" autoclose={false} class="min-w-100 bg-white dark:bg-gray-900 blur-bg">
 	<div class="flex flex-col items-center gap-4 justify-center">
 		{#if selectedGraduate}
 			<div class="text-center mb-2">
