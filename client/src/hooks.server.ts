@@ -25,10 +25,10 @@ import { dev } from '$app/environment';
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
-	// if (dev) {
-	// 	event.locals.user = mockUserState;
-	// 	return resolve(event);
-	// }
+	if (dev) {
+		event.locals.user = mockUserState;
+		return resolve(event);
+	}
 
 	if (!sessionToken) {
 		event.locals.user = null;

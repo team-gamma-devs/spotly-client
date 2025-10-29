@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 
     const userData: UserState = await response.json();
 
-    cookies.set('supabase_access_token', access_token, {
+    cookies.set('access_token', access_token, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       maxAge: 60 * 60 // 1 hour
     });
 
-    cookies.set('supabase_refresh_token', refresh_token, {
+    cookies.set('refresh_token', refresh_token, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',

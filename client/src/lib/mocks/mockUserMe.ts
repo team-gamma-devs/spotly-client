@@ -3,5 +3,5 @@ export type UserAuthMe = {
 	first_name: string | null;
 	last_name: string | null;
 	role: 'graduate' | 'manager';
-  isFirstTime: boolean;
+	isFirstTime: boolean;
 } | null;
