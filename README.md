@@ -1,28 +1,75 @@
 # Spotly — Client
 
-![Svelte](https://img.shields.io/badge/Svelte-5.39.6-ff3e00?style=for-the-badge&logo=svelte)
-![SvelteKit](https://img.shields.io/badge/SvelteKit-2.43.5-242424?style=for-the-badge&logo=svelte)
-![Vite](https://img.shields.io/badge/Vite-7.1.7-646cff?style=for-the-badge&logo=vite)
-![Tailwind CSS](https://img.shields.io/npm/v/tailwindcss?label=Tailwind%20CSS&style=for-the-badge&logo=tailwindcss)
-![Flowbite Svelte](https://img.shields.io/npm/v/flowbite-svelte?style=for-the-badge&logo=flowbite)
-![pnpm](https://img.shields.io/badge/pnpm-10.18.0-39a0ff?style=for-the-badge&logo=pnpm)
+![Node.js](https://img.shields.io/badge/Node.js%2022-2f7d32?style=for-the-badge&logo=node.js&logoColor=ffffff&labelColor=1f1f1f)
+![Svelte](https://img.shields.io/badge/Svelte%205.39.6-C24B0C?style=for-the-badge&logo=svelte&logoColor=ffffff&labelColor=1f1f1f)
+![SvelteKit](https://img.shields.io/badge/SvelteKit%202.43.5-C24B0C?style=for-the-badge&logo=svelte&logoColor=ffffff&labelColor=1f1f1f)
+![Vite](https://img.shields.io/badge/Vite%207.1.7-4f56d9?style=for-the-badge&logo=vite&logoColor=ffffff&labelColor=1f1f1f)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS%203.4.14-0f7b9e?style=for-the-badge&logo=tailwindcss&logoColor=ffffff&labelColor=1f1f1f)
+![Flowbite Svelte](https://img.shields.io/badge/Flowbite%20Svelte%201.16-AB422B?style=for-the-badge&logo=circle&logoColor=ffffff&labelColor=1f1f1f)
+![pnpm](https://img.shields.io/badge/pnpm%2010.18.0-3088d8?style=for-the-badge&logo=pnpm&logoColor=ffffff&labelColor=1f1f1f)
+
+![Claude](https://img.shields.io/badge/Claude%204.5%20Haiku-85470D?style=for-the-badge&logo=anthropic&logoColor=ffffff&labelColor=1f1f1f)
+![Warp](https://img.shields.io/badge/Warp%20Code%20Review-0D3F85?style=for-the-badge&logo=warp&logoColor=ffffff&labelColor=1f1f1f)
+
+![Vercel](https://img.shields.io/badge/Vercel-Stable-4B8A11?style=for-the-badge&logo=vercel&logoColor=ffffff&labelColor=1f1f1f)
 
 
-![Warp](https://img.shields.io/badge/Warp-Autodeployment%20Manager-1e1e3f?style=for-the-badge&logo=warp&logoColor=39a0ff)
 
 
 ## Quick local setup
 
-```bash
-# from repo root
-cd client
+I'm assuming you're running a Debian-based distro. I ***Will not** give detailed instructions for Windows/MacOS users. Check official documentation.
 
-# install
-pnpm install
+### Prerequisites
 
-# dev
-pnpm run dev
-```
+1. **Install pnpm** (if not already installed):
+   ```bash
+   npm install -g pnpm
+   ```
+   
+   <details>
+   <summary>Other platforms</summary>
+   
+   - **Windows**: `Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression`
+   - **macOS/Other Linux**: `brew install pnpm`
+   </details>
+<br>
+
+2. **Install nvm** (Node Version Manager):
+   
+   **Ubuntu/Linux:**
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+   # Restart your terminal or run:
+   source ~/.bashrc
+   ```
+   
+   <details>
+   <summary>Other platforms</summary>
+   - **Windows**: Download and install [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
+   - **macOS**: Same as Linux (use the curl command above)
+  
+      **Note** For Macs with the Apple Silicon chip, node started offering arm64 arch Darwin packages since v16.0.0 and experimental arm64 support when compiling from source since v14.17.0. If you are facing issues installing node using nvm, you may want to update to one of those versions or later.
+   </details>
+<br>
+
+3. **Install and use Node 22**:
+   ```bash
+   nvm install 22
+   nvm use 22
+   ```
+
+4. **Run Vite Server**:
+    ```bash
+    # from repo root
+    cd client
+
+    # install dependencies
+    pnpm install
+
+    # start dev server
+    pnpm run dev
+    ```
 
 ## Environment Variables
 
@@ -344,7 +391,3 @@ To protect content for a specific role, pass the `requiredRole` prop. The compon
 - **Built-in Unauthorized UI**: When a `requiredRole` is specified and the user's role does not match, AuthBox automatically displays a generic `Unauthorized` component. You do not need to handle this case manually.
 - **Flexibility**: You can pass any component or markup inside the `authorizedContent` and `unauthorizedContent` snippets.
 - **Primary Use Case**: Use this component in your layout files (e.g., `src/routes/app/manager/+layout.svelte`) to protect entire sections of your application based on user roles.
-
-# Client Configuration
-
-Inside `src/lib/config/content.json` you have updateable content that the client can manually update from the UI.

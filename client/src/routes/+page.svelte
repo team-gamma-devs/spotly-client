@@ -6,9 +6,9 @@
 
 	const user = $derived(page.data.user);
 
-	onMount(() => {
-		console.log(JSON.stringify(user));
-	});
+	// onMount(() => {
+	// 	console.log(JSON.stringify(user));
+	// });
 </script>
 
 {#if user}

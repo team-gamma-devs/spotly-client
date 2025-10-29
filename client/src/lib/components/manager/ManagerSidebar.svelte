@@ -118,7 +118,6 @@
 			el.parentElement.classList.add('h-full');
 			el.parentElement.classList.add('md:h-full');
 			el.parentElement.classList.add('sm:h-full');
-			console.log('Full height to ninja');
 		}
 	};
 

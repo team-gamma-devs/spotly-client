@@ -34,8 +34,8 @@
 			<div class="min-w-[190px]">
 				<h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
 				<FooterLinkGroup>
-					<FooterLink class="mb-4 hover:text-accent" href="/legal">Privacy Policy</FooterLink>
-					<FooterLink class="mb-4 hover:text-accent" href="/tac">Terms & Conditions</FooterLink>
+					<FooterLink class="mb-4 hover:text-accent" href="/privacy">Privacy Policy</FooterLink>
+					<FooterLink class="mb-4 hover:text-accent" href="/legal">Terms & Conditions</FooterLink>
 				</FooterLinkGroup>
 			</div>
 		</div>

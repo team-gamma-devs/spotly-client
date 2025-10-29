@@ -24,7 +24,7 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const email = form.get('email');
 
-		console.log("THIS IS THE EMAIL: " + email);
+		// console.log("THIS IS THE EMAIL: " + email);
 
 		if (!email || typeof email !== 'string') {
 			return fail(400, { error: 'A valid email is required.' });
