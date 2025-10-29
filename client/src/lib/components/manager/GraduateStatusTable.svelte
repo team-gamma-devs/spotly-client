@@ -131,9 +131,9 @@
 				<TableBodyCell class="text-center">{graduate.firstName} {graduate.lastName}</TableBodyCell>
 				<TableBodyCell class="text-center">{graduate.email}</TableBodyCell>
 				<TableBodyCell class="text-center">
-					{@const badgeProps = getStatusBadgeProps(graduate.invit_status)}
+					{@const badgeProps = getStatusBadgeProps(graduate.invitStatus)}
 					<Badge color={badgeProps.color} class={badgeProps.class}>
-						{graduate.invit_status.toUpperCase()}
+						{graduate.invitStatus.toUpperCase()}
 					</Badge>
 				</TableBodyCell>
 				<TableBodyCell class="text-center">{formatDate(graduate.updatedAt)}</TableBodyCell>

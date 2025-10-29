@@ -4,7 +4,7 @@ type GraduatePill = {
 	lastName: string;
 	email: string;
 	updatedAt: string;
-	invit_status: "Expired" | "Invited" | "Pending" | "Accepted";
+	invitStatus: "Expired" | "Invited" | "Pending" | "Accepted";
 };
 
 export const GraduatePills: GraduatePill[] = [
@@ -14,7 +14,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Ross",
 		email: "jaimeRoss@gmail.com",
 		updatedAt: "2025-10-18T14:30:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "23423lmn82381pq",
@@ -22,7 +22,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Chen",
 		email: "sarah.chen@gmail.com",
 		updatedAt: "2025-10-19T09:15:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "34534opq73472rs",
@@ -30,7 +30,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Johnson",
 		email: "m.johnson@outlook.com",
 		updatedAt: "2025-10-19T11:45:00.000Z",
-		invit_status: "Pending",
+		invitStatus: "Pending",
 	},
 	{
 		id: "45645rst64563tu",
@@ -38,7 +38,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Rodriguez",
 		email: "elena.rodriguez@yahoo.com",
 		updatedAt: "2025-10-20T08:20:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "56756uvw55654vw",
@@ -46,7 +46,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Kim",
 		email: "davidkim@gmail.com",
 		updatedAt: "2025-10-20T13:10:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "67867xyz46745xy",
@@ -54,7 +54,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Okafor",
 		email: "amara.okafor@gmail.com",
 		updatedAt: "2025-10-20T16:30:00.000Z",
-		invit_status: "Expired",
+		invitStatus: "Expired",
 	},
 	{
 		id: "78978abc37836za",
@@ -62,7 +62,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Martinez",
 		email: "lucas.m@hotmail.com",
 		updatedAt: "2025-10-21T07:45:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "89089def28927bc",
@@ -70,7 +70,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Patel",
 		email: "priya.patel@gmail.com",
 		updatedAt: "2025-10-21T10:20:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "90190ghi19018cd",
@@ -78,7 +78,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Anderson",
 		email: "t.anderson@outlook.com",
 		updatedAt: "2025-10-21T12:00:00.000Z",
-		invit_status: "Pending",
+		invitStatus: "Pending",
 	},
 	{
 		id: "01201jkl10109de",
@@ -86,7 +86,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Tanaka",
 		email: "yuki.tanaka@gmail.com",
 		updatedAt: "2025-10-21T15:30:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "12312mno01200ef",
@@ -94,7 +94,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Ferrari",
 		email: "isabella.ferrari@yahoo.com",
 		updatedAt: "2025-10-22T08:00:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "23423pqr92301fg",
@@ -102,7 +102,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Hassan",
 		email: "ahmed.hassan@gmail.com",
 		updatedAt: "2025-10-22T09:30:00.000Z",
-		invit_status: "Expired",
+		invitStatus: "Expired",
 	},
 	{
 		id: "34534stu83402gh",
@@ -110,7 +110,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Dubois",
 		email: "sophie.dubois@gmail.com",
 		updatedAt: "2025-10-22T11:15:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "45645vwx74503hi",
@@ -118,7 +118,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "O'Connor",
 		email: "ryan.oconnor@outlook.com",
 		updatedAt: "2025-10-22T13:45:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "56756yza65604ij",
@@ -126,7 +126,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Wong",
 		email: "mei.wong@gmail.com",
 		updatedAt: "2025-10-22T14:20:00.000Z",
-		invit_status: "Pending",
+		invitStatus: "Pending",
 	},
 	{
 		id: "67867bcd56705jk",
@@ -134,7 +134,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Silva",
 		email: "carlos.silva@hotmail.com",
 		updatedAt: "2025-10-22T16:00:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "78978efg47806kl",
@@ -142,7 +142,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Ali",
 		email: "zara.ali@gmail.com",
 		updatedAt: "2025-10-22T17:30:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 	{
 		id: "89089hij38907lm",
@@ -150,7 +150,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Schmidt",
 		email: "oliver.schmidt@yahoo.com",
 		updatedAt: "2025-10-22T18:15:00.000Z",
-		invit_status: "Expired",
+		invitStatus: "Expired",
 	},
 	{
 		id: "90190klm29008mn",
@@ -158,7 +158,7 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Ibrahim",
 		email: "aisha.ibrahim@gmail.com",
 		updatedAt: "2025-10-22T19:00:00.000Z",
-		invit_status: "Accepted",
+		invitStatus: "Accepted",
 	},
 	{
 		id: "01201nop10109no",
@@ -166,6 +166,6 @@ export const GraduatePills: GraduatePill[] = [
 		lastName: "Brown",
 		email: "nathan.brown@outlook.com",
 		updatedAt: "2025-10-22T20:30:00.000Z",
-		invit_status: "Invited",
+		invitStatus: "Invited",
 	},
 ];
