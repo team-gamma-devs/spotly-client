@@ -2,7 +2,7 @@ import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { mockUserState } from './lib/mocks/mockUserState';
-import { supabase } from '$lib/supabaseClient';
+import { supabase } from '$lib/services/supabaseClient';
 import type { UserAuthMe } from '$lib/mocks/mockUserMe';
 
 import { dev } from '$app/environment';
@@ -25,10 +25,10 @@ import { dev } from '$app/environment';
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
-	if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
-		event.locals.user = mockUserState;
-		return resolve(event);
-	}
+	// if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
+	// 	event.locals.user = mockUserState;
+	// 	return resolve(event);
+	// }
 
 	if (!sessionToken) {
 		event.locals.user = null;

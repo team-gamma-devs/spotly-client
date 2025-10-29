@@ -27,7 +27,7 @@
 		isOpen={isDemoOpen}
 		closeSidebar={closeDemoSidebar}
 		params={{ x: -50, duration: 50 }}
-		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background tracking-[1.5px] backdrop-blur-xl"
+		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background backdrop-blur-xl"
 		position="absolute"
 		classes={{ nonactive: nonActiveClass, active: activeClass }}
 	>

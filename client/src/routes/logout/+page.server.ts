@@ -14,17 +14,18 @@
 // → event.locals.user = null
 
 import { redirect } from '@sveltejs/kit';
-import { supabase } from '$lib/supabaseClient';
+import { supabase } from '$lib/services/supabaseClient';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ cookies }) => {
+
 		supabase.auth.signOut();
+		
 		cookies.delete('access_token', { path: '/' });
 		cookies.delete('refresh_token', { path: '/' });
 		cookies.delete('github_token', { path: '/' });
 		cookies.delete('github_username', { path: '/' });
-		supabase.auth.signOut();
 
 		console.log('Goodbye...');
 

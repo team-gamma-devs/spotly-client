@@ -152,7 +152,7 @@
 			active: activeClass,
 		}}
 	>
-		<div class="flex flex-col min-h-[90dvh] max-h-[calc(100vh-80px)] overflow-hidden p-4 backdrop-blur-xl rounded-xl tracking-[1.5px]">
+		<div class="flex flex-col min-h-[90dvh] max-h-[calc(100vh-80px)] overflow-hidden p-4 backdrop-blur-xl rounded-xl">
 			<!-- Filters Section - Fixed at top -->
 			<SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
 				<SidebarDropdownWrapper

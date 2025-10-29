@@ -1,7 +1,7 @@
 <script lang="ts">  
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { supabase } from '$lib/supabaseClient';
+	import { supabase } from '$lib/services/supabaseClient';
 	import { Spinner } from 'flowbite-svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
 

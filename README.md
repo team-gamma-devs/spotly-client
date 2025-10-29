@@ -10,7 +10,6 @@
 
 ![Claude](https://img.shields.io/badge/Claude%204.5%20Haiku-85470D?style=for-the-badge&logo=anthropic&logoColor=ffffff&labelColor=1f1f1f)
 ![Warp](https://img.shields.io/badge/Warp%20Code%20Review-0D3F85?style=for-the-badge&logo=warp&logoColor=ffffff&labelColor=1f1f1f)
-
 ![Vercel](https://img.shields.io/badge/Vercel-Stable-4B8A11?style=for-the-badge&logo=vercel&logoColor=ffffff&labelColor=1f1f1f)
 
 
