@@ -139,143 +139,122 @@
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
 
-<div class="relative min-h-[100dvh]">
-	<div class="sidebar-wrapper">
-		<Sidebar
-			{activeUrl}
-			backdrop={false}
-			isOpen={isDemoOpen}
-			closeSidebar={closeDemoSidebar}
-			params={{ x: -50, duration: 50 }}
-			class="z-50 sidebar-constrained bg-background dark:bg-background blur-bg"
-			position="absolute"
-			classes={{
-				nonactive: nonActiveClass,
-				active: activeClass,
-			}}
-		>
-			<div class="sidebar-inner">
-				<SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
-					<SidebarDropdownWrapper
-						label="Filters"
-						classes={{
-							btn: 'p-2 cursor-pointer hover:bg-gray-300',
+<div class="relative w-full h-full">
+	<Sidebar
+		{activeUrl}
+		backdrop={false}
+		isOpen={isDemoOpen}
+		closeSidebar={closeDemoSidebar}
+		params={{ x: -50, duration: 50 }}
+		class="z-50 h-screen max-h-screen bg-background dark:bg-background overflow-hidden"
+		position="absolute"
+		classes={{
+			nonactive: nonActiveClass,
+			active: activeClass,
+		}}
+	>
+		<div class="flex flex-col min-h-[90dvh] max-h-[calc(100vh-80px)] overflow-hidden p-4 backdrop-blur-xl  rounded-xl">
+			<!-- Filters Section - Fixed at top -->
+			<SidebarGroup class="w-full flex-shrink-0" id="son-of-ninja-element">
+				<SidebarDropdownWrapper
+					label="Filters"
+					classes={{
+						btn: 'p-2 cursor-pointer hover:bg-gray-300',
+					}}
+				>
+					{#snippet icon()}
+						<FilterSolid
+							class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+						/>
+					{/snippet}
+
+					<!-- ************* Technologies ************** -->
+					<SidebarItem
+						label="{selectedFilter === 'Technologies' ? '▸' : ''} Technologies"
+						class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Technologies'
+							? 'active pl-2'
+							: 'pl-0'}"
+						onclick={() => {
+							selectedFilter = 'Technologies';
+							activeUrl = 'Technologies';
 						}}
-					>
-						{#snippet icon()}
-							<FilterSolid
-								class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-							/>
-						{/snippet}
+					/>
 
-						<!-- ************* Technologies ************** -->
-						<SidebarItem
-							label="{selectedFilter === 'Technologies' ? '▸' : ''} Technologies"
-							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Technologies'
-								? 'active pl-2'
-								: 'pl-0'}"
-							onclick={() => {
-								selectedFilter = 'Technologies';
-								activeUrl = 'Technologies';
-							}}
-						/>
+					<!-- *************** English Level *************** -->
+					<SidebarItem
+						label="{selectedFilter === 'English Level' ? '▸' : ''} English Level"
+						class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'English Level'
+							? 'active pl-2'
+							: 'pl-0'}"
+						onclick={() => {
+							selectedFilter = 'English Level';
+							activeUrl = 'English Level';
+						}}
+					/>
 
-						<!-- *************** English Level *************** -->
-						<SidebarItem
-							label="{selectedFilter === 'English Level' ? '▸' : ''} English Level"
-							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'English Level'
-								? 'active pl-2'
-								: 'pl-0'}"
-							onclick={() => {
-								selectedFilter = 'English Level';
-								activeUrl = 'English Level';
-							}}
-						/>
+					<!-- **************** Tutor Feedback ***************** -->
+					<SidebarItem
+						label="{selectedFilter === 'Feedback' ? '▸' : ''} Feedback"
+						class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Feedback'
+							? 'active pl-2'
+							: 'pl-0'}"
+						onclick={() => {
+							selectedFilter = 'Feedback';
+							activeUrl = 'Feedback';
+						}}
+					/>
+				</SidebarDropdownWrapper>
+			</SidebarGroup>
 
-						<!-- **************** Tutor Feedback ***************** -->
-						<SidebarItem
-							label="{selectedFilter === 'Feedback' ? '▸' : ''} Feedback"
-							class="cursor-pointer filter-tag transition-all duration-300 {selectedFilter === 'Feedback'
-								? 'active pl-2'
-								: 'pl-0'}"
-							onclick={() => {
-								selectedFilter = 'Feedback';
-								activeUrl = 'Feedback';
-								applyFullHeightToNinjaElement();
-							}}
-						/>
-					</SidebarDropdownWrapper>
-				</SidebarGroup>
+			<!-- Selected Tags - Fixed below filters -->
+			<SidebarGroup border class="flex-shrink-0">
+				Selected Tags
+				<SelectedTagsBox {selectedTags} {deselectTag} />
+			</SidebarGroup>
 
+			<!-- Scrollable Middle Section -->
+			<div class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden min-h-0">
 				<SidebarGroup border class="flex-shrink-0">
-					Selected Tags
-					<SelectedTagsBox {selectedTags} {deselectTag} />
+					<FilterBox {selectedFilter} bind:techKeyword bind:multiSelectedEnglishLevel bind:multiSelectedTutors />
 				</SidebarGroup>
 
-				<div class="sidebar-scrollable">
-					<SidebarGroup border>
-						<FilterBox {selectedFilter} bind:techKeyword bind:multiSelectedEnglishLevel bind:multiSelectedTutors />
+				{#if selectedFilter === 'Technologies'}
+					<SidebarGroup border class="flex-1 min-h-0 overflow-y-auto">
+						Available Tags
+						<AvailableTagsBox keyword={techKeyword} {selectedTags} {selectTag} {availableTags} {tagsError} />
 					</SidebarGroup>
-
-					{#if selectedFilter === 'Technologies'}
-						<SidebarGroup border>
-							Available Tags
-							<AvailableTagsBox keyword={techKeyword} {selectedTags} {selectTag} {availableTags} {tagsError} />
-						</SidebarGroup>
-					{/if}
-				</div>
-
-				<SidebarGroup border class="flex-shrink-0">
-					<div class="flex items-center justify-center gap-2 w-full p-1">
-						<Button
-							id="clear-search-btn"
-							class="w-[20%] flex items-center justify-center cursor-pointer"
-							onclick={clearSearch}
-							aria-label="Clear Search Filters"
-							title="Clear Search Filters"
-						>
-							<TrashBinOutline class="m-0 p-0" />
-						</Button>
-
-						<Button
-							id="submit-search-btn"
-							color="alternative"
-							class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
-							onclick={handleSubmit}
-							aria-label="Submit Search with Selected Filters"
-							title="Submit Search with Selected Filters"
-							{loading}>Search</Button
-						>
-					</div>
-				</SidebarGroup>
+				{/if}
 			</div>
-		</Sidebar>
+
+			<!-- Action Buttons - Fixed at bottom -->
+			<SidebarGroup border class="flex-shrink-0 mt-auto">
+				<div class="flex items-center justify-center gap-2 w-full p-1">
+					<Button
+						id="clear-search-btn"
+						class="w-[20%] flex items-center justify-center cursor-pointer"
+						onclick={clearSearch}
+						aria-label="Clear Search Filters"
+						title="Clear Search Filters"
+					>
+						<TrashBinOutline class="m-0 p-0" />
+					</Button>
+
+					<Button
+						id="submit-search-btn"
+						color="alternative"
+						class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
+						onclick={handleSubmit}
+						aria-label="Submit Search with Selected Filters"
+						title="Submit Search with Selected Filters"
+						{loading}>Search</Button
+					>
+				</div>
+			</SidebarGroup>
+		</div>
+	</Sidebar>
+	
+	<!-- Content area with proper margin -->
+	<div class="h-[100dvh] overflow-auto p-4 md:ml-64">
+		<ManagerInventory />
 	</div>
-
-	<ManagerInventory />
 </div>
-
-<style>
-	.sidebar-wrapper {
-		max-height: 100vh;
-		overflow: hidden;
-	}
-	:global(.sidebar-constrained) {
-		height: 100vh !important;
-		max-height: 100vh !important;
-		overflow: hidden !important;
-	}
-	.sidebar-inner {
-		display: flex;
-		flex-direction: column;
-		min-height: 90dvh;
-		max-height: 100dvh;
-		overflow: hidden;
-	}
-	.sidebar-scrollable {
-		flex: 1;
-		overflow-y: auto;
-		overflow-x: hidden;
-		min-height: 0;
-	}
-</style>

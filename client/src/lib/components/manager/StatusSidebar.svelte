@@ -20,14 +20,14 @@
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer" />
 
-<div class="relative w-full">
+<div class="relative w-full backdrop-blur-xl  rounded-xl">
 	<Sidebar
 		{activeUrl}
 		backdrop={false}
 		isOpen={isDemoOpen}
 		closeSidebar={closeDemoSidebar}
 		params={{ x: -50, duration: 50 }}
-		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background blur-bg"
+		class="z-50 h-full min-h-[100dvh] bg-background dark:bg-background"
 		position="absolute"
 		classes={{ nonactive: nonActiveClass, active: activeClass }}
 	>
