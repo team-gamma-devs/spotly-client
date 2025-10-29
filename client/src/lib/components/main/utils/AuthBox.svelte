@@ -1,27 +1,3 @@
-<!-- <script lang="ts">
-  import { page } from "$app/state";
-  import { onMount } from "svelte";
-  import Unauthorized from "$lib/components/error/Unauthorized.svelte";
-
-  let { authorizedContent, unauthorizedContent } = $props();
-
-  // user derived will be object when user is logged and null if not.
-
-  const user = $derived(page.data.user);
-
-  console.log(`Before mount: ${user.role}`); // Ignore this.
-
-  onMount(() => {
-    console.log(`After login the user: ${user.role}`);
-  });
-</script>
-
-{#if user}
-  {@render authorizedContent?.()}
-{:else}
-  {@render unauthorizedContent?.()}
-{/if} -->
-
 <script lang="ts">
 	import { page } from '$app/state';
 	import type { Snippet } from 'svelte';

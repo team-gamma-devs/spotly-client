@@ -17,7 +17,6 @@
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 	import usaIcon from '$lib/assets/svgs/united-states-flag-icon.svg';
 	import TechTag from '../main/utils/TechTag.svelte';
-	import type { FilterTag } from '$lib/constants/filterTags';
 	import { availableFilterTags } from '$lib/constants/filterTags';
 	import { Button, Modal, Textarea, Label } from 'flowbite-svelte';
 	import {
@@ -32,61 +31,35 @@
 
 	type Annotation = {
 		id: string;
-		created_at: string;
+		createdAt: string;
 		message: string;
-		tutorId: string;
 	};
 
 	type TutorFeedback = {
-		[tutorId: string]: {
-			created_at: string;
-			professional_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
-			technical_score: 'Poor' | 'Average' | 'Good' | 'Excellent';
+		[feedbackId: string]: {
+			createdAt: string;
+			professionalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
+			technicalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
 			tutorName: string;
+			tutorId: string;
 		};
 	};
 
 	let {
 		id = '',
-		firstName = 'Pepe',
-		lastName = 'Pelotas',
-		email = 'pepe@pelotas.com',
-		avatarUrl = '',
+		firstName = 'n/a',
+		lastName = 'n/a',
+		email = 'n/a',
+		avatarUrl = '$lib/assets/svgs/pfp-fallback.svg',
 		englishLevel = 'Basic' as 'Basic' | 'Intermediate' | 'Advanced',
 		cohort = 'n/a',
-		techStack = ['react', 'pepe', 'Slack'],
-		githubUrl = 'https://github.com/glovek08',
-		linkedinUrl = 'https://linkedin.com/',
+		techStack = [],
+		githubUrl = '',
+		linkedinUrl = '',
 		updatedAt = 'Long Time Ago...',
-		annotations = [
-			{
-				id: 'a1b2c3d4-e5f6-7890-0001-000000000001',
-				created_at: '2025-10-20T15:57:58.745Z',
-				message: 'This holbie wears nice clothing.',
-				tutorId: 'c3d4e5f6-a7b8-9012-3456-cdef01123456',
-			},
-			{
-				id: 'a1b2c3d4-e5f6-7890-0002-000000000002',
-				created_at: '2025-10-15T10:30:00.000Z',
-				message: 'Great team player and communicator.',
-				tutorId: 'e5f6a7b8-c9d0-1234-5678-ef0123456789',
-			},
-		] as Annotation[],
-		tutorsFeedback = {
-			'e5f6a7b8-c9d0-1234-5678-ef0123456789': {
-				created_at: '2025-09-20T15:57:58.745Z',
-				professional_score: 'Average',
-				technical_score: 'Average',
-				tutorName: 'Javier Valenziani',
-			},
-			'd4e5f6a7-b8c9-0123-4567-def012234567': {
-				created_at: '2025-10-20T15:57:58.745Z',
-				professional_score: 'Average',
-				technical_score: 'Average',
-				tutorName: 'Edison Cavani',
-			},
-		} as TutorFeedback,
-		works_in_it = false,
+		annotations = [] as Annotation[],
+		tutorsFeedback = {} as TutorFeedback,
+		worksInIt = false,
 	} = $props();
 
 	const uniqueId = `graduate-card-${id || nextId()}`;
@@ -168,7 +141,7 @@
 					<img class="inline rounded-[2px]" src={usaIcon} alt="USA" width="13" height="5" />
 					{englishLevel}
 				</p>
-				{#if works_in_it}
+				{#if worksInIt}
 					<span
 						class="text-xs bg-yellow-600 dark:bg-orange-900 rounded-md px-1.5 font-bold text-white font-bold flex items-center justify-center"
 						title="Currently Working"
@@ -338,7 +311,7 @@
 				{#each annotations as annotation}
 					<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 						<p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-							{formatDate(annotation.created_at)}
+							{formatDate(annotation.createdAt)}
 						</p>
 						<p class="text-gray-800 dark:text-gray-200">{annotation.message}</p>
 					</div>
@@ -455,16 +428,16 @@
 		<h3 class="text-lg font-semibold">Feedback for {firstName} {lastName}</h3>
 		{#if Object.keys(tutorsFeedback).length > 0}
 			<div class="space-y-4 max-h-96 overflow-y-auto">
-				{#each Object.entries(tutorsFeedback) as [tutorId, feedback]}
+				{#each Object.entries(tutorsFeedback) as [feedbackId, feedback]}
 					<div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 						<div class="flex items-center justify-between mb-2">
 							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{feedback.tutorName}</h4>
 							<p class="text-xs text-gray-500 dark:text-gray-400">
-								{formatDate(feedback.created_at)}
+								{formatDate(feedback.createdAt)}
 							</p>
 						</div>
-						<p class="text-gray-800 dark:text-gray-200">Professional Score: {feedback.professional_score}</p>
-						<p class="text-gray-800 dark:text-gray-200">Technical Score: {feedback.technical_score}</p>
+						<p class="text-gray-800 dark:text-gray-200">Professional Score: {feedback.professionalScore}</p>
+						<p class="text-gray-800 dark:text-gray-200">Technical Score: {feedback.technicalScore}</p>
 					</div>
 				{/each}
 			</div>

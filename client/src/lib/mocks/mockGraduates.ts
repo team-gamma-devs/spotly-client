@@ -26,10 +26,10 @@ type Graduate = {
 	englishLevel: 'Basic' | 'Intermediate' | 'Advanced';
 	cohort: string;
 	techStack: string[];
-	githubUrl: string | null;
-	linkedinUrl: string | null;
-	annotations: Annotation[] | null;
-	tutorsFeedback: TutorFeedback | null;
+	githubUrl: string;
+	linkedinUrl: string;
+	annotations: Annotation[];
+	tutorsFeedback: TutorFeedback;
 	updatedAt: string;
 	worksInIt: boolean;
 };

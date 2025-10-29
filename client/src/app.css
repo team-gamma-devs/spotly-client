@@ -112,17 +112,19 @@
 		display: none;
 	}
 
-	html,
+	html {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+	}
+
 	body {
 		margin: 0;
 		padding: 0;
 		width: 100%;
-		overflow-x: hidden; /* Fix for Chrome white space issue, might cause issues later :D */
-	}
-
-	body {
 		min-width: 100%;
 		max-width: 100vw;
+		overflow-x: hidden;
 	}
 }
 

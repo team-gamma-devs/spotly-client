@@ -31,7 +31,7 @@
 				updatedAt={graduate.updatedAt}
 				annotations={graduate.annotations}
 				tutorsFeedback={graduate.tutorsFeedback}
-				works_in_it={graduate.works_in_it}
+				worksInIt={graduate.worksInIt}
 			/>
 		{/each}
 	</div>
