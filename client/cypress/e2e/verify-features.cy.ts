@@ -22,17 +22,20 @@ describe('some other tests', () => {
         .first()
         .click()
 
-    cy.get('@imgDark')
+    cy.wait(1500)
+    cy.get('@imgLight')
         .should('be.visible')
 
     cy.wait(1500)
     cy.get('[aria-label="Dark mode"]')
-        .last()
+        .first()
         .click()
-
+    
     cy.wait(1500)
-    cy.get('@imgLight')
+    cy.get('@imgDark')
         .should('be.visible')
+
+    
   });
 
   it('checking the links on the footer', () => {

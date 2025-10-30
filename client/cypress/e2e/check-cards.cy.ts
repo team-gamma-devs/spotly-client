@@ -4,7 +4,8 @@ describe('flow e2e to search by Feedback', () => {
   });
   it('check that the cards be displayed', () => {
     cy.get('#manager-cards-grid')
-      .find('#graduate-card-1')
+      .find('.card-container')
+      .first()
       .should('be.visible')
 
     cy.get('#manager-cards-grid')
@@ -22,7 +23,8 @@ describe('flow e2e to search by Feedback', () => {
   it('check contact modal, open and close', () => {
     // capture the button
     cy.get('#manager-cards-grid')
-      .find('#graduate-card-1')
+      .find('.card-container')
+      .first()
       .find('[class="flex gap-2 items-start"]')
       .find('[class="flex-1"]')
       .find('[class="flex gap-2 mt-2"]')
@@ -48,7 +50,8 @@ describe('flow e2e to search by Feedback', () => {
 
   it('check annotations modal', () => {
     cy.get('#manager-cards-grid')
-      .find('#graduate-card-1')
+      .find('.card-container')
+      .first()
       .find('.flex')
       .find('[aria-label="See Annotations"]')
       .as('buttonAnnotation')
@@ -70,7 +73,9 @@ describe('flow e2e to search by Feedback', () => {
 
   it('check tutors feedback modal', () => {
     cy.get('#manager-cards-grid')
-      .find('#graduate-card-2')
+      .find('.card-container')
+      .last()
+      .scrollIntoView({duration: 2000, easing: 'linear'})
       .find('.flex')
       .find('[aria-label="Tutors Feedback"]')
       .as('tutorsButton')

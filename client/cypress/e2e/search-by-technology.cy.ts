@@ -1,6 +1,36 @@
 describe('flow e2e to search by technologies', () => {
     beforeEach(() => {
-    cy.visit('/app/manager');
+        cy.intercept('/app/manager/api/available-tags', {
+            'body': { 
+                filters: [ // <-- ¡AQUÍ ESTÁ LA PROPIEDAD QUE EL FRONTEND ESPERA!
+                    'Python',
+                    'svelte',
+                    'React',
+                    'flask',
+                    'Mariadb',
+                    'Mysql',
+                    'cpp',
+                    'htmx',
+                    'angular',
+                    'git',
+                    'html',
+                    'CSS',
+                    'fast api',
+                    'rest api',
+                    'mongodb',
+                    'java script',
+                    'java',
+                    'cypress',
+                    'pytest'
+                ]
+            }
+        })
+            .as('getTags')
+
+        cy.visit('/app/manager');
+
+        cy.wait('@getTags')
+
   });
 
     // as already testied that filters be showing, i skip this step
@@ -21,19 +51,19 @@ describe('flow e2e to search by technologies', () => {
         cy.wait(1500)
 
         // checked that input field is displayed
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g')
+        cy.get('.flex-1')
             .should('be.visible')
             .find('#technologies-text-input')
             .should('be.visible')
         
         // checked that tags container is displayed
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g')
+        cy.get('.flex-1')
             .find('#available-tags-wrapper')
             .should('be.visible')
     })
 
     it('write keyword, select and storage that tag', () => {
-      cy.get('[aria-controls="sidebar-dropdown"]', {timeout: 10000})
+        cy.get('[aria-controls="sidebar-dropdown"]', {timeout: 10000})
             .click({force: true})
             .wait(1500)
 
@@ -45,15 +75,16 @@ describe('flow e2e to search by technologies', () => {
             .click({force: true})
         cy.wait(1500)
 
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g', {timeout: 10000})
+        cy.get('.flex-1', {timeout: 10000})
             .find('#technologies-text-input')
             .click({force: true})
             .type('svelte', {delay: 160})
         
         cy.wait(1000)
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g')
+        cy.get('.flex-1')
             .find('#available-tags-wrapper')
             .find('div')
+            .first()
             .click({force: true})
 
         cy.wait(1000)
@@ -74,40 +105,41 @@ describe('flow e2e to search by technologies', () => {
             .click({force: true})
         cy.wait(1500)
             
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g')
+        cy.get('.flex-1')
             .find('#available-tags-wrapper')
             .as('tagContainer')
 
         cy.get('@tagContainer')
             .find('div:contains("C++")')
-            .scrollIntoView({duration: 4000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
         cy.wait(800)
         cy.get('@tagContainer')
             .find('div:contains("Python")')
-            .scrollIntoView({duration: 5000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
         cy.wait(800)
         cy.get('@tagContainer')
             .find('div:contains("HTMX")')
-            .scrollIntoView({duration: 5000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
         cy.wait(800)
         cy.get('@tagContainer')
             .find('div:contains("Flask")')
-            .scrollIntoView({duration: 4000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
         cy.wait(800)
         cy.get('@tagContainer')
-            .find('div:contains("MongoDB")')
-            .scrollIntoView({duration: 4000, easing: 'linear'})
+            .find('div:contains("MariaDB")')
+            .scrollIntoView({duration: 2000, easing: 'linear'})
+            .first()
             .click({force: true})
 
         // Since there are already some labels on the container, try removing one.
         cy.wait(1000)
         cy.get('#selected-tags-wrapper')
             .find('button')
-            .contains('MongoDB')
+            .contains('MariaDB')
             .click({force: true})
 
         cy.wait(1000)
@@ -133,18 +165,18 @@ describe('flow e2e to search by technologies', () => {
             .click({force: true})
         cy.wait(1500)
 
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g')
+        cy.get('.flex-1')
             .find('#available-tags-wrapper')
             .as('tagContainer')
 
-        cy.get('.sidebar-scrollable.s-UNHWs0oFnL4g', {timeout: 10000})
+        cy.get('.flex-1', {timeout: 10000})
             .find('#technologies-text-input')
             .as('inputTags')
 
         cy.wait(1000)
         cy.get('@tagContainer')
             .find('div:contains("C++")')
-            .scrollIntoView({duration: 5000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
 
         cy.wait(1000)
@@ -155,6 +187,7 @@ describe('flow e2e to search by technologies', () => {
         cy.wait(1000)
         cy.get('@tagContainer')
             .find('div')
+            .first()
             .click({force: true})
 
         cy.wait(1000)
@@ -175,7 +208,7 @@ describe('flow e2e to search by technologies', () => {
         cy.wait(1000)
         cy.get('@tagContainer')
             .find('div:contains("MySQL")')
-            .scrollIntoView({duration: 5000, easing: 'linear'})
+            .scrollIntoView({duration: 2000, easing: 'linear'})
             .click({force: true})
 
         // Finally, click the button to search.
