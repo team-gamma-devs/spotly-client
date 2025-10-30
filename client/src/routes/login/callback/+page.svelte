@@ -4,6 +4,7 @@
 	import { supabase } from '$lib/services/supabaseClient';
 	import { Spinner } from 'flowbite-svelte';
 	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
+	import { signedJsonFetch } from '$lib/server/authFetch';
 
 	onMount(async () => {
 		const hashParams = new URLSearchParams(window.location.hash.substring(1));
@@ -28,6 +29,7 @@
 		}
 		const access_token = hashParams.get('access_token');
 		const refresh_token = hashParams.get('refresh_token');
+
 		const type = hashParams.get('type');
 
 		if (access_token && type === 'magiclink') {

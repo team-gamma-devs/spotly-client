@@ -21,7 +21,6 @@
 		{ value: 'mar_mar', name: 'Martin Marrero' },
 		{ value: 'fed_pag', name: 'Federico Paganini' },
 	];
-
 	const applyFullHeightToBitchElement = () => {
 		const el = document.querySelector('#this-element-is-a-bitch');
 		if (el?.parentElement) {

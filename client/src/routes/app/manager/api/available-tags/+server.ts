@@ -17,14 +17,14 @@ export const GET: RequestHandler = async ({ cookies }) => {
     const timestamp = Date.now().toString();
     const signature = signRequest('', Number(timestamp));
   
-    console.log(`
-      method: 'GET',
-      headers: {
-        'X-Signature': ${signature},
-        'X-Timestamp': ${timestamp},
-        'X-Frontend-Origin': 'vercel-spotly-client',
-        'Authorization': 'Bearer ${token}'
-      }`)
+    // console.log(`
+    //   method: 'GET',
+    //   headers: {
+    //     'X-Signature': ${signature},
+    //     'X-Timestamp': ${timestamp},
+    //     'X-Frontend-Origin': 'vercel-spotly-client',
+    //     'Authorization': 'Bearer ${token}'
+    //   }`)
 
     const response = await fetch(`${BACKEND_URL}/manager/filters`, {
       method: 'GET',
@@ -47,7 +47,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
 
     const data = await response.json();
     
-    console.log('Fetched available tags:', data);
+    // console.log('Fetched available tags:', data);
     
     return json(data);
   } catch (error: any) {

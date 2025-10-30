@@ -25,10 +25,10 @@ import { dev } from '$app/environment';
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
-	// if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
-	// 	event.locals.user = mockUserState;
-	// 	return resolve(event);
-	// }
+	if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
+		event.locals.user = mockUserState;
+		return resolve(event);
+	}
 
 	if (!sessionToken) {
 		event.locals.user = null;
