@@ -165,17 +165,14 @@ export const actions: Actions = {
 
 			const backendFormData = new FormData();
 
-			// Map frontend field names to backend field names
 			if (linkedinPdf) {
-				backendFormData.append('linkedin_cv', linkedinPdf);  // linkedin_pdf → linkedin_cv
+				backendFormData.append('linkedin_cv', linkedinPdf);
 			}
-
 			if (personalCv) {
-				backendFormData.append('personal_cv', personalCv);  // Same name
+				backendFormData.append('personal_cv', personalCv);
 			}
-
 			if (avatar) {
-				backendFormData.append('avatar_img', avatar);  // avatar → avatar_img
+				backendFormData.append('avatar_img', avatar);
 			}
 
 			// If the user has connected their GitHub account, add the username to the form data.
@@ -202,47 +199,6 @@ export const actions: Actions = {
 			}
 
 			const responseData = await response.json();
-
-			const userFull = await signedJsonFetch(`${BACKEND_URL}/auth/me/full_user`);
-
-
-			supabase.auth.setSession
-			/**
-			 * /auth/me/full_user response
-{
-"id": "string",
-"firstName": "string",
-"lastName": "string",
-"email": "user@example.com",
-"avatar_url": "http://example.com",
-"cohort": 0,
-"github": "string",
-"cvInfo": {
-"personalCvUrl": "http://example.com",
-"linkedinUrl": "http://example.com",
-"skills": [
-"string"
-],
-"englishLevel": "string",
-"worksInIt": true,
-"lastUpdate": "2019-08-24T14:15:22Z"
-},
-"tutorsFeedback": [
-{
-"id": "string",
-"tutorId": "string",
-"tutorName": "string",
-"professionalScore": "string",
-"technicalScore": "string",
-"annotation": "string",
-"created_at": "2019-08-24T14:15:22Z"
-}
-],
-"role": "string",
-"created_at": "2019-08-24T14:15:22Z",
-"updated_at": "2019-08-24T14:15:22Z"
-}
-			*/
 
 			return {
 				success: true,

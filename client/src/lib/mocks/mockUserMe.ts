@@ -1,7 +1,9 @@
-export type UserAuthMe = {
-	id: string | null;
-	first_name: string | null;
-	last_name: string | null;
-	role: 'graduate' | 'manager';
-	isFirstTime: boolean;
-} | null;
+import type { UserMe } from '$lib/types/userMe.ts';
+
+export const mockUserMe: UserMe = {
+	id: '123',
+	firstName: 'Federico',
+	lastName: 'Paganini',
+	role: 'graduate',
+	isFirstTime: false,
+}

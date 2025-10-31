@@ -1,10 +1,9 @@
 import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
-import { mockUserState } from './lib/mocks/mockUserState';
 import { supabase } from '$lib/services/supabaseClient';
-import type { UserAuthMe } from '$lib/mocks/mockUserMe';
-
+import { mockUserMe } from '$lib/mocks/mockUserMe';
+import type { UserMe } from '$lib/types/userMe';
 import { dev } from '$app/environment';
 
 /**
@@ -26,7 +25,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
 	if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
-		event.locals.user = mockUserState;
+		event.locals.user = mockUserMe;
 		return resolve(event);
 	}
 
@@ -44,10 +43,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 
 		if (response.ok) {
-			const user: UserAuthMe = await response.json();
+			const user: UserMe = await response.json();
 			event.locals.user = user;
 		} else {
-			// Sync this with logout/+page.server.ts
 			console.error('Error in backend authentication response, Contact backend support.');
 			event.locals.user = null;
 			supabase.auth.signOut();
