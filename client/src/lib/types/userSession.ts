@@ -11,7 +11,7 @@ export interface TutorFeedback {
 	professionalScore: string;
 	technicalScore: string;
 	annotation: string;
-	createdAt: string; // ISO 8601 date string
+	createdAt: string;
 }
 
 export interface CvInfo {
@@ -20,7 +20,7 @@ export interface CvInfo {
 	skills: string[];
 	englishLevel: string;
 	worksInIt: boolean;
-	lastUpdate: string; // ISO 8601 date string
+	lastUpdate: string;
 }
 
 export interface User {
@@ -34,8 +34,8 @@ export interface User {
 	cvInfo: CvInfo;
 	tutorsFeedback: TutorFeedback[];
 	role: string;
-	createdAt: string; // ISO 8601 date string
-	updatedAt: string; // ISO 8601 date string
+	createdAt: string;
+	updatedAt: string;
 }
 
 export interface AuthMeResponse {

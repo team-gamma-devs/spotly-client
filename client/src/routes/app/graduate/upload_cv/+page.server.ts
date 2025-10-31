@@ -20,8 +20,8 @@ MAX_CSV_SIZE=1
 MAX_IMG_SIZE=1
 */
 
-const MAX_PDF_SIZE = 2 * 1024 * 1024;
-const MAX_IMG_SIZE = 1;
+const MAX_PDF_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_IMG_SIZE = 1 * 1024 * 1024; // 1MB
 
 /**
  * Validation error messages for each upload field.
@@ -54,10 +54,11 @@ interface ValidationErrors {
  * ```
  */
 function validateFile(
-	file: File | null,
-	allowedTypes: string[],
-	fieldName: string,
-	isOptional: boolean = false
+    file: File | null,
+    allowedTypes: string[],
+    fieldName: string,
+    isOptional: boolean = false,
+    maxBytes: number
 ): string | null {
 	if (!file || file.size === 0) {
 		if (isOptional) {
@@ -66,10 +67,11 @@ function validateFile(
 		return `${fieldName} is required.`;
 	}
 
-	if (file.size > MAX_) {
-		const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-		return `File is too large (${sizeMB}MB). Maximum size is 3MB.`;
-	}
+    if (file.size > maxBytes) {
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        const maxMB = (maxBytes / (1024 * 1024)).toFixed(0);
+        return `File is too large (${sizeMB}MB). Maximum size is ${maxMB}MB.`;
+    }
 
 	const fileExtension = file.name.split('.').pop()?.toLowerCase();
 	if (!fileExtension || !allowedTypes.includes(fileExtension)) {
@@ -127,17 +129,17 @@ export const actions: Actions = {
 
 		const validationErrors: ValidationErrors = {};
 
-		const linkedinError = validateFile(linkedinPdf, ['pdf'], 'LinkedIn PDF');
+    const linkedinError = validateFile(linkedinPdf, ['pdf'], 'LinkedIn PDF', false, MAX_PDF_SIZE);
 		if (linkedinError) {
 			validationErrors.linkedin = linkedinError;
 		}
 
-		const personalError = validateFile(personalCv, ['pdf', 'docx'], 'Personal CV');
+    const personalError = validateFile(personalCv, ['pdf', 'docx'], 'Personal CV', false, MAX_PDF_SIZE);
 		if (personalError) {
 			validationErrors.personal = personalError;
 		}
 
-		const avatarError = validateFile(avatar, ['jpg', 'jpeg', 'png'], 'Avatar', true);
+    const avatarError = validateFile(avatar, ['jpg', 'jpeg', 'png'], 'Avatar', true, MAX_IMG_SIZE);
 		if (avatarError) {
 			validationErrors.avatar = avatarError;
 		}
@@ -152,7 +154,6 @@ export const actions: Actions = {
 		try {
 			const url = new URL(`${BACKEND_URL}/sign-up/`);
 
-			// Get JWT token from cookies
 			const jwtToken = cookies.get('access_token');
 
 			if (!jwtToken) {
@@ -162,7 +163,6 @@ export const actions: Actions = {
 				});
 			}
 
-			// Create NEW FormData with field names matching FastAPI endpoint
 			const backendFormData = new FormData();
 
 			// Map frontend field names to backend field names
@@ -178,15 +178,15 @@ export const actions: Actions = {
 				backendFormData.append('avatar_img', avatar);  // avatar → avatar_img
 			}
 
-			// Optional: Add github_username if you collect it
-			// backendFormData.append('github_username', '');
+			// If the user has connected their GitHub account, add the username to the form data.
+			backendFormData.append('github_username', cookies.get('github_username') || '');
 
 			console.log('[uploadFiles] Sending request with JWT');
 			console.log('[uploadFiles] FormData fields:', Array.from(backendFormData.keys()));
 
 			const response = await signedMultipartFetch(url.toString(), {
 				method: 'POST',
-				body: backendFormData,  // Use the rebuilt FormData
+				body: backendFormData,
 				headers: {
 					'Authorization': `Bearer ${jwtToken}`,
 				},

@@ -1,23 +1,35 @@
+export type EnglishLevel = 'Basic' | 'Intermediate' | 'Advanced';
+
+export type ScoreLevel = 'Poor' | 'Average' | 'Good' | 'Excellent';
+
 export interface Annotation {
     createdAt: string;
     message: string;
 }
 
-export type TutorsFeedback = Record<string, Record<string, unknown>>;
+export interface TutorFeedbackItem {
+    createdAt?: string;
+    professionalScore?: ScoreLevel;
+    technicalScore?: ScoreLevel;
+    tutorName?: string;
+    tutorId?: string;
+}
+
+export type TutorsFeedback = Record<string, TutorFeedbackItem>;
 
 export interface Graduate {
     id: string;
     firstName: string;
     lastName: string;
     email: string;
-    englishLevel: string;
+    englishLevel: EnglishLevel;
     avatarUrl: string;
     cohort: number;
     techStack: string[];
-    githubUrl: string;
+    githubUrl?: string | null;
     linkedinUrl: string;
-    annotations: Annotation[];
-    tutorsFeedback: TutorsFeedback;
+    annotations?: Annotation[] | null;
+    tutorsFeedback?: TutorsFeedback | null;
     worksInIt: boolean;
     createdAt: string;
     updatedAt: string;

@@ -28,22 +28,7 @@
 		PhoneSolid,
 	} from 'flowbite-svelte-icons';
 	import { enhance } from '$app/forms';
-
-	type Annotation = {
-		id: string;
-		createdAt: string;
-		message: string;
-	};
-
-	type TutorFeedback = {
-		[feedbackId: string]: {
-			createdAt: string;
-			professionalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
-			technicalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
-			tutorName: string;
-			tutorId: string;
-		};
-	};
+	import type { Annotation, TutorsFeedback, EnglishLevel } from '$lib/types/graduates';
 
 	let {
 		id = '',
@@ -51,14 +36,14 @@
 		lastName = 'n/a',
 		email = 'n/a',
 		avatarUrl = '$lib/assets/svgs/pfp-fallback.svg',
-		englishLevel = 'Basic' as 'Basic' | 'Intermediate' | 'Advanced',
-		cohort = 'n/a',
+		englishLevel = 'Basic' as EnglishLevel,
+		cohort = 0,
 		techStack = [],
-		githubUrl = '',
+		githubUrl = '' as string | null | undefined,
 		linkedinUrl = '',
 		updatedAt = 'Long Time Ago...',
-		annotations = [] as Annotation[],
-		tutorsFeedback = {} as TutorFeedback,
+		annotations = [] as Annotation[] | null | undefined,
+		tutorsFeedback = {} as TutorsFeedback | null | undefined,
 		worksInIt = false,
 	} = $props();
 
@@ -73,6 +58,9 @@
 	let newAnnotation = $state('');
 	let formError = $state('');
 	let isSubmitting = $state(false);
+
+	// Ensure we always work with a non-null object for tutors feedback in templates
+	const safeTutorsFeedback = $derived((tutorsFeedback ?? {}) as TutorsFeedback);
 
 	const techTags = $derived(
 		//This monster converts the tags to proper techtags for randoms.
@@ -100,8 +88,9 @@
 	 * @param {string} dateString - The string representation of the date to format.
 	 * @returns {string} The formatted date string (e.g., "Oct 20, 2025").
 	 */
-	const formatDate = (dateString: string): string => {
+	const formatDate = (dateString: string | undefined): string => {
 		try {
+			if (!dateString) return 'Unknown';
 			const date = new Date(dateString);
 			return date.toLocaleDateString('en-US', {
 				year: 'numeric',
@@ -229,32 +218,33 @@
 			<span>Notes</span>
 		</Button>
 
-		<div
-			id="{uniqueId}-annotations-container"
-			class="flex items-center justify-start ml-2 mr-auto h-full min-h-[25px] min-w-[50px] overflow-x-auto"
-		>
-			{#if annotations.length > 0}
-				{#each annotations.slice(0, 3) as annotation}
-					<AnnotationOutline
-						class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
-						onclick={() => {
-							showAnnotationsModal = true;
-						}}
-					/>
-				{/each}
-				{#if annotations.length === 0}
-					<AnnotationOutline
-						class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
-						onclick={() => {
-							showAnnotationsModal = true;
-						}}
-					/>
+		{#if annotations && annotations.length > 0}
+			<div
+				id="{uniqueId}-annotations-container"
+				class="flex items-center justify-start ml-2 mr-auto h-full min-h-[25px] min-w-[50px] overflow-x-auto"
+			>
+				{#if annotations.length > 0}
+					{#each annotations.slice(0, 3) as annotation}
+						<AnnotationOutline
+							class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+							onclick={() => {
+								showAnnotationsModal = true;
+							}}
+						/>
+					{/each}
+					{#if annotations.length === 0}
+						<AnnotationOutline
+							class="shrink-0 h-6 w-6 cursor-pointer text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+							onclick={() => {
+								showAnnotationsModal = true;
+							}}
+						/>
+					{/if}
 				{/if}
-			{/if}
-		</div>
-
+			</div>
+		{/if}
 		<!-- tutors feedback, on click display dialog with tutors feedback -->
-		{#if Object.keys(tutorsFeedback).length > 0}
+		{#if Object.keys(safeTutorsFeedback).length > 0}
 			<Button
 				type="button"
 				class="w-9 h-9 flex items-center p-0 justify-center cursor-pointer rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors"
@@ -306,7 +296,7 @@
 >
 	<div class="space-y-4">
 		<h3 class="text-lg font-semibold">Notes for {firstName} {lastName}</h3>
-		{#if annotations.length > 0}
+		{#if annotations && annotations.length > 0}
 			<div class="space-y-3 max-h-96 overflow-y-auto">
 				{#each annotations as annotation}
 					<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
@@ -426,9 +416,9 @@
 >
 	<div class="space-y-4">
 		<h3 class="text-lg font-semibold">Feedback for {firstName} {lastName}</h3>
-		{#if Object.keys(tutorsFeedback).length > 0}
+		{#if Object.keys(safeTutorsFeedback).length > 0}
 			<div class="space-y-4 max-h-96 overflow-y-auto">
-				{#each Object.entries(tutorsFeedback) as [feedbackId, feedback]}
+				{#each Object.entries(safeTutorsFeedback) as [feedbackId, feedback]}
 					<div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 						<div class="flex items-center justify-between mb-2">
 							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{feedback.tutorName}</h4>

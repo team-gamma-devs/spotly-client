@@ -108,7 +108,7 @@
       </div>
     {:else}
       {#each graduatesList as graduate (graduate.id)}
-        <GraduateCard {...(graduate as any)} />
+        <GraduateCard {...graduate} />
       {/each}
     {/if}
   </div>
