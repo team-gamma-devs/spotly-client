@@ -63,10 +63,10 @@
 	}
 </script>
 
-<GenericBoxVisible classes="mt-10 mb-10 md:m-auto">
+<GenericBoxVisible classes="mt-10 mb-10 w-full md:mt-30 md:mb-auto md:w-auto">
 	<div id="form-header" class="w-full p-2 gap-3 flex items-center justify-between mb-2">
 		<h1 class="text-xl">Upload Files</h1>
-		<BtnGoBack classes="hidden md:block md:flex md:items-center md:justify-center" />
+		<BtnGoBack classes="md:flex md:items-center md:justify-center" />
 	</div>
 
 	<div class="w-full max-w-3xl mx-5 my-4">

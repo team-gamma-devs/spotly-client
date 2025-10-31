@@ -9,8 +9,19 @@ import { fail } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedMultipartFetch } from '$lib/server/authFetch';
+import { supabase } from '$lib/services/supabaseClient';
+import { signedJsonFetch } from '$lib/server/authFetch';
 
-const MAX_FILE_SIZE = 3 * 1024 * 1024; // Max size 3mb, must validate with fede.
+/*
+MAX_PDF_SIZE=2
+
+MAX_CSV_SIZE=1
+
+MAX_IMG_SIZE=1
+*/
+
+const MAX_PDF_SIZE = 2 * 1024 * 1024;
+const MAX_IMG_SIZE = 1;
 
 /**
  * Validation error messages for each upload field.
@@ -55,7 +66,7 @@ function validateFile(
 		return `${fieldName} is required.`;
 	}
 
-	if (file.size > MAX_FILE_SIZE) {
+	if (file.size > MAX_) {
 		const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
 		return `File is too large (${sizeMB}MB). Maximum size is 3MB.`;
 	}
@@ -113,36 +124,12 @@ export const actions: Actions = {
 		const linkedinPdf = formData.get("linkedin_pdf") as File | null;
 		const personalCv = formData.get("personal_cv") as File | null;
 		const avatar = formData.get("avatar") as File | null;
-		// const magicToken = formData.get("magic_token") as string | null;
-
-		// ********** DEBUG ONLY ****************
-		// const magicToken = "I'm magic Johnson!";
-		// console.log("I'm Inside!!");
-		// console.log("*************** FormData Contents *********");
-		// console.log("Magic Token:", magicToken);
-		// console.log("LinkedIn PDF:", linkedinPdf ? {
-		// 	name: linkedinPdf.name,
-		// 	size: linkedinPdf.size,
-		// 	type: linkedinPdf.type
-		// } : "NOT PROVIDED");
-		// console.log("Personal CV:", personalCv ? {
-		// 	name: personalCv.name,
-		// 	size: personalCv.size,
-		// 	type: personalCv.type
-		// } : "NOT PROVIDED");
-		// console.log("Avatar:", avatar ? {
-		// 	name: avatar.name,
-		// 	size: avatar.size,
-		// 	type: avatar.type
-		// } : "NOT PROVIDED");
-		// console.log("***********");
 
 		const validationErrors: ValidationErrors = {};
 
 		const linkedinError = validateFile(linkedinPdf, ['pdf'], 'LinkedIn PDF');
 		if (linkedinError) {
 			validationErrors.linkedin = linkedinError;
-			console.log('error: ' + linkedinError);
 		}
 
 		const personalError = validateFile(personalCv, ['pdf', 'docx'], 'Personal CV');
@@ -162,27 +149,48 @@ export const actions: Actions = {
 			});
 		}
 
-		// This is for the magic token, but since we're using supabase, I believe it's no longer useful, I'm leaving it for reference.
-		// if (!magicToken) {
-		// 	return fail(401, { error: 'Authentication token is missing. Please refresh and try again.' });
-		// }
-
 		try {
-			const url = new URL(`${BACKEND_URL}/sign-up`);
-			// url.searchParams.append('token', magicToken);
+			const url = new URL(`${BACKEND_URL}/sign-up/`);
 
-			// console.log('=== Sending to backend ===');
-			// console.log('URL:', url.toString());
-			// console.log('FormData keys:', Array.from(formData.keys()));
+			// Get JWT token from cookies
+			const jwtToken = cookies.get('access_token');
+
+			if (!jwtToken) {
+				return fail(401, {
+					error: 'Authentication required. Please log in again.',
+					success: false,
+				});
+			}
+
+			// Create NEW FormData with field names matching FastAPI endpoint
+			const backendFormData = new FormData();
+
+			// Map frontend field names to backend field names
+			if (linkedinPdf) {
+				backendFormData.append('linkedin_cv', linkedinPdf);  // linkedin_pdf → linkedin_cv
+			}
+
+			if (personalCv) {
+				backendFormData.append('personal_cv', personalCv);  // Same name
+			}
+
+			if (avatar) {
+				backendFormData.append('avatar_img', avatar);  // avatar → avatar_img
+			}
+
+			// Optional: Add github_username if you collect it
+			// backendFormData.append('github_username', '');
+
+			console.log('[uploadFiles] Sending request with JWT');
+			console.log('[uploadFiles] FormData fields:', Array.from(backendFormData.keys()));
 
 			const response = await signedMultipartFetch(url.toString(), {
 				method: 'POST',
-				body: formData,
+				body: backendFormData,  // Use the rebuilt FormData
+				headers: {
+					'Authorization': `Bearer ${jwtToken}`,
+				},
 			});
-
-			// console.log('=== Backend response ===');
-			// console.log('Status:', response.status);
-			// console.log('OK:', response.ok);
 
 			if (!response.ok) {
 				const errorData = await response.json();
@@ -195,24 +203,53 @@ export const actions: Actions = {
 
 			const responseData = await response.json();
 
-			// console.log('Success response:', responseData);
+			const userFull = await signedJsonFetch(`${BACKEND_URL}/auth/me/full_user`);
 
-			const jwt = responseData.accessToken;
 
-			cookies.set('spotly_session', jwt, {
-				path: '/',
-				httpOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-				maxAge: 60 * 60 * 24 * 7, // 1 week
-			});
+			supabase.auth.setSession
+			/**
+			 * /auth/me/full_user response
+{
+"id": "string",
+"firstName": "string",
+"lastName": "string",
+"email": "user@example.com",
+"avatar_url": "http://example.com",
+"cohort": 0,
+"github": "string",
+"cvInfo": {
+"personalCvUrl": "http://example.com",
+"linkedinUrl": "http://example.com",
+"skills": [
+"string"
+],
+"englishLevel": "string",
+"worksInIt": true,
+"lastUpdate": "2019-08-24T14:15:22Z"
+},
+"tutorsFeedback": [
+{
+"id": "string",
+"tutorId": "string",
+"tutorName": "string",
+"professionalScore": "string",
+"technicalScore": "string",
+"annotation": "string",
+"created_at": "2019-08-24T14:15:22Z"
+}
+],
+"role": "string",
+"created_at": "2019-08-24T14:15:22Z",
+"updated_at": "2019-08-24T14:15:22Z"
+}
+			*/
 
 			return {
 				success: true,
-				message: 'Files uploaded successfully!',
+				message: responseData.message,
 			};
 		} catch (error: any) {
-
-			// console.error('Error uploading files:', error);
+			console.error('Error uploading files:', error);
 
 			if (error.cause?.code === 'ECONNREFUSED') {
 				return fail(503, {
@@ -222,10 +259,9 @@ export const actions: Actions = {
 			}
 
 			return fail(500, {
-				// Catching all other errors
 				error: 'Could not connect to upload service. Please try again.',
 				success: false,
 			});
 		}
-	},
-};
+	}
+}

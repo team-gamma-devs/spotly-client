@@ -6,4 +6,4 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<UploadCVBox {form} />
+<UploadCVBox {form}/>

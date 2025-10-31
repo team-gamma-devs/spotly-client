@@ -12,6 +12,9 @@
 //     setContext(USER_KEY, userStore);
 // }
 
+
+// TODO: fetch user full information on {BACKEND_URL}/auth/me/full_user
+
 // export function getUserStore() {
 //     return getContext<Readable<User>>(USER_KEY);
 // }

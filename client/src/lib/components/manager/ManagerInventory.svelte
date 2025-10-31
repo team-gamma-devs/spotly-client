@@ -2,8 +2,8 @@
   import GraduateCard from './GraduateCard.svelte';
   import { PaginationNav, Spinner } from 'flowbite-svelte';
   import { onMount } from 'svelte';
-  import type { Graduate } from '$lib/types/graduate';
   import GenericBoxVisible from '../main/utils/GenericBoxVisible.svelte';
+  import type { Graduate, PaginatedGraduatesResponse } from '../../types/graduates';
 
   let currentPage = $state(1);
   let totalPages = $state(1);
@@ -27,9 +27,9 @@
         throw new Error(`Failed to load graduates: ${response.statusText}`);
       }
       
-      const data = await response.json();
-      graduatesList = data.graduates || [];
-      totalPages = data.totalPages || 1;
+      const data = (await response.json()) as PaginatedGraduatesResponse;
+      graduatesList = data.items || [];
+      totalPages = data.pages || 1;
     } catch (err) {
       console.error('Failed to fetch graduates:', err);
       error = err instanceof Error ? err.message : 'An unexpected error occurred';
@@ -108,7 +108,7 @@
       </div>
     {:else}
       {#each graduatesList as graduate (graduate.id)}
-        <GraduateCard {...graduate} />
+        <GraduateCard {...(graduate as any)} />
       {/each}
     {/if}
   </div>

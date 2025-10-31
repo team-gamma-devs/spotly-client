@@ -2,12 +2,15 @@
 	import { page } from '$app/state';
 	import GenericBoxInvisible from '$lib/components/main/utils/GenericBoxInvisible.svelte';
 	import { Button } from 'flowbite-svelte';
-	import { onMount } from 'svelte';
+
 
 	const user = $derived(page.data.user);
 
 	// onMount(() => {
 	// 	console.log(JSON.stringify(user));
+
+	// TODO: CHECK store/sessions.ts
+
 	// });
 </script>
 
