@@ -23,14 +23,14 @@ export interface CvInfo {
 	lastUpdate: string;
 }
 
-export interface User {
+export interface UserState {
 	id: string;
 	firstName: string;
 	lastName: string;
 	email: string;
 	avatarUrl: string;
 	cohort: number;
-	github: string;
+	githubUsername: string;
 	cvInfo: CvInfo;
 	tutorsFeedback: TutorFeedback[];
 	role: string;
@@ -39,7 +39,7 @@ export interface User {
 }
 
 export interface AuthMeResponse {
-	graduates: User[];
+	graduates: UserState[];
 	totalCount: number;
 	page: number;
 	pageSize: number;
