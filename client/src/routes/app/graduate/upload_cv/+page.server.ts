@@ -9,8 +9,7 @@ import { fail } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedMultipartFetch } from '$lib/server/authFetch';
-import { supabase } from '$lib/services/supabaseClient';
-import { signedJsonFetch } from '$lib/server/authFetch';
+import { dev } from '$app/environment';
 
 /*
 MAX_PDF_SIZE=2
@@ -178,8 +177,10 @@ export const actions: Actions = {
 			// If the user has connected their GitHub account, add the username to the form data.
 			backendFormData.append('github_username', cookies.get('github_username') || '');
 
-			console.log('[uploadFiles] Sending request with JWT');
-			console.log('[uploadFiles] FormData fields:', Array.from(backendFormData.keys()));
+			if (dev) {
+				console.log('Sending request with JWT');
+				console.log('FormData fields:', Array.from(backendFormData.keys()));
+			}
 
 			const response = await signedMultipartFetch(url.toString(), {
 				method: 'POST',
@@ -209,13 +210,13 @@ export const actions: Actions = {
 
 			if (error.cause?.code === 'ECONNREFUSED') {
 				return fail(503, {
-					error: 'Upload service is not available. Please try again later.',
+					error: 'Upload service is not available. Contact Federico Paganini or the support team.',
 					success: false,
 				});
 			}
 
 			return fail(500, {
-				error: 'Could not connect to upload service. Please try again.',
+				error: 'Could not connect to upload service. Contact Federico Paganini or the support team.',
 				success: false,
 			});
 		}

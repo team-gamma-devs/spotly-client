@@ -7,9 +7,12 @@
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 	import murica from '$lib/assets/svgs/united-states-flag-icon.svg';
 	import { mockUserState } from '$lib/mocks/mockUserState';
+	import { dev } from '$app/environment';
 
-	// const userData = page.data.user || { uncomment when you want to use the real user
+	// const userData = page.data.user uncomment when you want to use the real user
+
 	const userData = mockUserState;
+
 
 	const userName = `${userData.firstName} ${userData.lastName}`;
 	const userPfp = `${userData.avatarUrl || pfpFallback}`;
@@ -90,9 +93,9 @@
 									<FileCheckSolid class="w-5 h-5" />
 								</a>
 							{/if}
-							{#if userData.cvInfo?.githubInfo}
+							{#if userData.githubUsername}
 								<a
-									href={userData.cvInfo.githubInfo}
+									href={userData.githubUsername}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="w-9 h-9 flex items-center justify-center rounded bg-gray-800 dark:bg-gray-900 hover:bg-gray-600 text-white transition-colors"
