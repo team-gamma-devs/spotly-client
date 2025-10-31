@@ -3,5 +3,6 @@ export type UserMe = {
     firstName: string,
     lastName: string,
     role: 'graduate' | 'manager',
+    avatarUrl: string | null,
     isFirstTime: boolean
 } | null;
