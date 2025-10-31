@@ -18,8 +18,8 @@
 	import { enhance } from '$app/forms';
 	import pfpFallback from '$lib/assets/svgs/pfp-fallback.svg';
 
-	const user = $derived(page.data.user);
-	const userPfp = $derived(page.data.user?.avatarUrl || pfpFallback);
+	const userData = $derived(page.data?.user);
+	const userPfp = $derived(userData?.avatarUrl || pfpFallback);
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass =
@@ -44,10 +44,10 @@
 				activeUrl={activeUrl === '/app/manager/' || activeUrl === '/app/manager' ? '/app/manager/' : activeUrl}
 				classes={{ active: activeClass, nonActive: nonActiveClass }}
 			>
-				{#if user?.role == 'manager'}
+				{#if userData?.role == 'manager'}
 					<NavLi href="/app/manager/" class="relative" style="top:2px;">Dashboard</NavLi>
 					<NavLi href="/app/manager/status" class="relative" style="top:2px;">Status</NavLi>
-				{:else if user?.role == 'graduate'}
+				{:else if userData?.role == 'graduate'}
 					<NavLi href="/app/graduate/" class="relative" style="top:2px;">Dashboard</NavLi>
 				{/if}
 			</NavUl>
@@ -58,13 +58,13 @@
 			<DarkMode class="mx-2 md:mr-4 md:ml-auto p-2 cursor-pointer text-white hover:text-black dark:hover:text-white" />
 			<Dropdown placement="bottom" triggeredBy="#avatar-menu" class="dark:bg-box-bg bg-box-bg backdrop-blur-xl">
 				<DropdownHeader>
-					<span class="block text-sm">{user?.firstName}</span>
-					<span class="block truncate text-sm font-medium">{user?.lastName}</span>
+					<span class="block text-sm">{userData?.firstName}</span>
+					<span class="block truncate text-sm font-medium">{userData?.lastName}</span>
 				</DropdownHeader>
 				<DropdownGroup>
-					{#if user?.role == 'graduate'}
+					{#if userData?.role == 'graduate'}
 						<DropdownItem class="cursor-pointer" href="/app/graduate/settings">Settings</DropdownItem>
-					{:else if user?.role == 'manager'}
+					{:else if userData?.role == 'manager'}
 						<DropdownItem class="cursor-pointer" href="/app/manager/settings">Settings</DropdownItem>
 					{/if}
 					<form method="POST" action="/logout" use:enhance>

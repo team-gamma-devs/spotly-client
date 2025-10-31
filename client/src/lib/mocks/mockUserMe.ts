@@ -5,5 +5,6 @@ export const mockUserMe: UserMe = {
 	firstName: 'Federico',
 	lastName: 'Paganini',
 	role: 'graduate',
+	avatarUrl: 'https://a.storyblok.com/f/191576/1176x882/f95162c213/profile_picture_hero_before.webp',
 	isFirstTime: false,
 }

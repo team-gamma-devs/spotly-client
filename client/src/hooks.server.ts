@@ -24,17 +24,21 @@ import { dev } from '$app/environment';
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
-	if (dev) { // This will send a fetch to /auth/me/full or something like that and store the full user.
+	if (dev) {
 		event.locals.user = mockUserMe;
+		event.locals.userFull = null; // userFull is only fetched on dashboard pages
+		console.log('Using mock user');
 		return resolve(event);
 	}
 
 	if (!sessionToken) {
 		event.locals.user = null;
+		event.locals.userFull = null;
 		return resolve(event);
 	}
 
 	try {
+		console.log('Validating session with backend...');
 		const response = await signedJsonFetch(`${BACKEND_URL}/auth/me`, {
 			method: 'GET',
 			headers: {
@@ -45,9 +49,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 		if (response.ok) {
 			const user: UserMe = await response.json();
 			event.locals.user = user;
+			event.locals.userFull = null; // userFull is only fetched on dashboard pages
 		} else {
 			console.error('Error in backend authentication response, Contact backend support.');
 			event.locals.user = null;
+			event.locals.userFull = null;
 			supabase.auth.signOut();
 			event.cookies.delete('access_token', { path: '/' });
 			event.cookies.delete('refresh_token', { path: '/' });
@@ -57,6 +63,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	} catch (error) {
 		console.error('Error validating session with backend:', error);
 		event.locals.user = null;
+		event.locals.userFull = null;
 		supabase.auth.signOut();
 		event.cookies.delete('access_token', { path: '/' });
 		event.cookies.delete('refresh_token', { path: '/' });
