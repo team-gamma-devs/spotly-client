@@ -18,6 +18,7 @@
 	import usaIcon from '$lib/assets/svgs/united-states-flag-icon.svg';
 	import TechTag from '../main/utils/TechTag.svelte';
 	import { availableFilterTags } from '$lib/constants/filterTags';
+	import { invalidateAll } from '$app/navigation';
 	import { Button, Modal, Textarea, Label } from 'flowbite-svelte';
 	import {
 		GithubSolid,
@@ -351,6 +352,7 @@
 					showAddAnnotationModal = false;
 					newAnnotation = '';
 					formError = '';
+					await invalidateAll(); // Reload the page to update the contents.
 				} else if (result.type === 'failure') {
 					formError = JSON.stringify(result.data?.error) || 'An error occurred while adding the annotation';
 				} else if (result.type === 'error') {
