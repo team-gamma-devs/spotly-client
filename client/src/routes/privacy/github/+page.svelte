@@ -4,7 +4,7 @@
 </script>
 
 <section
-	class="bg-white dark:bg-background blur-bg border border-gray-200 dark:border-slate-800 rounded-lg shadow-md max-w-[720px] mx-auto p-6 m-5 sm:p-8 text-slate-800 dark:text-slate-100 leading-relaxed"
+	class="bg-white dark:bg-background backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-lg shadow-md max-w-[720px] mx-auto p-6 m-5 sm:p-8 text-slate-800 dark:text-slate-100 leading-relaxed"
 	aria-labelledby="how-it-works-title"
 >
 	<div class="w-full flex justify-between items-center mb-3">

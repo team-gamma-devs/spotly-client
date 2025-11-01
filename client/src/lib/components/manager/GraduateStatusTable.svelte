@@ -16,7 +16,6 @@
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
 	// TODO: The pagination stuff.
-
 	let graduatesList = GraduatePills.map((graduate) => ({
 		...graduate,
 		fullName: `${graduate.firstName} ${graduate.lastName}`,
@@ -108,7 +107,6 @@
 	}
 	async function handleAddCSV() {
 		//TODO: manager can upload CSV and generate invitations.
-		
 	}
 </script>
 

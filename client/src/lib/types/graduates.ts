@@ -1,3 +1,7 @@
+
+// This defines the graduate list used in the main dashboard.
+// Check components/manager/GraduateCard.svelte
+
 export type EnglishLevel = 'Basic' | 'Intermediate' | 'Advanced';
 
 export type ScoreLevel = 'Poor' | 'Average' | 'Good' | 'Excellent';
