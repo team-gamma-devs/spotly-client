@@ -27,7 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (dev) {
 		event.locals.user = mockUserMe;
 		event.locals.userFull = null; // userFull is only fetched on dashboard pages
-		console.log('Using mock user');
+		console.log('Using mock user: ' + JSON.stringify(event.locals.user));
 		return resolve(event);
 	}
 

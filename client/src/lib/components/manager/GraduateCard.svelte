@@ -361,7 +361,7 @@
 			};
 		}}
 	>
-		<input type="hidden" name="graduated_id" value={id} />
+		<input type="hidden" name="graduatedId" value={id} />
 
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Add note for {firstName} {lastName}</h3>

@@ -4,13 +4,14 @@ import { BACKEND_URL } from '$env/static/private';
 import type { Actions } from './$types';
 
 export const actions = {
+	// This form is located in manager/GraduateCard.svelte
 	addAnnotation: async ({ request, locals }) => {
 
 		const formData = await request.formData();
-		const graduated_id = formData.get('graduated_id');
+		const graduatedId = formData.get('graduatedId');
 		const annotation = formData.get('annotation');
 		
-		// console.log('Form data received:', { graduated_id, annotation });
+		console.log('Form data received:', { graduatedId, annotation });
 
 		if (!annotation || typeof annotation !== 'string') {
 			console.log('Validation failed: Annotation is required');
@@ -27,13 +28,13 @@ export const actions = {
 			return fail(400, { error: 'Annotation must be 300 characters or less' });
 		}
 
-		if (!graduated_id || typeof graduated_id !== 'string') {
+		if (!graduatedId || typeof graduatedId !== 'string') {
 			console.log('Validation failed: Graduate ID is required');
 			return fail(400, { error: 'Graduate ID is required' });
 		}
 
-		const author_id = locals.user.id;
-		if (!author_id) {
+		const authorId = locals.user?.id;
+		if (!authorId) {
 			console.log('Validation failed: User not authenticated');
 			return fail(401, { error: 'User not authenticated' });
 		}
@@ -41,8 +42,8 @@ export const actions = {
 
 
 		const requestBody = {
-			graduated_id,
-			author_id,
+			graduatedId,
+			authorId,
 			annotation: annotation.trim(),
 		};
 		// console.log('Validation passed');
@@ -51,7 +52,7 @@ export const actions = {
 		// console.log('Request body:', requestBody);
 
 		try {		
-			const response = await signedJsonFetch(`${BACKEND_URL}/feedback`, {
+			const response = await signedJsonFetch(`${BACKEND_URL}/manager/feedback`, {
 				method: 'POST',
 				body: JSON.stringify(requestBody),
 			});
@@ -63,9 +64,9 @@ export const actions = {
 				let errorData;
 				try {
 					errorData = await response.json();
-					console.log('Error response data:', errorData);
+					console.error('Error response data:', JSON.stringify(errorData));
 				} catch (e) {
-					console.log('Could not parse error response as JSON');
+					console.error('Could not parse error response as JSON');
 					errorData = {};
 				}
 				
