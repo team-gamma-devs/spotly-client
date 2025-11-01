@@ -3,19 +3,22 @@ export type EnglishLevel = 'Basic' | 'Intermediate' | 'Advanced';
 export type ScoreLevel = 'Poor' | 'Average' | 'Good' | 'Excellent';
 
 export interface Annotation {
+    id: string;
     createdAt: string;
-    message: string;
+    annotation: string;
 }
 
-export interface TutorFeedbackItem {
-    createdAt?: string;
-    professionalScore?: ScoreLevel;
-    technicalScore?: ScoreLevel;
-    tutorName?: string;
-    tutorId?: string;
-}
+export type TutorFeedback = {
+    [feedbackId: string]: {
+        createdAt: string;
+        professionalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
+        technicalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
+        tutorName: string;
+        tutorId: string;
+    };
+};
 
-export type TutorsFeedback = Record<string, TutorFeedbackItem>;
+export type TutorsFeedback = Record<string, TutorFeedback>;
 
 export interface Graduate {
     id: string;
@@ -30,9 +33,9 @@ export interface Graduate {
     linkedinUrl: string;
     annotations?: Annotation[] | null;
     tutorsFeedback?: TutorsFeedback | null;
-    worksInIt: boolean;
     createdAt: string;
     updatedAt: string;
+    worksInIt: boolean;
 }
 
 export interface PaginatedGraduatesResponse {

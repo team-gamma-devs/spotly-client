@@ -89,7 +89,7 @@
 	 * @param {string} dateString - The string representation of the date to format.
 	 * @returns {string} The formatted date string (e.g., "Oct 20, 2025").
 	 */
-	const formatDate = (dateString: string | undefined): string => {
+	const formatDate = (dateString: string): string => {
 		try {
 			if (!dateString) return 'Unknown';
 			const date = new Date(dateString);
@@ -304,7 +304,7 @@
 						<p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
 							{formatDate(annotation.createdAt)}
 						</p>
-						<p class="text-gray-800 dark:text-gray-200">{annotation.message}</p>
+						<p class="text-gray-800 dark:text-gray-200">{annotation.annotation}</p>
 					</div>
 				{/each}
 			</div>
@@ -425,7 +425,7 @@
 						<div class="flex items-center justify-between mb-2">
 							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{feedback.tutorName}</h4>
 							<p class="text-xs text-gray-500 dark:text-gray-400">
-								{formatDate(feedback.createdAt)}
+								{formatDate(feedback.feedbackId.createdAt)}
 							</p>
 						</div>
 						<p class="text-gray-800 dark:text-gray-200">Professional Score: {feedback.professionalScore}</p>
