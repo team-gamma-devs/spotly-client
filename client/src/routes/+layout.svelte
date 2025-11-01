@@ -4,6 +4,7 @@
 	import Header from '$lib/components/main/Header.svelte';
 	import Footer from '$lib/components/main/Footer.svelte';
 	import UnderConstruction from '$lib/components/UnderConstruction.svelte';
+	import NavigationLoading from '$lib/components/main/NavigationLoading.svelte';
 	import { dev } from '$app/environment';
 	import { PUBLIC_SHOW_COMING_SOON } from '$env/static/public';
 	import { page } from '$app/state';
@@ -31,6 +32,7 @@
 	<link rel="preload" href="/images/abstract-bg-dark-desktop.webp" as="image" media="(prefers-color-scheme: dark)" />
 	<title>Spotly | {page.data.title ?? 'Empowering Holbies!'}</title>
 </svelte:head>
+<NavigationLoading />
 {#if showComingSoon}
 	<UnderConstruction />
 {:else}
