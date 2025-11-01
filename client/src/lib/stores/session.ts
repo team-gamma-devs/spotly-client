@@ -1,20 +1,11 @@
-// import { readable, type Readable } from 'svelte/store';
-// import { setContext, getContext } from 'svelte';
-// import type { User } from '../../ambient';
-
-// // Type for this user is declared in ambient.d.ts.
-// // Needs to be the same as the model from the DB.
-
-// const USER_KEY = Symbol('user');
-
-// export function setUserStore(initialData: User) {
-//     const userStore = readable(initialData);
-//     setContext(USER_KEY, userStore);
-// }
-
-
-// TODO: fetch user full information on {BACKEND_URL}/auth/me/full_user
-
-// export function getUserStore() {
-//     return getContext<Readable<User>>(USER_KEY);
-// }
+// Supabase handles the session for us, so we don't need to store it in a store.
+// We can use the supabase.auth.getUser() method to get the user data.
+// We can use the supabase.auth.signOut() method to sign out the user.
+// We can use the supabase.auth.signInWithEmailAndPassword() method to sign in the user.
+// We can use the supabase.auth.signInWithOAuth() method to sign in the user with OAuth.
+// We can use the supabase.auth.signInWithPopup() method to sign in the user with a popup.
+// We can use the supabase.auth.signInWithRedirect() method to sign in the user with a redirect.
+// We can use the supabase.auth.signInWithPhone() method to sign in the user with a phone.
+// We can use the supabase.auth.signInWithTotp() method to sign in the user with a TOTP.
+// We can use the supabase.auth.signInWithOtp() method to sign in the user with a OTP.
+// We can use the supabase.auth.signInWithOtp() method to sign in the user with a OTP.

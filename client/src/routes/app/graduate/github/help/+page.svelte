@@ -11,7 +11,7 @@
 		<h2 id="how-it-works-title" class="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
 			How it Works
 		</h2>
-		<BtnGoBack targetUrl="http://localhost:5173/app/graduate/github" classes="cursor-pointer" />
+		<BtnGoBack classes="cursor-pointer" />
 	</div>
 	<div id="hr" class="w-full h-[1px] bg-primary-700 my-5"></div>
 	<p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-4">
