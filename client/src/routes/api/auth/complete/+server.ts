@@ -8,12 +8,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
   const { access_token, refresh_token } = await request.json();
 
   try {
-    const response = await signedJsonFetch(`${BACKEND_URL}/auth/me`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${access_token}`
-      }
-    });
+    const response = await signedJsonFetch(`${BACKEND_URL}/auth/me`, {}, access_token);
 
     const userData: UserState = await response.json();
 

@@ -29,7 +29,7 @@
 		PhoneSolid,
 	} from 'flowbite-svelte-icons';
 	import { enhance } from '$app/forms';
-	import type { Annotation, TutorsFeedback, EnglishLevel } from '$lib/types/graduates';
+	import type { Annotation, TutorFeedback, EnglishLevel } from '$lib/types/graduates';
 
 	let {
 		id = '',
@@ -44,7 +44,7 @@
 		linkedinUrl = '',
 		updatedAt = 'Long Time Ago...',
 		annotations = [] as Annotation[] | null | undefined,
-		tutorsFeedback = {} as TutorsFeedback | null | undefined,
+		tutorsFeedback = {} as TutorFeedback | null | undefined,
 		worksInIt = false,
 	} = $props();
 
@@ -61,7 +61,7 @@
 	let isSubmitting = $state(false);
 
 	// Ensure we always work with a non-null object for tutors feedback in templates
-	const safeTutorsFeedback = $derived((tutorsFeedback ?? {}) as TutorsFeedback);
+	const safeTutorsFeedback = $derived((tutorsFeedback ?? {}) as TutorFeedback);
 
 	const techTags = $derived(
 		//This monster converts the tags to proper techtags for randoms.
@@ -425,7 +425,7 @@
 						<div class="flex items-center justify-between mb-2">
 							<h4 class="font-semibold text-primary-600 dark:text-primary-400">{feedback.tutorName}</h4>
 							<p class="text-xs text-gray-500 dark:text-gray-400">
-								{formatDate(feedback.feedbackId.createdAt)}
+								{formatDate(feedback.createdAt)}
 							</p>
 						</div>
 						<p class="text-gray-800 dark:text-gray-200">Professional Score: {feedback.professionalScore}</p>

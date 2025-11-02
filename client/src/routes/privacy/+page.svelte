@@ -4,7 +4,7 @@
 </script>
 
 <section
-  class="bg-white dark:bg-background blur-bg border border-gray-200 dark:border-slate-800 rounded-lg shadow-md max-w-[720px] mx-auto p-6 m-5 sm:p-8 text-slate-800 dark:text-slate-100 leading-relaxed"
+  class="bg-white dark:bg-background backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-lg shadow-md mx-auto p-6 m-5 sm:p-8 text-slate-800 dark:text-slate-100 leading-relaxed"
   aria-labelledby="privacy-notice-title"
 >
   <div class="w-full flex justify-between items-center mb-3">
@@ -55,7 +55,7 @@
     <li>
       <strong class="text-slate-900 dark:text-slate-100">GitHub Profile Link:</strong>
       <span class="text-slate-600 dark:text-slate-300">
-        A link to your GitHub profile (if provided) is stored. GitHub data is fetched in real-time when needed and is not stored on our servers. Learn more about <a href="/app/graduate/github/help" class="text-primary-600 dark:text-primary-400 hover:underline">how GitHub data is used</a>.
+        A link to your GitHub profile (if provided) is stored. GitHub data is fetched in real-time when needed and is not stored on our servers. Learn more about <a href="/privacy/github" class="text-primary-600 dark:text-primary-400 hover:underline">how GitHub data is used</a>.
       </span>
     </li>
     <li>

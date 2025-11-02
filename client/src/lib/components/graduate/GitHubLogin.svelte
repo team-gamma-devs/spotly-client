@@ -45,7 +45,7 @@
 				<p class="login-p dark:text-gray-400">We can't access your account, your data is only accessible to you.</p>
 				<BtnGitHubLogin />
 				<a
-					href="/app/graduate/github/help"
+					href="/privacy/github"
 					class="text-xs text-foreground dark:text-gray-500 hover:text-blue-800
             dark:text-blue-300 dark:hover:text-blue-200 underline decoration-1 underline-offset-2 transition-colors block text-center"
 					aria-label="GitHub Data Help"

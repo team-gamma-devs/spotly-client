@@ -7,14 +7,12 @@ import { fail } from '@sveltejs/kit';
 export const load: PageServerLoad = async () => {
   const configPromise = (async () => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
       
       // TODO: Replace with real backend
       // const response = await signedJsonFetch(`${BACKEND_URL}/manager/config`);
       // if (response.ok) {
       //   return await response.json();
       // }
-      
       return mockConfig;
     } catch (error) {
       console.error('Failed to load config:', error);

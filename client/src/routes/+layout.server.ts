@@ -17,8 +17,8 @@ export const load: LayoutServerLoad = async ({ locals, cookies }) => {
   const githubUsername = cookies.get('github_username');
   
   return {
-    user: locals.user, // Basic user data (includes avatarUrl) for the server hook to ensure auth state.
+    user: locals.user, // Basic user data for the server hook to ensure auth state.
     userFull: locals.userFull || null, // Full user data is only fetched on dashboard pages, null elsewhere.
-    githubUsername: githubUsername || null, // if user has connected its 
+    githubUsername: githubUsername || null, // if the user has connected its github account.
   };
 };
