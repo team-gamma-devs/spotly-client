@@ -13,6 +13,8 @@
 	} from 'flowbite-svelte';
 	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid, FileCsvOutline } from 'flowbite-svelte-icons';
 	import { GraduatePills } from '$lib/mocks/mockGraduatePill';
+	import UploadCSV from './utils/UploadCSV.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
 	// TODO: The pagination stuff.
@@ -74,6 +76,7 @@
 	}
 
 	let showModal = $state(false);
+	let showCSVModal = $state(false);
 	let selectedGraduate = $state<(typeof graduatesList)[0] | null>(null);
 
 	function openModal(graduate: (typeof graduatesList)[0]) {
@@ -101,12 +104,22 @@
 			closeModal();
 		}
 	}
+
+	function handleUploadSuccess() {
+		// Don't close modal immediately - let user see success message
+		// Refresh the data to show new invitations
+		invalidateAll();
+		console.log('CSV uploaded successfully, refreshing data...');
+	}
+
+	function handleUploadError(error: string) {
+		console.error('CSV upload failed:', error);
+		// Keep modal open so user can see the error and try again
+	}
+
 	async function handleAddTutorFeedback() {
 		// TODO: on tutor add feedbackamsdlmwkqo mdasd
 		closeModal();
-	}
-	async function handleAddCSV() {
-		//TODO: manager can upload CSV and generate invitations.
 	}
 </script>
 
@@ -116,7 +129,13 @@
 		<SearchOutline class="w-5 h-5 me-2" />
 		Search
 	</Button>
-	<Button color="alternative" onclick={handleAddCSV} class="cursor-pointer">
+	<Button
+		color="alternative"
+		onclick={() => {
+			showCSVModal = true;
+		}}
+		class="cursor-pointer"
+	>
 		<FileCsvOutline class="w-5 h-5 me-2" />
 		Upload CSV
 	</Button>
@@ -163,7 +182,12 @@
 </Table>
 
 <!-- ************* Options for graduate modal ************** -->
-<Modal bind:open={showModal} size="xs" autoclose={false} class="min-w-100 bg-white dark:bg-gray-900 blur-bg">
+<Modal
+	bind:open={showModal}
+	size="xs"
+	autoclose={false}
+	class="w-full md:w-auto bg-background dark:bg-background backdrop-blur-xl"
+>
 	<div class="flex flex-col items-center gap-4 justify-center">
 		{#if selectedGraduate}
 			<div class="text-center mb-2">
@@ -198,5 +222,34 @@
 		</div>
 
 		<Button size="sm" color="alternative" class="mt-2 cursor-pointer" onclick={closeModal}>Close</Button>
+	</div>
+</Modal>
+
+<!-- ************************ UPLOAD CSV WITH INVITATIONS *********************** -->
+<Modal bind:open={showCSVModal} size="md" autoclose={false} class="bg-background dark:bg-background backdrop-blur-xl">
+	<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Send Invitations</h3>
+	<div class="space-y-3 mb-4">
+		<p class="text-sm text-gray-600 dark:text-gray-400">
+			To send out invitations, please provide a CSV file with the following format:
+		</p>
+		<div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg font-mono text-sm">
+			<p class="text-gray-700 dark:text-gray-300">first_name,last_name,cohort,email</p>
+			<p class="text-gray-600 dark:text-gray-400">Pepe,Pelotas,25,pepe_pelotas@gmail.com</p>
+		</div>
+		<p class="text-xs text-gray-500 dark:text-gray-500">Note: Maximum file size is 1MB</p>
+	</div>
+
+	<UploadCSV onSuccess={handleUploadSuccess} onError={handleUploadError} />
+
+	<div class="mt-4 flex justify-end">
+		<Button
+			size="sm"
+			color="alternative"
+			onclick={() => {
+				showCSVModal = false;
+			}}
+		>
+			Close
+		</Button>
 	</div>
 </Modal>
