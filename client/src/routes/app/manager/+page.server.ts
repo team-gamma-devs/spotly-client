@@ -5,7 +5,7 @@ import type { Actions } from './$types';
 import { dev } from '$app/environment';
 
 export const actions = {
-	// This form is located in manager/GraduateCard.svelte
+	// This catches the form located in manager/GraduateCard.svelte
 	addAnnotation: async ({ request, locals, cookies }) => {
 		const token = cookies.get('access_token');
 		const formData = await request.formData();
@@ -61,7 +61,7 @@ export const actions = {
 			}, token);
 
 			if (dev) {
-				console.log('Response status:', respons{Hay que implementar el search invitation by email or fullName, ademas hay que fetchear las invitaciones en el status Dashboard.}e.status);
+				console.log('Response status:', response.status);
 				console.log('Response ok:', response.ok);
 			}
 
