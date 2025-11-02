@@ -3,11 +3,12 @@
 // was going to be a pill shape, that's why the name.
 // Check components/manager/GraduateStatusTable.svete
 
-export interface GraduatePill {
-	id: string;
-	firstName: string;
-	lastName: string;
-	email: string;
-	updatedAt: string;
-	invitStatus: "Expired" | "Invited" | "Pending" | "Accepted";
+export interface GraduateInvitation {
+  id: string;
+  fullName: string;
+  email: string;
+  cohort: number;
+  logState: boolean;
+  createdAt: string;
+  expiresAt: string;
 };

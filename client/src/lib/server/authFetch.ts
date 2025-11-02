@@ -6,7 +6,7 @@ const BACKEND_SECRET = env.BACKEND_SECRET;
 
 /**
  * Generates a SHA256 HMAC signature for a given payload and timestamp.
- * @param payload The stringified request body. For multipart requests, this should be an empty string.
+ * @param payload The stringified request body. For GET/multipart requests, this should be an empty string.
  * @param timestamp The timestamp of the request in milliseconds.
  * @returns The hexadecimal signature string.
  */
@@ -48,17 +48,63 @@ function createJsonAuthHeaders(body?: any): Headers {
 export async function signedJsonFetch(url: string, options: RequestInit = {}): Promise<Response> {
 	const body = options.body;
 	const authHeaders = createJsonAuthHeaders(body ? JSON.parse(body as string) : undefined);
-  if (dev) {
-    console.log("****** Signed JSON Called With **********");
-    console.log("URL: " + url);
-    console.log("Options: " + JSON.stringify(options));
-    console.log("Body:" + body);
-    console.log("authHeaders: " + JSON.stringify(Object.fromEntries(authHeaders.entries())));
-    console.log("*****************END**********************");
-  }
+	
+	if (dev) {
+		console.log("****** Signed JSON Called With **********");
+		console.log("URL: " + url);
+		console.log("Options: " + JSON.stringify(options));
+		console.log("Body:" + body);
+		console.log("authHeaders: " + JSON.stringify(Object.fromEntries(authHeaders.entries())));
+		console.log("*****************END**********************");
+	}
 
 	return fetch(url, {
 		...options,
+		headers: {
+			...Object.fromEntries(authHeaders.entries()),
+			...options.headers,
+		},
+	});
+}
+
+/**
+ * Creates authentication headers for GET requests (no body).
+ * The signature is generated with an empty payload since GET requests don't have a body.
+ * @returns A Headers object with the required authentication headers.
+ */
+function createGetAuthHeaders(): Headers {
+	const timestamp = Date.now();
+	const payload = '';
+	const signature = signRequest(payload, timestamp);
+
+	return new Headers({
+		'X-Signature': signature,
+		'X-Timestamp': timestamp.toString(),
+		'X-Frontend-Origin': 'vercel-spotly-client',
+	});
+}
+
+/**
+ * A fetch utility for making signed GET requests.
+ * Use this for all read operations that require authentication.
+ * @param url The URL to fetch (including query parameters if needed).
+ * @param options Optional request options (should not include body).
+ * @returns The fetch Response promise.
+ */
+export async function signedGetFetch(url: string, options: RequestInit = {}): Promise<Response> {
+	const authHeaders = createGetAuthHeaders();
+	
+	if (dev) {
+		console.log("****** Signed GET Called With **********");
+		console.log("URL: " + url);
+		console.log("Options: " + JSON.stringify(options));
+		console.log("authHeaders: " + JSON.stringify(Object.fromEntries(authHeaders.entries())));
+		console.log("*****************END**********************");
+	}
+
+	return fetch(url, {
+		...options,
+		method: 'GET',
 		headers: {
 			...Object.fromEntries(authHeaders.entries()),
 			...options.headers,
@@ -91,34 +137,31 @@ function createMultipartAuthHeaders(): Headers {
  * @returns The fetch Response promise.
  */
 export async function signedMultipartFetch(url: string, options: RequestInit = {}): Promise<Response> {
+	if (!(options.body instanceof FormData)) {
+		throw new Error('signedMultipartFetch is only for FormData bodies.');
+	}
 
-  if (!(options.body instanceof FormData)) {
-    throw new Error('signedMultipartFetch is only for FormData bodies.');
-  }
+	const authHeaders = createMultipartAuthHeaders();
+	const finalHeaders = {
+		...Object.fromEntries(authHeaders.entries()),
+		...options.headers,
+	};
 
-  const authHeaders = createMultipartAuthHeaders();
-  const finalHeaders = {
-    ...Object.fromEntries(authHeaders.entries()),
-    ...options.headers,
-  };
-
-  try {
-    const response = await fetch(url, {
-      ...options,
-      headers: finalHeaders,
-    });
-    
-    return response;
-  
-  } catch (error) {
-    console.error('[signedMultipartFetch] Fetch failed', {
-      error: error instanceof Error ? error.message : String(error),
-      url
-    });
-    throw error;
-  }
+	try {
+		const response = await fetch(url, {
+			...options,
+			headers: finalHeaders,
+		});
+		
+		return response;
+	} catch (error) {
+		console.error('[signedMultipartFetch] Fetch failed', {
+			error: error instanceof Error ? error.message : String(error),
+			url
+		});
+		throw error;
+	}
 }
-
 
 // ****************************** DEBUG VERSION *****************************
 // I'm leaving it cause it was a useful reference while debugging header issues

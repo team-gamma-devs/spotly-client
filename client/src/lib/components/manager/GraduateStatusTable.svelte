@@ -12,16 +12,17 @@
 		Modal,
 	} from 'flowbite-svelte';
 	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid, FileCsvOutline } from 'flowbite-svelte-icons';
-	import { GraduatePills } from '$lib/mocks/mockGraduatePill';
+	import { mockGraduateInvitations } from '$lib/mocks/mockGraduateInvites';
+	import type { GraduateInvitation } from '$lib/types/graduateInvitation';
 	import UploadCSV from './utils/UploadCSV.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { dev } from '$app/environment';
 
 	const TOTAL_ROWS = 20; // Total number of rows to always display
 	// TODO: The pagination stuff.
-	let graduatesList = GraduatePills.map((graduate) => ({
-		...graduate,
-		fullName: `${graduate.firstName} ${graduate.lastName}`,
-	}));
+	let graduatesList: GraduateInvitation[] = mockGraduateInvitations;
+	if (dev) {
+	}
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -32,6 +33,24 @@
 			hour: '2-digit',
 			minute: '2-digit',
 		});
+	}
+
+	/**
+	 * Determines invitation status based on logState and expiresAt
+	 */
+	function getInvitationStatus(logState: boolean, expiresAt: string): string {
+		if (logState) {
+			return 'Accepted';
+		}
+
+		const now = new Date();
+		const expirationDate = new Date(expiresAt);
+
+		if (expirationDate < now) {
+			return 'Expired';
+		}
+
+		return 'Invited';
 	}
 
 	type BadgeColor = 'green' | 'blue' | 'yellow' | 'red' | 'gray';
@@ -57,6 +76,8 @@
 		}
 	}
 
+	// *************** FOR THE SEARCHBOX *******************
+
 	let searchTerm = $state('');
 
 	let filteredItems = $derived.by(() =>
@@ -71,8 +92,13 @@
 	let emptyRowsCount = $derived(Math.max(0, TOTAL_ROWS - filteredItems.length));
 
 	async function handleSearch() {
-		console.log('Searching for:', searchTerm);
-		// TODO: theres no endpoint to search for specific graduate.
+		if (dev) {
+			console.log('Searching for:', searchTerm);
+		}
+
+		// TODO: GET {BACKEND_URL}/manager/invitations
+		// Searches for specific invitation either by email or fullName.
+		// Returns: type GraduateInvitation
 	}
 
 	let showModal = $state(false);
@@ -106,20 +132,15 @@
 	}
 
 	function handleUploadSuccess() {
-		// Don't close modal immediately - let user see success message
-		// Refresh the data to show new invitations
 		invalidateAll();
-		console.log('CSV uploaded successfully, refreshing data...');
+		if (dev) {
+			console.log('CSV uploaded successfully, refreshing data...');
+		}
 	}
 
 	function handleUploadError(error: string) {
 		console.error('CSV upload failed:', error);
 		// Keep modal open so user can see the error and try again
-	}
-
-	async function handleAddTutorFeedback() {
-		// TODO: on tutor add feedbackamsdlmwkqo mdasd
-		closeModal();
 	}
 </script>
 
@@ -145,22 +166,27 @@
 	<TableHead class="text-center">
 		<TableHeadCell>Name</TableHeadCell>
 		<TableHeadCell>Email</TableHeadCell>
+		<TableHeadCell>Cohort</TableHeadCell>
 		<TableHeadCell>Invitation Status</TableHeadCell>
-		<TableHeadCell>Last Updated</TableHeadCell>
+		<TableHeadCell>Created At</TableHeadCell>
+		<TableHeadCell>Expires At</TableHeadCell>
 		<TableHeadCell>Options</TableHeadCell>
 	</TableHead>
 	<TableBody>
 		{#each filteredItems as graduate}
+			{@const status = getInvitationStatus(graduate.logState, graduate.expiresAt)}
+			{@const badgeProps = getStatusBadgeProps(status)}
 			<TableBodyRow class="h-16">
-				<TableBodyCell class="text-center">{graduate.firstName} {graduate.lastName}</TableBodyCell>
+				<TableBodyCell class="text-center">{graduate.fullName}</TableBodyCell>
 				<TableBodyCell class="text-center">{graduate.email}</TableBodyCell>
+				<TableBodyCell class="text-center">{graduate.cohort}</TableBodyCell>
 				<TableBodyCell class="text-center">
-					{@const badgeProps = getStatusBadgeProps(graduate.invitStatus)}
 					<Badge color={badgeProps.color} class={badgeProps.class}>
-						{graduate.invitStatus.toUpperCase()}
+						{status.toUpperCase()}
 					</Badge>
 				</TableBodyCell>
-				<TableBodyCell class="text-center">{formatDate(graduate.updatedAt)}</TableBodyCell>
+				<TableBodyCell class="text-center">{formatDate(graduate.createdAt)}</TableBodyCell>
+				<TableBodyCell class="text-center">{formatDate(graduate.expiresAt)}</TableBodyCell>
 				<TableBodyCell class="text-center">
 					<Button size="xs" color="alternative" class="cursor-pointer w-full" onclick={() => openModal(graduate)}
 						>Show</Button
@@ -171,6 +197,8 @@
 		<!-- This is to keep the layout fixed when there are empty rows. otherwise it affects the height and it's hard to control -->
 		{#each Array(emptyRowsCount) as _, i}
 			<TableBodyRow class="h-16">
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
 				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
 				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
 				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
@@ -192,10 +220,10 @@
 		{#if selectedGraduate}
 			<div class="text-center mb-2">
 				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-					{selectedGraduate.firstName}
-					{selectedGraduate.lastName}
+					{selectedGraduate.fullName}
 				</h3>
 				<p class="text-sm text-gray-500 dark:text-gray-400">{selectedGraduate.email}</p>
+				<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Cohort {selectedGraduate.cohort}</p>
 			</div>
 		{/if}
 
@@ -204,8 +232,8 @@
 				color="red"
 				class="!p-3 rounded-full cursor-pointer"
 				onclick={handleDelete}
-				aria-label="Delete graduate"
-				title="Delete graduate"
+				aria-label="Delete invitation"
+				title="Delete invitation"
 			>
 				<TrashBinSolid class="shrink-0 h-6 w-6" />
 			</Button>
@@ -214,8 +242,8 @@
 				color="blue"
 				class="!p-3 rounded-full cursor-pointer"
 				onclick={handleSendInvite}
-				aria-label="Send invitation"
-				title="Send invitation"
+				aria-label="Resend invitation"
+				title="Resend invitation"
 			>
 				<EnvelopeOpenSolid class="shrink-0 h-6 w-6" />
 			</Button>

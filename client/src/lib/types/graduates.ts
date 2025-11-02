@@ -22,8 +22,6 @@ export type TutorFeedback = {
     };
 };
 
-export type TutorsFeedback = Record<string, TutorFeedback>;
-
 export interface Graduate {
     id: string;
     firstName: string;
@@ -36,7 +34,7 @@ export interface Graduate {
     githubUrl?: string | null;
     linkedinUrl: string;
     annotations?: Annotation[] | null;
-    tutorsFeedback?: TutorsFeedback | null;
+    tutorsFeedback?: TutorFeedback | null;
     createdAt: string;
     updatedAt: string;
     worksInIt: boolean;
