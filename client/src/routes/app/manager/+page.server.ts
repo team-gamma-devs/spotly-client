@@ -61,7 +61,7 @@ export const actions = {
 			}, token);
 
 			if (dev) {
-				console.log('Response status:', response.status);
+				console.log('Response status:', respons{Hay que implementar el search invitation by email or fullName, ademas hay que fetchear las invitaciones en el status Dashboard.}e.status);
 				console.log('Response ok:', response.ok);
 			}
 

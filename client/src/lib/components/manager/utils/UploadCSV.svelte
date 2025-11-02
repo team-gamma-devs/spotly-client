@@ -2,8 +2,8 @@
 	import { Fileupload, Helper, Button, Alert, Spinner } from 'flowbite-svelte';
 	import { CloudArrowUpSolid, CheckCircleSolid } from 'flowbite-svelte-icons';
 
-// I'm doing double validation, first in client and then in the server endpoint
-// to make the server more lightweight.
+	// I'm doing double validation, first in client and then in the server endpoint
+	// to make the server more lightweight.
 
 	const MAX_CSV_SIZE = 1 * 1024 * 1024; // 1MB in bytes
 
@@ -111,13 +111,9 @@
 			</div>
 			<div class="text-center">
 				<h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Upload Successful!</h4>
-				<p class="text-sm text-gray-600 dark:text-gray-400">
-					CSV uploaded and invitations are being processed.
-				</p>
+				<p class="text-sm text-gray-600 dark:text-gray-400">CSV uploaded and invitations are being processed.</p>
 			</div>
-			<Button color="blue" onclick={reset} class="cursor-pointer">
-				Upload Another File
-			</Button>
+			<Button color="blue" onclick={reset} class="cursor-pointer">Upload Another File</Button>
 		</div>
 	{:else}
 		<Fileupload clearable bind:files={selectedFiles} accept=".csv" disabled={isUploading} onchange={clearError} />
@@ -125,10 +121,12 @@
 			Selected: {fileNames}
 		</Helper>
 		{#if uploadError}
-			<Alert color="red" dismissable onclose={clearError}>
+			<div
+				class="w-auto mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-red-700 dark:text-red-400 flex items-center justify-center gap-2"
+			>
 				<span class="font-medium">Upload failed!</span>
 				{uploadError}
-			</Alert>
+			</div>
 		{/if}
 		<div class="flex justify-center">
 			<Button
