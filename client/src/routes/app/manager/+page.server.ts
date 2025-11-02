@@ -6,8 +6,8 @@ import { dev } from '$app/environment';
 
 export const actions = {
 	// This form is located in manager/GraduateCard.svelte
-	addAnnotation: async ({ request, locals }) => {
-
+	addAnnotation: async ({ request, locals, cookies }) => {
+		const token = cookies.get('access_token');
 		const formData = await request.formData();
 		const graduatedId = formData.get('graduatedId');
 		const annotation = formData.get('annotation');
@@ -57,8 +57,8 @@ export const actions = {
 		try {
 			const response = await signedJsonFetch(`${BACKEND_URL}/manager/feedback`, {
 				method: 'POST',
-				body: JSON.stringify(requestBody),
-			});
+				body: JSON.stringify(requestBody)
+			}, token);
 
 			if (dev) {
 				console.log('Response status:', response.status);

@@ -74,7 +74,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 
     const text = await file.text();
     const lines = text.split('\n').filter(line => line.trim() !== '');
-    
+
     if (lines.length === 0) {
       return json(
         { error: 'CSV file is empty' },
@@ -99,9 +99,9 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
       if (!line) continue;
-      
+
       const values = line.split(',').map(v => v.trim());
-  
+
       if (values.length !== 4) {
         return json(
           { error: `Row ${i}: Invalid number of columns. Expected 4, got ${values.length}` },
@@ -154,7 +154,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 
     const backendFormData = new FormData();
     backendFormData.append('file', file);
-    
+
     if (dev) {
       // ******* DEBUG INTERCEPT ********
       console.log("BACKEND PAYLOAD:", backendFormData.get('file'));
@@ -166,13 +166,14 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       );
     }
     // *********** Actual backend upload ************
-    const response = await signedMultipartFetch(`${BACKEND_URL}/manager/uploadCSV`, {
-      method: 'POST',
-      body: backendFormData,
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const response = await signedMultipartFetch(
+      `${BACKEND_URL}/manager/uploadCSV`,
+      {
+        method: 'POST',
+        body: backendFormData,
+      },
+      token
+    );
 
     if (!response.ok) {
       const errorText = await response.text().catch(() => 'Unknown error');

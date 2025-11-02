@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { signedJsonFetch } from '$lib/server/authFetch';
+import { signedGetFetch, signedJsonFetch } from '$lib/server/authFetch';
 import { supabase } from '$lib/services/supabaseClient';
 import { mockUserMe } from '$lib/mocks/mockUserMe';
 import type { UserMe } from '$lib/types/userMe';
@@ -27,6 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (dev) {
 		event.locals.user = mockUserMe;
 		event.locals.userFull = null; // userFull is only fetched on dashboard pages
+		console.log("token: " + sessionToken);
 		console.log('Using mock user: ' + JSON.stringify(event.locals.user));
 		return resolve(event);
 	}
@@ -39,12 +40,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	try {
 		console.log('Validating session with backend...');
-		const response = await signedJsonFetch(`${BACKEND_URL}/auth/me`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${sessionToken}`,
-			},
-		});
+		const response = await signedGetFetch(`${BACKEND_URL}/auth/me`, {}, sessionToken);
 
 		if (response.ok) {
 			const user: UserMe = await response.json();
