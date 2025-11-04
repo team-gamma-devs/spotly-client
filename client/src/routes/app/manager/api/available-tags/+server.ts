@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { signedGetFetch, signRequest } from '$lib/server/authFetch';
+import { signedGetFetch } from '$lib/server/authFetch';
 import { dev } from '$app/environment';
 
 export const GET: RequestHandler = async ({ cookies }) => {

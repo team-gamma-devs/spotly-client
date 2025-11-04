@@ -13,7 +13,7 @@ export const actions = {
 		const annotation = formData.get('annotation');
 
 		if (dev) {
-			console.log('Form data received:', { graduatedId, annotation });
+			console.log('[Inside addAnnotation] Form data received:', { graduatedId, annotation });
 		}
 
 		if (!annotation || typeof annotation !== 'string') {

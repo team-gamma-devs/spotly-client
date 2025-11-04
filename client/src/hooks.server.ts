@@ -28,7 +28,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event.locals.user = mockUserMe;
 		event.locals.userFull = null; // userFull is only fetched on dashboard pages
 		console.log("token: " + sessionToken);
-		console.log('Using mock user: ' + JSON.stringify(event.locals.user));
+		console.log('[Inside Hook] Using mock user: ' + JSON.stringify(event.locals.user));
 		return resolve(event);
 	}
 
