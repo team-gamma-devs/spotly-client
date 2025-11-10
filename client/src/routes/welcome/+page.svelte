@@ -66,18 +66,18 @@
 	</div>
 
 	<!-- *************** Features ********************** -->
-	<div class="w-full max-w-6xl space-y-32">
+	<GenericBoxVisible classes="w-full max-w-7xl space-y-32 py-10 px-20">
 		<!--  *************** Upload CV ******************** -->
 		<div
 			use:animateOnScroll
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
-			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full">
+			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full" classTitle="justify-end">
 				<svelte:fragment slot="icon">
 					<FileDocOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p>
+				<p class="text-end">
 					Seamlessly upload your CV and academic history. Our system parses your documents to build a comprehensive,
 					searchable profile in seconds.
 				</p>
@@ -127,12 +127,12 @@
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
-			<GenericBoxInvisible title="AI-Powered Filtering" classes="h-full">
+			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-end">
 				<svelte:fragment slot="icon">
 					<FilterOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p>
-					For managers, find the perfect candidate with our comprehensive filtering system, powered by AI CV Parsing.
+				<p class="text-end">
+					For managers, find the perfect candidate with our comprehensive filtering system, powered by AI CV parsing.
 				</p>
 			</GenericBoxInvisible>
 			<div class="flex items-center justify-center">
@@ -173,5 +173,5 @@
 				</p>
 			</GenericBoxInvisible>
 		</div>
-	</div>
+	</GenericBoxVisible>
 </div>
