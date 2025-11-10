@@ -1,5 +1,6 @@
 <script lang="ts">
-	import GenericBoxVisible from '$lib/components/main/utils/GenericBoxVisible.svelte';
+	import { GenericBoxVisible, GenericBoxInvisible } from '$lib/components/main/utils';
+	import { FileCsvOutline, FilterOutline, GithubSolid, FileDocOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let heroAnimate = false;
@@ -22,7 +23,7 @@
 		const createObserver = () => {
 			const options = {
 				root: null,
-				threshold: 0.5
+				threshold: 0.5,
 			};
 			observer = new IntersectionObserver(handleIntersect, options);
 			observer.observe(node);
@@ -35,7 +36,7 @@
 				if (observer) {
 					observer.disconnect();
 				}
-			}
+			},
 		};
 	}
 </script>
@@ -65,19 +66,22 @@
 	</div>
 
 	<!-- *************** Features ********************** -->
-	<div class="w-full max-w-6xl space-y-16">
+	<div class="w-full max-w-6xl space-y-32">
 		<!--  *************** Upload CV ******************** -->
 		<div
 			use:animateOnScroll
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
-			<GenericBoxVisible title="Effortless Profile Creation" classes="h-full">
-				<p class="text-gray-300">
-					Seamlessly upload your CV and academic history. Our system parses your documents to build a
-					comprehensive, searchable profile in seconds.
+			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full">
+				<svelte:fragment slot="icon">
+					<FileDocOutline class="h-7 w-7" />
+				</svelte:fragment>
+				<p>
+					Seamlessly upload your CV and academic history. Our system parses your documents to build a comprehensive,
+					searchable profile in seconds.
 				</p>
-			</GenericBoxVisible>
+			</GenericBoxInvisible>
 			<div class="flex items-center justify-center">
 				<dotlottie-player
 					src="/lottie/upload-cv.json"
@@ -106,12 +110,15 @@
 					autoplay
 				></dotlottie-player>
 			</div>
-			<GenericBoxVisible title="Showcase Your Skills" classes="h-full">
-				<p class="text-gray-300">
-					Show, don't just tell. Integrate your GitHub account to display your top repositories,
-					language statistics, and contribution activity directly on your profile.
+			<GenericBoxInvisible title="Showcase Your Skills" classes="h-full">
+				<svelte:fragment slot="icon">
+					<GithubSolid class="h-7 w-7" />
+				</svelte:fragment>
+				<p>
+					Show, don't just tell. Integrate your GitHub account to display your top repositories, language statistics,
+					and contribution activity directly on your profile.
 				</p>
-			</GenericBoxVisible>
+			</GenericBoxInvisible>
 		</div>
 
 		<!-- **************** Filter Graduate ******************-->
@@ -120,11 +127,14 @@
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
-			<GenericBoxVisible title="AI-Powered Recruitment" classes="h-full">
-				<p class="text-gray-300">
+			<GenericBoxInvisible title="AI-Powered Filtering" classes="h-full">
+				<svelte:fragment slot="icon">
+					<FilterOutline class="h-7 w-7" />
+				</svelte:fragment>
+				<p>
 					For managers, find the perfect candidate with our comprehensive filtering system, powered by AI CV Parsing.
 				</p>
-			</GenericBoxVisible>
+			</GenericBoxInvisible>
 			<div class="flex items-center justify-center">
 				<dotlottie-player
 					src="/lottie/filter-candidate.json"
@@ -137,7 +147,7 @@
 			</div>
 		</div>
 
-		<!-- *********************** Bulk Invitations ********************** -->
+		<!-- ***********************  Bulk Invitations ********************** -->
 		<div
 			use:animateOnScroll
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
@@ -147,18 +157,21 @@
 				<dotlottie-player
 					src="/lottie/bulk-invitations.json"
 					background="transparent"
-					speed="1"
+					speed=".5"
 					style="width: 300px; height: 300px;"
 					loop
 					autoplay
 				></dotlottie-player>
 			</div>
-			<GenericBoxVisible title="Streamlined Hiring" classes="h-full">
-				<p class="text-gray-300">
-					Streamline your recruitment process. Upload a CSV to send bulk invitations to promising
-					graduates, managing the entire workflow from one central dashboard.
+			<GenericBoxInvisible title="Streamlined Hiring" classes="h-full">
+				<svelte:fragment slot="icon">
+					<FileCsvOutline class="h-7 w-7" />
+				</svelte:fragment>
+				<p>
+					Streamline your recruitment process. Upload a CSV to send bulk invitations to promising graduates, managing
+					the entire workflow from one central dashboard.
 				</p>
-			</GenericBoxVisible>
+			</GenericBoxInvisible>
 		</div>
 	</div>
 </div>
