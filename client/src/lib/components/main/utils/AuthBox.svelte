@@ -9,9 +9,10 @@
 		authorizedContent: Snippet;
 		unauthorizedContent?: Snippet;
 		requiredRole?: 'manager' | 'graduate';
+		redirectOnUnauth?: boolean; // Whether to redirect when user is not authorized
 	};
 
-	let { authorizedContent, unauthorizedContent, requiredRole }: AuthBoxProps = $props();
+	let { authorizedContent, unauthorizedContent, requiredRole, redirectOnUnauth = false }: AuthBoxProps = $props();
 
 	const user: UserState = $derived(page.data.user);
 
@@ -34,10 +35,12 @@
 	const authStatus = $derived(getAuthStatus(user, requiredRole));
 
 	$effect(() => {
-		if (authStatus === 'LOGGED_OUT') {
-			goto('/login');
-		} else if (authStatus === 'UNAUTHORIZED_ROLE') {
-			goto('/');
+		if (redirectOnUnauth) {
+			if (authStatus === 'LOGGED_OUT') {
+				goto('/login');
+			} else if (authStatus === 'UNAUTHORIZED_ROLE') {
+				goto('/');
+			}
 		}
 	});
 </script>

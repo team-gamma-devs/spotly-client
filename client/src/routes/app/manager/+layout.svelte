@@ -4,7 +4,7 @@
 	export const data: any = undefined;
 </script>
 
-<AuthBox requiredRole={'manager'}>
+<AuthBox requiredRole={'manager'} redirectOnUnauth={true}>
 	{#snippet authorizedContent()}
 		<slot />
 	{/snippet}
