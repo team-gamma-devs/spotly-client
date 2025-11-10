@@ -8,34 +8,50 @@
 		heroAnimate = true;
 	});
 
-	function animateOnScroll(node: HTMLElement) {
-		let observer: IntersectionObserver;
+	function animateOnScroll(node: HTMLElement, direction: 'left' | 'right') {
+		const translateStart = direction === 'left' ? -100 : 100;
+		
+		node.style.transition = 'none';
+		node.style.opacity = '0';
+		node.style.transform = `translateX(${translateStart}px)`;
 
-		const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					node.style.setProperty('--opacity', '1');
-					node.style.setProperty('--transform', 'translateY(0)');
-				}
-			});
+		const updateAnimation = () => {
+			const rect = node.getBoundingClientRect();
+			const windowHeight = window.innerHeight;
+			const elementTop = rect.top;
+			const elementHeight = rect.height; // Might use it to hide them, don't remove.
+			const animationStart = windowHeight;
+			const animationEnd = windowHeight * 0.2;
+	
+			let progress: number;
+			
+			if (elementTop >= animationStart) {
+				progress = 0;
+			} else if (elementTop <= animationEnd) {
+				progress = 1;
+			} else {
+				progress = 1 - (elementTop - animationEnd) / (animationStart - animationEnd);
+			}
+			
+			progress = Math.max(0, Math.min(1, progress));
+			
+			const easedProgress = 1 - Math.pow(1 - progress, 3);
+			const opacity = easedProgress;
+			const translateX = translateStart * (1 - easedProgress);
+			
+			node.style.opacity = opacity.toString();
+			node.style.transform = `translateX(${translateX}px)`;
 		};
 
-		const createObserver = () => {
-			const options = {
-				root: null,
-				threshold: 0.5,
-			};
-			observer = new IntersectionObserver(handleIntersect, options);
-			observer.observe(node);
+		const handleScroll = () => {
+			requestAnimationFrame(updateAnimation);
 		};
-
-		createObserver();
+		updateAnimation();
+		window.addEventListener('scroll', handleScroll, { passive: true });
 
 		return {
 			destroy() {
-				if (observer) {
-					observer.disconnect();
-				}
+				window.removeEventListener('scroll', handleScroll);
 			},
 		};
 	}
@@ -67,11 +83,11 @@
 
 	<!-- *************** Features ********************** -->
 	<GenericBoxVisible classes="w-full max-w-7xl space-y-32 py-10 px-20">
-		<!--  *************** Upload CV ******************** -->
+		<!--  *************** Upload CV (from LEFT) ******************** -->
 		<div
-			use:animateOnScroll
+			use:animateOnScroll={'left'}
+			id="upload-cv-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
-			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
 			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full" classTitle="justify-end">
 				<svelte:fragment slot="icon">
@@ -94,11 +110,11 @@
 			</div>
 		</div>
 
-		<!-- ************   GitHub Integration **************** -->
+		<!-- ************   GitHub Integration (from RIGHT) **************** -->
 		<div
-			use:animateOnScroll
+			use:animateOnScroll={'right'}
+			id="github-integration-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
-			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
 			<div class="order-last flex items-center justify-center md:order-first">
 				<dotlottie-player
@@ -121,11 +137,11 @@
 			</GenericBoxInvisible>
 		</div>
 
-		<!-- **************** Filter Graduate ******************-->
+		<!-- **************** Filter Graduate (from LEFT) ******************-->
 		<div
-			use:animateOnScroll
+			use:animateOnScroll={'left'}
+			id="filter-graduate-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
-			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
 			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-end">
 				<svelte:fragment slot="icon">
@@ -147,11 +163,11 @@
 			</div>
 		</div>
 
-		<!-- ***********************  Bulk Invitations ********************** -->
+		<!-- ***********************  Bulk Invitations (from RIGHT) ********************** -->
 		<div
-			use:animateOnScroll
+			use:animateOnScroll={'right'}
+			id="bulk-invitation-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
-			style="--opacity: 0; --transform: translateY(20px); transition: all 0.7s ease-out;"
 		>
 			<div class="order-last flex items-center justify-center md:order-first">
 				<dotlottie-player
