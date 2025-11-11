@@ -30,6 +30,7 @@
 	} from 'flowbite-svelte-icons';
 	import { enhance } from '$app/forms';
 	import type { Annotation, TutorFeedback, EnglishLevel } from '$lib/types/graduates';
+	import { page } from '$app/state';
 
 	let {
 		id = '',
@@ -321,8 +322,9 @@
 			}}>Close</Button
 		>
 		<Button
+			disabled={!page.data.user}
 			color="green"
-			class="cursor-pointer mx-4"
+			class="mx-4 {page.data.user ? 'cursor-pointer' : 'cursor-not-allowed'}"
 			onclick={() => {
 				showAnnotationsModal = false;
 				showAddAnnotationModal = true;
