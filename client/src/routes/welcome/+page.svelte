@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { GenericBoxVisible, GenericBoxInvisible } from '$lib/components/main/utils';
+	import GraduateCard from '$lib/components/manager/GraduateCard.svelte';
 	import { FileCsvOutline, FilterOutline, GithubSolid, FileDocOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
@@ -125,14 +126,19 @@
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 		>
 			<div class="order-last flex items-center justify-center md:order-first">
-				<dotlottie-player
-					src="/lottie/github.json"
-					background="transparent"
-					speed="1"
-					style="width: 300px; height: 300px;"
-					loop
-					autoplay
-				></dotlottie-player>
+				<div
+					class="flex items-center justify-center rounded-full bg-white shadow-md"
+					style="width: 320px; height: 320px;"
+				>
+					<dotlottie-player
+						src="/lottie/github.json"
+						background="transparent"
+						speed="1"
+						style="width: 300px; height: 300px;"
+						loop
+						autoplay
+					></dotlottie-player>
+				</div>
 			</div>
 			<GenericBoxInvisible title="Showcase Your Skills" classes="h-full" classTitle="justify-center md:justify-start">
 				<svelte:fragment slot="icon">
@@ -196,6 +202,128 @@
 					the entire workflow from one central dashboard.
 				</p>
 			</GenericBoxInvisible>
+		</div>
+	</GenericBoxInvisible>
+
+	<!-- ******************* Graduate Card Showcase Section ************************* -->
+	<GenericBoxInvisible classes="w-full max-w-7xl mt-16 md:mt-24 lg:mt-32 px-6 md:px-12 lg:px-20">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+			<!-- Graduate Card Demo -->
+			<div class="flex items-center justify-center">
+				<GraduateCard
+					id="demo-graduate"
+					firstName="Federico"
+					lastName="Marrero"
+					email="señordelosbizcochos@example.com"
+					avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=Federico"
+					englishLevel="Advanced"
+					cohort={25}
+					techStack={['Python', 'Azure', 'React', 'Bash', 'PostgreSQL', 'Docker']}
+					githubUrl="https://github.com"
+					linkedinUrl="https://linkedin.com"
+					updatedAt={new Date().toISOString()}
+					annotations={[
+						{
+							id: '1',
+							annotation: 'Excellent problem-solving skills demonstrated in technical interview.',
+							createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+						},
+						{
+							id: '2',
+							annotation: 'Strong portfolio projects with clean code and documentation.',
+							createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+						},
+					]}
+					tutorsFeedback={{
+						'feedback-1': {
+							tutorName: 'Sarah Johnson',
+							professionalScore: 'Poor',
+							technicalScore: 'Average',
+							createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+							tutorId: 'PepePelotas-123',
+						},
+					}}
+					worksInIt={false}
+				/>
+			</div>
+
+			<div class="space-y-6">
+				<h3 class="text-2xl md:text-3xl font-bold">Everything You Need to know</h3>
+
+				<div class="space-y-4">
+					<div class="flex gap-3">
+						<div
+							class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold"
+						>
+							1
+						</div>
+						<div>
+							<h4 class="font-semibold mb-1">Quick Profile Overview</h4>
+							<p class="text-gray-600 dark:text-gray-400 text-sm">
+								View cohort, English proficiency, and current employment status at a glance.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex gap-3">
+						<div
+							class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold"
+						>
+							2
+						</div>
+						<div>
+							<h4 class="font-semibold mb-1">Tech Stack Visualization</h4>
+							<p class="text-gray-600 dark:text-gray-400 text-sm">
+								See all programming languages and technologies the candidate is proficient in, beautifully displayed
+								with color-coded tags.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex gap-3">
+						<div
+							class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold"
+						>
+							3
+						</div>
+						<div>
+							<h4 class="font-semibold mb-1">Direct Access to Profiles</h4>
+							<p class="text-gray-600 dark:text-gray-400 text-sm">
+								One-click access to GitHub repositories and LinkedIn profiles to review their work and professional
+								background.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex gap-3">
+						<div
+							class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold"
+						>
+							4
+						</div>
+						<div>
+							<h4 class="font-semibold mb-1">Collaborative Notes</h4>
+							<p class="text-gray-600 dark:text-gray-400 text-sm">
+								Add and view annotations from your hiring team to track interview feedback and hiring decisions.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex gap-3">
+						<div
+							class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold"
+						>
+							5
+						</div>
+						<div>
+							<h4 class="font-semibold mb-1">Tutor Insights</h4>
+							<p class="text-gray-600 dark:text-gray-400 text-sm">
+								Access detailed feedback from Holberton tutors including professional and technical scores.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</GenericBoxInvisible>
 </div>
