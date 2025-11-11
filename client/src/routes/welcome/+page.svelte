@@ -1,10 +1,20 @@
 <script lang="ts">
+	import AboutUsCatalog from '$lib/components/main/AboutUsCatalog.svelte';
 	import { GenericBoxVisible, GenericBoxInvisible } from '$lib/components/main/utils';
 	import GraduateCard from '$lib/components/manager/GraduateCard.svelte';
-	import { FileCsvOutline, FilterOutline, GithubSolid, FileDocOutline, AngleDownOutline } from 'flowbite-svelte-icons';
+	import { teamMembers } from '$lib/constants/authors';
+	import {
+		FileCsvOutline,
+		FilterOutline,
+		GithubSolid,
+		FileDocOutline,
+		AngleDownOutline,
+		LinkedinSolid,
+	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let heroAnimate = false;
+
 	onMount(() => {
 		heroAnimate = true;
 	});
@@ -112,17 +122,18 @@
 			id="upload-cv-container"
 			class="grid grid-cols-1 items-center gap-6 md:gap-8 md:grid-cols-2"
 		>
-			<GenericBoxInvisible
-				title="Effortless Profile Creation"
-				classes="h-full"
-				classTitle="justify-center md:justify-end"
-			>
+			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full" classTitle="justify-center">
 				<svelte:fragment slot="icon">
 					<FileDocOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p class="text-center md:text-end">
-					Seamlessly upload your CV and academic history. Our system parses your documents to build a comprehensive,
-					searchable profile in seconds.
+				<p class="text-center md:text-start">
+					Seamlessly upload your CV and academic history, our platform automatically parses your documents to create a
+					complete, searchable professional profile in seconds. Upon login, graduates can simply upload their résumé and
+					let the system do the rest, no manual input or setup required. Behind the scenes, the parser extracts key
+					information such as skills, technologies, and experience to build a dynamic profile that stays consistent
+					across the platform. Even better, our smart filtering system keeps everything relevant: when managers search
+					for graduates by specific technologies, only the ones that actually appear in user profiles are shown as
+					available filters, ensuring precise and efficient candidate discovery.
 				</p>
 			</GenericBoxInvisible>
 			<div class="flex items-center justify-center">
@@ -132,7 +143,7 @@
 					speed="1"
 					style="width: 200px; height: 200px;"
 					class="md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px]"
-					loop
+					loop={true}
 					autoplay
 				></dotlottie-player>
 			</div>
@@ -154,7 +165,7 @@
 						background="transparent"
 						speed="1"
 						style="width: 300px; height: 300px;"
-						loop
+						loop={true}
 						autoplay
 					></dotlottie-player>
 				</div>
@@ -164,8 +175,12 @@
 					<GithubSolid class="h-7 w-7" />
 				</svelte:fragment>
 				<p class="text-center md:text-start">
-					Show, don't just tell. Integrate your GitHub account to display your top repositories, language statistics,
-					and contribution activity directly on your profile.
+					Show, don’t just tell. Connect your GitHub account to display your top repositories, language statistics, and
+					contribution activity directly on your profile. Our dedicated GitHub microservice securely fetches your data
+					in real time, giving you a dynamic, authentic representation of your work without compromising privacy. All
+					information retrieved is accessible only to you and is handled in a stateless manner: once you log out, every
+					piece of session data is automatically discarded. This ensures your profile stays fresh, transparent, and
+					completely under your control.
 				</p>
 			</GenericBoxInvisible>
 		</div>
@@ -176,12 +191,16 @@
 			id="filter-graduate-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 		>
-			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-center md:justify-end">
+			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-center">
 				<svelte:fragment slot="icon">
 					<FilterOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p class="text-center md:text-end">
-					For managers, find the perfect candidate with our comprehensive filtering system, powered by AI CV parsing.
+				<p class="text-center md:text-start">
+					For managers, finding the right graduate has never been easier. Our intelligent filtering system, powered by
+					AI-driven CV parsing, lets you search and refine candidates based on key attributes such as English
+					proficiency, tutor feedback, and technical expertise. Each filter dynamically adapts to the available data,
+					ensuring that only relevant technologies and criteria are shown, making the selection process faster, smarter,
+					and effortlessly precise.
 				</p>
 			</GenericBoxInvisible>
 			<div class="flex items-center justify-center">
@@ -190,7 +209,7 @@
 					background="transparent"
 					speed="1"
 					style="width: 300px; height: 300px;"
-					loop
+					loop={true}
 					autoplay
 				></dotlottie-player>
 			</div>
@@ -208,7 +227,7 @@
 					background="transparent"
 					speed=".5"
 					style="width: 300px; height: 300px;"
-					loop
+					loop={true}
 					autoplay
 				></dotlottie-player>
 			</div>
@@ -217,8 +236,12 @@
 					<FileCsvOutline class="h-7 w-7" />
 				</svelte:fragment>
 				<p class="text-center md:text-start">
-					Streamline your recruitment process. Upload a CSV to send bulk invitations to promising graduates, managing
-					the entire workflow from one central dashboard.
+					Simplify your recruitment process with secure, bulk invitations, all from a single, intuitive status dashboard.
+					Managers can upload a doubly validated CSV file to invite up to 10.000 graduates at once, with each request
+					protected by an HMAC secret shared between the frontend and backend to guarantee data integrity and security.
+					The platform remains fully closed, ensuring that only authorized manager users can issue invitations. Every
+					action and status is transparently tracked on a real-time status board, giving you complete control and
+					visibility throughout the hiring workflow.
 				</p>
 			</GenericBoxInvisible>
 		</div>
@@ -323,7 +346,8 @@
 						<div>
 							<h4 class="font-semibold mb-1">Collaborative Notes</h4>
 							<p class="text-gray-600 dark:text-gray-400 text-sm">
-								Add and view annotations from your hiring team to track interview feedback and hiring decisions.
+								Add and view annotations to track interview feedback and hiring decisions, ensuring versatile
+								record-keeping.
 							</p>
 						</div>
 					</div>
@@ -345,4 +369,7 @@
 			</div>
 		</div>
 	</GenericBoxInvisible>
+
+	<!-- ******************* About Us Section ************************* -->
+	<AboutUsCatalog />
 </div>
