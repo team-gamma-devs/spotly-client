@@ -10,7 +10,7 @@
 
 	function animateOnScroll(node: HTMLElement, direction: 'left' | 'right') {
 		const translateStart = direction === 'left' ? -100 : 100;
-		
+
 		node.style.transition = 'none';
 		node.style.opacity = '0';
 		node.style.transform = `translateX(${translateStart}px)`;
@@ -22,9 +22,9 @@
 			const elementHeight = rect.height; // Might use it to hide them, don't remove.
 			const animationStart = windowHeight;
 			const animationEnd = windowHeight * 0.2;
-	
+
 			let progress: number;
-			
+
 			if (elementTop >= animationStart) {
 				progress = 0;
 			} else if (elementTop <= animationEnd) {
@@ -32,13 +32,13 @@
 			} else {
 				progress = 1 - (elementTop - animationEnd) / (animationStart - animationEnd);
 			}
-			
+
 			progress = Math.max(0, Math.min(1, progress));
-			
+
 			const easedProgress = 1 - Math.pow(1 - progress, 3);
 			const opacity = easedProgress;
 			const translateX = translateStart * (1 - easedProgress);
-			
+
 			node.style.opacity = opacity.toString();
 			node.style.transform = `translateX(${translateX}px)`;
 		};
@@ -62,8 +62,9 @@
 </svelte:head>
 
 <div class="flex min-h-screen w-full flex-col items-center bg-transparent mb-20">
+	<!-- *********************** HERO SECTION ************************ -->
 	<div
-		class="flex h-[80vh] w-full flex-col items-center justify-center text-center backdrop-blur-md mb-5"
+		class="flex h-[80dvh] w-full flex-col items-center justify-center text-center backdrop-blur-md mb-40"
 		style:opacity={heroAnimate ? 1 : 0}
 		style:transition="opacity 1s ease-in-out"
 	>
@@ -82,18 +83,24 @@
 	</div>
 
 	<!-- ************************************* Features ******************************** -->
-	<GenericBoxVisible classes="w-full max-w-7xl space-y-32 py-10 px-20">
+	<GenericBoxInvisible
+		classes="w-full max-w-7xl space-y-16 md:space-y-24 lg:space-y-32 pt-15 pb-25 px-6 md:px-12 lg:px-20 backdrop-blur-xl rounded-3xl ring-1 ring-gray-300 dark:ring-gray-900"
+	>
 		<!--  *************** Upload CV (from LEFT) ******************** -->
 		<div
 			use:animateOnScroll={'left'}
 			id="upload-cv-container"
-			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
+			class="grid grid-cols-1 items-center gap-6 md:gap-8 md:grid-cols-2"
 		>
-			<GenericBoxInvisible title="Effortless Profile Creation" classes="h-full" classTitle="justify-end">
+			<GenericBoxInvisible
+				title="Effortless Profile Creation"
+				classes="h-full"
+				classTitle="justify-center md:justify-end"
+			>
 				<svelte:fragment slot="icon">
 					<FileDocOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p class="text-end">
+				<p class="text-center md:text-end">
 					Seamlessly upload your CV and academic history. Our system parses your documents to build a comprehensive,
 					searchable profile in seconds.
 				</p>
@@ -103,7 +110,8 @@
 					src="/lottie/upload-cv.json"
 					background="transparent"
 					speed="1"
-					style="width: 300px; height: 300px;"
+					style="width: 200px; height: 200px;"
+					class="md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px]"
 					loop
 					autoplay
 				></dotlottie-player>
@@ -126,11 +134,11 @@
 					autoplay
 				></dotlottie-player>
 			</div>
-			<GenericBoxInvisible title="Showcase Your Skills" classes="h-full">
+			<GenericBoxInvisible title="Showcase Your Skills" classes="h-full" classTitle="justify-center md:justify-start">
 				<svelte:fragment slot="icon">
 					<GithubSolid class="h-7 w-7" />
 				</svelte:fragment>
-				<p>
+				<p class="text-center md:text-start">
 					Show, don't just tell. Integrate your GitHub account to display your top repositories, language statistics,
 					and contribution activity directly on your profile.
 				</p>
@@ -143,11 +151,11 @@
 			id="filter-graduate-container"
 			class="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
 		>
-			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-end">
+			<GenericBoxInvisible title="Candidate Filtering" classes="h-full" classTitle="justify-center md:justify-end">
 				<svelte:fragment slot="icon">
 					<FilterOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p class="text-end">
+				<p class="text-center md:text-end">
 					For managers, find the perfect candidate with our comprehensive filtering system, powered by AI CV parsing.
 				</p>
 			</GenericBoxInvisible>
@@ -179,15 +187,15 @@
 					autoplay
 				></dotlottie-player>
 			</div>
-			<GenericBoxInvisible title="Streamlined Hiring" classes="h-full">
+			<GenericBoxInvisible title="Streamlined Hiring" classes="h-full" classTitle="justify-center md:justify-start">
 				<svelte:fragment slot="icon">
 					<FileCsvOutline class="h-7 w-7" />
 				</svelte:fragment>
-				<p>
+				<p class="text-center md:text-start">
 					Streamline your recruitment process. Upload a CSV to send bulk invitations to promising graduates, managing
 					the entire workflow from one central dashboard.
 				</p>
 			</GenericBoxInvisible>
 		</div>
-	</GenericBoxVisible>
+	</GenericBoxInvisible>
 </div>
