@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { GenericBoxVisible, GenericBoxInvisible } from '$lib/components/main/utils';
 	import GraduateCard from '$lib/components/manager/GraduateCard.svelte';
-	import { FileCsvOutline, FilterOutline, GithubSolid, FileDocOutline } from 'flowbite-svelte-icons';
+	import { FileCsvOutline, FilterOutline, GithubSolid, FileDocOutline, AngleDownOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let heroAnimate = false;
@@ -81,6 +81,25 @@
 		>
 			Get Started
 		</a>
+		<div class="absolute bottom-8 flex flex-col items-center gap-2 animate-bounce display-hidden md:display-block">
+			<span class="text-sm font-medium">Scroll Down</span>
+			<AngleDownOutline class="shrink-0 h-6 w-6 text-primary-500" />
+		</div>
+		<style>
+			@keyframes bounce {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-10px);
+				}
+			}
+
+			.animate-bounce {
+				animation: bounce 2s infinite;
+			}
+		</style>
 	</div>
 
 	<!-- ************************************* Features ******************************** -->
