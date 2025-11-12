@@ -114,7 +114,7 @@
 
 	<!-- ************************************* Features ******************************** -->
 	<GenericBoxInvisible
-		classes="w-full max-w-7xl space-y-16 md:space-y-24 lg:space-y-32 pt-15 pb-25 px-6 md:px-12 lg:px-20 backdrop-blur-xl rounded-3xl ring-1 ring-gray-300 dark:ring-gray-900"
+		classes="w-full max-w-7xl space-y-16 md:space-y-24 lg:space-y-32 pt-15 pb-25 px-6 md:px-12 lg:px-20 backdrop-blur-xl rounded-none md:rounded-3xl ring-1 ring-gray-300 dark:ring-gray-900"
 	>
 		<!--  *************** Upload CV (from LEFT) ******************** -->
 		<div

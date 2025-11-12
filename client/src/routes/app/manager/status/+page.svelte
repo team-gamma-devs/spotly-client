@@ -2,7 +2,7 @@
 	import StatusSidebar from '$lib/components/manager/StatusSidebar.svelte';
 	import type { PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	let { data } = $props<{ data: PageData }>();
 </script>
 
 <svelte:head>

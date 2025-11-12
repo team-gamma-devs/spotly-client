@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ fetch }) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({}) // Empty search payload to get all invitations
+      body: JSON.stringify({})
     });
 
     if (!response.ok) {
@@ -22,9 +22,7 @@ export const load: PageLoad = async ({ fetch }) => {
     }
 
     const data = await response.json();
-    
-    // Assuming the backend returns an array of invitations
-    // Adjust this based on your actual API response structure
+
     const graduatesList: GraduateInvitation[] = Array.isArray(data) 
       ? data 
       : (data.invitations || data.data || []);

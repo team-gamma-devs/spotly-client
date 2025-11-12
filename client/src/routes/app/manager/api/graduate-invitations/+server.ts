@@ -26,12 +26,11 @@ export const POST: RequestHandler = async ({ url, request, cookies }) => {
     try {
       searchTerm = await request.json();
     } catch {
-      // If no body provided, use empty object otherwise shit happens.
       searchTerm = {};
     }
     
     const backendUrl = `${BACKEND_URL}/manager/invitations?page=${page}&pageSize=${pageSize}`;
-    console.log("Calling backend")
+    
     const response = await signedJsonFetch(
       backendUrl,
       {
