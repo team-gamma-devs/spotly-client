@@ -11,7 +11,8 @@
 </script>
 
 <GenericBoxInvisible classes="w-full max-w-7xl mt-16 md:mt-24 lg:mt-32 px-6 md:px-12 lg:px-20">
-	<h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meet the Fucking Team</h2>
+	<h2 class="text-3xl md:text-4xl font-bold text-center">Meet the Team</h2>
+	<h3 class="text-md text-center mb-12 dark:text-gray-400 text-gray-600 zalando-font">Team Gamma Devs</h3>
 
 	<div 
 		class="flex gap-6 transition-all duration-500 ease-in-out"
