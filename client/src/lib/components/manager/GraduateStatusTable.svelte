@@ -12,17 +12,27 @@
 		Modal,
 	} from 'flowbite-svelte';
 	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid, FileCsvOutline } from 'flowbite-svelte-icons';
-	import { mockGraduateInvitations } from '$lib/mocks/mockGraduateInvites';
 	import type { GraduateInvitation } from '$lib/types/graduateInvitation';
 	import UploadCSV from './utils/UploadCSV.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { dev } from '$app/environment';
 
-	const TOTAL_ROWS = 20; // Total number of rows to always display
-	// TODO: The pagination stuff.
-	let graduatesList: GraduateInvitation[] = mockGraduateInvitations;
-	if (dev) {
+	interface Props {
+		data: {
+			graduatesList: GraduateInvitation[];
+			error: string | null;
+		};
 	}
+
+	let { data }: Props = $props();
+
+	const TOTAL_ROWS = 20;
+	
+	let graduatesList = $state(data.graduatesList || []);
+
+	$effect(() => {
+		graduatesList = data.graduatesList || [];
+	});
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -103,9 +113,9 @@
 
 	let showModal = $state(false);
 	let showCSVModal = $state(false);
-	let selectedGraduate = $state<(typeof graduatesList)[0] | null>(null);
+	let selectedGraduate = $state<GraduateInvitation | null>(null);
 
-	function openModal(graduate: (typeof graduatesList)[0]) {
+	function openModal(graduate: GraduateInvitation) {
 		selectedGraduate = graduate;
 		showModal = true;
 	}
@@ -140,9 +150,14 @@
 
 	function handleUploadError(error: string) {
 		console.error('CSV upload failed:', error);
-		// Keep modal open so user can see the error and try again
 	}
 </script>
+
+{#if data.error}
+	<div class="px-10 py-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded">
+		Error loading invitations: {data.error}
+	</div>
+{/if}
 
 <div class="flex gap-2 px-10 py-4 items-center justify-start bg-white dark:bg-background blur-bg">
 	<Input type="text" placeholder="Search by name or email" bind:value={searchTerm} class="flex-1 max-w-[300px]" />

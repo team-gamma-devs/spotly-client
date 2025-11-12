@@ -9,7 +9,7 @@
 
 <GenericBoxInvisible classes="pb-15">
 	{#if page.data.user}
-		<GenericBoxVisible classes="gap-5 px-20 py-10">
+		<GenericBoxVisible classes="gap-5 px-20 py-0 pb-10">
 			<p>You're already logged in!</p>
 			<BtnGoBack targetUrl="/" />
 		</GenericBoxVisible>
