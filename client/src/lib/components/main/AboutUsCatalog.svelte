@@ -88,7 +88,7 @@
 								</svg>
 							</button>
 						</div>
-						<p class="text-gray-700 dark:text-gray-300 leading-relaxed">{member.description}</p>
+						<p class="text-gray-700 dark:text-gray-300 leading-relaxed max-h-[140px] overflow-y-auto">{member.description}</p>
 					</div>
 				{:else if selectedMember !== null}
 					<!-- This isn't being used but it works, this was a pain in the ass so don't remove it -->
