@@ -12,12 +12,10 @@ export interface GraduateInvitation {
   expiresAt: string;
 }
 
+// Backend response structure matching InvitationsResultResponse
 export interface PaginatedInvitationsResponse {
-  items?: GraduateInvitation[];
-  invitations?: GraduateInvitation[];
-  data?: GraduateInvitation[];
-  pages: number;
-  page: number;
-  limit?: number;
-  total?: number;
+  items: GraduateInvitation[];  // The invitations list
+  pages: number;                // Total number of pages
+  page: number;                 // Current page number (1-indexed)
+  limit: number;                // Items per page
 }
