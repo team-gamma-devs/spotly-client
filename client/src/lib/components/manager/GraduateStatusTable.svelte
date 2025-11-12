@@ -63,9 +63,10 @@
 			}
 
 			const result = await response.json();
-			graduatesList = Array.isArray(result) ? result : result.invitations || result.data || result.items || [];
-			totalPages = result.pages || result.totalPages || 1;
-			currentPage = page;
+			// Backend returns: { items: [...], pages: 10, page: 1, limit: 20 }
+			graduatesList = result.items || [];
+			totalPages = result.pages || 1;
+			currentPage = result.page || page;
 		} catch (err) {
 			console.error('Failed to fetch invitations:', err);
 		} finally {
