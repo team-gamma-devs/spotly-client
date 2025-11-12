@@ -168,18 +168,46 @@
 	}
 
 	async function handleDelete() {
-		if (selectedGraduate) {
-			console.log('Deleting graduate:', selectedGraduate.id);
-			// TODO: call delete user logic, didn't find endpoint in backend, users are immune to cease of existance.
-			closeModal();
+		if (!selectedGraduate) return;
+
+		try {
+			if (dev) {
+				console.log('Deleting invitation:', selectedGraduate.id);
+			}
+
+			const response = await fetch(`/app/manager/api/graduate-invitations/${selectedGraduate.id}`, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+				console.error('Failed to delete invitation:', errorData.error);
+				alert(`Failed to delete invitation: ${errorData.error}`);
+				return;
+			}
+
+			const data = await response.json();
+
+			if (data.success) {
+				console.log('Invitation deleted successfully');
+				await invalidateAll();
+				closeModal();
+			}
+		} catch (error) {
+			console.error('Error deleting invitation:', error);
+			alert('An error occurred while deleting the invitation. Please try again.');
 		}
 	}
 
 	async function handleSendInvite() {
 		if (selectedGraduate) {
 			console.log('Sending invite to:', selectedGraduate.email);
-			// TODO: call the invite endpoint that triggers the resend stuff.
-			closeModal();
+			// TODO: call the invite endpoint that triggers the resend stuff
+			// (no backend endpoint to handle send single invitation)
 		}
 	}
 
