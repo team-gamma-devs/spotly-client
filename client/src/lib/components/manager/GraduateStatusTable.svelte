@@ -233,7 +233,7 @@
 <div class="flex gap-2 px-10 py-4 items-center justify-between bg-white dark:bg-background blur-bg">
 	<div class="flex gap-2 items-center">
 		<Input type="text" placeholder="Search by name or email" bind:value={searchTerm} class="max-w-[300px]" />
-		<Button color="blue" onclick={handleSearch} class="cursor-pointer" disabled={loading}>
+		<Button color="blue" onclick={handleSearch} class="cursor-pointer" disabled={loading} title="Search Invitation">
 			<SearchOutline class="w-5 h-5 me-2" />
 			Search
 		</Button>
@@ -243,6 +243,7 @@
 				showCSVModal = true;
 			}}
 			class="cursor-pointer flex items-center flex-row justify-center whitespace-nowrap"
+			title="Upload CSV"
 		>
 			<FileCsvOutline class="w-5 h-5 me-2" />
 			Upload CSV

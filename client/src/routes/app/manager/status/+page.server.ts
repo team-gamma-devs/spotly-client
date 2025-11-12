@@ -1,7 +1,7 @@
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import type { GraduateInvitation } from '$lib/types/graduateInvitation';
 
-export const load: PageLoad = async ({ fetch }) => {
+export const load: PageServerLoad = async ({ fetch }) => {
   try {
     const response = await fetch('/app/manager/api/graduate-invitations?page=1&pageSize=20', {
       method: 'POST',
