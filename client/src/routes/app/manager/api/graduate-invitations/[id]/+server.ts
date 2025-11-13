@@ -1,3 +1,5 @@
+// This file routes/app/manager/api/graduate-invitations/[id]/+server.ts
+
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { signedJsonFetch } from '$lib/server/authFetch';

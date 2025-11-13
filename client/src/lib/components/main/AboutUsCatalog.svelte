@@ -29,7 +29,7 @@
 			>
 				<button
 					on:click={() => selectMember(member.id)}
-					class="group relative overflow-hidden rounded-sm transition-all duration-500 ease-in-out cursor-pointer w-70 h-70 max-w-100"
+					class="group relative overflow-hidden rounded-md transition-all duration-500 ease-in-out cursor-pointer w-70 h-70 max-w-100 shadow-xl"
 					class:w-full={selectedMember === null || selectedMember !== member.id}
 					class:lg:w-64={selectedMember === member.id}
 					class:opacity-100={selectedMember === null || selectedMember === member.id}
@@ -44,13 +44,14 @@
 
 					<!-- ************** SELECT YOUR CHARACTER ****************** -->
 					<div
-						class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex justify-center gap-4"
+						class="absolute bottom-0 left-0 right-0 w-fit rounded-xl mb-2 mr-auto ml-auto ring-1 ring-gray-600 bg-[#080C17D6] px-3 py-2 flex justify-center gap-4"
 					>
 						<a
 							href={member.github}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="text-white hover:text-primary-400 transition-colors"
+							title="{member.name}'s Github"
 							on:click|stopPropagation
 						>
 							<GithubSolid class="h-6 w-6" />
@@ -60,6 +61,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							class="text-white hover:text-primary-400 transition-colors"
+							title="{member.name}'s LinkedIn"
 							on:click|stopPropagation
 						>
 							<LinkedinSolid class="h-6 w-6" />

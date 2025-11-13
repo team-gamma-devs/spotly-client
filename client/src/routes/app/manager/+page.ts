@@ -1,3 +1,5 @@
+// This file client/src/routes/app/manager/+page.ts
+
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {

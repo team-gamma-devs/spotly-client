@@ -1,3 +1,6 @@
+
+// This file routes/app/manager/status/+page.server.ts
+
 import type { PageServerLoad } from './$types';
 import type { GraduateInvitation } from '$lib/types/graduateInvitation';
 

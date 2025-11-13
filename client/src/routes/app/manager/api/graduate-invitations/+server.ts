@@ -1,5 +1,4 @@
-// Here I will call the backend API to get the graduate invitations for the manager
-// My backend endpoint to fetch graduate invitations is {BACKEND_URL}/manager/invitations.
+// This file routes/app/manager/api/graduate-invitations/+server.ts
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';

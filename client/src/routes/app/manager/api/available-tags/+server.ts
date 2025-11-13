@@ -1,3 +1,5 @@
+// This file routes/app/manager/api/available-tags/+server.ts
+
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';

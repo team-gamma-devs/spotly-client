@@ -1,3 +1,5 @@
+// This file client/src/routes/app/manager/settings/+page.server.ts
+
 import type { PageServerLoad, Actions } from './$types';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { BACKEND_URL } from '$env/static/private';

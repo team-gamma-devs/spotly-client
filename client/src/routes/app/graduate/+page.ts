@@ -1,3 +1,5 @@
+// This file client/src/routes/app/graduate/+page.ts
+
 import type { PageLoad } from './$types';
 import type { GithubData } from '$lib/server/githubFetch';
 

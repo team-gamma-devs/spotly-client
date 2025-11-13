@@ -1,3 +1,5 @@
+// This file client/src/routes/app/graduate/+page.server.ts
+
 import type { PageServerLoad } from './$types';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
