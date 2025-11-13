@@ -1,5 +1,9 @@
 // This file client/src/routes/app/manager/+page.server.ts
 
+// TODO: Call backend from app/api/manager/add-annotation/+server.ts
+// and from here call the proxy.
+
+
 import { fail } from '@sveltejs/kit';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { BACKEND_URL } from '$env/static/private';
@@ -8,6 +12,7 @@ import { dev } from '$app/environment';
 
 export const actions = {
 	// This catches the form located in manager/GraduateCard.svelte
+	// This adds a new annotation.
 	addAnnotation: async ({ request, locals, cookies }) => {
 		const token = cookies.get('access_token');
 		const formData = await request.formData();

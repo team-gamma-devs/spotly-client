@@ -137,7 +137,6 @@
 				disabled={!selectedFile || isUploading || (selectedFile && !!validateCSVFile(selectedFile))}
 			>
 				{#if isUploading}
-					<Spinner size="16"></Spinner>
 					Uploading...
 				{:else}
 					<CloudArrowUpSolid class="w-5 h-5 mr-2" />

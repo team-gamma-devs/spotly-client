@@ -33,3 +33,15 @@ This is a SvelteKit application using TypeScript.
 - [SvelteKit](https://svelte.dev/docs/kit)
 - [Flowbite Svelte](https://flowbite-svelte.com/docs)
 - [TailwindCSS](https://tailwindcss.com/docs/)
+
+## Enforce These Rules
+
+- Must use Svelte 5 syntax.
+- Avoid deprecated syntax like: `$: doubled = count * 2;`, this is the modern (Svelte 5) syntax: `let doubled = $derived(count * 2);`.
+- Components come from `flowbite-svelte`.
+- Use icons from `flowbite-svelte-icons`.
+- Strict CORS configuration.
+- Wrap debug code in `if (dev){/*Debug code*/}`, `dev` comes from `$app/environment` and is automatically `null` in production.
+- Resort to back-end (Sveltekit Server) as source of truth.
+- `{BACKEND_URL}` already contains `/v1/`.
+- Avoid using `$effect` for non-related purposes.

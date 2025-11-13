@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 // 1 hour
+      maxAge: 14400 // 4 hours
     });
 
     cookies.set('refresh_token', refresh_token, {

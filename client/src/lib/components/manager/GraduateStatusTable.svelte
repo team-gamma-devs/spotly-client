@@ -11,7 +11,6 @@
 		Input,
 		Modal,
 		PaginationNav,
-		Spinner,
 	} from 'flowbite-svelte';
 	import { SearchOutline, TrashBinSolid, EnvelopeOpenSolid, FileCsvOutline } from 'flowbite-svelte-icons';
 	import type { GraduateInvitation } from '$lib/types/graduateInvitation';

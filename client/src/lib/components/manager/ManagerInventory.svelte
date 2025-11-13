@@ -5,6 +5,17 @@
   import GenericBoxVisible from '../main/utils/GenericBoxVisible.svelte';
   import type { Graduate, PaginatedGraduatesResponse } from '../../types/graduates';
 
+  type Props = {
+    activeFilters?: {
+      technologies: string[];
+      englishLevels: string[];
+      tutorsFeedback: string[];
+    };
+    triggerSearch?: number;
+  };
+
+  let { activeFilters = { technologies: [], englishLevels: [], tutorsFeedback: [] }, triggerSearch = 0 }: Props = $props();
+
   let currentPage = $state(1);
   let totalPages = $state(1);
   let graduatesList = $state<Graduate[]>([]);
@@ -20,8 +31,26 @@
     try {
       loading = true;
       error = null;
+
+      const hasFilters = 
+        activeFilters.technologies.length > 0 ||
+        activeFilters.englishLevels.length > 0 ||
+        activeFilters.tutorsFeedback.length > 0;
+
+      let response;
       
-      const response = await fetch(`/api/graduates?page=${page}&pageSize=20`);
+      // If there are filters selected, put the things in the body, otherwise call it empty to get all random graduates so you can fill the inventory.
+      if (hasFilters) {
+        response = await fetch(`/app/manager/api/graduates?page=${page}&pageSize=20`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(activeFilters)
+        });
+      } else {
+        response = await fetch(`/app/manager/api/graduates?page=${page}&pageSize=20`);
+      }
       
       if (!response.ok) {
         throw new Error(`Failed to load graduates: ${response.statusText}`);
@@ -57,6 +86,15 @@
   function onScroll() {
     updateBorders();
   }
+
+  $effect(() => {
+    // When triggerSearch changes, reset to page 1 and fetch
+    // Need to see if i can use invalidateAll.
+    if (triggerSearch > 0) {
+      currentPage = 1;
+      fetchGraduates(1);
+    }
+  });
 
   onMount(() => {
     updateBorders();
@@ -101,8 +139,10 @@
       <div class="col-span-full flex justify-center items-center py-10">
         <GenericBoxVisible classes="ring-2">
           <h3 class="font-semibold mb-2">No Graduates Found</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            There are currently no graduates to display.
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            {activeFilters.technologies.length > 0 || activeFilters.englishLevels.length > 0 || activeFilters.tutorsFeedback.length > 0
+              ? 'No graduates match the selected filters. Try adjusting your search criteria.'
+              : 'There are currently no graduates to display.'}
           </p>
         </GenericBoxVisible>
       </div>

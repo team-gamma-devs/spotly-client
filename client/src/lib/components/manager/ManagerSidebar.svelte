@@ -42,8 +42,14 @@
 	let loading = $state(false); // Loading state for the submit button (shows spinner during search)
 	let multiSelectedEnglishLevel = $state<string[]>([]); // Array of selected English levels, binded with the multiSelectBox inside FilterBox.
 	let multiSelectedTutors = $state<string[]>([]); // Array of selected tutor codenames, also binded.
+	
+	let activeFilters = $state({
+		technologies: [] as string[],
+		englishLevels: [] as string[],
+		tutorsFeedback: [] as string[]
+	});
+	let searchTrigger = $state(0);
 
-	// Sync sidebar open/close state with Flowbite's UI helper
 	$effect(() => {
 		isDemoOpen = demoSidebarUi.isOpen;
 	});
@@ -70,26 +76,24 @@
 	 * Handles the search submission
 	 * Collects all selected filters and prepares them for backend query
 	 */
-	async function handleSubmit() {
+	async function handleSearch() {
 		loading = true;
-		const tagsToQuery = {
+		activeFilters = {
 			technologies: selectedTags.map((tag) => tag.name),
-			englishLevel: multiSelectedEnglishLevel,
+			englishLevels: multiSelectedEnglishLevel,
 			tutorsFeedback: multiSelectedTutors,
 		};
 
 		if (dev) {
-			console.log('Query Object:', tagsToQuery);
-			console.log('JSON String:', JSON.stringify(tagsToQuery, null, 2));
+			console.log('************* DEBUG *************');
+			console.log('Query Object:', $state.snapshot(activeFilters));
+			console.log('JSON String:', JSON.stringify(activeFilters, null, 2));
+			console.log('************ END ****************');
 		}
-
-		await fetch('/app/manager/api/search-graduates', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(tagsToQuery),
-		});
-
-		await new Promise((resolve) => setTimeout(resolve, 2000));
+		searchTrigger++;
+		
+		// Small delay for UX feedback
+		await new Promise((resolve) => setTimeout(resolve, 300));
 		loading = false;
 	}
 
@@ -102,6 +106,14 @@
 		multiSelectedEnglishLevel = [];
 		multiSelectedTutors = [];
 		techKeyword = '';
+		
+		// Clear active filters and trigger search to show all graduates
+		activeFilters = {
+			technologies: [],
+			englishLevels: [],
+			tutorsFeedback: []
+		};
+		searchTrigger++;
 	};
 
 	onMount(() => {
@@ -247,7 +259,7 @@
 						id="submit-search-btn"
 						color="alternative"
 						class="w-[80%] font-bold cursor-pointer bg-green-700 text-white hover:bg-green-600 hover:text-white"
-						onclick={handleSubmit}
+						onclick={handleSearch}
 						aria-label="Submit Search with Selected Filters"
 						title="Submit Search with Selected Filters"
 						{loading}>Search</Button
@@ -257,8 +269,8 @@
 		</div>
 	</Sidebar>
 
-	<!-- Content area with proper margin -->
+	<!-- Content area with proper margin NOW PASSES FILTERS :D -->
 	<div class="h-[100dvh] overflow-auto p-4 md:ml-64">
-		<ManagerInventory />
+		<ManagerInventory {activeFilters} triggerSearch={searchTrigger} />
 	</div>
 </div>
