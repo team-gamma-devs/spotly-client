@@ -75,10 +75,11 @@
 	}
 
 	function handlePageChange(page: number) {
-		fetchInvitations(page, searchTerm);
+		// this is to preserve the current search term when changing pages
+		fetchInvitations(page, searchTerm.trim() || undefined);
 	}
 
-	function formatDate(dateString: string): string {
+	function formatDate(dateString: string): string { // declare inside an utils directory? Nah..
 		const date = new Date(dateString);
 		return date.toLocaleDateString('en-US', {
 			year: 'numeric',
@@ -134,14 +135,8 @@
 
 	let searchTerm = $state('');
 
-	let filteredItems = $derived.by(() =>
-		graduatesList.filter(
-			(item) =>
-				!searchTerm ||
-				item.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				item.email.toLowerCase().includes(searchTerm.toLowerCase()),
-		),
-	);
+	// No client-side filtering - backend handles everything
+	let filteredItems = $derived(graduatesList);
 
 	let emptyRowsCount = $derived(Math.max(0, TOTAL_ROWS - filteredItems.length));
 
@@ -149,8 +144,8 @@
 		if (dev) {
 			console.log('Searching for:', searchTerm);
 		}
-		// Reset to page 1 when searching
-		await fetchInvitations(1, searchTerm);
+		// Reset to page 1 when searching, pass empty string if searchTerm is empty
+		await fetchInvitations(1, searchTerm.trim() || undefined);
 	}
 
 	let showModal = $state(false);
@@ -233,7 +228,14 @@
 <div class="flex gap-2 px-10 py-4 items-center justify-between bg-white dark:bg-background blur-bg">
 	<div class="flex gap-2 items-center">
 		<Input type="text" placeholder="Search by name or email" bind:value={searchTerm} class="max-w-[300px]" />
-		<Button color="blue" onclick={handleSearch} class="cursor-pointer" disabled={loading} title="Search Invitation" loading={loading}>
+		<Button
+			color="blue"
+			onclick={handleSearch}
+			class="cursor-pointer"
+			disabled={loading}
+			title="Search Invitation"
+			{loading}
+		>
 			<SearchOutline class="w-5 h-5 me-2" />
 			Search
 		</Button>
@@ -265,52 +267,52 @@
 		<Spinner size="12" />
 	</div>
 {:else} -->
-	<Table class="dark:bg-background blur-bg mr-0 w-full text-foreground dark:text-foreground overflow-x-auto">
-		<TableHead class="text-center">
-			<TableHeadCell>Name</TableHeadCell>
-			<TableHeadCell>Email</TableHeadCell>
-			<TableHeadCell>Cohort</TableHeadCell>
-			<TableHeadCell>Invitation Status</TableHeadCell>
-			<TableHeadCell>Created At</TableHeadCell>
-			<TableHeadCell>Expires At</TableHeadCell>
-			<TableHeadCell>Options</TableHeadCell>
-		</TableHead>
-		<TableBody>
-			{#each filteredItems as graduate}
-				{@const status = getInvitationStatus(graduate.logState, graduate.expiresAt)}
-				{@const badgeProps = getStatusBadgeProps(status)}
-				<TableBodyRow class="h-16">
-					<TableBodyCell class="text-center">{graduate.fullName}</TableBodyCell>
-					<TableBodyCell class="text-center">{graduate.email}</TableBodyCell>
-					<TableBodyCell class="text-center">{graduate.cohort}</TableBodyCell>
-					<TableBodyCell class="text-center">
-						<Badge color={badgeProps.color} class={badgeProps.class}>
-							{status.toUpperCase()}
-						</Badge>
-					</TableBodyCell>
-					<TableBodyCell class="text-center">{formatDate(graduate.createdAt)}</TableBodyCell>
-					<TableBodyCell class="text-center">{formatDate(graduate.expiresAt)}</TableBodyCell>
-					<TableBodyCell class="text-center">
-						<Button size="xs" color="alternative" class="cursor-pointer w-full" onclick={() => openModal(graduate)}
-							>Show</Button
-						>
-					</TableBodyCell>
-				</TableBodyRow>
-			{/each}
-			<!-- This is to keep the layout fixed when there are empty rows. otherwise it affects the height and it's hard to control -->
-			{#each Array(emptyRowsCount) as _, i}
-				<TableBodyRow class="h-16">
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-					<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
-				</TableBodyRow>
-			{/each}
-		</TableBody>
-	</Table>
+<Table class="dark:bg-background blur-bg mr-0 w-full text-foreground dark:text-foreground overflow-x-auto">
+	<TableHead class="text-center">
+		<TableHeadCell>Name</TableHeadCell>
+		<TableHeadCell>Email</TableHeadCell>
+		<TableHeadCell>Cohort</TableHeadCell>
+		<TableHeadCell>Invitation Status</TableHeadCell>
+		<TableHeadCell>Created At</TableHeadCell>
+		<TableHeadCell>Expires At</TableHeadCell>
+		<TableHeadCell>Options</TableHeadCell>
+	</TableHead>
+	<TableBody>
+		{#each filteredItems as graduate}
+			{@const status = getInvitationStatus(graduate.logState, graduate.expiresAt)}
+			{@const badgeProps = getStatusBadgeProps(status)}
+			<TableBodyRow class="h-16">
+				<TableBodyCell class="text-center">{graduate.fullName}</TableBodyCell>
+				<TableBodyCell class="text-center">{graduate.email}</TableBodyCell>
+				<TableBodyCell class="text-center">{graduate.cohort}</TableBodyCell>
+				<TableBodyCell class="text-center">
+					<Badge color={badgeProps.color} class={badgeProps.class}>
+						{status.toUpperCase()}
+					</Badge>
+				</TableBodyCell>
+				<TableBodyCell class="text-center">{formatDate(graduate.createdAt)}</TableBodyCell>
+				<TableBodyCell class="text-center">{formatDate(graduate.expiresAt)}</TableBodyCell>
+				<TableBodyCell class="text-center">
+					<Button size="xs" color="alternative" class="cursor-pointer w-full" onclick={() => openModal(graduate)}
+						>Show</Button
+					>
+				</TableBodyCell>
+			</TableBodyRow>
+		{/each}
+		<!-- This is to keep the layout fixed when there are empty rows. otherwise it affects the height and it's hard to control -->
+		{#each Array(emptyRowsCount) as _, i}
+			<TableBodyRow class="h-16">
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+				<TableBodyCell class="text-center">&nbsp;</TableBodyCell>
+			</TableBodyRow>
+		{/each}
+	</TableBody>
+</Table>
 <!-- {/if} -->
 
 <!-- ************* Options for graduate modal ************** -->
