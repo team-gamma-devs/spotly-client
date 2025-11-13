@@ -5,10 +5,10 @@
 
 <div title={title}
 	class="flex flex-col items-center justify-center bg-background dark:bg-background
-    p-5 rounded ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg backdrop-blur-xl
+    p-5 rounded-md ring-1 ring-gray-200 dark:ring-gray-900 shadow-lg backdrop-blur-xl
     mx-auto my-auto {classes}"
 >
-	<div class="mb-4 flex items-center gap-3">
+	<div class="flex items-center gap-3">
 		<slot name="icon" />
 		<h3 class="text-2xl font-bold">{title}</h3>
 	</div>

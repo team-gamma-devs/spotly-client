@@ -5,6 +5,7 @@
 	import { Button, Card, Avatar, Badge, Timeline, TimelineItem } from 'flowbite-svelte';
 	import {
 		UserCircleSolid,
+		CloseCircleOutline,
 		BriefcaseSolid,
 		ChartPieSolid,
 		RocketSolid,
@@ -101,7 +102,6 @@
 	{#if user}
 		<!-- LOGGED IN VERSION -->
 		<div class="container mx-auto px-4 py-8">
-			<!-- Hero Section with Welcome -->
 			<div
 				class="mb-12 transition-all duration-700 transform {heroVisible
 					? 'opacity-100 translate-y-0'
@@ -126,10 +126,17 @@
 							</p>
 						</div>
 					</div>
-					<Badge color="green" large class="flex items-center gap-2">
-						<CheckCircleSolid class="w-4 h-4" />
-						Manager Access
-					</Badge>
+					{#if user.role === 'manager'}
+						<Badge color="green" large class="flex items-center gap-2">
+							<CheckCircleSolid class="w-4 h-4" />
+							Manager Access
+						</Badge>
+					{:else}
+						<Badge color="red" large class="flex items-center gap-2">
+							<CloseCircleOutline class="w-4 h-4" />
+							Manager Access
+						</Badge>
+					{/if}
 				</div>
 			</div>
 
@@ -250,7 +257,8 @@
 				<div class="flex justify-center mb-6">
 					<div class="relative">
 						<div class="absolute inset-0 bg-primary-500 blur-3xl opacity-20 rounded-full"></div>
-						<enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" aria-label="Spotly Logo" width=100 height=100></enhanced:img>
+						<enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" aria-label="Spotly Logo" width="100" height="100"
+						></enhanced:img>
 					</div>
 				</div>
 				<h1
@@ -295,7 +303,9 @@
 								? 'opacity-100 translate-y-0'
 								: 'opacity-0 translate-y-4'}"
 						>
-							<GenericBoxVisible classes="text-center h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+							<GenericBoxVisible
+								classes="text-center h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+							>
 								{#if feature.icon === UsersSolid}
 									<UsersSolid class="w-12 h-12 mx-auto mb-4 {feature.color}" />
 								{:else if feature.icon === ChartPieSolid}
