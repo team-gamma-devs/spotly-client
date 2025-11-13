@@ -1,7 +1,8 @@
 <script lang="ts">
 	import GenericBoxInvisible from './utils/GenericBoxInvisible.svelte';
-  import { LinkedinSolid, GithubSolid } from 'flowbite-svelte-icons';
+	import { LinkedinSolid, GithubSolid, CaretUpOutline } from 'flowbite-svelte-icons';
 	import { teamMembers } from '$lib/constants/authors';
+	import { span } from 'flowbite-svelte';
 
 	let selectedMember: string | null = null;
 
@@ -14,13 +15,13 @@
 	<h2 class="text-3xl md:text-4xl font-bold text-center">Meet the Team</h2>
 	<h3 class="text-md text-center mb-12 dark:text-gray-400 text-gray-600 zalando-font">Team Gamma Devs</h3>
 
-	<div 
+	<div
 		class="flex gap-6 transition-all duration-500 ease-in-out"
 		class:flex-row={selectedMember === null}
 		class:flex-col={selectedMember !== null}
 	>
 		{#each teamMembers as member}
-			<div 
+			<div
 				class="flex gap-6 items-start transition-all duration-500 ease-in-out"
 				class:flex-col={selectedMember !== null && selectedMember !== member.id}
 				class:lg:flex-row={selectedMember === member.id}
@@ -88,17 +89,26 @@
 								</svg>
 							</button>
 						</div>
-						<p class="text-gray-700 dark:text-gray-300 leading-relaxed max-h-[140px] overflow-y-auto">{member.description}</p>
+						<p class="text-gray-700 dark:text-gray-300 leading-relaxed max-h-[140px] overflow-y-auto">
+							{member.description}
+						</p>
 					</div>
 				{:else if selectedMember !== null}
 					<!-- This isn't being used but it works, this was a pain in the ass so don't remove it -->
-          <!-- The idea was to have a filled empty div to prevent each image from growing past certain width while preserving animations -->
-          <!-- Turned out quite tricky... And they say backend is hard... ;D -->
+					<!-- The idea was to have a filled empty div to prevent each image from growing past certain width while preserving animations -->
+					<!-- Turned out quite tricky... And they say backend is hard... ;D -->
 					<div class="absolute"></div>
 				{/if}
 			</div>
 		{/each}
 	</div>
+	<!-- Animated click hint -->
+	{#if selectedMember === null}
+		<div class="flex flex-col justify-center items-center mt-8 gap-2 text-gray-600 dark:text-gray-400">
+			<div class="hand-pointer"><CaretUpOutline class="shrink-0 h-6 w-6" /></div>
+			<p class="text-sm font-medium">Click on a team member to learn more</p>
+		</div>
+	{/if}
 </GenericBoxInvisible>
 
 <style>
@@ -111,5 +121,20 @@
 			opacity: 1;
 			transform: translateX(0);
 		}
+	}
+
+	@keyframes bounce-point {
+		0%,
+		100% {
+			transform: translateY(5px);
+		}
+		50% {
+			transform: translateY(-5px);
+		}
+	}
+
+	.hand-pointer {
+		animation: bounce-point 1.5s ease-in-out infinite;
+		display: inline-block;
 	}
 </style>

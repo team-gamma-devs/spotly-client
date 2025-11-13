@@ -233,7 +233,7 @@
 <div class="flex gap-2 px-10 py-4 items-center justify-between bg-white dark:bg-background blur-bg">
 	<div class="flex gap-2 items-center">
 		<Input type="text" placeholder="Search by name or email" bind:value={searchTerm} class="max-w-[300px]" />
-		<Button color="blue" onclick={handleSearch} class="cursor-pointer" disabled={loading} title="Search Invitation">
+		<Button color="blue" onclick={handleSearch} class="cursor-pointer" disabled={loading} title="Search Invitation" loading={loading}>
 			<SearchOutline class="w-5 h-5 me-2" />
 			Search
 		</Button>
@@ -259,11 +259,12 @@
 	/>
 </div>
 
-{#if loading}
+<!-- This causes the whole layout to move.-->
+<!-- {#if loading} 
 	<div class="flex justify-center items-center py-20">
 		<Spinner size="12" />
 	</div>
-{:else}
+{:else} -->
 	<Table class="dark:bg-background blur-bg mr-0 w-full text-foreground dark:text-foreground overflow-x-auto">
 		<TableHead class="text-center">
 			<TableHeadCell>Name</TableHeadCell>
@@ -310,7 +311,7 @@
 			{/each}
 		</TableBody>
 	</Table>
-{/if}
+<!-- {/if} -->
 
 <!-- ************* Options for graduate modal ************** -->
 <Modal

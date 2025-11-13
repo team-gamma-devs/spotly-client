@@ -15,6 +15,7 @@
 	import { onMount } from 'svelte';
 	import ManagerInventory from './ManagerInventory.svelte';
 	import { availableFilterTags, type FilterTag } from '$lib/constants/filterTags';
+	import { dev } from '$app/environment';
 
 	const spanClass = 'flex-1 ms-3 whitespace-nowrap'; // Flowbite utility class, Don't delete.
 
@@ -77,15 +78,16 @@
 			tutorsFeedback: multiSelectedTutors,
 		};
 
-		console.log('Query Object:', tagsToQuery);
-		console.log('JSON String:', JSON.stringify(tagsToQuery, null, 2));
+		if (dev) {
+			console.log('Query Object:', tagsToQuery);
+			console.log('JSON String:', JSON.stringify(tagsToQuery, null, 2));
+		}
 
-		// TODO: Send to backend here
-		// await fetch('/api/search', {
-		//     method: 'POST',
-		//     headers: { 'Content-Type': 'application/json' },
-		//     body: JSON.stringify(tagsToQuery)
-		// });
+		await fetch('/app/manager/api/search-graduates', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(tagsToQuery),
+		});
 
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 		loading = false;
@@ -136,7 +138,10 @@
 	};
 </script>
 
-<SidebarButton onclick={demoSidebarUi.toggle} class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer ring-1 ring-gray-300 dark:ring-gray-700" />
+<SidebarButton
+	onclick={demoSidebarUi.toggle}
+	class="mb-2 mt-4 ml-2 bg-white dark:bg-background cursor-pointer ring-1 ring-gray-300 dark:ring-gray-700"
+/>
 
 <div class="relative w-full h-full">
 	<Sidebar
@@ -251,7 +256,7 @@
 			</SidebarGroup>
 		</div>
 	</Sidebar>
-	
+
 	<!-- Content area with proper margin -->
 	<div class="h-[100dvh] overflow-auto p-4 md:ml-64">
 		<ManagerInventory />

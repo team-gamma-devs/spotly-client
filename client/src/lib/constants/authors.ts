@@ -21,7 +21,7 @@ export const teamMembers = [
     id: 'gabriel',
     name: 'Gabriel Barnada',
     role: 'Design Lead & Frontend Architect',
-    image: 'https://i.ibb.co/Hf83XwT0/Gabriel-San.jpg',
+    image: 'https://i.ibb.co/1GwCZqSv/Mr-Gabriel-Barnada.png',
     github: 'https://github.com/glovek08',
     linkedin: 'https://www.linkedin.com/in/gabriel-barnada/',
     description: 'Gabriel led the design and frontend development, implementing SvelteKit as a secure proxy layer. He crafted the entire frontend design system, deployed the backend to AWS and frontend to Vercel (also paid the bills), and built the seamless GitHub integration that showcases developer portfolios. His attention to detail created an intuitive and beautiful user experience. Gabriel highly recommends SvelteKit for future projects and will surely cry if asked to use React again.'
