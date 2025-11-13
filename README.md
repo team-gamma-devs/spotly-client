@@ -157,6 +157,9 @@ To keep images/fonts cached without forcing clients to reload, add a `vercel.jso
 
 # Project architecture — useful files & folders
 
+### Note:
+During the development and as I became more comfortable working with SvelteKit (and most importantly, as I started to understand stuff better), I found better ways to do things, so you'll find garbage code everywhere and very confusing stuff, and I'm sorry for that, every backend request needs to be moved to strict server-side, some components are Jesus and they have some savage prop drilling, I'm aware there's a mess of client and server-side functions. So bear with me... If I find the time, I will refactor this shit.
+
 <strong>Overview</strong>: the repo is split into a small repo root and a client app. The client is a SvelteKit app located in the `client/` folder. The structure below reflects the recommended places for components, services, server-only code and routes.
 
 <strong>Purpose</strong>: keep components grouped by UI scope/role so ownership, reuse and styling boundaries are clear. I don't know if this is meta in front-end development, I use it because it's starting to become a mess.
