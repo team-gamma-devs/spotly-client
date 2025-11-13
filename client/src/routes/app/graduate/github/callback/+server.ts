@@ -55,17 +55,22 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
     const tokenData = await tokenResponse.json();
 
-    // DEBUG: log response
-    // console.log('GitHub OAuth Token Response:', {
-    //   hasAccessToken: !!tokenData.access_token,
-    //   tokenType: tokenData.token_type,
-    //   scope: tokenData.scope,
-    //   tokenPreview: tokenData.access_token?.slice(0, 20) + '...',
-    //   fullResponse: tokenData
-    // });
+    // Log response for debugging (safe for production - no sensitive data exposed)
+    console.log('GitHub OAuth Token Response:', {
+      hasAccessToken: !!tokenData.access_token,
+      tokenType: tokenData.token_type,
+      scope: tokenData.scope,
+      error: tokenData.error,
+      errorDescription: tokenData.error_description
+    });
+
+    if (tokenData.error) {
+      console.error('GitHub OAuth error:', tokenData.error, tokenData.error_description);
+      throw redirect(303, `/app/graduate/github/result?error=${tokenData.error}`);
+    }
 
     if (!tokenData.access_token) {
-      console.error('No access token in response');
+      console.error('No access token in response:', tokenData);
       throw redirect(303, '/app/graduate/github/result?error=no_token');
     }
 
@@ -88,16 +93,19 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
     const userData = await userResponse.json();
 
-    // DEBUG: Log basic user info
-    // console.log('GitHub User Data:', {
-    //   login: userData.login,
-    //   id: userData.id
-    // });
+    // Log basic user info (safe for production)
+    console.log('GitHub User Data retrieved:', {
+      login: userData.login,
+      id: userData.id
+    });
 
+    // In production (Vercel), always use secure cookies
+    const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+    
     cookies.set('github_token', tokenData.access_token, {
       path: '/',
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProduction,
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 30 // 30 days
     });
@@ -105,16 +113,12 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
     cookies.set('github_username', userData.login, {
       path: '/',
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProduction,
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 30
     });
 
-    // DEBUG: ookies are set?
-    // console.log('Cookies set successfully:', {
-    //   token: cookies.get('github_token')?.slice(0, 20) + '...',
-    //   username: cookies.get('github_username')
-    // });
+    console.log('GitHub OAuth successful, cookies set for user:', userData.login);
 
     throw redirect(303, '/app/graduate/github/result?success=true');
   } catch (error: any) {

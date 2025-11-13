@@ -257,7 +257,7 @@
 				<div class="flex justify-center mb-6">
 					<div class="relative">
 						<div class="absolute inset-0 bg-primary-500 blur-3xl opacity-20 rounded-full"></div>
-						<enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" aria-label="Spotly Logo" width="100" height="100"
+						<enhanced:img src="$lib/assets/svgs/spotly-logo-color.svg" aria-label="Spotly Logo" width="100" height="100" alt="Spotly Logo"
 						></enhanced:img>
 					</div>
 				</div>
