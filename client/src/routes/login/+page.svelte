@@ -7,7 +7,7 @@
 	let error = $derived(page.url.searchParams.get('error'));
 </script>
 
-<GenericBoxInvisible classes="pb-15">
+<GenericBoxInvisible classes="pb-35">
 	{#if page.data.user}
 		<GenericBoxVisible classes="gap-5 px-20 py-0 pb-10">
 			<p>You're already logged in!</p>
