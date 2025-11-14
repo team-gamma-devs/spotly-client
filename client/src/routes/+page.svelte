@@ -16,6 +16,7 @@
 		FireSolid,
 		FaceGrinStarsOutline,
 		StarSolid,
+		GithubSolid,
 	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
@@ -34,7 +35,6 @@
 	onMount(() => {
 		setTimeout(() => (heroVisible = true), 100);
 		setTimeout(() => (statsVisible = true), 300);
-		console.log("UserFull: "+userFull);
 		// TODO: Ask fede to implement live stats :D
 		if (user) {
 			setTimeout(() => {
@@ -74,7 +74,7 @@
 		},
 	];
 
-	const quickActions = [
+	const managerQuickActions = [
 		{
 			title: 'Search Graduates',
 			description: 'Find your next team member',
@@ -84,19 +84,38 @@
 		},
 		{
 			title: 'Send Invitations',
-			description: 'Invite graduates to join',
-			href: '/app/manager',
+			description: 'Invite graduates to join this wonderful app',
+			href: '/app/manager/status',
 			icon: RocketSolid,
 			color: 'bg-gradient-to-br from-green-500 to-green-700',
 		},
 		{
 			title: 'View Analytics',
 			description: 'Track your recruiting metrics',
-			href: '/app/manager',
+			href: '/app/manager/stats',
 			icon: ChartPieSolid,
 			color: 'bg-gradient-to-br from-purple-500 to-purple-700',
 		},
 	];
+
+	const graduateQuickActions = [
+		{
+			title: 'My Dashboard',
+			description: 'View and manage your profile',
+			href: '/app/graduate',
+			icon: UserCircleSolid,
+			color: 'bg-gradient-to-br from-blue-500 to-blue-700',
+		},
+		{
+			title: 'GitGudStats',
+			description: 'Check your GitHub statistics',
+			href: '/app/graduate',
+			icon: GithubSolid,
+			color: 'bg-gradient-to-br from-gray-700 to-gray-900',
+		},
+	];
+
+	const quickActions = $derived(user?.role === 'manager' ? managerQuickActions : graduateQuickActions);
 </script>
 
 <div class="min-h-screen">
@@ -123,7 +142,11 @@
 							</h1>
 							<p class="text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-2">
 								<FireSolid class="w-4 h-4 text-orange-500" />
-								Ready to find amazing talent today?
+								{#if user.role === 'manager'}
+									Ready to find amazing talent today?
+								{:else}
+									Keep building your portfolio!
+								{/if}
 							</p>
 						</div>
 					</div>
@@ -132,10 +155,15 @@
 							<CheckCircleSolid class="w-4 h-4" />
 							Manager Access
 						</Badge>
+					{:else if user.role === 'graduate'}
+						<Badge color="blue" large class="flex items-center gap-2">
+							<CheckCircleSolid class="w-4 h-4" />
+							Graduate Access
+						</Badge>
 					{:else}
 						<Badge color="red" large class="flex items-center gap-2">
 							<CloseCircleOutline class="w-4 h-4" />
-							Manager Access
+							Unknown Role
 						</Badge>
 					{/if}
 				</div>
@@ -178,7 +206,7 @@
 					<RocketSolid class="w-6 h-6 text-primary-600 dark:text-primary-400" />
 					Quick Actions
 				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<div class="grid grid-cols-1 md:grid-cols-{quickActions.length === 2 ? '2' : '3'} gap-6">
 					{#each quickActions as action, i}
 						<div
 							class="transition-all duration-500 delay-{i * 100} transform {statsVisible
@@ -196,6 +224,10 @@
 											<RocketSolid class="w-10 h-10" />
 										{:else if action.icon === ChartPieSolid}
 											<ChartPieSolid class="w-10 h-10" />
+										{:else if action.icon === UserCircleSolid}
+											<UserCircleSolid class="w-10 h-10" />
+										{:else if action.icon === GithubSolid}
+											<GithubSolid class="w-10 h-10" />
 										{/if}
 									</div>
 									<h3
