@@ -14,7 +14,7 @@
 
 	const userData = $derived(data.userFull);
 	const userName = $derived(`${userData?.firstName || ''} ${userData?.lastName || ''}`);
-	const userPfp = $derived(userData?.avatarUrl || pfpFallback);
+	const userPfp = $derived(userData?.avatarUrl || page.data.user.avatarUrl || pfpFallback);
 
 	if (dev) {
 		$effect(() => {
