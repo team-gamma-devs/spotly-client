@@ -1,9 +1,5 @@
 // This file client/src/routes/app/manager/+page.server.ts
 
-// TODO: Call backend from app/api/manager/add-annotation/+server.ts
-// and from here call the proxy.
-
-
 import { fail } from '@sveltejs/kit';
 import { signedJsonFetch } from '$lib/server/authFetch';
 import { BACKEND_URL } from '$env/static/private';

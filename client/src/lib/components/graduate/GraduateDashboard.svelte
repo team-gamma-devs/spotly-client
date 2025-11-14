@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import GenericBoxVisible from '../main/utils/GenericBoxVisible.svelte';
     import TechTag from '../main/utils/TechTag.svelte';
     import { availableFilterTags } from '$lib/constants/filterTags';
@@ -9,12 +9,12 @@
     import type { UserState } from '$lib/types/userFull';
 
     // Get the real user data from page.data
-    const userData = $derived($page.data.userFull as UserState);
+    const userData = $derived(page.data.userFull as UserState);
 
     const userName = $derived(`${userData?.firstName || ''} ${userData?.lastName || ''}`);
     const userPfp = $derived(userData?.avatarUrl || pfpFallback);
 
-    // Convert skills to techTags
+    // same approach as in GraduateCard to convert skills to techTags
     const techTags = $derived(
         (userData?.cvInfo?.skills || []).map((skill: string) => {
             const tagName = typeof skill === 'string' ? skill.toLowerCase() : '';
@@ -41,17 +41,11 @@
             {#if userData}
                 <div class="p-6 space-y-6">
                     <!-- ******* Header **************** -->
-                    <div
-                        class="flex gap-4 items-start border-b border-gray-200 dark:border-gray-700 pb-6"
-                    >
+                    <div class="flex gap-4 items-start border-b border-gray-200 dark:border-gray-700 pb-6">
                         <div
                             class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700"
                         >
-                            <img
-                                src={userPfp}
-                                alt="{userName}'s Profile"
-                                class="w-full h-full object-cover"
-                            />
+                            <img src={userPfp} alt="{userName}'s Profile" class="w-full h-full object-cover" />
                         </div>
 
                         <div class="flex-1">
@@ -166,7 +160,7 @@
                 </div>
             {:else}
                 <div class="p-6 text-center">
-                    <p class="text-gray-500 dark:text-gray-400">Loading user data...</p>
+                    <p class="text-gray-500 dark:text-gray-400">Loading your profile...</p>
                 </div>
             {/if}
         </GenericBoxVisible>

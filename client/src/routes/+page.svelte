@@ -20,6 +20,7 @@
 	import { onMount } from 'svelte';
 
 	const user = $derived(page.data.user);
+	const userFull = $derived(page.data.userFull);
 
 	let stats = $state({
 		totalGraduates: 0,
@@ -33,7 +34,7 @@
 	onMount(() => {
 		setTimeout(() => (heroVisible = true), 100);
 		setTimeout(() => (statsVisible = true), 300);
-
+		console.log("UserFull: "+userFull);
 		// TODO: Ask fede to implement live stats :D
 		if (user) {
 			setTimeout(() => {

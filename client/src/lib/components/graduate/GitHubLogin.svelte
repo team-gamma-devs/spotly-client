@@ -57,7 +57,7 @@
 	</GenericBoxVisible>
 	{#if !githubUsername}
 		<a
-			href="/app/graduate/upload_cv"
+			href="/app/graduate"
 			class="text-sm text-foreground hover:text-blue-800 mt-2 dark:hover:text-blue-200 underline
         decoration-1 underline-offset-2 transition-colors block text-center"
 			aria-label="Continue without login in to github"
