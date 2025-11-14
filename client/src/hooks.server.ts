@@ -5,6 +5,7 @@ import { supabase } from '$lib/services/supabaseClient';
 import { mockUserMe } from '$lib/mocks/mockUserMe';
 import type { UserMe } from '$lib/types/userMe';
 import { dev } from '$app/environment';
+import { mockUserState } from '$lib/mocks/mockUserState';
 
 /**
  * Global SvelteKit Server Hook for session validation.

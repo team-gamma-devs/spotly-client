@@ -4,6 +4,7 @@ import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
 import { signedJsonFetch } from '$lib/server/authFetch';
+import { mockUserState } from '$lib/mocks/mockUserState';
 import { dev } from '$app/environment';
 
 export const GET: RequestHandler = async ({ cookies }) => {
@@ -14,9 +15,10 @@ export const GET: RequestHandler = async ({ cookies }) => {
         return json({ error: 'Not authenticated' }, { status: 401 });
       }
     }
+    // if (dev) {
+    //   return json({ ...mockUserState });
+    // }
 
-
-    // Fetch the full user data from the backend using signedJsonFetch
     const response = await signedJsonFetch(
       `${BACKEND_URL}/auth/me/full_user`,
       {

@@ -38,7 +38,7 @@ export interface UserState {
 	updatedAt: string;
 }
 
-export interface AuthMeResponse {
+export interface AuthMeResponse { //shhh...
 	graduates: UserState[];
 	totalCount: number;
 	page: number;

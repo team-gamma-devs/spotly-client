@@ -78,10 +78,10 @@
 	<div id="graduate-grid-container" class="overflow-auto md:ml-64 sm:p-5 min-h-[100dvh] p-2">
 		<!-- ********  GRADUATE DASHBOARD! ************** -->
 		{#if activeUrl === 'Dashboard'}
-			<GraduateDashboard/>
+			<GraduateDashboard data={data}/>
 		<!-- ******** GITHUB DASHBOARD! ************** -->
 		{:else if activeUrl === 'GitGudStats'} 
-			<GithubDataContainer {data} />
+			<GithubDataContainer data={data} />
 		{/if}
 	</div>
 </div>

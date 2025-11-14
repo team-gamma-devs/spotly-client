@@ -1,19 +1,28 @@
-// This file client/src/routes/app/graduate/+page.ts
-
+// client/src/routes/app/graduate/+page.ts
 import type { PageLoad } from './$types';
 import type { GithubData } from '$lib/server/githubFetch';
 
-/**
- * This load function runs on the client and/or server.
- * Loads GitHub data only if the user has logged in to his github account.
- * The data it returns is passed to the page and layout components.
- */
-
 export const load: PageLoad = async ({ fetch, parent }) => {
-  const { githubUsername } = await parent();
+  const parentData = await parent();
+  const { githubUsername } = parentData;
+  
   let userGithubData: GithubData | null = null;
   let githubError: string | null = null;
+  let userFull = null;
+  let userFullError: string | null = null;
 
+  try {
+    const fullUserRes = await fetch('/app/graduate/api/full-user');
+    
+    if (fullUserRes.ok) {
+      userFull = await fullUserRes.json();
+    } else {
+      const errorData = await fullUserRes.json();
+      userFullError = errorData.error || 'Failed to load user data';
+    }
+  } catch (error: any) {
+    userFullError = 'Network error while fetching user data';
+  }
   if (githubUsername) {
     try {
       const res = await fetch('/app/graduate/api/github');
@@ -31,8 +40,11 @@ export const load: PageLoad = async ({ fetch, parent }) => {
   }
 
   return {
+    ...parentData,
+    userFull,
+    userFullError,
     userGithubData,
     githubError,
-		title: "Dashboard",
+    title: "Dashboard",
   };
 };
