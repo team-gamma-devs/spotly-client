@@ -166,42 +166,64 @@ During the development and as I became more comfortable working with SvelteKit (
 
 - client/
   - src/
-    - routes/                — SvelteKit routes. Use route groups for public vs protected:
-      - +layout.svelte       — global shell (site background, head, public layout)
-      - (app)/+layout.svelte — protected app area; contains AuthBox to protect `/app/**`
-      - (app)/...            — all private pages live here (e.g. `/app/manager`, `/app/graduate`)
-      - login/+page.svelte   — public login
-      - signup/+page.svelte  — public signup
+    - routes/                      — SvelteKit routes. Use route groups for public vs protected:
+      - +layout.svelte             — global shell (site background, head, public layout)
+      - welcome/+page.svelte       — public landing page showcasing app features
+      - login/+page.svelte         — public login
+      - app/
+        - +layout.svelte           — protected app area; contains AuthBox to protect `/app/**`
+        - manager/                 — manager-only routes
+          - +layout.svelte         — manager layout wrapper
+          - status/+page.svelte    — manager dashboard with graduate cards
+          - api/                   — manager-specific API routes (server-side only)
+            - graduate-invitations/+server.ts  — fetch invitation data
+            - upload-csv/+server.ts            — handle bulk CSV uploads
+        - graduate/                — graduate-only routes
+          - +page.svelte           — graduate dashboard
+          - +page.server.ts        — loads full user data via internal API
+          - github/                — GitHub OAuth flow
+            - authorize/+server.ts — initiates GitHub OAuth
+            - callback/+server.ts  — handles OAuth callback
+            - result/+page.svelte  — displays OAuth result
+          - api/                   — graduate-specific API routes (server-side only)
+            - full-user/+server.ts — fetches full user data from backend
     - lib/
-      - components/          — UI components grouped by scope:
-        - main/              — Header, Footer, shared UI for general users
-        - manager/           — manager-only components (Sidebar, manager widgets)
-        - graduate/          — graduate-only components
-        - error/             — Unauthorized, NotFound, ErrorCard
-        - ...each scope has a utils/ folder for small internal helpers
-      - stores/              — Svelte stores (pure reactive state used by the UI)
-      - services/            — client-side helpers (API wrappers, localStorage, theme)
-      - server/              — server-only helpers (token verification, DB calls) — NOT bundled to client
-      - constants/           — small shared constants (e.g. publicRoutes)
-    - app.css                — base global CSS and Tailwind utilities
-  - static/                  — publicly served assets (images, fonts, icons)
-  - package.json             — client scripts (dev/build/preview) and engines
-  - .nvmrc                   — Node version hint for developers
+      - components/                — UI components grouped by scope:
+        - main/                    — Header, Footer, shared UI for general users
+          - utils/                 — GenericBoxVisible, GenericBoxInvisible, AuthBox
+        - manager/                 — manager-only components
+          - GraduateCard.svelte    — displays individual graduate data
+          - GraduateStatusTable.svelte  — table view of all graduates
+          - utils/                 — AvailableTagsBox, SelectedTagsBox, UploadCSV
+        - graduate/                — graduate-only components
+          - GraduateDashboard.svelte    — main graduate profile view
+        - error/                   — Unauthorized, NotFound, ErrorCard
+      - stores/                    — Svelte stores (pure reactive state used by the UI)
+      - services/                  — client-side helpers (API wrappers, localStorage, theme)
+      - server/                    — server-only helpers (token verification, request signing) — NOT bundled to client
+        - authFetch.ts             — signedJsonFetch, signedGetFetch, signedMultipartFetch
+      - types/                     — TypeScript type definitions
+        - userFull.ts              — UserState, CVInfo, GitHubInfo types
+      - constants/                 — small shared constants (e.g. publicRoutes, filterTags)
+      - mocks/                     — mock data for development (mockUserState, mockUserMe)
+    - app.css                      — base global CSS and Tailwind utilities
+  - static/                        — publicly served assets (images, fonts, icons)
+    - lottie/                      — Lottie animation files for landing page
+  - package.json                   — client scripts (dev/build/preview) and engines
+  - .nvmrc                         — Node version hint for developers
 
 Key patterns
 - Separation: put server-only code (secrets, DB, token validation) under `src/lib/server` so it cannot accidentally be shipped to the browser.
+- API Routes: Use `+server.ts` files for internal API endpoints that handle backend communication. These act as a BFF (Backend-for-Frontend) layer.
 - Services vs Stores:
   - services/* — side-effectful logic and API wrappers (safe to import on client).
   - stores/* — tiny reactive stores that import services to perform initialization.
-- Route groups:
-  - Use a route group like `(app)` to wrap protected routes with `AuthBox` in `src/routes/(app)/+layout.svelte`.
-  - Keep public pages (e.g. `/login`, `/signup`) outside that group.
+- Route protection:
+  - Wrap protected routes with `AuthBox` in layouts (e.g., `app/+layout.svelte`, `app/manager/+layout.svelte`).
+  - Keep public pages (e.g. `/login`, `/welcome`) outside the `/app` directory.
 - Component scope: group components by role/scope (main, manager, graduate) to reduce cross-role coupling.
 - Barrel files: use `index.ts` inside scope folders to export the public surface (`import { Sidebar } from '$lib/components/manager'`).
-
-Deployment & CI notes
-- Vercel project root: `client/`. Configure environment variables in Vercel settings (PUBLIC_* for client-safe values).
-- Enforce Node version for build (use `.nvmrc` and CI/Prebuild checks).
+- Request signing: All backend communication uses `signedJsonFetch`, `signedGetFetch`, or `signedMultipartFetch` from `authFetch.ts` to add HMAC-SHA256 signatures.
 
 ## Authentication Flow
 
