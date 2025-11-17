@@ -2,9 +2,8 @@
 // This defines the graduate list used in the main dashboard.
 // Check components/manager/GraduateCard.svelte
 
-export type EnglishLevel = 'Basic' | 'Intermediate' | 'Advanced';
-
-export type ScoreLevel = 'Poor' | 'Average' | 'Good' | 'Excellent';
+import type { EnglishLevel } from "./userFull";
+import type { ScoreLevel } from "./userFull";
 
 export interface Annotation {
     id: string;
@@ -15,8 +14,8 @@ export interface Annotation {
 export type TutorFeedback = {
     [feedbackId: string]: {
         createdAt: string;
-        professionalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
-        technicalScore: 'Poor' | 'Average' | 'Good' | 'Excellent';
+        professionalScore: ScoreLevel;
+        technicalScore: ScoreLevel;
         tutorName: string;
         tutorId: string;
     };
@@ -35,9 +34,10 @@ export interface Graduate {
     linkedinUrl: string;
     annotations?: Annotation[] | null;
     tutorsFeedback?: TutorFeedback | null;
+    worksInIt: boolean;
     createdAt: string;
     updatedAt: string;
-    worksInIt: boolean;
+    cvUrl?: string | null;
 }
 
 export interface PaginatedGraduatesResponse {

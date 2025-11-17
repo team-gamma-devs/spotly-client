@@ -1,6 +1,4 @@
-// Auto-generated
-
-// I'm thinking that feedback should be rated like this: ["Poor", "Average", "Good", "Excellent"] 
+// Auto-generated mock data matching Graduate interface and FilteredUsers schema
 
 import type { Graduate } from "$lib/types/graduates";
 
@@ -32,6 +30,7 @@ export const mockGraduates: Graduate[] = [
 		],
 		tutorsFeedback: {},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/maria-rodriguez.pdf',
 	},
 	{
 		id: 'a2b3c4d5-e6f7-8901-2345-678901bcdefg',
@@ -63,6 +62,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/james-patterson.pdf',
 	},
 	{
 		id: 'b3c4d5e6-f7a8-9012-3456-789012cdefgh',
@@ -111,6 +111,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/aisha-okonkwo.pdf',
 	},
 	{
 		id: 'c4d5e6f7-a8b9-0123-4567-890123defghi',
@@ -136,6 +137,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: false,
+		cvUrl: null,
 	},
 	{
 		id: 'd5e6f7a8-b9c0-1234-5678-901234efghij',
@@ -174,6 +176,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/emma-thompson.pdf',
 	},
 	{
 		id: 'e6f7a8b9-c0d1-2345-6789-012345fghijk',
@@ -185,7 +188,7 @@ export const mockGraduates: Graduate[] = [
 		cohort: 23,
 		techStack: ['Go', 'gRPC', 'Docker', 'Terraform'],
 		githubUrl: 'https://github.com/rajpatel',
-		linkedinUrl: '',
+		linkedinUrl: 'https://linkedin.com/in/rajpatel',
 		createdAt: '2025-09-19T15:00:00.000Z',
 		updatedAt: '2025-10-19T15:00:00.000Z',
 		annotations: [
@@ -210,13 +213,14 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/raj-patel.pdf',
 	},
 	{
 		id: 'f7a8b9c0-d1e2-3456-7890-123456ghijkl',
 		firstName: 'Sofia',
 		lastName: 'Garcia',
 		email: 'sofia.garcia@holberton.com',
-		avatarUrl: '',
+		avatarUrl: 'https://i.pravatar.cc/150?img=10',
 		englishLevel: 'Intermediate',
 		cohort: 22,
 		techStack: ['Ruby', 'Rails', 'PostgreSQL', 'Heroku'],
@@ -248,6 +252,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: false,
+		cvUrl: null,
 	},
 	{
 		id: 'a8b9c0d1-e2f3-4567-8901-234567hijklm',
@@ -284,6 +289,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: false,
+		cvUrl: 'https://example.com/cv/kwame-mensah.pdf',
 	},
 	{
 		id: 'b9c0d1e2-f3a4-5678-9012-345678ijklmn',
@@ -322,6 +328,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/lily-zhang.pdf',
 	},
 	{
 		id: 'c0d1e2f3-a4b5-6789-0123-456789jklmno',
@@ -358,6 +365,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/ahmed-hassan.pdf',
 	},
 	{
 		id: 'd1e2f3a4-b5c6-7890-1234-567890klmnop',
@@ -369,7 +377,7 @@ export const mockGraduates: Graduate[] = [
 		cohort: 26,
 		techStack: ['Svelte', 'Tailwind', 'Vercel'],
 		githubUrl: 'https://github.com/glovek08',
-		linkedinUrl: '',
+		linkedinUrl: 'https://linkedin.com/in/gabrielsan',
 		createdAt: '2025-09-20T08:00:00.000Z',
 		updatedAt: '2025-10-20T08:00:00.000Z',
 		annotations: [
@@ -396,6 +404,7 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: true,
+		cvUrl: 'https://example.com/cv/gabriel-san.pdf',
 	},
 	{
 		id: 'a1b2c3d4-e5f6-7890-1234-abcdeffedcba',
@@ -407,7 +416,7 @@ export const mockGraduates: Graduate[] = [
 		cohort: 26,
 		techStack: ['React.js', 'Tailwind', 'Vercel'],
 		githubUrl: 'https://github.com/ignacio-capezzolo',
-		linkedinUrl: '',
+		linkedinUrl: 'https://linkedin.com/in/gabenewell',
 		createdAt: '2025-09-20T08:00:00.000Z',
 		updatedAt: '2025-10-20T08:00:00.000Z',
 		annotations: [
@@ -434,5 +443,6 @@ export const mockGraduates: Graduate[] = [
 			},
 		},
 		worksInIt: false,
+		cvUrl: null,
 	},
 ];

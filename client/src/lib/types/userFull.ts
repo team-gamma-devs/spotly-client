@@ -1,7 +1,6 @@
 // types/graduate.ts
 
 export type EnglishLevel = 'Basic' | 'Intermediate' | 'Advanced';
-
 export type ScoreLevel = 'Poor' | 'Average' | 'Good' | 'Excellent';
 
 export interface TutorFeedback {
@@ -30,7 +29,7 @@ export interface UserState {
 	email: string;
 	avatarUrl: string;
 	cohort: number;
-	githubUsername: string;
+	githubUsername?: string | null;
 	cvInfo: CvInfo;
 	tutorsFeedback: TutorFeedback[];
 	role: string;
