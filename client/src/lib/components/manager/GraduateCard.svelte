@@ -29,7 +29,7 @@
 		PhoneSolid,
 	} from 'flowbite-svelte-icons';
 	import { enhance } from '$app/forms';
-	import type { Annotation, TutorFeedback, EnglishLevel } from '$lib/types/graduates';
+	import type { Annotation, TutorFeedback } from '$lib/types/graduates';
 	import { page } from '$app/state';
 
 	let {
@@ -38,7 +38,7 @@
 		lastName = 'n/a',
 		email = 'n/a',
 		avatarUrl = '$lib/assets/svgs/pfp-fallback.svg',
-		englishLevel = 'Basic' as EnglishLevel,
+		englishLevel = 'Basic',
 		cohort = 0,
 		techStack = [],
 		githubUrl = '' as string | null | undefined,
@@ -112,7 +112,7 @@
 >
 	<div class="flex gap-2 items-start">
 		<div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700">
-			<img src={imageSrc} alt="Graduate Profile" class="w-full h-full object-cover" />
+			<img src={imageSrc} alt="Graduate Profile" class="w-full h-full object-cover" crossorigin="anonymous"/>
 		</div>
 
 		<!-- *********** Card Header *************** -->

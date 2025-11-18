@@ -42,8 +42,7 @@
 	</div>
 	<hr class="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
 	<div class="sm:flex sm:items-center sm:justify-between">
-		<div id="legal-box" class="text-gray-500">Spotly 2025 - Holberton Uruguay - Team Gamma Devs</div>
-		<!-- <FooterCopyright></FooterCopyright> -->
+		<div id="legal-box" class="text-gray-500">© Spotly 2025 - Holberton Uruguay - Team Gamma Devs</div>
 		<div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center rtl:space-x-reverse">
 			<FooterIcon href="https://discord.gg/HU3s6k2hrf" target="_blank">
 				<DiscordSolid class="h-5 w-5 text-gray-500 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white" />
