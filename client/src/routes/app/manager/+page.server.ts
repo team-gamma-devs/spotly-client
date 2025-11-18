@@ -24,7 +24,7 @@ export const actions = {
 			if (!response.ok) {
 				const errorData = await response.json();
 				return fail(response.status, {
-					error: errorData.message || 'Failed to add annotation',
+					error: errorData.error || 'Failed to add annotation',
 				});
 			}
 
