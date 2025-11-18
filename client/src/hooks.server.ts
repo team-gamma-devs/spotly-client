@@ -25,13 +25,13 @@ import { mockUserState } from '$lib/mocks/mockUserState';
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get('access_token');
 	// ************** DEVELOPMENT *******************
-	if (dev) {
-		event.locals.user = mockUserMe;
-		event.locals.userFull = null; // userFull is only fetched on dashboard pages
-		console.log("token: " + sessionToken);
-		console.log('[Inside Hook] Using mock user: ' + JSON.stringify(event.locals.user));
-		return resolve(event);
-	}
+	// if (dev) {
+	// 	event.locals.user = mockUserMe;
+	// 	event.locals.userFull = null; // userFull is only fetched on dashboard pages
+	// 	console.log("token: " + sessionToken);
+	// 	console.log('[Inside Hook] Using mock user: ' + JSON.stringify(event.locals.user));
+	// 	return resolve(event);
+	// }
 
 	if (!sessionToken) {
 		event.locals.user = null;
