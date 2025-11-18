@@ -60,6 +60,13 @@
 	let newAnnotation = $state('');
 	let formError = $state('');
 	let isSubmitting = $state(false);
+	let showSuccessMessage = $state(false);
+
+	$effect(() => {
+		if (newAnnotation.length > 0) {
+			showSuccessMessage = false;
+		}
+	});
 
 	// Ensure we always work with a non-null object for tutors feedback in templates
 	const safeTutorsFeedback = $derived((tutorsFeedback ?? {}) as TutorFeedback);
@@ -112,7 +119,7 @@
 >
 	<div class="flex gap-2 items-start">
 		<div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden ring-2 ring-gray-300 dark:ring-gray-700">
-			<img src={imageSrc} alt="Graduate Profile" class="w-full h-full object-cover" crossorigin="anonymous"/>
+			<img src={imageSrc} alt="Graduate Profile" class="w-full h-full object-cover" crossorigin="anonymous" />
 		</div>
 
 		<!-- *********** Card Header *************** -->
@@ -339,26 +346,29 @@
 	class="bg-box-bg dark:bg-box-bg backdrop-blur-xl text-foreground mx-5 md:mx-auto"
 	bind:open={showAddAnnotationModal}
 >
-	<!-- This form submits to client/src/routes/app/manager/+page.server.ts -->
 	<form
 		method="POST"
 		action="?/addAnnotation"
 		use:enhance={() => {
 			isSubmitting = true;
 			formError = '';
+			showSuccessMessage = false;
 
 			return async ({ result, update }) => {
 				isSubmitting = false;
 
 				if (result.type === 'success') {
-					showAddAnnotationModal = false;
+					showSuccessMessage = true;
 					newAnnotation = '';
 					formError = '';
-					await invalidateAll(); // Reload the page to update the contents.
+
+					await invalidateAll();
 				} else if (result.type === 'failure') {
-					formError = JSON.stringify(result.data?.error) || 'An error occurred while adding the annotation';
+					formError = (result.data?.error as string) || 'An error occurred while adding the annotation';
+					showSuccessMessage = false;
 				} else if (result.type === 'error') {
 					formError = 'An unexpected error occurred. Please try again.';
+					showSuccessMessage = false;
 				}
 
 				await update();
@@ -369,6 +379,12 @@
 
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Add note for {firstName} {lastName}</h3>
+
+			{#if showSuccessMessage}
+				<div class="p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+					<p class="text-sm text-green-600 dark:text-green-400">✓ Annotation added successfully!</p>
+				</div>
+			{/if}
 
 			{#if formError}
 				<div class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
@@ -392,7 +408,7 @@
 					{newAnnotation.length}/300 characters
 				</p>
 			</div>
-			<div id="add-annotation-modal-footer flex items-center justify-center gap-3">
+			<div id="add-annotation-modal-footer" class="flex items-center justify-end gap-3">
 				<Button
 					color="alternative"
 					class="cursor-pointer"
@@ -402,10 +418,15 @@
 						showAddAnnotationModal = false;
 						newAnnotation = '';
 						formError = '';
+						showSuccessMessage = false;
 					}}>Cancel</Button
 				>
 				<Button color="green" class="cursor-pointer" type="submit" disabled={!newAnnotation.trim() || isSubmitting}>
-					{isSubmitting ? 'Saving...' : 'Save'}
+					{#if isSubmitting}
+						Saving...
+					{:else}
+						Save
+					{/if}
 				</Button>
 			</div>
 		</div>

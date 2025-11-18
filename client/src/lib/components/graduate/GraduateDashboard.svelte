@@ -9,10 +9,11 @@
 	import type { PageData } from '../../../routes/app/graduate/$types';
 	import { dev } from '$app/environment';
 	import { Spinner, Alert } from 'flowbite-svelte';
+	import type { UserState } from '$lib/types/userFull';
 
 	let { data }: { data: PageData } = $props();
 
-	const userData = $derived(data.userFull);
+	const userData: UserState = $derived(data.userFull);
 	const userName = $derived(`${userData?.firstName || ''} ${userData?.lastName || ''}`);
 	const userPfp = $derived(userData?.avatarUrl || page.data.user.avatarUrl || pfpFallback);
 
@@ -100,9 +101,9 @@
 										<FileCheckSolid class="w-5 h-5" />
 									</a>
 								{/if}
-								{#if userData.githubUsername}
+								{#if userData.githubUrl}
 									<a
-										href={`https://github.com/${userData.githubUsername}`}
+										href={userData.githubUrl}
 										target="_blank"
 										rel="noopener noreferrer"
 										class="w-9 h-9 flex items-center justify-center rounded bg-gray-800 dark:bg-gray-900 hover:bg-gray-600 text-white transition-colors"

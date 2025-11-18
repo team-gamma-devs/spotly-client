@@ -39,7 +39,7 @@
 	import { InboxFullSolid, UsersGroupSolid, StarSolid, CodeBranchSolid, EyeSolid } from 'flowbite-svelte-icons';
 	import { Spinner, Button } from 'flowbite-svelte';
 	import type { PageData } from '../../../routes/app/graduate/$types';
-	import type { GithubData } from '$lib/server/githubFetch';
+	import type { GithubData } from '$lib/types/github/githubTypes';
 	import { GenericBoxVisible } from '../main/utils';
 	import BtnGitHubLogin from './utils/BtnGitHubLogin.svelte';
 	import { availableFilterTags } from '$lib/constants/filterTags';

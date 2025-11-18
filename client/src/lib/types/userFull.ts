@@ -29,7 +29,7 @@ export interface UserState {
 	email: string;
 	avatarUrl: string;
 	cohort: number;
-	githubUsername?: string | null;
+	githubUrl?: string | null;
 	cvInfo: CvInfo;
 	tutorsFeedback: TutorFeedback[];
 	role: string;
